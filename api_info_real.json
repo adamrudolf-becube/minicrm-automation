@@ -1,0 +1,26 @@
+[
+  {
+    "api_name": "MiniCRM API",
+    "api_endpoint": "https://r3.minicrm.hu/Api/R3",
+    "username": "38539",
+    "api_key": "xhkjtSKq6v40BdfnsGIwrWLQ7OFiEDab"
+  },
+  {
+    "api_name": "MiniCRM Billing API",
+    "api_endpoint": "https://r3.minicrm.hu/Api/Invoice",
+    "username": "38539",
+    "api_key": "xhkjtSKq6v40BdfnsGIwrWLQ7OFiEDab"
+  },
+  {
+    "api_name": "Google Calendar API",
+    "api_endpoint": "",
+    "username": "",
+    "api_key": ""
+  },
+  {
+    "api_name": "Adobe Sign API",
+    "api_endpoint": "",
+    "username": "",
+    "api_key": ""
+  }
+]

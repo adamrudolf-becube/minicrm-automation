@@ -1,0 +1,14 @@
+[
+  {
+    "api_name": "Fake API 1",
+    "api_endpoint": "",
+    "username": "",
+    "api_key": ""
+  },
+  {
+    "api_name": "Fake API 2",
+    "api_endpoint": "",
+    "username": "",
+    "api_key": ""
+  }
+]

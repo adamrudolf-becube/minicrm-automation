@@ -1,9 +1,6 @@
 # API key storage
 api_info_real.json
 
-# Virtual environment files
-venv/
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -115,4 +112,3 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
->>>>>>> 4d9717df038961b5a4d46b1a65474aafb54f7bf7

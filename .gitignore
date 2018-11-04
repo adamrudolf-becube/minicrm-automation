@@ -1,6 +1,9 @@
 # API key storage
 api_info_real.json
 
+# Virtual environment files
+venv/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

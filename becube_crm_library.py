@@ -8,7 +8,7 @@ import sys
 import json
 import datetime
 
-from command_handler import get_json_array_for_command
+from command_handler import CommandHandler
 from tracing import stacktrace, trace, pretty_print
 
 API_INFO_JSON_FILE = "api_info.json"
@@ -39,13 +39,13 @@ def get_key_from_value(dictionary, dictionary_value):
     keys = dictionary.keys()
     values = dictionary.values()
     return keys[values.index(dictionary_value)]
-    
+
 def truncate_comma_separated_string_list(input_string):
     if input_string[:2] == ', ':
         return input_string[2:]
     else:
         return input_string
-        
+
 def add_element_to_commasep_list(input_list, element):
     if (not element in input_list):
         out_list = truncate_comma_separated_string_list(input_list + ", " + element)
@@ -79,8 +79,8 @@ class Module:
         return get_json_array_for_command(
                  'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?CategoryId={}"'.
                  format(self.system_id, self.api_key, self.module_id))
-           
-    @stacktrace      
+
+    @stacktrace
     def query_project_list_with_status(self, status):
         trace(self.get_status_number_by_name(status))
         return get_json_array_for_command(
@@ -93,14 +93,14 @@ class Module:
         return_value = get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
         trace("STATUS CODE FOR [{}] IS [{}]".format(status_name, return_value))
         return get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
-        
-    
+
+
 
 class CustomerList(Module):
     @stacktrace
     def update_new_students(self):
         self.new_students = self.query_project_list_with_status("Jelentkezett")
-        
+
     @stacktrace
     def update_info_sent_out_students(self):
         self.info_sent_out = self.query_project_list_with_status("INFO levél kiment")
@@ -108,11 +108,11 @@ class CustomerList(Module):
     @stacktrace
     def update_waitin_list_students(self):
         self.waiting_list_students = self.query_project_list_with_status("Várólistán van")
-        
+
     @stacktrace
     def update_active_students(self):
         self.active_students = self.query_project_list_with_status("Kurzus folyamatban")
-        
+
     @stacktrace
     def update_spectators(self):
         self.spectators = self.query_project_list_with_status("Megfigyelő")
@@ -123,8 +123,8 @@ class CustomerList(Module):
         return_value = get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
         trace("CHECKBOX CODE FOR [{}] IS [{}]".format(status_name, return_value))
         return get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
-        
-        
+
+
 class CourseList(Module):
     @stacktrace
     def get_course_by_course_code(self, course_code):
@@ -136,8 +136,8 @@ class CourseList(Module):
             if course_info["TanfolyamBetujele"] == course_code:
                 return course_info
         trace("COURSE NOT FOUND: [{}]".format(course_code))
-        
-        
+
+
 class LocationList(Module):
     @stacktrace
     def get_location_by_name(self, location_name):
@@ -149,7 +149,7 @@ class LocationList(Module):
             if location_info["Name"] == location_name:
                 return location_info
         trace("LOCATION NOT FOUND: ["+location_name+"]")
-        
+
 
 class CrmData:
     """
@@ -164,16 +164,17 @@ class CrmData:
     #                                                                         #
     ###########################################################################
     @stacktrace
-    def __init__(self, system_id, api_key):
+    def __init__(self, system_id, api_key, command_handler):
         """
         Sets the login data required by the API, collects information about existing modules, and even initializes some fo them
         """
         self.api_key = api_key
         self.system_id = system_id
+        self.command_handler = command_handler
         self.set_modules_dictionary()
         self.jelentkezok = CustomerList(self.get_module_number_by_name("Jelentkezés"), self.system_id, self.api_key)
         self.tanfolymok = CourseList(self.get_module_number_by_name("Tanfolyamok"), self.system_id, self.api_key)
-        
+
     @stacktrace
     def register_new_applicants(self):
         """
@@ -185,15 +186,15 @@ class CrmData:
         self.jelentkezok.update_new_students()
         student_list = self.jelentkezok.new_students["Results"]
         trace("LOOPING THROUGH STUDENTS WITH NEW STATUS")
-        
+
         for student in student_list:
             self.update_headcounts()
             student_data = self.get_project(student)
             trace("COURSE FOR " + student_data["Name"] + " IS " + student_data["MelyikTanfolyamErdekli"])
             course_code = student_data["MelyikTanfolyamErdekli"]
-            
+
             trace("\nGET COURSE DATA BASED ON COURSE CODE\n")
-            
+
             course_data = self.tanfolymok.get_course_by_course_code(course_code)
             if course_data:
                 self.fill_student_data(student_data, course_data)
@@ -222,7 +223,7 @@ class CrmData:
                     (datetime.datetime.now() + datetime.timedelta(days=3)).__str__(),
                     #crm_data.get_userid_by_name("Rudolf Dániel")
                     )
-    
+
     @stacktrace
     def clean_info_level_kiment(self):
         """
@@ -232,56 +233,56 @@ class CrmData:
         - If finalizing deadline is over, it sends a reminder, raises a task for the responsible
         - If finalizing deadline + 1 ady is over, it sets student to "Nem valaszolt", and notifies responsible
         """
-        
+
         self.jelentkezok.update_info_sent_out_students()
         student_list = self.jelentkezok.info_sent_out["Results"]
         trace("LOOPING THROUGH STUDENTS WITH INFO SENT OUT STATUS")
-        
+
         for student in student_list:
             self.update_headcounts()
             trace("HEADCOUNT UPDATE DONE")
             student_data = self.get_project(student)
             trace("COURSE FOR " + student_data["Name"] + " IS " + student_data["MelyikTanfolyamErdekli"])
-            
+
             update_data = {}
-            
+
             levelkuldesek = student_data["Levelkuldesek"]
             levelkuldesek_old = levelkuldesek
-            
+
             trace("STUDENT ["+student+"](["+student_data["Name"]+"]) HAS NOT FINALIZED")
-            
+
             deadline = datetime.datetime.strptime(student_data["VeglegesitesiHatarido"], "%Y-%m-%d %H:%M:%S")
             today = datetime.datetime.now()
-            
+
             trace("TODAY: {}, DEADLINE: {}".format(today, deadline))
-            
+
             if today >= deadline + datetime.timedelta(days=-1):
                 trace("In first if")
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Egy napod van jelentkezni")
-                
+
             if today >= deadline:
                 trace("In second if")
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Ma kell jelentkezni")
-                                                   
+
             if today >= deadline + datetime.timedelta(days=+1):
                 trace("In third if")
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Toroltunk")
                 update_data["StatusId"] = self.jelentkezok.get_status_number_by_name("Nem jelzett vissza")
-            
+
             if levelkuldesek != levelkuldesek_old:
                 trace("CHANGE IN LEVELKULDESEK")
                 update_data["Levelkuldesek"] = levelkuldesek
             else:
                 trace("NO CHANGE IN LEVELKULDESEK")
-            
+
             if update_data:
                 get_json_array_for_command(
                     'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student)
                     +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
-                
+
         self.update_headcounts()
-        
-    @stacktrace    
+
+    @stacktrace
     def handle_waiting_list(self):
         """
         Loops through all of the students in the waiting list and if there is 
@@ -303,7 +304,7 @@ class CrmData:
 
         trace("ORDERED LIST IS")
         pretty_print(student_ordered_list)
-        
+
         for student_data in student_ordered_list:
             trace("LOOPING THROUGH OERDERED LIST OF WAITING STUDENTS, CURRENTLY PROCESSING [{}]([{}])".
                     format(student_data["Id"], student_data["Name"]))
@@ -311,28 +312,28 @@ class CrmData:
             trace("COURSE FOR " + student_data["Name"] + " IS " + student_data["MelyikTanfolyamErdekli"])
             course_code = student_data["MelyikTanfolyamErdekli"]
             course_data = self.tanfolymok.get_course_by_course_code(course_code)
-            
+
             is_there_free_spot = (course_data["MaximalisLetszam"] - course_data["AktualisLetszam"]) > 0
-            
+
             if is_there_free_spot:
                 update_data = {}
-                
+
                 trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO COURSE.".
                     format(course_data["AktualisLetszam"], course_data["MaximalisLetszam"]))
-                
+
                 update_data["Levelkuldesek"] = truncate_comma_separated_string_list(
                                                    student_data["Levelkuldesek"] + ", Kezdő INFO levél, Felszabadult egy hely")
                 update_data["StatusId"] = self.jelentkezok.get_status_number_by_name("INFO levél kiment")
-                
+
                 trace("DATA TO UPDATE:")
                 pretty_print(update_data)
-                    
+
                 get_json_array_for_command(
                     'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student_data["Id"])
                     +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
-                
+
         self.update_headcounts()
-        
+
     @stacktrace
     def set_course_states(self):
         """
@@ -341,19 +342,19 @@ class CrmData:
         open_course_list = self.tanfolymok.query_project_list_with_status("Jelentkezés nyitva")["Results"]
         ongoing_course_list = self.tanfolymok.query_project_list_with_status("Folyamatban")["Results"]
         freshly_finished = self.tanfolymok.query_project_list_with_status("Frissen végzett")["Results"]
-        
+
         course_list = dict(dict(open_course_list), **dict(ongoing_course_list))
         course_list = dict(dict(course_list), **dict(freshly_finished))
-        
+
         for course in course_list:
             course_data = self.get_project(course)
-            
+
             pretty_print(course_data)
-            
+
             today = datetime.datetime.now()
-            
+
             update_data = {}
-            
+
             try:
                 if today >= datetime.datetime.strptime(course_data["ElsoAlkalom"], "%Y-%m-%d %H:%M:%S"):
                     trace("Set: ElsoAlkalom")
@@ -366,7 +367,7 @@ class CrmData:
                     update_data["StatusId"] = self.tanfolymok.get_status_number_by_name("Befejezett")
             except:
                 trace("Missing date")
-            
+
             if update_data:
                 pretty_print(update_data)
                 get_json_array_for_command(
@@ -374,8 +375,8 @@ class CrmData:
                     +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
             else:
                 trace("NO DATA TO UPDATE")
-            
-    
+
+
     @stacktrace
     def send_scheduled_emails(self):
         """
@@ -384,107 +385,107 @@ class CrmData:
         self.jelentkezok.update_active_students()
         trace("ACTIVE STUDENTS")
         pretty_print(self.jelentkezok.active_students["Results"])
-        
+
         self.jelentkezok.update_spectators()
         trace("SPECTATORS: ")
         pretty_print(self.jelentkezok.spectators["Results"])
-        
+
         student_list = dict(dict(self.jelentkezok.active_students["Results"]), **dict(self.jelentkezok.spectators["Results"]))
-                
+
         trace("STUDENT LIST: ")
         pretty_print(student_list)
-        
+
         today = datetime.datetime.now()
-        
+
         for student in student_list:
             student_data = self.get_project(student)
-            
+
             update_data = {}
-            
+
             levelkuldesek = student_data["Levelkuldesek"]
             levelkuldesek_old = levelkuldesek
             today = datetime.datetime.now()
-            
+
             if today >= datetime.datetime.strptime(student_data["N1Alkalom"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N1Alkalom, NOW: {}")
                 if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "1. alkalom - kezdő")
                 elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "1. alkalom - haladó")
-                    
+
             if today >= datetime.datetime.strptime(student_data["N2Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N2Alkalom2")
                 if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "2. alkalom - kezdő")
                 elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "2. alkalom - haladó")
-                    
+
             if today >= datetime.datetime.strptime(student_data["N3Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N3Alkalom2")
                 if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "3. alkalom - kezdő")
                 elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "3. alkalom - haladó")
-                    
+
             if today >= datetime.datetime.strptime(student_data["N4Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N4Alkalom2")
                 if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "4. alkalom - kezdő")
                 elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "4. alkalom - haladó")
-                    
+
             if today >= datetime.datetime.strptime(student_data["N5Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N5Alkalom2")
                 if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "5. alkalom - kezdő")
                 elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "5. alkalom - haladó")
-                    
+
             if today >= datetime.datetime.strptime(student_data["N6Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N6Alkalom2")
                 if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "6. alkalom - kezdő")
                 elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "6. alkalom - haladó")
-                    
+
             if today >= datetime.datetime.strptime(student_data["N7Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N7Alkalom2")
                 if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "7. alkalom - kezdő")
                 elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "7. alkalom - haladó")
-                    
+
             if today >= datetime.datetime.strptime(student_data["N8Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N8Alkalom2")
                 if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "8. alkalom - kezdő")
                 elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "8. alkalom - haladó")
-                    
+
             if today >= datetime.datetime.strptime(student_data["N9Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N9Alkalom2")
                 if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "9. alkalom - kezdő")
                 elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "9. alkalom - haladó")
-                    
+
             if today >= datetime.datetime.strptime(student_data["N10Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N10Alkalom2")
                 if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "10. alkalom - kezdő")
                 elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "10. alkalom - haladó")
-                    
-                    
-                
+
+
+
             if today >= datetime.datetime.strptime(student_data["N10Alkalom2"], "%Y-%m-%d %H:%M:%S"):
-                trace("Set: N10Alkalom2 + 1 nap")                
+                trace("Set: N10Alkalom2 + 1 nap")
                 if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Útravaló")
                 elif (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Útravaló - haladó")
-                    
-                    
+
+
             if today >= datetime.datetime.strptime(student_data["N10Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=1):
                 trace("Set: N10Alkalom2 + 2 nap")
                 update_data["StatusId"] = self.jelentkezok.get_status_number_by_name("Elvégezte")
@@ -494,7 +495,7 @@ class CrmData:
                         levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Oklevél - kezdő")
                     elif (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                         levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Oklevél - haladó")
-                
+
             if student_data["N2SzunetOpcionalis2"] != "":
                 if today >= datetime.datetime.strptime(student_data["N2SzunetOpcionalis2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-2):
                     trace("Set: N2SzunetOpcionalis2")
@@ -507,13 +508,13 @@ class CrmData:
                 if today >= datetime.datetime.strptime(student_data["N3SzunetOpcionalis2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-2):
                     trace("Set: N3SzunetOpcionalis2")
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "3. szünet")
-            
+
             if levelkuldesek != levelkuldesek_old:
                 trace("CHANGE IN LEVELKULDESEK")
                 update_data["Levelkuldesek"] = levelkuldesek
             else:
                 trace("NO CHANGE IN LEVELKULDESEK")
-            
+
             if update_data:
                 get_json_array_for_command(
                     'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student)
@@ -530,7 +531,7 @@ class CrmData:
         #        
         #    ertesitest gereralni a reporttal
         pass
-        
+
     ###########################################################################
     #                                                                         #
     # Private methods                                                         #
@@ -541,7 +542,7 @@ class CrmData:
         visited_classes = len(student_data["Jelenlet"].split(", "))
         sent_homeworks = len(student_data["Hazi"].split(", "))
         return visited_classes >= 8 and sent_homeworks >= 8
-    
+
     @stacktrace
     def send_initial_letter(self, student_data, course_data):
         """
@@ -550,45 +551,45 @@ class CrmData:
         the student accordingly.
         """
         update_data = {}
-        
+
         if course_data["AktualisLetszam"] >= course_data["MaximalisLetszam"]:
-        
+
             trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO WAITING LIST.".
                 format(course_data["AktualisLetszam"], course_data["MaximalisLetszam"]))
-                
+
             update_data["Levelkuldesek"] = truncate_comma_separated_string_list(
                                                student_data["Levelkuldesek"] + ", Várólista")
-                                               
+
             update_data["StatusId"] = self.jelentkezok.get_status_number_by_name("Várólistán van")
 
         else:
-        
+
             trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO COURSE.".
                 format(course_data["AktualisLetszam"], course_data["MaximalisLetszam"]))
-                        
+
             trace("TYPE OF COURSE IS: [{}] ".format(course_data["TanfolyamTipusa"]))
-            
+
             if (course_data["TanfolyamTipusa"] == "Kezdő programozó tanfolyam"):
                 trace("IN KEZDO IF")
                 update_data["Levelkuldesek"] = truncate_comma_separated_string_list(
                                                    student_data["Levelkuldesek"] + ", Kezdő INFO levél")
-                
+
             elif (course_data["TanfolyamTipusa"] == "Haladó programozó tanfolyam"):
                 trace("IN HALADO IF")
                 update_data["Levelkuldesek"] = truncate_comma_separated_string_list(
                                                    student_data["Levelkuldesek"] + ", Haladó INFO levél")
-                                                   
+
             update_data["StatusId"] = self.jelentkezok.get_status_number_by_name("INFO levél kiment")
-            
-            
+
+
         trace("DATA TO UPDATE:")
         pretty_print(update_data)
-            
+
         get_json_array_for_command(
             'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student_data["Id"])
             +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
 
-    
+
     @stacktrace
     def update_headcounts(self):
         """
@@ -596,28 +597,28 @@ class CrmData:
         """
         course_list = self.tanfolymok.query_project_list_with_status("Jelentkezés nyitva")["Results"]
         pretty_print(course_list)
-        
+
         for course in course_list:
-            
+
             course_data = self.get_project(course)
             course_code = course_data["TanfolyamBetujele"]
-            
+
             trace("CALCULATE HEADCOUNT OF COURSE ["+course+"], code: ["+course_code+"]")
-            
+
             if course_data["StatusId"] == unicode("Jelentkezés nyitva", "utf-8"):
                 trace("APPLICATION IS OPEN, CALCULATING HEADCOUNT")
-                
+
                 student_list = get_json_array_for_command(
                                  'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?TanfolyamKodja={}"'.
                                  format(self.system_id, self.api_key, course_code))["Results"]
-                                 
+
                 acceptable_statuses = [
                     int(self.jelentkezok.get_status_number_by_name("INFO levél kiment")),
                     int(self.jelentkezok.get_status_number_by_name("Kurzus folyamatban"))
                 ]
-                
+
                 trace("ACCEPTABLE STATUSES: [{}]".format(acceptable_statuses))
-                
+
                 count = 0
                 for student in student_list:
                     if student_list[student]["StatusId"] in acceptable_statuses:
@@ -627,33 +628,33 @@ class CrmData:
                     else:
                         trace("STUDENT [{}] has status [{}], NOT ACCEPTABLE, CURRENT HEADCOUNT: [{}]".
                             format(student, student_list[student]["StatusId"], count))
-                        
+
                 trace("END OF STUDENT LIST, UPDATING HEADCOUNT TO [{}]".format(count))
-                        
+
                 get_json_array_for_command(
                     'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.
                     format(self.system_id, self.api_key, course)
                     +"'{}'".format(json.dumps({"AktualisLetszam": count}, separators=(',',':'))))
             else:
                 trace("APPLICATION IS NOT OPEN, DISCARD")
-         
+
     @stacktrace
     def set_modules_dictionary(self):
         self.module_dict = get_json_array_for_command(
                              'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Category"'.
                              format(self.system_id, self.api_key))
 
-    @stacktrace                    
+    @stacktrace
     def get_project(self, id):
         return get_json_array_for_command(
                              'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project/{}"'.
                              format(self.system_id, self.api_key, id))
-           
-    @stacktrace                    
+
+    @stacktrace
     def get_userid_by_name(self, user_name):
         user_dict = self.jelentkezok.available_values["UserId"]
         return user_dict.keys()[user_dict.values().index(unicode(user_name, "utf-8"))]
-           
+
     @stacktrace
     def get_modules_dictionary(self):
         return self.module_dict
@@ -661,15 +662,15 @@ class CrmData:
     @stacktrace
     def get_module_number_by_name(self, module_name):
         return self.module_dict.keys()[self.module_dict.values().index(unicode(module_name, "utf-8"))]
-        
+
     @stacktrace
     def get_detailed_description(self, location):
         location_list = LocationList(self.get_module_number_by_name("Helyszínek"), self.system_id, self.api_key)
-        
+
         location_data = location_list.get_location_by_name(location)
         pretty_print(location_data)
         return location_data["ReszletesHelyszinleiras"]
-        
+
     @stacktrace
     def get_application_deadline(self, course_data):
         """
@@ -705,7 +706,7 @@ class CrmData:
             deadline = today + datetime.timedelta(days=1)
 
         return deadline.__str__()
-        
+
     @stacktrace
     def get_date_description(self, course_data):
         date_list = []
@@ -725,15 +726,15 @@ class CrmData:
             date_list.append("{} - {}".format(course_data["N2SzunetOpcionalis"][:10], "szünet"))
         if course_data["N3SzunetOpcionalis"] != "":
             date_list.append("{} - {}".format(course_data["N3SzunetOpcionalis"][:10], "szünet"))
-        
+
         date_list.sort()
-        
+
         return_string = "   - " + "\n   - ".join(date_list)
-        
+
         trace("JOINED STRING:\n{}".format(return_string))
-        
+
         return return_string
-        
+
     @stacktrace
     def raise_task(
             self,
@@ -744,7 +745,7 @@ class CrmData:
         """
         Creates a new task in teh CRM ssytem with the given details
         """
-            
+
         task_data = {
             "ProjectId":project_id,
             "Status":"Open",
@@ -752,11 +753,11 @@ class CrmData:
             "Deadline":deadline,
             "UserId":userid
         }
-        
+
         get_json_array_for_command(
             "curl -XPUT https://{}:{}@r3.minicrm.hu/Api/R3/ToDo/ -d '{}'".
             format(self.system_id, self.api_key, json.dumps(task_data, separators=(',',':'))))
-        
+
     @stacktrace
     def fill_student_data(self, student_data, course_data):
         data_to_update = {
@@ -781,42 +782,45 @@ class CrmData:
                   "VeglegesitesiHatarido": self.get_application_deadline(course_data),
                   "Datumleirasok": self.get_date_description(course_data)
             }
-            
+
         trace("DATA TO BE REPLACED:")
         pretty_print(data_to_update)
-            
+
         get_json_array_for_command(
             'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student_data["Id"])
             +"'{}'".format(json.dumps(data_to_update, separators=(',',':'))))
 
-          
+
 def quick_script():
     global system_id
     global api_key
 
-    crm_data = CrmData(system_id, api_key)
+    command_handler = CommandHandler()
+    crm_data = CrmData(system_id, api_key, command_handler)
     crm_data.clean_info_level_kiment()
     crm_data.handle_waiting_list()
     crm_data.register_new_applicants()
     trace("QUICK SCRIPT EXITED")
-    
+
 def daily_script():
     global system_id
     global api_key
 
-    crm_data = CrmData(system_id, api_key)
+    command_handler = CommandHandler()
+    crm_data = CrmData(system_id, api_key, command_handler)
     crm_data.send_scheduled_emails()
     crm_data.set_course_states()
     trace("DAILY SCRIPT EXITED")
-    
+
 def monthly_script():
     pass
-    
+
 def test_script():
     global system_id
     global api_key
 
-    crm_data = CrmData(system_id, api_key)
+    command_handler = CommandHandler()
+    crm_data = CrmData(system_id, api_key, command_handler)
     crm_data.send_scheduled_emails()
 
 if __name__ == "__main__":

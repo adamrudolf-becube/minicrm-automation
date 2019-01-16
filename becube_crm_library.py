@@ -6,10 +6,10 @@
 from __future__ import print_function
 import sys
 import json
-import subprocess
-import shlex
 import datetime
-from utility_functions import stacktrace, trace, pretty_print
+
+from command_handler import get_json_array_for_command
+from tracing import stacktrace, trace, pretty_print
 
 API_INFO_JSON_FILE = "api_info.json"
 
@@ -31,21 +31,6 @@ def load_api_info():
     system_id = api_info[0]["username"]
     api_key = api_info[0]["api_key"]
 
-
-@stacktrace
-def get_json_array_for_command(command):
-    """
-    Sends the API command to the CRM system, and returns the formatted JSON array.
-    """
-    trace("COMMAND SENT TO API: {}".format(command))
-    split_command = shlex.split(command)
-    process = subprocess.Popen(split_command, stdout=subprocess.PIPE)
-    output = process.stdout.readline()
-    trace("RAW RECEIVED: {}".format(output))
-    formatted_output = json.loads(output)
-    trace("ANSWER RECEIVED:")
-    pretty_print(formatted_output)
-    return formatted_output
 
 def get_key_from_value(dictionary, dictionary_value):
     """

@@ -8,7 +8,7 @@ from tracing import stacktrace, trace, pretty_print
 class CommandHandler:
 
     @stacktrace
-    def get_json_array_for_command(command):
+    def get_json_array_for_command(self, command):
         """
         Sends the API command to the CRM system, and returns the formatted JSON array.
         """

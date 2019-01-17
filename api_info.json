@@ -2,8 +2,8 @@
   {
     "api_name": "Fake API 1",
     "api_endpoint": "",
-    "username": "",
-    "api_key": ""
+    "username": "FakeUserName",
+    "api_key": "FakeApiKey"
   },
   {
     "api_name": "Fake API 2",

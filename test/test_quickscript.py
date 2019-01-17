@@ -1,5 +1,14 @@
 from becube_crm_library import *
-from commandhandlermock import CommandHandlerMock
+from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
+
+API_INFO_JSON_FILE = "api_info.json"
+
+system_id = None
+api_key = None
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 
 def quick_script():
     global system_id
@@ -11,3 +20,6 @@ def quick_script():
     crm_data.handle_waiting_list()
     crm_data.register_new_applicants()
     trace("QUICK SCRIPT TEST EXITED")
+
+
+quick_script()

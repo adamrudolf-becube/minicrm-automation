@@ -70,20 +70,20 @@ class Module:
 
     @stacktrace
     def query_available_values(self):
-        return get_json_array_for_command(
+        return self.command_handler.get_json_array_for_command(
                  'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Schema/Project/{}"'.
                  format(self.system_id, self.api_key, self.module_id))
 
     @stacktrace
     def query_project_list(self):
-        return get_json_array_for_command(
+        return self.command_handler.get_json_array_for_command(
                  'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?CategoryId={}"'.
                  format(self.system_id, self.api_key, self.module_id))
 
     @stacktrace
     def query_project_list_with_status(self, status):
         trace(self.get_status_number_by_name(status))
-        return get_json_array_for_command(
+        return self.command_handler.get_json_array_for_command(
                  'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?StatusId={}"'.
                  format(self.system_id, self.api_key, self.get_status_number_by_name(status)))
 
@@ -118,7 +118,7 @@ class CustomerList(Module):
         self.spectators = self.query_project_list_with_status("Megfigyelő")
 
     @stacktrace
-    def get_checkbox_number_for_letter(self, letter_name):
+    def get_checkbox_number_for_letter(self, status_name):
         status_dictionary = self.available_values["Levelkuldesek"]
         return_value = get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
         trace("CHECKBOX CODE FOR [{}] IS [{}]".format(status_name, return_value))
@@ -130,7 +130,7 @@ class CourseList(Module):
     def get_course_by_course_code(self, course_code):
         pretty_print(self.project_list)
         for course in self.project_list["Results"]:
-            course_info = get_json_array_for_command(
+            course_info = self.command_handler.get_json_array_for_command(
                  'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project/{}"'.
                  format(self.system_id, self.api_key, course))
             if course_info["TanfolyamBetujele"] == course_code:
@@ -142,7 +142,7 @@ class LocationList(Module):
     @stacktrace
     def get_location_by_name(self, location_name):
         for location in self.project_list["Results"]:
-            location_info = get_json_array_for_command(
+            location_info = self.command_handler.get_json_array_for_command(
                  'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project/{}"'.
                  format(self.system_id, self.api_key, location))
             trace("NAME CHECKED: "+location_info["Name"])
@@ -276,7 +276,7 @@ class CrmData:
                 trace("NO CHANGE IN LEVELKULDESEK")
 
             if update_data:
-                get_json_array_for_command(
+                self.command_handler.get_json_array_for_command(
                     'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student)
                     +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
 
@@ -328,7 +328,7 @@ class CrmData:
                 trace("DATA TO UPDATE:")
                 pretty_print(update_data)
 
-                get_json_array_for_command(
+                self.command_handler.get_json_array_for_command(
                     'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student_data["Id"])
                     +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
 
@@ -370,7 +370,7 @@ class CrmData:
 
             if update_data:
                 pretty_print(update_data)
-                get_json_array_for_command(
+                self.command_handler.get_json_array_for_command(
                     'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, course)
                     +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
             else:
@@ -516,7 +516,7 @@ class CrmData:
                 trace("NO CHANGE IN LEVELKULDESEK")
 
             if update_data:
-                get_json_array_for_command(
+                self.command_handler.get_json_array_for_command(
                     'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student)
                     +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
 
@@ -585,7 +585,7 @@ class CrmData:
         trace("DATA TO UPDATE:")
         pretty_print(update_data)
 
-        get_json_array_for_command(
+        self.command_handler.get_json_array_for_command(
             'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student_data["Id"])
             +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
 
@@ -608,7 +608,7 @@ class CrmData:
             if course_data["StatusId"] == unicode("Jelentkezés nyitva", "utf-8"):
                 trace("APPLICATION IS OPEN, CALCULATING HEADCOUNT")
 
-                student_list = get_json_array_for_command(
+                student_list = self.command_handler.get_json_array_for_command(
                                  'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?TanfolyamKodja={}"'.
                                  format(self.system_id, self.api_key, course_code))["Results"]
 
@@ -631,7 +631,7 @@ class CrmData:
 
                 trace("END OF STUDENT LIST, UPDATING HEADCOUNT TO [{}]".format(count))
 
-                get_json_array_for_command(
+                self.command_handler.get_json_array_for_command(
                     'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.
                     format(self.system_id, self.api_key, course)
                     +"'{}'".format(json.dumps({"AktualisLetszam": count}, separators=(',',':'))))
@@ -640,13 +640,13 @@ class CrmData:
 
     @stacktrace
     def set_modules_dictionary(self):
-        self.module_dict = get_json_array_for_command(
+        self.module_dict = self.command_handler.get_json_array_for_command(
                              'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Category"'.
                              format(self.system_id, self.api_key))
 
     @stacktrace
     def get_project(self, id):
-        return get_json_array_for_command(
+        return self.command_handler.get_json_array_for_command(
                              'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project/{}"'.
                              format(self.system_id, self.api_key, id))
 
@@ -754,7 +754,7 @@ class CrmData:
             "UserId":userid
         }
 
-        get_json_array_for_command(
+        self.command_handler.get_json_array_for_command(
             "curl -XPUT https://{}:{}@r3.minicrm.hu/Api/R3/ToDo/ -d '{}'".
             format(self.system_id, self.api_key, json.dumps(task_data, separators=(',',':'))))
 

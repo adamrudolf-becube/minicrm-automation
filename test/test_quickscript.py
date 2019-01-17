@@ -10,4 +10,4 @@ def quick_script():
     crm_data.clean_info_level_kiment()
     crm_data.handle_waiting_list()
     crm_data.register_new_applicants()
-    trace("QUICK SCRIPT EXITED")
+    trace("QUICK SCRIPT TEST EXITED")

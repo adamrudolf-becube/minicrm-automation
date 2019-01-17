@@ -22,4 +22,6 @@ def quick_script():
     trace("QUICK SCRIPT TEST EXITED")
 
 
-quick_script()
+if __name__ == "__main__":
+    load_api_info()
+    quick_script()

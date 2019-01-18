@@ -1,7 +1,7 @@
 from becube_crm_library import *
 from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
 
-API_INFO_JSON_FILE = "api_info.json"
+API_INFO_JSON_FILE = "../api_info.json"
 
 system_id = None
 api_key = None
@@ -23,5 +23,5 @@ def quick_script():
 
 
 if __name__ == "__main__":
-    load_api_info()
+    load_api_info(API_INFO_JSON_FILE)
     quick_script()

@@ -14,22 +14,19 @@ from tracing import stacktrace, trace, pretty_print
 API_INFO_JSON_FILE = "api_info.json"
 
 
-system_id = None
-api_key = None
-
 reload(sys)
 sys.setdefaultencoding('utf8')
 
 
-def load_api_info():
-    global system_id
-    global api_key
+def load_api_info(api_info_json_file):
 
-    with open(API_INFO_JSON_FILE) as api_info_file:
+    with open(api_info_json_file) as api_info_file:
         api_info = json.load(api_info_file)
 
     system_id = api_info[0]["username"]
     api_key = api_info[0]["api_key"]
+
+    return system_id, api_key
 
 
 def get_key_from_value(dictionary, dictionary_value):
@@ -791,10 +788,7 @@ class CrmData:
             +"'{}'".format(json.dumps(data_to_update, separators=(',',':'))))
 
 
-def quick_script():
-    global system_id
-    global api_key
-
+def quick_script(system_id, api_key):
     command_handler = CommandHandler()
     crm_data = CrmData(system_id, api_key, command_handler)
     crm_data.clean_info_level_kiment()
@@ -802,9 +796,7 @@ def quick_script():
     crm_data.register_new_applicants()
     trace("QUICK SCRIPT EXITED")
 
-def daily_script():
-    global system_id
-    global api_key
+def daily_script(system_id, api_key):
 
     command_handler = CommandHandler()
     crm_data = CrmData(system_id, api_key, command_handler)
@@ -815,17 +807,9 @@ def daily_script():
 def monthly_script():
     pass
 
-def test_script():
-    global system_id
-    global api_key
-
-    command_handler = CommandHandler()
-    crm_data = CrmData(system_id, api_key, command_handler)
-    crm_data.send_scheduled_emails()
-
 if __name__ == "__main__":
-    load_api_info()
-    quick_script()
-    #daily_script()
-    #monthly_script()
-    #test_script()
+    system_id, api_key = load_api_info(API_INFO_JSON_FILE)
+    quick_script(system_id, api_key)
+    #daily_script(system_id, api_key)
+    #monthly_script(system_id, api_key)
+    #test_script(system_id, api_key)

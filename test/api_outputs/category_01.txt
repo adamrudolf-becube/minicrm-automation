@@ -1,9 +1,0 @@
-{
-  "20": "Jelentkezés",
-  "5": "Info",
-  "9": "Számlázó",
-  "21": "Tanfolyamok",
-  "22": "Helyszínek",
-  "24": "Kuponok",
-  "23": "HR"
-}

@@ -1,0 +1,105 @@
+{
+    "Count": 11,
+    "Results": {
+        "2131": {
+            "ContactId": 1043,
+            "Deleted": 0,
+            "Id": 2131,
+            "Name": "Benkovich  \u00c1d\u00e1m",
+            "StatusId": 2749,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2131",
+            "UserId": 56733
+        },
+        "2274": {
+            "ContactId": 1094,
+            "Deleted": 0,
+            "Id": 2274,
+            "Name": "Szab\u00f3 Rich\u00e1rd",
+            "StatusId": 2782,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2274",
+            "UserId": 56733
+        },
+        "2351": {
+            "ContactId": 1106,
+            "Deleted": 0,
+            "Id": 2351,
+            "Name": "Bal\u00e1zs  Rozi",
+            "StatusId": 2783,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2351",
+            "UserId": 56733
+        },
+        "2378": {
+            "BusinessId": 1119,
+            "ContactId": 1110,
+            "Deleted": 0,
+            "Id": 2378,
+            "Name": "V\u00e9gh \u00c1d\u00e1m",
+            "StatusId": 2749,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2378",
+            "UserId": 56733
+        },
+        "2384": {
+            "ContactId": 1113,
+            "Deleted": 0,
+            "Id": 2384,
+            "Name": "Galambos Anna",
+            "StatusId": 2782,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2384",
+            "UserId": 56733
+        },
+        "2434": {
+            "ContactId": 1128,
+            "Deleted": 0,
+            "Id": 2434,
+            "Name": "Galambos Anna",
+            "StatusId": 2749,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2434",
+            "UserId": 56733
+        },
+        "2496": {
+            "ContactId": 1149,
+            "Deleted": 0,
+            "Id": 2496,
+            "Name": "Racz Daniel",
+            "StatusId": 2782,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2496",
+            "UserId": 56733
+        },
+        "2523": {
+            "ContactId": 1150,
+            "Deleted": 0,
+            "Id": 2523,
+            "Name": "Lad\u00e1nyi \u00c1d\u00e1m",
+            "StatusId": 2749,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2523",
+            "UserId": 56733
+        },
+        "2524": {
+            "ContactId": 1158,
+            "Deleted": 0,
+            "Id": 2524,
+            "Name": "Hank\u00f3 Zs\u00f3fia",
+            "StatusId": 2749,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2524",
+            "UserId": 56733
+        },
+        "2549": {
+            "ContactId": 1161,
+            "Deleted": 0,
+            "Id": 2549,
+            "Name": "Varga Attila",
+            "StatusId": 2782,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2549",
+            "UserId": 56733
+        },
+        "2601": {
+            "ContactId": 1176,
+            "Deleted": 0,
+            "Id": 2601,
+            "Name": "Moln\u00e1r P\u00e9ter",
+            "StatusId": 2781,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2601",
+            "UserId": 56733
+        }
+    }
+}

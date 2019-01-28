@@ -1,0 +1,87 @@
+{
+    "Count": 9,
+    "Results": {
+        "2195": {
+            "ContactId": 966,
+            "Deleted": 0,
+            "Id": 2195,
+            "Name": "Horv\u00e1th Zsolt",
+            "StatusId": 2749,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2195",
+            "UserId": 56733
+        },
+        "2228": {
+            "ContactId": 1082,
+            "Deleted": 0,
+            "Id": 2228,
+            "Name": "V\u00f6r\u00f6s Rich\u00e1rd",
+            "StatusId": 2749,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2228",
+            "UserId": 56733
+        },
+        "2273": {
+            "ContactId": 1093,
+            "Deleted": 0,
+            "Id": 2273,
+            "Name": "Simon P\u00e9ter",
+            "StatusId": 2782,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2273",
+            "UserId": 56733
+        },
+        "2448": {
+            "ContactId": 1133,
+            "Deleted": 0,
+            "Id": 2448,
+            "Name": "Juh\u00e1sz Brigitta",
+            "StatusId": 2782,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2448",
+            "UserId": 56733
+        },
+        "2468": {
+            "ContactId": 1138,
+            "Deleted": 0,
+            "Id": 2468,
+            "Name": "Kun-Sz\u00e9kely Bence",
+            "StatusId": 2749,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2468",
+            "UserId": 56733
+        },
+        "2535": {
+            "BusinessId": 1159,
+            "ContactId": 1060,
+            "Deleted": 0,
+            "Id": 2535,
+            "Name": "Keser\u0171 Bence",
+            "StatusId": 2749,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2535",
+            "UserId": 56733
+        },
+        "2562": {
+            "ContactId": 1168,
+            "Deleted": 0,
+            "Id": 2562,
+            "Name": "Soponyai  L\u00e1szl\u00f3",
+            "StatusId": 2749,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2562",
+            "UserId": 56733
+        },
+        "2577": {
+            "ContactId": 1171,
+            "Deleted": 0,
+            "Id": 2577,
+            "Name": "T\u00f3th Blanka",
+            "StatusId": 2749,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2577",
+            "UserId": 56733
+        },
+        "2607": {
+            "ContactId": 1089,
+            "Deleted": 0,
+            "Id": 2607,
+            "Name": "P\u00e1sztor Tam\u00e1s",
+            "StatusId": 2749,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2607",
+            "UserId": 56733
+        }
+    }
+}

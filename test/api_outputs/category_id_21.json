@@ -1,0 +1,680 @@
+{
+    "Count": 75,
+    "Results": {
+        "1164": {
+            "ContactId": 845,
+            "Deleted": 0,
+            "Id": 1164,
+            "Name": "2018-9-E",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/1164",
+            "UserId": 56733
+        },
+        "1165": {
+            "ContactId": 846,
+            "Deleted": 0,
+            "Id": 1165,
+            "Name": "2018-9-F",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/1165",
+            "UserId": 56733
+        },
+        "1166": {
+            "ContactId": 847,
+            "Deleted": 0,
+            "Id": 1166,
+            "Name": "2018-9-H",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/1166",
+            "UserId": 56733
+        },
+        "1167": {
+            "ContactId": 848,
+            "Deleted": 0,
+            "Id": 1167,
+            "Name": "2018-9-G",
+            "StatusId": 2757,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/1167",
+            "UserId": 56733
+        },
+        "1168": {
+            "ContactId": 849,
+            "Deleted": 0,
+            "Id": 1168,
+            "Name": "2018-9-I",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/1168",
+            "UserId": 56733
+        },
+        "1614": {
+            "ContactId": 944,
+            "Deleted": 0,
+            "Id": 1614,
+            "Name": "2018-11-J",
+            "StatusId": 2758,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/1614",
+            "UserId": 56733
+        },
+        "1615": {
+            "ContactId": 945,
+            "Deleted": 0,
+            "Id": 1615,
+            "Name": "2018-11-K",
+            "StatusId": 2758,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/1615",
+            "UserId": 56733
+        },
+        "1616": {
+            "ContactId": 946,
+            "Deleted": 0,
+            "Id": 1616,
+            "Name": "2018-11-L",
+            "StatusId": 2758,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/1616",
+            "UserId": 56733
+        },
+        "1617": {
+            "ContactId": 947,
+            "Deleted": 0,
+            "Id": 1617,
+            "Name": "2018-11-H-M",
+            "StatusId": 2758,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/1617",
+            "UserId": 56733
+        },
+        "1619": {
+            "ContactId": 948,
+            "Deleted": 0,
+            "Id": 1619,
+            "Name": "2018-11-N",
+            "StatusId": 2758,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/1619",
+            "UserId": 56733
+        },
+        "1972": {
+            "ContactId": 1027,
+            "Deleted": 0,
+            "Id": 1972,
+            "Name": "2019-1-O",
+            "StatusId": 2758,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/1972",
+            "UserId": 56733
+        },
+        "2036": {
+            "ContactId": 1044,
+            "Deleted": 0,
+            "Id": 2036,
+            "Name": "2018-12-P",
+            "StatusId": 2758,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2036",
+            "UserId": 56733
+        },
+        "2037": {
+            "ContactId": 1045,
+            "Deleted": 0,
+            "Id": 2037,
+            "Name": "2019-1-Q",
+            "StatusId": 2753,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2037",
+            "UserId": 56733
+        },
+        "2038": {
+            "ContactId": 1046,
+            "Deleted": 0,
+            "Id": 2038,
+            "Name": "2019-1-R",
+            "StatusId": 2753,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2038",
+            "UserId": 56733
+        },
+        "2039": {
+            "ContactId": 1047,
+            "Deleted": 0,
+            "Id": 2039,
+            "Name": "2019-1-S",
+            "StatusId": 2753,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2039",
+            "UserId": 56733
+        },
+        "2040": {
+            "ContactId": 1048,
+            "Deleted": 0,
+            "Id": 2040,
+            "Name": "2019-1-T",
+            "StatusId": 2753,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2040",
+            "UserId": 56733
+        },
+        "2041": {
+            "ContactId": 1049,
+            "Deleted": 0,
+            "Id": 2041,
+            "Name": "2019-1-U",
+            "StatusId": 2753,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2041",
+            "UserId": 56733
+        },
+        "46": {
+            "ContactId": 25,
+            "Deleted": 0,
+            "Id": 46,
+            "Name": "2018-8-A",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/46",
+            "UserId": 56733
+        },
+        "47": {
+            "ContactId": 26,
+            "Deleted": 0,
+            "Id": 47,
+            "Name": "2018-8-B",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/47",
+            "UserId": 56733
+        },
+        "48": {
+            "ContactId": 27,
+            "Deleted": 0,
+            "Id": 48,
+            "Name": "2018-8-D",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/48",
+            "UserId": 56733
+        },
+        "738": {
+            "ContactId": 623,
+            "Deleted": 0,
+            "Id": 738,
+            "Name": "2016-10-I",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/738",
+            "UserId": 56733
+        },
+        "739": {
+            "ContactId": 624,
+            "Deleted": 0,
+            "Id": 739,
+            "Name": "2016-11-II",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/739",
+            "UserId": 56733
+        },
+        "740": {
+            "ContactId": 625,
+            "Deleted": 0,
+            "Id": 740,
+            "Name": "2016-11-III",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/740",
+            "UserId": 56733
+        },
+        "741": {
+            "ContactId": 626,
+            "Deleted": 0,
+            "Id": 741,
+            "Name": "2017-3-A",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/741",
+            "UserId": 56733
+        },
+        "742": {
+            "ContactId": 627,
+            "Deleted": 0,
+            "Id": 742,
+            "Name": "2017-3-D",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/742",
+            "UserId": 56733
+        },
+        "743": {
+            "ContactId": 628,
+            "Deleted": 0,
+            "Id": 743,
+            "Name": "2017-3-B",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/743",
+            "UserId": 56733
+        },
+        "744": {
+            "ContactId": 629,
+            "Deleted": 0,
+            "Id": 744,
+            "Name": "2017-3-E",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/744",
+            "UserId": 56733
+        },
+        "783": {
+            "ContactId": 659,
+            "Deleted": 0,
+            "Id": 783,
+            "Name": "2017-3-F",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/783",
+            "UserId": 56032
+        },
+        "784": {
+            "ContactId": 660,
+            "Deleted": 0,
+            "Id": 784,
+            "Name": "2017-3-C",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/784",
+            "UserId": 56032
+        },
+        "785": {
+            "ContactId": 661,
+            "Deleted": 0,
+            "Id": 785,
+            "Name": "2017-4-G",
+            "StatusId": 2756,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/785",
+            "UserId": 56032
+        },
+        "786": {
+            "ContactId": 662,
+            "Deleted": 0,
+            "Id": 786,
+            "Name": "2017-4-GH",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/786",
+            "UserId": 56032
+        },
+        "787": {
+            "ContactId": 663,
+            "Deleted": 0,
+            "Id": 787,
+            "Name": "2017-4-I",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/787",
+            "UserId": 56032
+        },
+        "788": {
+            "ContactId": 664,
+            "Deleted": 0,
+            "Id": 788,
+            "Name": "2017-4-J",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/788",
+            "UserId": 56032
+        },
+        "789": {
+            "ContactId": 665,
+            "Deleted": 0,
+            "Id": 789,
+            "Name": "2017-6-K",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/789",
+            "UserId": 56032
+        },
+        "790": {
+            "ContactId": 666,
+            "Deleted": 0,
+            "Id": 790,
+            "Name": "2017-6-N",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/790",
+            "UserId": 56032
+        },
+        "791": {
+            "ContactId": 667,
+            "Deleted": 0,
+            "Id": 791,
+            "Name": "2017-6-H-A",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/791",
+            "UserId": 56032
+        },
+        "792": {
+            "ContactId": 668,
+            "Deleted": 0,
+            "Id": 792,
+            "Name": "2017-6-L",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/792",
+            "UserId": 56032
+        },
+        "793": {
+            "ContactId": 669,
+            "Deleted": 0,
+            "Id": 793,
+            "Name": "2017-6-M",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/793",
+            "UserId": 56032
+        },
+        "794": {
+            "ContactId": 670,
+            "Deleted": 0,
+            "Id": 794,
+            "Name": "2017-7-O",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/794",
+            "UserId": 56032
+        },
+        "795": {
+            "ContactId": 671,
+            "Deleted": 0,
+            "Id": 795,
+            "Name": "2017-7-Q",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/795",
+            "UserId": 56032
+        },
+        "796": {
+            "ContactId": 672,
+            "Deleted": 0,
+            "Id": 796,
+            "Name": "2017-7-S",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/796",
+            "UserId": 56032
+        },
+        "797": {
+            "ContactId": 673,
+            "Deleted": 0,
+            "Id": 797,
+            "Name": "2017-7-T",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/797",
+            "UserId": 56032
+        },
+        "798": {
+            "ContactId": 674,
+            "Deleted": 0,
+            "Id": 798,
+            "Name": "2017-9-U",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/798",
+            "UserId": 56032
+        },
+        "799": {
+            "ContactId": 675,
+            "Deleted": 0,
+            "Id": 799,
+            "Name": "2017-9-V",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/799",
+            "UserId": 56032
+        },
+        "800": {
+            "ContactId": 676,
+            "Deleted": 0,
+            "Id": 800,
+            "Name": "2017-9-X",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/800",
+            "UserId": 56032
+        },
+        "801": {
+            "ContactId": 677,
+            "Deleted": 0,
+            "Id": 801,
+            "Name": "2017-9-H-B",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/801",
+            "UserId": 56032
+        },
+        "802": {
+            "ContactId": 678,
+            "Deleted": 0,
+            "Id": 802,
+            "Name": "2017-10-Y",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/802",
+            "UserId": 56032
+        },
+        "803": {
+            "ContactId": 679,
+            "Deleted": 0,
+            "Id": 803,
+            "Name": "2017-10-Z",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/803",
+            "UserId": 56032
+        },
+        "804": {
+            "ContactId": 680,
+            "Deleted": 0,
+            "Id": 804,
+            "Name": "2017-11-A",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/804",
+            "UserId": 56032
+        },
+        "805": {
+            "ContactId": 681,
+            "Deleted": 0,
+            "Id": 805,
+            "Name": "2017-11-B",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/805",
+            "UserId": 56032
+        },
+        "806": {
+            "ContactId": 682,
+            "Deleted": 0,
+            "Id": 806,
+            "Name": "2017-12-H-C",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/806",
+            "UserId": 56032
+        },
+        "807": {
+            "ContactId": 683,
+            "Deleted": 0,
+            "Id": 807,
+            "Name": "2017-12-D",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/807",
+            "UserId": 56032
+        },
+        "808": {
+            "ContactId": 684,
+            "Deleted": 0,
+            "Id": 808,
+            "Name": "2017-12-E",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/808",
+            "UserId": 56032
+        },
+        "809": {
+            "ContactId": 685,
+            "Deleted": 0,
+            "Id": 809,
+            "Name": "2017-12-F",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/809",
+            "UserId": 56032
+        },
+        "810": {
+            "ContactId": 686,
+            "Deleted": 0,
+            "Id": 810,
+            "Name": "2018-1-H-D",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/810",
+            "UserId": 56032
+        },
+        "811": {
+            "ContactId": 687,
+            "Deleted": 0,
+            "Id": 811,
+            "Name": "2018-1-G",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/811",
+            "UserId": 56032
+        },
+        "812": {
+            "ContactId": 688,
+            "Deleted": 0,
+            "Id": 812,
+            "Name": "2018-1-H",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/812",
+            "UserId": 56032
+        },
+        "813": {
+            "ContactId": 689,
+            "Deleted": 0,
+            "Id": 813,
+            "Name": "2018-1-I",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/813",
+            "UserId": 56032
+        },
+        "814": {
+            "ContactId": 690,
+            "Deleted": 0,
+            "Id": 814,
+            "Name": "2018-2-J",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/814",
+            "UserId": 56032
+        },
+        "815": {
+            "ContactId": 691,
+            "Deleted": 0,
+            "Id": 815,
+            "Name": "2018-2-K",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/815",
+            "UserId": 56032
+        },
+        "816": {
+            "ContactId": 692,
+            "Deleted": 0,
+            "Id": 816,
+            "Name": "2018-2-L",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/816",
+            "UserId": 56032
+        },
+        "817": {
+            "ContactId": 693,
+            "Deleted": 0,
+            "Id": 817,
+            "Name": "2018-4-H-E",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/817",
+            "UserId": 56032
+        },
+        "818": {
+            "ContactId": 694,
+            "Deleted": 0,
+            "Id": 818,
+            "Name": "2018-4-M",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/818",
+            "UserId": 56032
+        },
+        "819": {
+            "ContactId": 695,
+            "Deleted": 0,
+            "Id": 819,
+            "Name": "2018-4-N",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/819",
+            "UserId": 56032
+        },
+        "820": {
+            "ContactId": 696,
+            "Deleted": 0,
+            "Id": 820,
+            "Name": "2018-4-O",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/820",
+            "UserId": 56032
+        },
+        "821": {
+            "ContactId": 697,
+            "Deleted": 0,
+            "Id": 821,
+            "Name": "2018-4-P",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/821",
+            "UserId": 56032
+        },
+        "822": {
+            "ContactId": 698,
+            "Deleted": 0,
+            "Id": 822,
+            "Name": "2018-6-Q",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/822",
+            "UserId": 56032
+        },
+        "823": {
+            "ContactId": 699,
+            "Deleted": 0,
+            "Id": 823,
+            "Name": "2018-6-R",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/823",
+            "UserId": 56032
+        },
+        "824": {
+            "ContactId": 700,
+            "Deleted": 0,
+            "Id": 824,
+            "Name": "2018-6-T",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/824",
+            "UserId": 56032
+        },
+        "825": {
+            "ContactId": 701,
+            "Deleted": 0,
+            "Id": 825,
+            "Name": "2018-6-U",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/825",
+            "UserId": 56032
+        },
+        "826": {
+            "ContactId": 702,
+            "Deleted": 0,
+            "Id": 826,
+            "Name": "2018-7-V",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/826",
+            "UserId": 56032
+        },
+        "827": {
+            "ContactId": 703,
+            "Deleted": 0,
+            "Id": 827,
+            "Name": "2018-7-X",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/827",
+            "UserId": 56032
+        },
+        "828": {
+            "ContactId": 704,
+            "Deleted": 0,
+            "Id": 828,
+            "Name": "2018-7-Y",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/828",
+            "UserId": 56032
+        },
+        "829": {
+            "ContactId": 705,
+            "Deleted": 0,
+            "Id": 829,
+            "Name": "2018-7-Z",
+            "StatusId": 2754,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/829",
+            "UserId": 56032
+        },
+        "830": {
+            "ContactId": 706,
+            "Deleted": 0,
+            "Id": 830,
+            "Name": "2018-6-S",
+            "StatusId": 2756,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/830",
+            "UserId": 56733
+        }
+    }
+}

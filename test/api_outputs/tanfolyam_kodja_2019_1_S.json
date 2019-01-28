@@ -1,0 +1,15 @@
+{
+    "Count": 1,
+    "Results": {
+        "2371": {
+            "BusinessId": 1112,
+            "ContactId": 1108,
+            "Deleted": 0,
+            "Id": 2371,
+            "Name": "T\u00f3th Gyula",
+            "StatusId": 2749,
+            "Url": "https://r3.minicrm.hu/Api/R3/Project/2371",
+            "UserId": 56733
+        }
+    }
+}

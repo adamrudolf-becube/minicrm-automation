@@ -1,11 +1,44 @@
-# TODO: define english abstract state and field names
+# BeCube MiniCRM automation script system
+
+**Disclaimer**: this software is in production, but is currently under heavy refactoration. This includes (among many other things) writing this README. So this (although contains the truth) is heavily under construction. 
+
+## Description
+
+### What is this for
+
+### Why is it public
+
+## Principles
+
+## Technical aspects
+
+### Not storing information
+### Independency from server
+### MiniCRM application must be independent from it
+
+TODO Can be run any time and be repeated any times. Can be stopped  
+
+### Code quality
+
+* Clean code
+* PEP-8
+* Nicely tested
+* Version controlled in a very nice manner
+Even good to syncronize with the production server
+* Nicely documented
+    * Here in this README
+    * In the code with doc comments
+
+## Structure
+
+TODO: define english abstract state and field names
 
 ## Test sescriptions
 
 We have 3 levels of testing:
-* '''Unit test level''' - local methods and single API calls.
-* '''Module test level''' - single, standalone API functionalities, like cleaning INFO_SENT and handle waiting list. This is maybe the most important level of testing.
-* '''Use cases''' - whole scripts are tested. Not evey possible combination is tested, only typical or important scenarios.
+* **Unit test level** - local methods and single API calls.
+* **Module test level** - single, standalone API functionalities, like cleaning INFO_SENT and handle waiting list. This is maybe the most important level of testing.
+* **Use cases** - whole scripts are tested. Not evey possible combination is tested, only typical or important scenarios.
 
 In the test descriptions we will follow the given-when-then approach, except that the logic of the script is to query the system and modify it. The script's behavious only depends on the state of the system, and the script always initializes. Therefore actions in the CRM system are never triggers to any action, every trigger is that the script is being run. The "when" part therefore is excluded from the test descriptions.
 
@@ -17,63 +50,63 @@ This loops through students in the given state. The action made on them is indep
 
 ##### Student gave positive answer, make him/her active
 
-* Description
-* Testname (slogan)
+**This is done by the MiniCRM framework, not by this script.**
+    
 * Given:
-** Student is in INFO_SENT state
-** Finalizing form has been sent
+    * Student is in INFO_SENT state
+    * Finalizing form has been sent
 * Then:
-** Raise task to MiniCRM user to send invoice
-** Trigger What to install (miket telepitsunk) e-mail (can be done from the MiniCRM system's builtin automation features)
-** Set state to ACTIVE
+    * Raise task to MiniCRM user to send invoice
+    * Trigger What to install (miket telepitsunk) e-mail (can be done from the MiniCRM system's builtin automation features)
+    * Set state to ACTIVE
 
 ##### Student did not finalize, deadline has not spent, but within 24 hours, send reminder
 
 * Description
 * Testname (slogan)
 * Given:
-** Student is in INFO_SENT state
-** Finalizing form has not been sent
-** Deadline is greater than today's date, but difference is smaller than 24 hours
+    * Student is in INFO_SENT state
+    * Finalizing form has not been sent
+    * Deadline is greater than today's date, but difference is smaller than 24 hours
 * Then:
-** Trigger sending reminder e-mail
-** Create task for MiniCRM responsible
+    * Trigger sending reminder e-mail
+    * Create task for MiniCRM responsible
 
 ##### Student did not finalize, deadline has been spent, but not more then 24 hours ago, send reminder again and raise task to call student
 
 * Description
 * Testname (slogan)
 * Given:
-** Student is in INFO_SENT state
-** Finalizing form has not been sent
-** Today is greater than deadline, and difference is not greater than 24 hours
+    * Student is in INFO_SENT state
+    * Finalizing form has not been sent
+    * Today is greater than deadline, and difference is not greater than 24 hours
 * Then:
-** Trigger sending 2nd mail and create reminder
-** Create task for MiniCRM responsible
+    * Trigger sending 2nd mail and create reminder
+    * Create task for MiniCRM responsible
 
 ##### Student did not finalize, deadline has been spent more than 24 hours ago
 
 * Description
 * Testname (slogan)
 * Given:
-** Student is in INFO_SENT state
-** Finalizing form has not been sent
-** Today is greater than deadline and difference is bigger than 24 hours
+    * Student is in INFO_SENT state
+    * Finalizing form has not been sent
+    * Today is greater than deadline and difference is bigger than 24 hours
 * Then:
-** Set state to DID_NOT_FINALIZE
-** Trigger sending e-mail about deleting him/her
-** Trigger raising task about deleting student and deleting invoice
+    * Set state to DID_NOT_FINALIZE
+    * Trigger sending e-mail about deleting him/her
+    * Trigger raising task about deleting student and deleting invoice
 
 ##### Student did not finalize, but deadline is more then 1 day away, do nothing
 
 * Description
 * Testname (slogan)
 * Given:
-** Student is in INFO_SENT state
-** Finalizing form has not been sent
-** Today is smaller than deadline and difference is not smaller than 24 hours
+    * Student is in INFO_SENT state
+    * Finalizing form has not been sent
+    * Today is smaller than deadline and difference is not smaller than 24 hours
 * Then:
-** Do nothing
+    * Do nothing
 
 #### Handle waiting list
 

@@ -186,6 +186,15 @@ class CrmData:
             command_handler)
         self.today = today
 
+    def set_today(self, today):
+        """
+        Only for testing purposes. If different tests need different "today" dates, constructor can be called in setup
+        then today can be set differently in separate tests.
+        :param today: should be datetime.datetime object
+        :return: None
+        """
+        self.today = today
+
     @stacktrace
     def register_new_applicants(self):
         """

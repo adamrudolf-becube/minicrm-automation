@@ -3,9 +3,9 @@
 ## Test sescriptions
 
 We have 3 levels of testing:
-* '''Unit test level''' - local methids and single API calls.
-* '''Module test level''' - single, standalone API functionalities, like cleaning info level and handle waiting list. This is maybe the most important level of testing.
-* '''Use cases''' - whole scripts are tested. Not evey possible combination is tested.
+* '''Unit test level''' - local methods and single API calls.
+* '''Module test level''' - single, standalone API functionalities, like cleaning INFO_SENT and handle waiting list. This is maybe the most important level of testing.
+* '''Use cases''' - whole scripts are tested. Not evey possible combination is tested, only typical or important scenarios.
 
 In the test descriptions we will follow the given-when-then approach, except that the logic of the script is to query the system and modify it. The script's behavious only depends on the state of the system, and the script always initializes. Therefore actions in the CRM system are never triggers to any action, every trigger is that the script is being run. The "when" part therefore is excluded from the test descriptions.
 

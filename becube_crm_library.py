@@ -11,7 +11,11 @@ import datetime
 from command_handler import CommandHandler
 from tracing import stacktrace, trace, pretty_print
 
-API_INFO_JSON_FILE = "api_info.json"
+import os
+
+workingDirectory = os.getcwd()
+
+API_INFO_JSON_FILE = workingDirectory + "/api_info_real.json"
 
 
 reload(sys)

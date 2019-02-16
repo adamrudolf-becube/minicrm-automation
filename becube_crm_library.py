@@ -13,9 +13,9 @@ from tracing import stacktrace, trace, pretty_print
 
 import os
 
-workingDirectory = os.getcwd()
+workingDirectory = os.path.dirname(os.path.realpath(__file__))
 
-API_INFO_JSON_FILE = workingDirectory + "/api_info_real.json"
+API_INFO_JSON_FILE = workingDirectory + "/api_info.json"
 
 
 reload(sys)

@@ -21,9 +21,15 @@ TODO Can be run any time and be repeated any times. Can be stopped
 ### Code quality
 
 * Clean code
-* PEP-8
+* Design patterns kept in mind
+* PEP-8 is followed
 * Nicely tested
+    * Automated tests in different levels with nicely used mocking
+    * Measured and controlled test coverage
 * Version controlled in a very nice manner
+* Data is separated from code.
+    * API data is stored in a separate file. Real key is not included in repo
+    * Example JSON data for tests are stored in separate files
 Even good to syncronize with the production server
 * Nicely documented
     * Here in this README

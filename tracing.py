@@ -5,8 +5,8 @@ import json
 INDENT = 4*' '
 INDENT_GENERAL = 0
 
-#TRACING = True
-TRACING = False
+TRACING = True
+#TRACING = False
 
 def indent(txt):
     global INDENT_GENERAL

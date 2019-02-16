@@ -15,6 +15,9 @@ class TestInfoSent(unittest.TestCase):
 
         self.crm_data = CrmData(system_id, api_key, self.command_handler, datetime.datetime(2019, 1, 21, 7, 30))
 
+    def tearDown(self):
+        self.command_handler.check_is_satisfied()
+
     def expect_crmdata_constructor(self):
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Category"',

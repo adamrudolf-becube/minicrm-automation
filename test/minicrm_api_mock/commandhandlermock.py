@@ -10,6 +10,13 @@ class CommandHandlerMock(unittest.TestCase):
     def __init__(self):
         self.expectation_queue = ExpectationQueue()
 
+    def check_is_satisfied(self):
+        next_expectation = self.expectation_queue.get_next_element()
+        if next_expectation is not None:
+            self.assertIsNone(next_expectation,
+                              "Not all expectations were fulfilled when test ended. First unsatisfied expectation: [{}]".
+                              format(next_expectation.command_pattern))
+
     @stacktrace
     def get_json_array_for_command(self, command):
         print("COMMAND SENT TO ---MOCK--- API: {}".format(command))

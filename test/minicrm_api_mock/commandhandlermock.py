@@ -1,10 +1,11 @@
 from tracing import stacktrace, trace, pretty_print
 from test.expextationqueue import ExpectationQueue
 from test.expectation import Expectation
+import unittest
 import json
 
 
-class CommandHandlerMock:
+class CommandHandlerMock(unittest.TestCase):
 
     def __init__(self):
         self.expectation_queue = ExpectationQueue()
@@ -26,6 +27,8 @@ class CommandHandlerMock:
     @stacktrace
     def match_expectation(self, command):
         next_expectation = self.expectation_queue.get_next_element()
+
+        self.assertIsNotNone(next_expectation, "No more commands were expected, but got [{}]".format(command))
 
         if next_expectation.command_pattern == command:
             trace("Command matches next expectation")

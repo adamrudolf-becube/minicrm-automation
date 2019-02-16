@@ -5,6 +5,7 @@ from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
 API_INFO_JSON_FILE = "../api_info_fake.json"
 
 
+
 class TestInfoSent(unittest.TestCase):
     def setUp(self):
         self.command_handler = CommandHandlerMock()
@@ -61,8 +62,14 @@ class TestInfoSent(unittest.TestCase):
     #def test_student_did_not_finalize_deadline_has_spent_more_than_24_hours_ago_delete(self):
     #    pass
 
-    #def test_student_did_not_finalize_and_deadline_is_more_than_1_day_away_do_nothing(self):
-    #    pass
+    def test_student_did_not_finalize_and_deadline_is_more_than_1_day_away_do_nothing(self):
+
+        self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2781"', 'api_outputs/status_id_2781_one_student_info_sent.json')
+        self.set_participant_number_expectations()
+        self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2601"', "api_outputs/project_2601_fake_student.json")
+        self.set_participant_number_expectations()
+
+        self.crm_data.clean_info_level_kiment()
 
 
 if __name__ == '__main__':

@@ -407,72 +407,92 @@ class CrmData:
 
             if self.today >= datetime.datetime.strptime(student_data["N1Alkalom"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N1Alkalom, NOW: {}")
-                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
+                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
+                   (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "1. alkalom - kezdő")
-                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
+                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam") or \
+                     (student_data["TanfolyamTipusa2"] == "Céges haladó"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "1. alkalom - haladó")
 
             if self.today >= datetime.datetime.strptime(student_data["N2Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N2Alkalom2")
-                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
+                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
+                   (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "2. alkalom - kezdő")
-                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
+                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam") or \
+                     (student_data["TanfolyamTipusa2"] == "Céges haladó"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "2. alkalom - haladó")
 
             if self.today >= datetime.datetime.strptime(student_data["N3Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N3Alkalom2")
-                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
+                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
+                   (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "3. alkalom - kezdő")
-                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
+                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam") or \
+                     (student_data["TanfolyamTipusa2"] == "Céges haladó"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "3. alkalom - haladó")
 
             if self.today >= datetime.datetime.strptime(student_data["N4Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N4Alkalom2")
-                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
+                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
+                   (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "4. alkalom - kezdő")
-                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
+                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam") or \
+                     (student_data["TanfolyamTipusa2"] == "Céges haladó"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "4. alkalom - haladó")
 
             if self.today >= datetime.datetime.strptime(student_data["N5Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N5Alkalom2")
-                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
+                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
+                   (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "5. alkalom - kezdő")
-                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
+                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam") or \
+                     (student_data["TanfolyamTipusa2"] == "Céges haladó"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "5. alkalom - haladó")
 
             if self.today >= datetime.datetime.strptime(student_data["N6Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N6Alkalom2")
-                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
+                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
+                   (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "6. alkalom - kezdő")
-                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
+                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam") or \
+                     (student_data["TanfolyamTipusa2"] == "Céges haladó"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "6. alkalom - haladó")
 
             if self.today >= datetime.datetime.strptime(student_data["N7Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N7Alkalom2")
-                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
+                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
+                   (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "7. alkalom - kezdő")
-                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
+                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam") or \
+                     (student_data["TanfolyamTipusa2"] == "Céges haladó"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "7. alkalom - haladó")
 
             if self.today >= datetime.datetime.strptime(student_data["N8Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N8Alkalom2")
-                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
+                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
+                   (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "8. alkalom - kezdő")
-                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
+                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam") or \
+                     (student_data["TanfolyamTipusa2"] == "Céges haladó"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "8. alkalom - haladó")
 
             if self.today >= datetime.datetime.strptime(student_data["N9Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N9Alkalom2")
-                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
+                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
+                   (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "9. alkalom - kezdő")
-                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
+                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam") or \
+                     (student_data["TanfolyamTipusa2"] == "Céges haladó"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "9. alkalom - haladó")
 
             if self.today >= datetime.datetime.strptime(student_data["N10Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
                 trace("Set: N10Alkalom2")
-                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
+                if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
+                   (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "10. alkalom - kezdő")
-                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
+                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam") or \
+                     (student_data["TanfolyamTipusa2"] == "Céges haladó"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "10. alkalom - haladó")
 
 
@@ -664,7 +684,10 @@ class CrmData:
 
     @stacktrace
     def get_detailed_description(self, location):
-        location_list = LocationList(self.get_module_number_by_name("Helyszínek"), self.system_id, self.api_key)
+        location_list = LocationList(self.get_module_number_by_name("Helyszínek"),
+                                     self.system_id,
+                                     self.api_key,
+                                     self.command_handler)
 
         location_data = location_list.get_location_by_name(location)
         pretty_print(location_data)

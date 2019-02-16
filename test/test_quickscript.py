@@ -8,7 +8,7 @@ sys.setdefaultencoding('utf8')
 
 
 def quick_script(system_id, api_key):
-    
+
     command_handler = CommandHandlerMock()
     command_handler.expect_command('curl -s --user 38539:xhkjtSKq6v40BdfnsGIwrWLQ7OFiEDab "https://r3.minicrm.hu/Api/R3/Category"', 'api_outputs/category_01.json')
     command_handler.expect_command('curl -s --user 38539:xhkjtSKq6v40BdfnsGIwrWLQ7OFiEDab "https://r3.minicrm.hu/Api/R3/Schema/Project/20"','api_outputs/project_20_01.json')

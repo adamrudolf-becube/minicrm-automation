@@ -2,7 +2,7 @@ import unittest
 from becube_crm_library import *
 from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
 
-API_INFO_JSON_FILE = "../api_info.json"
+API_INFO_JSON_FILE = "../api_info_fake.json"
 
 
 class TestInfoSent(unittest.TestCase):
@@ -38,7 +38,7 @@ class TestInfoSent(unittest.TestCase):
         self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamKodja=2019-1-Q"', 'api_outputs/tanfolyam_kodja_2019_1_Q.json')
         self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2037" -d \'{"AktualisLetszam":6}\'', 'api_outputs/xput_2037.json')
 
-    def test_student_gave_positive_answer_make_himher_active(self):
+    def test_student_did_not_finalize_deadline_has_not_spent_but_within_24_hours_send_reminder(self):
         """
         Given:
         When:
@@ -48,6 +48,7 @@ class TestInfoSent(unittest.TestCase):
         self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2781"', 'api_outputs/status_id_2781_one_student_info_sent.json')
         self.set_participant_number_expectations()
         self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2601"', "api_outputs/project_2601_fake_student.json")
+        self.set_participant_number_expectations()
 
         self.crm_data.clean_info_level_kiment()
 

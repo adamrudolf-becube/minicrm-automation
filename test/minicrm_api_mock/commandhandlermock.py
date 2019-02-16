@@ -44,7 +44,8 @@ class CommandHandlerMock(unittest.TestCase):
             else:
                 trace("Command was not expected repeatedly, raising error")
                 # TODO make unittest fail
-                raise AssertionError("Unexpected command: {}".format(command))
+                raise AssertionError("Unexpected command: [{}]. Expected: [{}]".
+                                     format(command, next_expectation.command_pattern))
 
     @stacktrace
     def read_file(self, filename):

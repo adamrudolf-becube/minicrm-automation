@@ -123,8 +123,6 @@ This loops through students in the given state. The action made on them is indep
 ##### If there are 2 students on the waiting list, and there are two free places, put both students to INFO_SENT
 ##### If there are 5 students on the waiting list, and there are two free places, put the earliest two students to INFO_SENT
 
-##### [PLANNED] If course is started, put them to SUBSCRIBED (erdeklodo) state and send mail
-##### [PLANNED] Deadline is not set for waiting list students
 
 #### Register new applicants
 
@@ -132,6 +130,8 @@ This loops through students in the given state. The action made on them is indep
 Also copy course data
 ##### If there is a student in APPLIED status, and the course doesn't exist, raise task with error message
 ##### If there is a student in APPLIED status, and the headcount is not less than the limit, put student to WAITING_LIST status
+##### [PLANNED] Deadline is not set for waiting list students
+
 
 #### Send scheduled mails
 
@@ -163,6 +163,8 @@ For all courses which are APPLICATION_OPEN, IN_PROGRESS, or RECENLTY_FINISHED st
 ##### If lasd day has passed, but not 35 days more, and course is not RECENTLY_CLOSED, it should be put to RECENTLY_CLOSED
 ##### If last day plus 35 days has passed, and course is not CLOSED, is should be put to CLOSED
 ##### If first or last day's date is missing, no error should happen, and np state change should be made
+##### [PLANNED] If course is started, put waiting list students to SUBSCRIBED (erdeklodo) state and send mail
+
 
 #### Update headcounts
 

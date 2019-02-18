@@ -33,26 +33,15 @@ class CommandHandlerMock(unittest.TestCase):
 
     @stacktrace
     def match_expectation(self, command):
-        next_expectation = self.expectation_queue.get_next_element()
+        next_expectation = self.expectation_queue.pop()
 
         self.assertIsNotNone(next_expectation, "No more commands were expected, but got [{}]".format(command))
 
-        if next_expectation.command_pattern == command:
-            trace("Command matches next expectation")
-            if not next_expectation.repeatedly:
-                trace("Command is not expected repeatedly, removing expectation from the list")
-                return self.expectation_queue.pop().response_file
-        else:
-            trace("Command does not match next expectation")
-            if next_expectation.repeatedly:
-                trace("Command was expected repeatedly. Removing expectation from the list and checking next expectation")
-                self.expectation_queue.pop()
-                self.match_expectation(command)
-            else:
-                trace("Command was not expected repeatedly, raising error")
-                # TODO make unittest fail
-                raise AssertionError("Unexpected command: [{}]. Expected: [{}]".
-                                     format(command, next_expectation.command_pattern))
+        if not next_expectation.command_pattern == command:
+            raise AssertionError("Unexpected command: [{}]. Expected: [{}]".
+                                 format(command, next_expectation.command_pattern))
+
+        return next_expectation.response_file
 
     @stacktrace
     def read_file(self, filename):

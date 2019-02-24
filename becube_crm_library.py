@@ -13,9 +13,9 @@ from tracing import stacktrace, trace, pretty_print
 
 import os
 
-workingDirectory = os.path.dirname(os.path.realpath(__file__))
+currentDirectory = os.path.dirname(os.path.realpath(__file__))
 
-API_INFO_JSON_FILE = workingDirectory + "/api_info.json"
+API_INFO_JSON_FILE = currentDirectory + "/api_info.json"
 
 
 reload(sys)
@@ -174,6 +174,7 @@ class CrmData:
         self.system_id = system_id
         self.command_handler = command_handler
         self.set_modules_dictionary()
+        # TODO are these lists really used?
         self.jelentkezok = CustomerList(
             self.get_module_number_by_name("Jelentkezés"),
             self.system_id,
@@ -302,7 +303,7 @@ class CrmData:
     @stacktrace
     def handle_waiting_list(self):
         """
-        Loops through all of the students in the waiting list and if there is 
+        Loops through all of the students in the waiting list and if there is
         free space in their course, it sends them the INFO letter and chenges their
         status. Also updates the headcounts of courses.
         """
@@ -560,7 +561,7 @@ class CrmData:
         #
         #    minden honapra tanarok kulccsal dict
         #        ha stimmel, a datumot bepusholjuk
-        #        
+        #
         #    ertesitest gereralni a reporttal
         pass
 

@@ -1,6 +1,9 @@
 # API key storage
 api_info.json
 
+# Coverage reports
+coverage-reports/
+
 # PyCharm project folder
 .idea/
 

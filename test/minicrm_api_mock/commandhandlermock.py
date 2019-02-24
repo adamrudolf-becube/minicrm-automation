@@ -49,9 +49,10 @@ class CommandHandlerMock(unittest.TestCase):
 
         self.assertIsNotNone(next_expectation, "No more commands were expected, but got [{}]".format(command))
 
-        if not next_expectation.command_pattern == command:
-            raise AssertionError("Unexpected command: [{}]. Expected: [{}]".
-                                 format(command, next_expectation.command_pattern))
+        if next_expectation.command_pattern != "anything":
+            if not next_expectation.command_pattern in command:
+                raise AssertionError("Unexpected command: [{}]. Expected: [{}]".
+                                     format(command, next_expectation.command_pattern))
 
         return next_expectation.response_identifier
 

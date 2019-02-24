@@ -1,6 +1,6 @@
 from tracing import stacktrace, trace
-from test.expextationqueue import ExpectationQueue
-from test.expectation import Expectation
+from test.minicrm_api_mock.expextationqueue import ExpectationQueue
+from test.minicrm_api_mock.expectation import Expectation
 import unittest
 import json
 import os

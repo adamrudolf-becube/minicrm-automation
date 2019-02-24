@@ -1,8 +1,21 @@
-from tracing import stacktrace, trace, pretty_print
+from tracing import stacktrace, trace
 from test.expextationqueue import ExpectationQueue
 from test.expectation import Expectation
 import unittest
 import json
+import os
+
+# TODO find out why some JSON is outputted even if tracing is turned off
+# TODO put json outputs to one file to make it faster
+
+API_RESPONSES = None
+
+currentDirectory = os.path.dirname(os.path.realpath(__file__))
+
+api_response_file_path = currentDirectory + "/api_outputs.json"
+
+with open(api_response_file_path) as api_response_file:
+    API_RESPONSES = json.load(api_response_file)
 
 
 class CommandHandlerMock(unittest.TestCase):
@@ -20,16 +33,15 @@ class CommandHandlerMock(unittest.TestCase):
     @stacktrace
     def get_json_array_for_command(self, command):
         print("COMMAND SENT TO ---MOCK--- API: {}".format(command))
-        response_location = self.match_expectation(command)
-        output = self.read_file(response_location)
-        formatted_output = json.loads(output)
+        response_identifier = self.match_expectation(command)
+        formatted_output = API_RESPONSES[response_identifier]["response"]
         #trace("ANSWER RECEIVED:")
         #pretty_print(formatted_output)
         return formatted_output
 
     @stacktrace
-    def expect_command(self, command_pattern, response_file, repeatedly = False):
-        self.expectation_queue.push(Expectation(command_pattern, response_file, repeatedly))
+    def expect_command(self, command_pattern, response_identifier, repeatedly = False):
+        self.expectation_queue.push(Expectation(command_pattern, response_identifier, repeatedly))
 
     @stacktrace
     def match_expectation(self, command):
@@ -41,7 +53,7 @@ class CommandHandlerMock(unittest.TestCase):
             raise AssertionError("Unexpected command: [{}]. Expected: [{}]".
                                  format(command, next_expectation.command_pattern))
 
-        return next_expectation.response_file
+        return next_expectation.response_identifier
 
     @stacktrace
     def read_file(self, filename):

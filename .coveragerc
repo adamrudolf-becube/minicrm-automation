@@ -1,0 +1,19 @@
+[run]
+
+omit =
+    command_handler.py
+    */_strptime.py
+
+include =
+    */commandhandlermock.py
+    becube_crm_library.py
+    
+    
+[report]
+omit =
+    command_handler.py
+    */_strptime.py
+
+include =
+    */commandhandlermock.py
+    becube_crm_library.py

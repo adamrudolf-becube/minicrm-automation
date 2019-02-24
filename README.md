@@ -13,7 +13,9 @@
 ## Technical aspects
 
 ### Not storing information
-### Independency from server
+### Independent runs - can be run any time and repeatedly
+### Partiality - can be run partially and then run again
+### Independency from server - can be run from anywhere
 ### MiniCRM application must be independent from it
 
 TODO Can be run any time and be repeated any times. Can be stopped  
@@ -181,6 +183,8 @@ For all APPLICATION_OPEN courses: INFO_SENT and ACTIVE students should be counte
 ##### If there is a student with another state, cound is 0
 ##### If there is 2 INFO_SENT, 3 ACTIVE and 4 other students with miced states, count is 5
 
+set PYTHONPATH=%PYTHONPATH%;.
+nosetests --with-coverage --cover-erase --cover-html-dir=./coverage-reports --cover-html --cov-config .coveragerc
 
 
 * Description

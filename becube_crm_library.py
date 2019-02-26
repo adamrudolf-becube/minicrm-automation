@@ -515,18 +515,21 @@ class CrmData:
                 trace("Set: N10Alkalom2 + 1 nap")
                 if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Útravaló")
-                elif (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
+                elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam") or \
+                        (student_data["TanfolyamTipusa2"] == "Céges haladó"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Útravaló - haladó")
 
 
             if self.today >= datetime.datetime.strptime(student_data["N10Alkalom2"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=1):
                 trace("Set: N10Alkalom2 + 2 nap")
                 update_data["StatusId"] = self.jelentkezok.get_status_number_by_name("Elvégezte")
+                if (student_data["TanfolyamTipusa2"] == "Céges haladó"):
+                    levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Oklevél - haladó")
                 if self.ok_for_certification(student_data):
                     trace("Set: Certified also")
                     if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                         levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Oklevél - kezdő")
-                    elif (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
+                    elif (student_data["TanfolyamTipusa2"] == "Haladó programozó tanfolyam"):
                         levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Oklevél - haladó")
 
             if student_data["N2SzunetOpcionalis2"] != "":

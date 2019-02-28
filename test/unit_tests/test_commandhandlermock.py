@@ -1,5 +1,5 @@
 import unittest
-from minicrm_api_mock.commandhandlermock import CommandHandlerMock
+from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
 import os
 
 currentDirectory = os.path.dirname(os.path.realpath(__file__))

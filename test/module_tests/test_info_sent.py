@@ -1,6 +1,6 @@
 import unittest
 from becube_crm_library import *
-from minicrm_api_mock.commandhandlermock import CommandHandlerMock
+from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
 
 API_INFO_JSON_FILE = "api_info_fake.json"
 

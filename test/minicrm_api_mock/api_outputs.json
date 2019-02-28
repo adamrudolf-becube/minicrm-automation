@@ -2197,6 +2197,159 @@
 			"UserId": "Rudolf \u00c1d\u00e1m"
 		}
 	},
+	"project_2037_2019-1_Q_0_students": {
+		"description": "Data of one course (2019-1-Q) from real life",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project/2037\"",
+		"response": {
+			"AktualisLetszam": 0,
+			"CategoryId": 21,
+			"ContactId": 1045,
+			"CreatedAt": "2018-11-04 17:37:24",
+			"CreatedBy": "Rudolf \u00c1d\u00e1m",
+			"Deleted": 0,
+			"ElsoAlkalom": "2019-01-28 23:59:59",
+			"Frissitas": "",
+			"Helyszin": "Pannon Kincst\u00e1r",
+			"Id": 2037,
+			"MaximalisLetszam": 14,
+			"N10Alkalom": "2019-04-08 23:59:59",
+			"N10AlkalomTanar": "",
+			"N1AlkalomTanar": "",
+			"N1ElmaradtIdopontOpcionalis": "",
+			"N1SzunetOpcionalis": "2019-03-11 23:59:59",
+			"N2Alkalom": "2019-02-04 23:59:59",
+			"N2AlkalomTanar": "",
+			"N2ElmaradtIdopontOpcionalis": "",
+			"N2SzunetOpcionalis": "",
+			"N3Alkalom": "2019-02-11 23:59:59",
+			"N3AlkalomTanar": "",
+			"N3SzunetOpcionalis": "",
+			"N4Alkalom": "2019-02-18 23:59:59",
+			"N4AlkalomTanar": "",
+			"N5Alkalom": "2019-02-25 23:59:59",
+			"N5AlkalomTanar": "",
+			"N6Alkalom": "2019-03-04 23:59:59",
+			"N6AlkalomTanar": "",
+			"N7Alkalom": "2019-03-18 23:59:59",
+			"N7AlkalomTanar": "",
+			"N8Alkalom": "2019-03-25 23:59:59",
+			"N8AlkalomTanar": "",
+			"N9Alkalom": "2019-04-01 23:59:59",
+			"N9AlkalomTanar": "",
+			"Name": "2019-1-Q",
+			"OrakIdopontja": "18:00 - 19:30",
+			"StatusId": "Jelentkez\u00e9s nyitva",
+			"StatusUpdatedAt": "2018-11-10 15:35:53",
+			"Tanar": "",
+			"TanfolyamBetujele": "2019-1-Q",
+			"TanfolyamTipusa": "Kezd\u0151 programoz\u00f3 tanfolyam",
+			"UpdatedAt": "2019-01-18 11:30:06",
+			"UpdatedBy": "MiniCRM",
+			"UserId": "Rudolf \u00c1d\u00e1m"
+		}
+	},
+	"project_2037_2019-1_Q_1_student": {
+		"description": "Data of one course (2019-1-Q) from real life",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project/2037\"",
+		"response": {
+			"AktualisLetszam": 1,
+			"CategoryId": 21,
+			"ContactId": 1045,
+			"CreatedAt": "2018-11-04 17:37:24",
+			"CreatedBy": "Rudolf \u00c1d\u00e1m",
+			"Deleted": 0,
+			"ElsoAlkalom": "2019-01-28 23:59:59",
+			"Frissitas": "",
+			"Helyszin": "Pannon Kincst\u00e1r",
+			"Id": 2037,
+			"MaximalisLetszam": 14,
+			"N10Alkalom": "2019-04-08 23:59:59",
+			"N10AlkalomTanar": "",
+			"N1AlkalomTanar": "",
+			"N1ElmaradtIdopontOpcionalis": "",
+			"N1SzunetOpcionalis": "2019-03-11 23:59:59",
+			"N2Alkalom": "2019-02-04 23:59:59",
+			"N2AlkalomTanar": "",
+			"N2ElmaradtIdopontOpcionalis": "",
+			"N2SzunetOpcionalis": "",
+			"N3Alkalom": "2019-02-11 23:59:59",
+			"N3AlkalomTanar": "",
+			"N3SzunetOpcionalis": "",
+			"N4Alkalom": "2019-02-18 23:59:59",
+			"N4AlkalomTanar": "",
+			"N5Alkalom": "2019-02-25 23:59:59",
+			"N5AlkalomTanar": "",
+			"N6Alkalom": "2019-03-04 23:59:59",
+			"N6AlkalomTanar": "",
+			"N7Alkalom": "2019-03-18 23:59:59",
+			"N7AlkalomTanar": "",
+			"N8Alkalom": "2019-03-25 23:59:59",
+			"N8AlkalomTanar": "",
+			"N9Alkalom": "2019-04-01 23:59:59",
+			"N9AlkalomTanar": "",
+			"Name": "2019-1-Q",
+			"OrakIdopontja": "18:00 - 19:30",
+			"StatusId": "Jelentkez\u00e9s nyitva",
+			"StatusUpdatedAt": "2018-11-10 15:35:53",
+			"Tanar": "",
+			"TanfolyamBetujele": "2019-1-Q",
+			"TanfolyamTipusa": "Kezd\u0151 programoz\u00f3 tanfolyam",
+			"UpdatedAt": "2019-01-18 11:30:06",
+			"UpdatedBy": "MiniCRM",
+			"UserId": "Rudolf \u00c1d\u00e1m"
+		}
+	},
+	"project_2037_2019-1_Q_2_students": {
+		"description": "Data of one course (2019-1-Q) from real life",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project/2037\"",
+		"response": {
+			"AktualisLetszam": 2,
+			"CategoryId": 21,
+			"ContactId": 1045,
+			"CreatedAt": "2018-11-04 17:37:24",
+			"CreatedBy": "Rudolf \u00c1d\u00e1m",
+			"Deleted": 0,
+			"ElsoAlkalom": "2019-01-28 23:59:59",
+			"Frissitas": "",
+			"Helyszin": "Pannon Kincst\u00e1r",
+			"Id": 2037,
+			"MaximalisLetszam": 14,
+			"N10Alkalom": "2019-04-08 23:59:59",
+			"N10AlkalomTanar": "",
+			"N1AlkalomTanar": "",
+			"N1ElmaradtIdopontOpcionalis": "",
+			"N1SzunetOpcionalis": "2019-03-11 23:59:59",
+			"N2Alkalom": "2019-02-04 23:59:59",
+			"N2AlkalomTanar": "",
+			"N2ElmaradtIdopontOpcionalis": "",
+			"N2SzunetOpcionalis": "",
+			"N3Alkalom": "2019-02-11 23:59:59",
+			"N3AlkalomTanar": "",
+			"N3SzunetOpcionalis": "",
+			"N4Alkalom": "2019-02-18 23:59:59",
+			"N4AlkalomTanar": "",
+			"N5Alkalom": "2019-02-25 23:59:59",
+			"N5AlkalomTanar": "",
+			"N6Alkalom": "2019-03-04 23:59:59",
+			"N6AlkalomTanar": "",
+			"N7Alkalom": "2019-03-18 23:59:59",
+			"N7AlkalomTanar": "",
+			"N8Alkalom": "2019-03-25 23:59:59",
+			"N8AlkalomTanar": "",
+			"N9Alkalom": "2019-04-01 23:59:59",
+			"N9AlkalomTanar": "",
+			"Name": "2019-1-Q",
+			"OrakIdopontja": "18:00 - 19:30",
+			"StatusId": "Jelentkez\u00e9s nyitva",
+			"StatusUpdatedAt": "2018-11-10 15:35:53",
+			"Tanar": "",
+			"TanfolyamBetujele": "2019-1-Q",
+			"TanfolyamTipusa": "Kezd\u0151 programoz\u00f3 tanfolyam",
+			"UpdatedAt": "2019-01-18 11:30:06",
+			"UpdatedBy": "MiniCRM",
+			"UserId": "Rudolf \u00c1d\u00e1m"
+		}
+	},
 	"project_2037_2019-1_Q_in_progress": {
 		"description": "Data of one course (2019-1-Q) from real life",
 		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project/2037\"",
@@ -4116,6 +4269,339 @@
 					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
 					"ContactId": 647,
 					"StatusId": 2741,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_one_info_sent": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 1,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2781,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_one_active": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 1,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2749,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_one_active_and_one_info_sent": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 2,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2749,
+					"UserId": 56733,
+					"Deleted": 0
+				},
+				"2942": {
+					"Id": 2942,
+					"Name": "Gipsz Jakabné",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2781,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_one_did_not_answer": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 1,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2782,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_one_cancelled": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 1,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2783,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_one_not_payed": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 1,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2745,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_one_spectator": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 1,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2784,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_one_waiting_list": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 1,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2750,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_one_subscribed": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 1,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2796,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_one_applied": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 1,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2741,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_one_finished": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 1,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2743,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_one_not_payed": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 1,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2745,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_one_unsubscribed": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 1,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2786,
+					"UserId": 56733,
+					"Deleted": 0
+				}
+			}
+		}
+	},
+	"student_list_complex": {
+		"description": "List of new applicants where there is 1 new applicant",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
+		"response": {
+			"Count": 8,
+			"Results": {
+				"2941": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2781,
+					"UserId": 56733,
+					"Deleted": 0
+				},
+				"2942": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2781,
+					"UserId": 56733,
+					"Deleted": 0
+				},
+				"2943": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2784,
+					"UserId": 56733,
+					"Deleted": 0
+				},
+				"2944": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2782,
+					"UserId": 56733,
+					"Deleted": 0
+				},
+				"2945": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2750,
+					"UserId": 56733,
+					"Deleted": 0
+				},
+				"2947": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2750,
+					"UserId": 56733,
+					"Deleted": 0
+				},
+				"2948": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2749,
+					"UserId": 56733,
+					"Deleted": 0
+				},
+				"2949": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2749,
+					"UserId": 56733,
+					"Deleted": 0
+				},
+				"2950": {
+					"Id": 2941,
+					"Name": "Gipsz Jakab",
+					"Url": "https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
+					"ContactId": 647,
+					"StatusId": 2749,
 					"UserId": 56733,
 					"Deleted": 0
 				}

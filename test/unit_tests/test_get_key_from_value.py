@@ -1,8 +1,5 @@
 import unittest
 from becube_crm_library import get_key_from_value
-from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
-
-API_INFO_JSON_FILE = "api_info_fake.json"
 
 
 class TestGetKeyFromValue(unittest.TestCase):

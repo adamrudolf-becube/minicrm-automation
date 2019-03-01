@@ -41,15 +41,9 @@ def get_key_from_value(dictionary, dictionary_value):
     values = dictionary.values()
     return keys[values.index(dictionary_value)]
 
-def truncate_comma_separated_string_list(input_string):
-    if input_string[:2] == ', ':
-        return input_string[2:]
-    else:
-        return input_string
-
 def add_element_to_commasep_list(input_list, element):
     if (not element in input_list):
-        out_list = truncate_comma_separated_string_list(input_list + ", " + element)
+        out_list = input_list + ", " + element
     else:
         out_list = input_list
     return out_list
@@ -339,8 +333,7 @@ class CrmData:
                 trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO COURSE.".
                     format(course_data["AktualisLetszam"], course_data["MaximalisLetszam"]))
 
-                update_data["Levelkuldesek"] = truncate_comma_separated_string_list(
-                                                   student_data["Levelkuldesek"] + ", Kezdő INFO levél, Felszabadult egy hely")
+                update_data["Levelkuldesek"] = student_data["Levelkuldesek"] + ", Kezdő INFO levél, Felszabadult egy hely"
                 update_data["StatusId"] = self.jelentkezok.get_status_number_by_name("INFO levél kiment")
 
                 trace("DATA TO UPDATE:")
@@ -593,8 +586,7 @@ class CrmData:
             trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO WAITING LIST.".
                 format(course_data["AktualisLetszam"], course_data["MaximalisLetszam"]))
 
-            update_data["Levelkuldesek"] = truncate_comma_separated_string_list(
-                                               student_data["Levelkuldesek"] + ", Várólista")
+            update_data["Levelkuldesek"] = student_data["Levelkuldesek"] + ", Várólista"
 
             update_data["StatusId"] = self.jelentkezok.get_status_number_by_name("Várólistán van")
 
@@ -607,13 +599,11 @@ class CrmData:
 
             if (course_data["TanfolyamTipusa"] == "Kezdő programozó tanfolyam"):
                 trace("IN KEZDO IF")
-                update_data["Levelkuldesek"] = truncate_comma_separated_string_list(
-                                                   student_data["Levelkuldesek"] + ", Kezdő INFO levél")
+                update_data["Levelkuldesek"] = student_data["Levelkuldesek"] + ", Kezdő INFO levél"
 
             elif (course_data["TanfolyamTipusa"] == "Haladó programozó tanfolyam"):
                 trace("IN HALADO IF")
-                update_data["Levelkuldesek"] = truncate_comma_separated_string_list(
-                                                   student_data["Levelkuldesek"] + ", Haladó INFO levél")
+                update_data["Levelkuldesek"] = student_data["Levelkuldesek"] + ", Haladó INFO levél"
 
             update_data["StatusId"] = self.jelentkezok.get_status_number_by_name("INFO levél kiment")
 

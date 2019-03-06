@@ -94,6 +94,30 @@ class TestSendScheduledMails(unittest.TestCase):
         )
         self.crm_data.send_scheduled_emails()
 
+    def test_beginner_if_second_break_is_coming_send_second_break_email(self):
+        self.crm_data.set_today(datetime.datetime(2019, 3, 17, 7, 30))
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2126"',
+            'project_2601_fake_student_3_breaks'
+        )
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2126" -d \'{"Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 1. sz\u00fcnet, 2. sz\u00fcnet"}\'',
+            'xput_response'
+        )
+        self.crm_data.send_scheduled_emails()
+
+    def test_beginner_if_third_break_is_coming_send_third_break_email(self):
+        self.crm_data.set_today(datetime.datetime(2019, 3, 27, 7, 30))
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2126"',
+            'project_2601_fake_student_3_breaks'
+        )
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2126" -d \'{"Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}\'',
+            'xput_response'
+        )
+        self.crm_data.send_scheduled_emails()
+
     def test_send_final_mail_1_day_after_last_occasion(self):
         self.crm_data.set_today(datetime.datetime(2019, 4, 9, 7, 30))
         self.command_handler.expect_command(
@@ -181,6 +205,30 @@ class TestSendScheduledMails(unittest.TestCase):
         )
         self.crm_data.send_scheduled_emails()
 
+    def test_advanced_if_second_break_is_coming_send_second_break_email(self):
+        self.crm_data.set_today(datetime.datetime(2019, 3, 17, 7, 30))
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2126"',
+            'fake_student_advanced_3_breaks'
+        )
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2126" -d \'{"Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet"}\'',
+            'xput_response'
+        )
+        self.crm_data.send_scheduled_emails()
+
+    def test_advanced_if_third_break_is_coming_send_third_break_email(self):
+        self.crm_data.set_today(datetime.datetime(2019, 3, 27, 7, 30))
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2126"',
+            'fake_student_advanced_3_breaks'
+        )
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2126" -d \'{"Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}\'',
+            'xput_response'
+        )
+        self.crm_data.send_scheduled_emails()
+
     def test_advanced_send_final_mail_1_day_after_last_occasion(self):
         self.crm_data.set_today(datetime.datetime(2019, 4, 9, 7, 30))
         self.command_handler.expect_command(
@@ -216,15 +264,6 @@ class TestSendScheduledMails(unittest.TestCase):
             'xput_response'
         )
         self.crm_data.send_scheduled_emails()
-
-    # ------------------------------------------------------------------------------------------------------------------
-    # ------------------------------------------------------------------------------------------------------------------
-    # ------------------------------------------------------------------------------------------------------------------
-    # ------------------------------------------------------------------------------------------------------------------
-    # ------------------------------------------------------------------------------------------------------------------
-    # ------------------------------------------------------------------------------------------------------------------
-    # ------------------------------------------------------------------------------------------------------------------
-    # ------------------------------------------------------------------------------------------------------------------
 
     def test_company_beginner_date_is_more_than_delta_days_less_than_1st_occasion_do_nothing(self):
         self.command_handler.expect_command(
@@ -360,6 +399,30 @@ class TestSendScheduledMails(unittest.TestCase):
         )
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2126" -d \'{"Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3"}\'',
+            'xput_response'
+        )
+        self.crm_data.send_scheduled_emails()
+
+    def test_company_advanced_if_second_break_is_coming_send_second_break_email(self):
+        self.crm_data.set_today(datetime.datetime(2019, 3, 17, 7, 30))
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2126"',
+            'fake_student_company_advanced_3_breaks'
+        )
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2126" -d \'{"Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet"}\'',
+            'xput_response'
+        )
+        self.crm_data.send_scheduled_emails()
+
+    def test_company_advanced_if_third_break_is_coming_send_third_break_email(self):
+        self.crm_data.set_today(datetime.datetime(2019, 3, 27, 7, 30))
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2126"',
+            'fake_student_company_advanced_3_breaks'
+        )
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2126" -d \'{"Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}\'',
             'xput_response'
         )
         self.crm_data.send_scheduled_emails()

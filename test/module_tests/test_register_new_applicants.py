@@ -80,6 +80,41 @@ class TestRegisterNewApplicants(unittest.TestCase):
         )
         self.crm_data.register_new_applicants()
 
+    def test_advanced_student_is_applied_headcount_is_less_than_the_limit_put_student_to_infosent_update_headcounts_copy_course_data(self):
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2741"',
+            "one_new_applicant_list")
+        self.set_participant_number_expectations()
+
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2941"',
+            'fake_student_advanced')
+
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
+            'project_2037_2019-1_Q_advanced_one_place_free')
+
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Schema/Project/22"',
+            'places_schema'
+        )
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?CategoryId=22"',
+            'places_list'
+        )
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/19"',
+            'pannon_kincstar_data'
+        )
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d',
+            'xput_response')
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d \'{"StatusId":"2781","Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, Halad\u00f3 INFO lev\u00e9l"}\'',
+            'xput_response'
+        )
+        self.crm_data.register_new_applicants()
+
     def test_student_is_applied_course_doesnt_exist_raise_task_with_errormessage(self):
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2741"',

@@ -17,6 +17,8 @@ currentDirectory = os.path.dirname(os.path.realpath(__file__))
 
 API_INFO_JSON_FILE = currentDirectory + "/api_info.json"
 
+# TODO: investigate whether add_element_to_commasep_list is needed. Some places it is not used
+
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -113,13 +115,6 @@ class CustomerList(Module):
     def update_spectators(self):
         self.spectators = self.query_project_list_with_status("Megfigyelő")
 
-    @stacktrace
-    def get_checkbox_number_for_letter(self, status_name):
-        status_dictionary = self.available_values["Levelkuldesek"]
-        return_value = get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
-        trace("CHECKBOX CODE FOR [{}] IS [{}]".format(status_name, return_value))
-        return get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
-
 
 class CourseList(Module):
     @stacktrace
@@ -144,7 +139,6 @@ class LocationList(Module):
             trace("NAME CHECKED: "+location_info["Name"])
             if location_info["Name"] == location_name:
                 return location_info
-        trace("LOCATION NOT FOUND: ["+location_name+"]")
 
 
 class CrmData:
@@ -631,38 +625,35 @@ class CrmData:
 
             trace("CALCULATE HEADCOUNT OF COURSE ["+course+"], code: ["+course_code+"]")
 
-            if course_data["StatusId"] == unicode("Jelentkezés nyitva", "utf-8"):
-                trace("APPLICATION IS OPEN, CALCULATING HEADCOUNT")
+            trace("APPLICATION IS OPEN, CALCULATING HEADCOUNT")
 
-                student_list = self.command_handler.get_json_array_for_command(
-                                 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?TanfolyamKodja={}"'.
-                                 format(self.system_id, self.api_key, course_code))["Results"]
+            student_list = self.command_handler.get_json_array_for_command(
+                             'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?TanfolyamKodja={}"'.
+                             format(self.system_id, self.api_key, course_code))["Results"]
 
-                acceptable_statuses = [
-                    int(self.jelentkezok.get_status_number_by_name("INFO levél kiment")),
-                    int(self.jelentkezok.get_status_number_by_name("Kurzus folyamatban"))
-                ]
+            acceptable_statuses = [
+                int(self.jelentkezok.get_status_number_by_name("INFO levél kiment")),
+                int(self.jelentkezok.get_status_number_by_name("Kurzus folyamatban"))
+            ]
 
-                trace("ACCEPTABLE STATUSES: [{}]".format(acceptable_statuses))
+            trace("ACCEPTABLE STATUSES: [{}]".format(acceptable_statuses))
 
-                count = 0
-                for student in student_list:
-                    if student_list[student]["StatusId"] in acceptable_statuses:
-                        count += 1
-                        trace("STUDENT [{}] has status [{}], ACCEPTABLE, CURRENT HEADCOUNT: [{}]".
-                            format(student, student_list[student]["StatusId"], count))
-                    else:
-                        trace("STUDENT [{}] has status [{}], NOT ACCEPTABLE, CURRENT HEADCOUNT: [{}]".
-                            format(student, student_list[student]["StatusId"], count))
+            count = 0
+            for student in student_list:
+                if student_list[student]["StatusId"] in acceptable_statuses:
+                    count += 1
+                    trace("STUDENT [{}] has status [{}], ACCEPTABLE, CURRENT HEADCOUNT: [{}]".
+                        format(student, student_list[student]["StatusId"], count))
+                else:
+                    trace("STUDENT [{}] has status [{}], NOT ACCEPTABLE, CURRENT HEADCOUNT: [{}]".
+                        format(student, student_list[student]["StatusId"], count))
 
-                trace("END OF STUDENT LIST, UPDATING HEADCOUNT TO [{}]".format(count))
+            trace("END OF STUDENT LIST, UPDATING HEADCOUNT TO [{}]".format(count))
 
-                self.command_handler.get_json_array_for_command(
-                    'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.
-                    format(self.system_id, self.api_key, course)
-                    +"'{}'".format(json.dumps({"AktualisLetszam": count}, separators=(',',':'))))
-            else:
-                trace("APPLICATION IS NOT OPEN, DISCARD")
+            self.command_handler.get_json_array_for_command(
+                'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.
+                format(self.system_id, self.api_key, course)
+                +"'{}'".format(json.dumps({"AktualisLetszam": count}, separators=(',',':'))))
 
     @stacktrace
     def set_modules_dictionary(self):
@@ -675,15 +666,6 @@ class CrmData:
         return self.command_handler.get_json_array_for_command(
                              'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project/{}"'.
                              format(self.system_id, self.api_key, id))
-
-    @stacktrace
-    def get_userid_by_name(self, user_name):
-        user_dict = self.jelentkezok.available_values["UserId"]
-        return user_dict.keys()[user_dict.values().index(unicode(user_name, "utf-8"))]
-
-    @stacktrace
-    def get_modules_dictionary(self):
-        return self.module_dict
 
     @stacktrace
     def get_module_number_by_name(self, module_name):

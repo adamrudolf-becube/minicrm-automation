@@ -543,18 +543,6 @@ class CrmData:
                     'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student)
                     +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
 
-    @stacktrace
-    def generate_reports(self):
-        #6. MUVELET: riportok elkeszitese
-        #
-        #Vegigmenni az osszes tanfolyamon (?)
-        #
-        #    minden honapra tanarok kulccsal dict
-        #        ha stimmel, a datumot bepusholjuk
-        #
-        #    ertesitest gereralni a reporttal
-        pass
-
     ###########################################################################
     #                                                                         #
     # Private methods                                                         #

@@ -8,17 +8,9 @@ import sys
 import json
 import datetime
 
-from command_handler import CommandHandler
 from tracing import stacktrace, trace, pretty_print
 
-import os
-
-currentDirectory = os.path.dirname(os.path.realpath(__file__))
-
-API_INFO_JSON_FILE = currentDirectory + "/api_info.json"
-
 # TODO: investigate whether add_element_to_commasep_list is needed. Some places it is not used
-
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -787,30 +779,3 @@ class CrmData:
         self.command_handler.get_json_array_for_command(
             'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student_data["Id"])
             +"'{}'".format(json.dumps(data_to_update, separators=(',',':'))))
-
-
-def quick_script(system_id, api_key):
-    command_handler = CommandHandler()
-    crm_data = CrmData(system_id, api_key, command_handler)
-    crm_data.clean_info_level_kiment()
-    crm_data.handle_waiting_list()
-    crm_data.register_new_applicants()
-    trace("QUICK SCRIPT EXITED")
-
-def daily_script(system_id, api_key):
-
-    command_handler = CommandHandler()
-    crm_data = CrmData(system_id, api_key, command_handler)
-    crm_data.send_scheduled_emails()
-    crm_data.set_course_states()
-    trace("DAILY SCRIPT EXITED")
-
-def monthly_script():
-    pass
-
-if __name__ == "__main__":
-    system_id, api_key = load_api_info(API_INFO_JSON_FILE)
-    quick_script(system_id, api_key)
-    #daily_script(system_id, api_key)
-    #monthly_script(system_id, api_key)
-    #test_script(system_id, api_key)

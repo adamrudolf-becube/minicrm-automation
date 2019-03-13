@@ -1,38 +1,8 @@
-import unittest
-from becube_crm_library import *
-from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
+from test.unit_tests.minicrmtestbase import MiniCrmTestBase
+import datetime
 
-API_INFO_JSON_FILE = "api_info_fake.json"
 
-class TestRegisterNewApplicants(unittest.TestCase):
-    ##### If there is one INFO_SENT student, and no one else, count is 1. It was more, update sent.
-    def setUp(self):
-        self.command_handler = CommandHandlerMock()
-        system_id, api_key = load_api_info(API_INFO_JSON_FILE)
-
-        self.expect_crmdata_constructor()
-
-        self.crm_data = CrmData(system_id, api_key, self.command_handler, datetime.datetime(2019, 1, 21, 7, 30))
-
-    def tearDown(self):
-        self.command_handler.check_is_satisfied()
-
-    def expect_crmdata_constructor(self):
-        self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Category"',
-            'category_01')
-        self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Schema/Project/20"',
-            'project_20_01')
-        self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?CategoryId=20"',
-            'category_id_20')
-        self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Schema/Project/21"',
-            'schema_project_21')
-        self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?CategoryId=21"',
-            'category_id_21')
+class TestRegisterNewApplicants(MiniCrmTestBase):
 
     def test_headcount_is_1_when_there_are_no_students_for_this_course_count_is_set_to_0(self):
         self.command_handler.expect_command(
@@ -303,16 +273,3 @@ class TestRegisterNewApplicants(unittest.TestCase):
             'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2037" -d \'{"AktualisLetszam":5}\'',
             'xput_response')
         self.crm_data.update_headcounts()
-
-
-#"2796": "\u00c9rdekl\u0151d\u0151",
-#"2741": "Jelentkezett",
-#"2750": "V\u00e1r\u00f3list\u00e1n van",
-#"2781": "INFO lev\u00e9l kiment",
-#"2749": "Kurzus folyamatban",
-#"2743": "Elv\u00e9gezte",
-#"2784": "Megfigyel\u0151",
-#"2745": "Nem fizetett",
-#"2782": "Nem jelzett vissza",
-#"2783": "Lemondta",
-#"2786": "Le\u00edratkozott"

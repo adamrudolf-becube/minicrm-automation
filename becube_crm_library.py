@@ -73,9 +73,16 @@ class Module:
     @stacktrace
     def query_project_list_with_status(self, status):
         trace(self.get_status_number_by_name(status))
-        return self.command_handler.get_json_array_for_command(
-                 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?StatusId={}"'.
-                 format(self.system_id, self.api_key, self.get_status_number_by_name(status)))
+        response = self.command_handler.get_json_array_for_command(
+                       'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?StatusId={}"'.
+                       format(self.system_id, self.api_key, self.get_status_number_by_name(status)))
+        if response["Count"] > 100:
+            response_second_page = self.command_handler.get_json_array_for_command(
+                                       'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?StatusId={}&Page=1"'.
+                                       format(self.system_id, self.api_key, self.get_status_number_by_name(status)))
+            response["Results"] = dict(dict(response["Results"]), **dict(response_second_page["Results"]))
+
+        return response
 
     @stacktrace
     def get_status_number_by_name(self, status_name):

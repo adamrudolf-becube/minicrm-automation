@@ -12,10 +12,15 @@ API_INFO_JSON_FILE = currentDirectory + "/api_info.json"
 
 system_id, api_key = load_api_info(API_INFO_JSON_FILE)
 
-if __name__ == "__main__":
-    command_handler = CommandHandler()
-    crm_data = CrmData(system_id, api_key, command_handler)
+
+def run(crm_data):
     crm_data.clean_info_level_kiment()
     crm_data.handle_waiting_list()
     crm_data.register_new_applicants()
     trace("QUICK SCRIPT EXITED")
+
+
+if __name__ == "__main__":
+    command_handler = CommandHandler()
+    crm_data = CrmData(system_id, api_key, command_handler)
+    run(crm_data)

@@ -36,7 +36,9 @@ def get_key_from_value(dictionary, dictionary_value):
     return keys[values.index(dictionary_value)]
 
 def add_element_to_commasep_list(input_list, element):
-    if (not element in input_list):
+    if input_list == "":
+        out_list = element
+    elif not element in input_list:
         out_list = input_list + ", " + element
     else:
         out_list = input_list
@@ -580,7 +582,7 @@ class CrmData:
 
             if (course_data["TanfolyamTipusa"] == "Kezdő programozó tanfolyam"):
                 trace("IN KEZDO IF")
-                update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"], ", Kezdő INFO levél")
+                update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"], "Kezdő INFO levél")
 
             elif (course_data["TanfolyamTipusa"] == "Haladó programozó tanfolyam"):
                 trace("IN HALADO IF")

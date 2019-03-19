@@ -580,11 +580,11 @@ class CrmData:
 
             if (course_data["TanfolyamTipusa"] == "Kezdő programozó tanfolyam"):
                 trace("IN KEZDO IF")
-                update_data["Levelkuldesek"] = student_data["Levelkuldesek"] + ", Kezdő INFO levél"
+                update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"], ", Kezdő INFO levél")
 
             elif (course_data["TanfolyamTipusa"] == "Haladó programozó tanfolyam"):
                 trace("IN HALADO IF")
-                update_data["Levelkuldesek"] = student_data["Levelkuldesek"] + ", Haladó INFO levél"
+                update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"], "Haladó INFO levél")
 
             update_data["StatusId"] = self.jelentkezok.get_status_number_by_name("INFO levél kiment")
 

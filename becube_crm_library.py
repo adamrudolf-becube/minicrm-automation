@@ -10,8 +10,6 @@ import datetime
 
 from tracing import stacktrace, trace, pretty_print
 
-# TODO: investigate whether add_element_to_commasep_list is needed. Some places it is not used
-
 reload(sys)
 sys.setdefaultencoding('utf8')
 

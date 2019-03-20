@@ -14,7 +14,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2941"',
-            'project_2601_fake_student')
+            'fake_student_zero_mails')
 
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
@@ -49,7 +49,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2941"',
-            'fake_student_advanced')
+            'fake_student_advanced_zero_mails')
 
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
@@ -71,7 +71,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d',
             'xput_response')
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d \'{"StatusId":"2781","Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, Halad\u00f3 INFO lev\u00e9l"}\'',
+            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d \'{"StatusId":"2781","Levelkuldesek":"Halad\u00f3 INFO lev\u00e9l"}\'',
             'xput_response'
         )
         self.crm_data.register_new_applicants()

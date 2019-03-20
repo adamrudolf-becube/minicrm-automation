@@ -12,11 +12,15 @@ currentDirectory = os.path.dirname(os.path.realpath(__file__))
 
 API_INFO_JSON_FILE = currentDirectory + "/api_info.json"
 
-system_id, api_key = load_api_info()
+system_id, api_key = load_api_info(API_INFO_JSON_FILE)
+
+def run(crm_data):
+    crm_data.send_scheduled_emails()
+    crm_data.set_course_states()
+    trace("DAILY SCRIPT EXITED")
+
 
 if __name__ == "__main__":
     command_handler = CommandHandler()
     crm_data = CrmData(system_id, api_key, command_handler)
-    crm_data.send_scheduled_emails()
-    crm_data.set_course_states()
-    trace("DAILY SCRIPT EXITED")
+    run(crm_data)

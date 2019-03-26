@@ -5,6 +5,8 @@ import unittest
 import json
 import os
 
+#from api_outputs import API_OUTPUTS
+#API_RESPONSES = API_OUTPUTS
 # TODO find out why some JSON is outputted even if tracing is turned off
 # TODO put json outputs to one file to make it faster
 
@@ -16,6 +18,7 @@ api_response_file_path = currentDirectory + "/api_outputs.json"
 
 with open(api_response_file_path) as api_response_file:
     API_RESPONSES = json.load(api_response_file)
+
 
 
 class CommandHandlerMock(unittest.TestCase):
@@ -35,8 +38,7 @@ class CommandHandlerMock(unittest.TestCase):
         print("COMMAND SENT TO ---MOCK--- API: {}".format(command))
         response_identifier = self.match_expectation(command)
         formatted_output = API_RESPONSES[response_identifier]["response"]
-        #trace("ANSWER RECEIVED:")
-        #pretty_print(formatted_output)
+        trace("ANSWER RECEIVED:")
         return formatted_output
 
     @stacktrace

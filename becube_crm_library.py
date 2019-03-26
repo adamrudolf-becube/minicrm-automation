@@ -378,7 +378,6 @@ class CrmData:
             else:
                 trace("NO DATA TO UPDATE")
 
-
     @stacktrace
     def send_scheduled_emails(self):
         """
@@ -595,7 +594,6 @@ class CrmData:
         self.command_handler.get_json_array_for_command(
             'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student_data["Id"])
             +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
-
 
     @stacktrace
     def update_headcounts(self):

@@ -7,6 +7,7 @@ from __future__ import print_function
 import sys
 import json
 import datetime
+from commandmapper import CommandMapper
 
 from tracing import stacktrace, trace, pretty_print
 
@@ -55,20 +56,19 @@ class Module:
         self.api_key = api_key
         self.command_handler = command_handler
         self.system_id = system_id
+        self.command_mapper = CommandMapper(system_id, api_key)
         self.available_values = self.query_available_values()
         self.project_list = self.query_project_list()
 
     @stacktrace
     def query_available_values(self):
         return self.command_handler.get_json_array_for_command(
-                 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Schema/Project/{}"'.
-                 format(self.system_id, self.api_key, self.module_id))
+                 self.command_mapper.get_schema_for_module_number(self.module_id))
 
     @stacktrace
     def query_project_list(self):
         return self.command_handler.get_json_array_for_command(
-                 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?CategoryId={}"'.
-                 format(self.system_id, self.api_key, self.module_id))
+                 self.command_mapper.query_project_list(self.module_id))
 
     @stacktrace
     def query_project_list_with_status(self, status):

@@ -119,7 +119,7 @@ class CourseList(Module):
         pretty_print(self.project_list)
         for course in self.project_list["Results"]:
             course_info = self.command_handler.get_json_array_for_command(
-                 self.command_mapper.get_project(course))
+                 self.command_mapper.get_course(course))
             if course_info["TanfolyamBetujele"] == course_code:
                 return course_info
         trace("COURSE NOT FOUND: [{}]".format(course_code))
@@ -130,7 +130,7 @@ class LocationList(Module):
     def get_location_by_name(self, location_name):
         for location in self.project_list["Results"]:
             location_info = self.command_handler.get_json_array_for_command(
-                    self.command_mapper.get_project(location))
+                    self.command_mapper.get_location(location))
             trace("NAME CHECKED: "+location_info["Name"])
             if location_info["Name"] == location_name:
                 return location_info

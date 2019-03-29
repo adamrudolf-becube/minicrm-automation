@@ -32,7 +32,7 @@ class CommandMapper:
     def get_course(self, course_id):
         return self.get_project(course_id)
 
-    def get_locaton(self, location_id):
+    def get_location(self, location_id):
         return self.get_project(location_id)
 
     def get_project(self, project_id):

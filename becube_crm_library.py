@@ -74,12 +74,10 @@ class Module:
     def query_project_list_with_status(self, status):
         trace(self.get_status_number_by_name(status))
         response = self.command_handler.get_json_array_for_command(
-                       'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?StatusId={}"'.
-                       format(self.system_id, self.api_key, self.get_status_number_by_name(status)))
+                        self.command_mapper.get_project_list_for_status(self.get_status_number_by_name(status)))
         if response["Count"] > 100:
             response_second_page = self.command_handler.get_json_array_for_command(
-                                       'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?StatusId={}&Page=1"'.
-                                       format(self.system_id, self.api_key, self.get_status_number_by_name(status)))
+                        self.command_mapper.get_project_list_for_status_page1(self.get_status_number_by_name(status)))
             response["Results"] = dict(dict(response["Results"]), **dict(response_second_page["Results"]))
 
         return response
@@ -121,8 +119,7 @@ class CourseList(Module):
         pretty_print(self.project_list)
         for course in self.project_list["Results"]:
             course_info = self.command_handler.get_json_array_for_command(
-                 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project/{}"'.
-                 format(self.system_id, self.api_key, course))
+                 self.command_mapper.get_project(course))
             if course_info["TanfolyamBetujele"] == course_code:
                 return course_info
         trace("COURSE NOT FOUND: [{}]".format(course_code))
@@ -133,8 +130,7 @@ class LocationList(Module):
     def get_location_by_name(self, location_name):
         for location in self.project_list["Results"]:
             location_info = self.command_handler.get_json_array_for_command(
-                 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project/{}"'.
-                 format(self.system_id, self.api_key, location))
+                    self.command_mapper.get_project(location))
             trace("NAME CHECKED: "+location_info["Name"])
             if location_info["Name"] == location_name:
                 return location_info
@@ -159,6 +155,7 @@ class CrmData:
         """
         self.api_key = api_key
         self.system_id = system_id
+        self.command_mapper = CommandMapper(system_id, api_key)
         self.command_handler = command_handler
         self.set_modules_dictionary()
         # TODO are these lists really used?
@@ -282,8 +279,7 @@ class CrmData:
 
             if update_data:
                 self.command_handler.get_json_array_for_command(
-                    'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student)
-                    +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
+                    self.command_mapper.set_project_data(student, update_data))
 
         self.update_headcounts()
 
@@ -333,8 +329,7 @@ class CrmData:
                 pretty_print(update_data)
 
                 self.command_handler.get_json_array_for_command(
-                    'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student_data["Id"])
-                    +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
+                    self.command_mapper.set_project_data(student_data["Id"], update_data))
 
         self.update_headcounts()
 
@@ -372,9 +367,9 @@ class CrmData:
 
             if update_data:
                 pretty_print(update_data)
+
                 self.command_handler.get_json_array_for_command(
-                    'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, course)
-                    +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
+                    self.command_mapper.set_project_data(course, update_data))
             else:
                 trace("NO DATA TO UPDATE")
 
@@ -538,8 +533,7 @@ class CrmData:
 
             if update_data:
                 self.command_handler.get_json_array_for_command(
-                    'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student)
-                    +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
+                    self.command_mapper.set_project_data(student, update_data))
 
     ###########################################################################
     #                                                                         #
@@ -592,8 +586,7 @@ class CrmData:
         pretty_print(update_data)
 
         self.command_handler.get_json_array_for_command(
-            'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student_data["Id"])
-            +"'{}'".format(json.dumps(update_data, separators=(',',':'))))
+            self.command_mapper.set_project_data(student_data["Id"], update_data))
 
     @stacktrace
     def update_headcounts(self):
@@ -613,8 +606,7 @@ class CrmData:
             trace("APPLICATION IS OPEN, CALCULATING HEADCOUNT")
 
             student_list = self.command_handler.get_json_array_for_command(
-                             'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?TanfolyamKodja={}"'.
-                             format(self.system_id, self.api_key, course_code))["Results"]
+                             self.command_mapper.get_course_by_course_code(course_code))["Results"]
 
             acceptable_statuses = [
                 int(self.jelentkezok.get_status_number_by_name("INFO levél kiment")),
@@ -636,21 +628,15 @@ class CrmData:
             trace("END OF STUDENT LIST, UPDATING HEADCOUNT TO [{}]".format(count))
 
             self.command_handler.get_json_array_for_command(
-                'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.
-                format(self.system_id, self.api_key, course)
-                +"'{}'".format(json.dumps({"AktualisLetszam": count}, separators=(',',':'))))
+                self.command_mapper.set_project_data(course, {"AktualisLetszam": count}))
 
     @stacktrace
     def set_modules_dictionary(self):
-        self.module_dict = self.command_handler.get_json_array_for_command(
-                             'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Category"'.
-                             format(self.system_id, self.api_key))
+        self.module_dict = self.command_handler.get_json_array_for_command(self.command_mapper.get_modul_dictionary())
 
     @stacktrace
     def get_project(self, id):
-        return self.command_handler.get_json_array_for_command(
-                             'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project/{}"'.
-                             format(self.system_id, self.api_key, id))
+        return self.command_handler.get_json_array_for_command(self.command_mapper.get_project(id))
 
     @stacktrace
     def get_module_number_by_name(self, module_name):
@@ -741,17 +727,8 @@ class CrmData:
         Creates a new task in teh CRM ssytem with the given details
         """
 
-        task_data = {
-            "ProjectId":project_id,
-            "Status":"Open",
-            "Comment":comment,
-            "Deadline":deadline,
-            "UserId":userid
-        }
-
         self.command_handler.get_json_array_for_command(
-            "curl -XPUT https://{}:{}@r3.minicrm.hu/Api/R3/ToDo/ -d '{}'".
-            format(self.system_id, self.api_key, json.dumps(task_data, separators=(',',':'))))
+            self.command_mapper.raise_task(project_id, comment, deadline, userid))
 
     @stacktrace
     def fill_student_data(self, student_data, course_data):
@@ -782,5 +759,4 @@ class CrmData:
         pretty_print(data_to_update)
 
         self.command_handler.get_json_array_for_command(
-            'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '.format(self.system_id, self.api_key, student_data["Id"])
-            +"'{}'".format(json.dumps(data_to_update, separators=(',',':'))))
+            self.command_mapper.set_project_data(student_data["Id"], data_to_update))

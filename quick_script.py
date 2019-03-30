@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # MiniCRM automation
 
-from becube_crm_library import CrmData, load_api_info, handle_waiting_list, clean_info_level_kiment
+from becube_crm_library import CrmData, load_api_info, handle_waiting_list, clean_info_level_kiment, register_new_applicants
 from command_handler import CommandHandler
 from tracing import trace
 import os
@@ -16,7 +16,7 @@ system_id, api_key = load_api_info(API_INFO_JSON_FILE)
 def run(crm_data):
     clean_info_level_kiment(crm_data)
     handle_waiting_list(crm_data)
-    crm_data.register_new_applicants()
+    register_new_applicants(crm_data)
     trace("QUICK SCRIPT EXITED")
 
 

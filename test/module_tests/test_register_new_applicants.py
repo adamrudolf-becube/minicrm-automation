@@ -1,10 +1,11 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
+from becube_crm_library import register_new_applicants
 
 
 class TestRegisterNewApplicants(MiniCrmTestBase):
     def test_no_new_applicant_do_nothing(self):
         self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2741"', "empty_new_applicant_list")
-        self.crm_data.register_new_applicants()
+        register_new_applicants(self.crm_data)
 
     def test_student_is_applied_headcount_is_less_than_the_limit_put_student_to_infosent_update_headcounts_copy_course_data(self):
         self.command_handler.expect_command(
@@ -39,7 +40,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d \'{"StatusId":"2781","Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l"}\'',
             'xput_response'
         )
-        self.crm_data.register_new_applicants()
+        register_new_applicants(self.crm_data)
 
     def test_advanced_student_is_applied_headcount_is_less_than_the_limit_put_student_to_infosent_update_headcounts_copy_course_data(self):
         self.command_handler.expect_command(
@@ -74,7 +75,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d \'{"StatusId":"2781","Levelkuldesek":"Halad\u00f3 INFO lev\u00e9l"}\'',
             'xput_response'
         )
-        self.crm_data.register_new_applicants()
+        register_new_applicants(self.crm_data)
 
     def test_student_is_applied_course_doesnt_exist_raise_task_with_errormessage(self):
         self.command_handler.expect_command(
@@ -95,7 +96,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             'curl -XPUT https://FakeUserName:FakeApiKey@r3.minicrm.hu/Api/R3/ToDo/ -d ',
             'xput_response')
 
-        self.crm_data.register_new_applicants()
+        register_new_applicants(self.crm_data)
 
     def test_student_is_applied_headcount_is_not_less_than_the_limit_put_student_to_waiting_list_and_send_mail(self):
         self.command_handler.expect_command(
@@ -130,4 +131,4 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d \'{"StatusId":"2750","Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, V\u00e1r\u00f3lista"}\'',
             'xput_response'
         )
-        self.crm_data.register_new_applicants()
+        register_new_applicants(self.crm_data)

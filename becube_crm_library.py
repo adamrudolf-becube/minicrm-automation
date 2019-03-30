@@ -292,52 +292,52 @@ class CrmData:
     #                                                                         #
     ###########################################################################
 
-    @stacktrace
-    def register_new_applicants(self):
-        """
-        Lists all of the "Jelentkezett" students, and looks for their courses. Based on the course, it fills
-        the needed data in the student's page.
-        If the course is not found, it raises a task in CRM. (Not yet)
-        Assumes that jelentkezok.new_students is up-to-date
-        """
-        self.jelentkezok.update_new_students()
-        student_list = self.jelentkezok.new_students["Results"]
-        trace("LOOPING THROUGH STUDENTS WITH NEW STATUS")
+@stacktrace
+def register_new_applicants(crm_data):
+    """
+    Lists all of the "Jelentkezett" students, and looks for their courses. Based on the course, it fills
+    the needed data in the student's page.
+    If the course is not found, it raises a task in CRM. (Not yet)
+    Assumes that jelentkezok.new_students is up-to-date
+    """
+    crm_data.jelentkezok.update_new_students()
+    student_list = crm_data.jelentkezok.new_students["Results"]
+    trace("LOOPING THROUGH STUDENTS WITH NEW STATUS")
 
-        for student in student_list:
-            self.update_headcounts()
-            student_data = self.get_project(student)
-            trace("COURSE FOR " + student_data["Name"] + " IS " + student_data["MelyikTanfolyamErdekli"])
-            course_code = student_data["MelyikTanfolyamErdekli"]
+    for student in student_list:
+        crm_data.update_headcounts()
+        student_data = crm_data.get_project(student)
+        trace("COURSE FOR " + student_data["Name"] + " IS " + student_data["MelyikTanfolyamErdekli"])
+        course_code = student_data["MelyikTanfolyamErdekli"]
 
-            trace("\nGET COURSE DATA BASED ON COURSE CODE\n")
+        trace("\nGET COURSE DATA BASED ON COURSE CODE\n")
 
-            course_data = self.tanfolymok.get_course_by_course_code(course_code)
-            if course_data:
-                self.fill_student_data(student_data, course_data)
-                self.send_initial_letter(student_data, course_data)
-            else:
-                self.raise_task(
-                    student,
-                    """Érvénytelen kurzuskód: [{}].
+        course_data = crm_data.tanfolymok.get_course_by_course_code(course_code)
+        if course_data:
+            crm_data.fill_student_data(student_data, course_data)
+            crm_data.send_initial_letter(student_data, course_data)
+        else:
+            crm_data.raise_task(
+                student,
+                """Érvénytelen kurzuskód: [{}].
 
-                    Nem tartozik nyitott kurzus ehhez a kódhoz, így a tanfolyamspecifikus adatokat nem sikerült kitölteni, és az INFO levelet a rendszer nem tudta kiküldeni. A jelentkező továbbra is "Jelentkezett" státuszban marad. Lehetséges okok:
-                    - Az ehhez a kurzuskódhoz tartozó kurzus nem "Jelentkezés nyitva" státuszban van.
-                    - A jelentkezési űrlapra hibásan lett beírva a kurzuskód.
-                    - A tanfolyam adatlapjára hibásan lett beírva a kurzuskód.
-                    - A jelentkezési űrlapon választható értékhez egyáltalán nem is tartozik tanfolyam.
+                Nem tartozik nyitott kurzus ehhez a kódhoz, így a tanfolyamspecifikus adatokat nem sikerült kitölteni, és az INFO levelet a rendszer nem tudta kiküldeni. A jelentkező továbbra is "Jelentkezett" státuszban marad. Lehetséges okok:
+                - Az ehhez a kurzuskódhoz tartozó kurzus nem "Jelentkezés nyitva" státuszban van.
+                - A jelentkezési űrlapra hibásan lett beírva a kurzuskód.
+                - A tanfolyam adatlapjára hibásan lett beírva a kurzuskód.
+                - A jelentkezési űrlapon választható értékhez egyáltalán nem is tartozik tanfolyam.
 
-                    TEENDŐ: a hiba okának megfelelően vagy
-                    - módosítsd a jelentkezési űrlapot, és ezután manuálisan válaszd ki, "Melyik tanfolyam érdekli", vagy
-                    - Hozd létre a hiányzó tanfolyamot, vagy ha létezik,
-                    - állítsd "Jelentkezés nyitva" státuszra!
-                    és várj, amíg a reendszer elvégzi a többit!
+                TEENDŐ: a hiba okának megfelelően vagy
+                - módosítsd a jelentkezési űrlapot, és ezután manuálisan válaszd ki, "Melyik tanfolyam érdekli", vagy
+                - Hozd létre a hiányzó tanfolyamot, vagy ha létezik,
+                - állítsd "Jelentkezés nyitva" státuszra!
+                és várj, amíg a reendszer elvégzi a többit!
 
-                    FIGYELEM!
+                FIGYELEM!
 
-                    Az adatok korrigálása után a rendszer automatiksuan megteszi a szokásos lépéseket, így ne küldj manuálisan INFO levelet, és ne változtasd meg a jelentkező státásuzát, mert az elronthatja a folyamatot!
-                    """.format(student_data["MelyikTanfolyamErdekli"]),
-                    (self.today + datetime.timedelta(days=3)).__str__())
+                Az adatok korrigálása után a rendszer automatiksuan megteszi a szokásos lépéseket, így ne küldj manuálisan INFO levelet, és ne változtasd meg a jelentkező státásuzát, mert az elronthatja a folyamatot!
+                """.format(student_data["MelyikTanfolyamErdekli"]),
+                (crm_data.today + datetime.timedelta(days=3)).__str__())
 
 @stacktrace
 def clean_info_level_kiment(crm_data):

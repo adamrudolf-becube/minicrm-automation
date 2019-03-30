@@ -3,7 +3,9 @@
 # -*- coding: utf-8 -*-
 # MiniCRM automation
 
-from becube_crm_library import CrmData, load_api_info, send_scheduled_emails, set_course_states
+from becube_crm_library import send_scheduled_emails, set_course_states
+from commonfunctions import load_api_info
+from crmdata import CrmData
 from command_handler import CommandHandler
 from tracing import trace
 import os
@@ -13,6 +15,7 @@ currentDirectory = os.path.dirname(os.path.realpath(__file__))
 API_INFO_JSON_FILE = currentDirectory + "/api_info.json"
 
 system_id, api_key = load_api_info(API_INFO_JSON_FILE)
+
 
 def run(crm_data):
     send_scheduled_emails(crm_data)

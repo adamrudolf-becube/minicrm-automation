@@ -1,5 +1,6 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import datetime
+from becube_crm_library import clean_info_level_kiment
 
 
 class TestInfoSent(MiniCrmTestBase):
@@ -26,7 +27,7 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.set_participant_number_expectations()
 
-        self.crm_data.clean_info_level_kiment()
+        clean_info_level_kiment(self.crm_data)
 
     def test_student_did_not_finalize_deadline_has_spent_but_not_more_than_24_hours_ago_send_reminder_raise_task(self):
 
@@ -46,7 +47,7 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.set_participant_number_expectations()
 
-        self.crm_data.clean_info_level_kiment()
+        clean_info_level_kiment(self.crm_data)
 
     def test_student_did_not_finalize_deadline_has_spent_more_than_24_hours_ago_delete(self):
 
@@ -66,7 +67,7 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.set_participant_number_expectations()
 
-        self.crm_data.clean_info_level_kiment()
+        clean_info_level_kiment(self.crm_data)
 
     def test_student_did_not_finalize_and_deadline_is_more_than_1_day_away_do_nothing(self):
 
@@ -75,4 +76,4 @@ class TestInfoSent(MiniCrmTestBase):
         self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2601"', "project_2601_fake_student")
         self.set_participant_number_expectations()
 
-        self.crm_data.clean_info_level_kiment()
+        clean_info_level_kiment(self.crm_data)

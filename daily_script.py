@@ -3,7 +3,7 @@
 # -*- coding: utf-8 -*-
 # MiniCRM automation
 
-from becube_crm_library import CrmData, load_api_info, send_scheduled_emails
+from becube_crm_library import CrmData, load_api_info, send_scheduled_emails, set_course_states
 from command_handler import CommandHandler
 from tracing import trace
 import os
@@ -16,7 +16,7 @@ system_id, api_key = load_api_info(API_INFO_JSON_FILE)
 
 def run(crm_data):
     send_scheduled_emails(crm_data)
-    crm_data.set_course_states()
+    set_course_states(crm_data)
     trace("DAILY SCRIPT EXITED")
 
 

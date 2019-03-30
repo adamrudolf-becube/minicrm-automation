@@ -1,5 +1,4 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
-import datetime
 import daily_script
 
 

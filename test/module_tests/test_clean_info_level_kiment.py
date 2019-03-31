@@ -1,6 +1,6 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import datetime
-from becube_crm_library import clean_info_level_kiment
+from functionalities.clean_info_sent import clean_info_level_kiment
 
 
 class TestInfoSent(MiniCrmTestBase):

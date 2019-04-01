@@ -1,6 +1,6 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import datetime
-from becube_crm_library import set_course_states
+from functionalities.setcoursestates import set_course_states
 
 
 class TestRegisterNewApplicants(MiniCrmTestBase):

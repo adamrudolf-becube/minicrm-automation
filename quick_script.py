@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # MiniCRM automation
 
-from becube_crm_library import handle_waiting_list
 from functionalities.clean_info_sent import clean_info_level_kiment
+from functionalities.handlewaitinglist import handle_waiting_list
 from functionalities.registernewapplicants import register_new_applicants
 from commonfunctions import load_api_info
 from crmdata import CrmData

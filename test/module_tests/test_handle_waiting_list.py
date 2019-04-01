@@ -1,5 +1,5 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
-from becube_crm_library import handle_waiting_list
+from functionalities.handlewaitinglist import handle_waiting_list
 
 
 class TestHandleWaitingList(MiniCrmTestBase):

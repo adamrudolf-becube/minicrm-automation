@@ -1,5 +1,5 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
-from becube_crm_library import register_new_applicants
+from functionalities.registernewapplicants import register_new_applicants
 
 
 class TestRegisterNewApplicants(MiniCrmTestBase):

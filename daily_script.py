@@ -3,7 +3,7 @@
 # -*- coding: utf-8 -*-
 # MiniCRM automation
 
-from becube_crm_library import send_scheduled_emails
+from functionalities.sendscheduledmails import send_scheduled_emails
 from functionalities.setcoursestates import set_course_states
 from commonfunctions import load_api_info
 from crmdata import CrmData

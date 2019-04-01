@@ -1,6 +1,6 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import datetime
-from becube_crm_library import send_scheduled_emails
+from functionalities.sendscheduledmails import send_scheduled_emails
 
 
 class TestSendScheduledMails(MiniCrmTestBase):

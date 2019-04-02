@@ -5,8 +5,13 @@ omit =
     */_strptime.py
 
 include =
-    */commandhandlermock.py
-    becube_crm_library.py
+    test.crm_api_mock.commandhandlermock.py
+    quick_script.py
+	daily_script.py
+	crmdata.py
+	commandmapper.py
+	commonfunctions.py
+	modules.py
     
     
 [report]
@@ -15,5 +20,10 @@ omit =
     */_strptime.py
 
 include =
-    */commandhandlermock.py
-    becube_crm_library.py
+    test.crm_api_mock.commandhandlermock.py
+    quick_script.py
+	daily_script.py
+	crmdata.py
+	commandmapper.py
+	commonfunctions.py
+	modules.py

@@ -26,9 +26,6 @@ class CommandMapper:
         return 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?StatusId={}&Page=1"'. \
                format(self.system_id, self.api_key, status_number)
 
-    def get_student(self, student_id):
-        return self.get_project(student_id)
-
     def get_course(self, course_id):
         return self.get_project(course_id)
 

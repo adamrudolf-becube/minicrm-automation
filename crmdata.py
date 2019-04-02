@@ -50,12 +50,6 @@ class CrmData:
         self.today = today
 
     @stacktrace
-    def ok_for_certification(self, student_data):
-        visited_classes = len(student_data["Jelenlet"].split(", "))
-        sent_homeworks = len(student_data["Hazi"].split(", "))
-        return visited_classes >= 8 and sent_homeworks >= 8
-
-    @stacktrace
     def send_initial_letter(self, student_data, course_data):
         """
         Based on the given student, and course, the system sends

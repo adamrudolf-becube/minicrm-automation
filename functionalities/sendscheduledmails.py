@@ -150,7 +150,7 @@ def send_scheduled_emails(crm_data):
             update_data["StatusId"] = crm_data.jelentkezok.get_status_number_by_name("Elvégezte")
             if (student_data["TanfolyamTipusa2"] == "Céges haladó"):
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Oklevél - haladó")
-            if crm_data.ok_for_certification(student_data):
+            if ok_for_certification(student_data):
                 trace("Set: Certified also")
                 if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam"):
                     levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Oklevél - kezdő")
@@ -182,3 +182,9 @@ def send_scheduled_emails(crm_data):
         if update_data:
             crm_data.command_handler.get_json_array_for_command(
                 crm_data.command_mapper.set_project_data(student, update_data))
+
+@stacktrace
+def ok_for_certification(student_data):
+    visited_classes = len(student_data["Jelenlet"].split(", "))
+    sent_homeworks = len(student_data["Hazi"].split(", "))
+    return visited_classes >= 8 and sent_homeworks >= 8

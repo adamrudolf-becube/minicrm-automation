@@ -1,4 +1,13 @@
+# -*- coding: utf-8 -*-
+# MiniCRM automation
+# Copyright Adam Rudolf, 2018
+# BeCube programming school
+
 import json
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 
 def load_api_info(api_info_json_file):

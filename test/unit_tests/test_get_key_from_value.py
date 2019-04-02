@@ -1,5 +1,11 @@
+# -*- coding: utf-8 -*-
+# MiniCRM automation
+# Copyright Adam Rudolf, 2018
+# BeCube programming school
+
+
 import unittest
-from becube_crm_library import get_key_from_value
+from commonfunctions import get_key_from_value
 
 
 class TestGetKeyFromValue(unittest.TestCase):

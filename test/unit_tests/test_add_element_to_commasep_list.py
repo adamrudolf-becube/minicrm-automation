@@ -1,5 +1,5 @@
 import unittest
-from becube_crm_library import add_element_to_commasep_list
+from commonfunctions import add_element_to_commasep_list
 
 
 class TestAddElementToCommaseparatedList(unittest.TestCase):

@@ -20,14 +20,13 @@ def clean_info_level_kiment(crm_data):
     - If finalizing deadline + 1 ady is over, it sets student to "Nem valaszolt", and notifies responsible
     """
 
-    crm_data.jelentkezok.update_info_sent_out_students()
-    student_list = crm_data.jelentkezok.info_sent_out["Results"]
+    student_list = crm_data.get_student_list_with_status("INFO levél kiment")
     trace("LOOPING THROUGH STUDENTS WITH INFO SENT OUT STATUS")
 
     for student in student_list:
         crm_data.update_headcounts()
         trace("HEADCOUNT UPDATE DONE")
-        student_data = crm_data.get_project(student)
+        student_data = crm_data.get_student(student)
         trace("COURSE FOR " + student_data["Name"] + " IS " + student_data["MelyikTanfolyamErdekli"])
 
         update_data = {}
@@ -39,20 +38,17 @@ def clean_info_level_kiment(crm_data):
 
         deadline = datetime.datetime.strptime(student_data["VeglegesitesiHatarido"], "%Y-%m-%d %H:%M:%S")
 
-        trace("TODAY: {}, DEADLINE: {}".format(crm_data.today, deadline))
+        trace("TODAY: {}, DEADLINE: {}".format(crm_data.get_today(), deadline))
 
-        if crm_data.today >= deadline + datetime.timedelta(days=-1):
-            trace("In first if")
+        if crm_data.get_today() >= deadline + datetime.timedelta(days=-1):
             levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Egy napod van jelentkezni")
 
-        if crm_data.today >= deadline:
-            trace("In second if")
+        if crm_data.get_today() >= deadline:
             levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Ma kell jelentkezni")
 
-        if crm_data.today >= deadline + datetime.timedelta(days=+1):
-            trace("In third if")
+        if crm_data.get_today() >= deadline + datetime.timedelta(days=+1):
             levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Toroltunk")
-            update_data["StatusId"] = crm_data.jelentkezok.get_status_number_by_name("Nem jelzett vissza")
+            update_data["StatusId"] = crm_data.get_student_status_number_by_name("Nem jelzett vissza")
 
         if levelkuldesek != levelkuldesek_old:
             trace("CHANGE IN LEVELKULDESEK")
@@ -61,7 +57,6 @@ def clean_info_level_kiment(crm_data):
             trace("NO CHANGE IN LEVELKULDESEK")
 
         if update_data:
-            crm_data.command_handler.get_json_array_for_command(
-                crm_data.command_mapper.set_project_data(student, update_data))
+            crm_data.set_student_data(student, update_data)
 
     crm_data.update_headcounts()

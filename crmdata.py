@@ -50,6 +50,30 @@ class CrmData:
         self.today = today
 
     @stacktrace
+    def get_student_list_with_status(self, status):
+        self.jelentkezok.update_info_sent_out_students()
+        return self.jelentkezok.info_sent_out["Results"]
+
+    @stacktrace
+    def get_student(self, student):
+        return self.get_project(student)
+
+    @stacktrace
+    def get_today(self):
+        return self.today
+
+    @stacktrace
+    def get_student_status_number_by_name(self, statusname):
+        return self.jelentkezok.get_status_number_by_name(statusname)
+
+    @stacktrace
+    def set_student_data(self, student, data):
+        self.command_handler.get_json_array_for_command(
+            self.command_mapper.set_project_data(student, data))
+
+    # Private methods --------------------------------------------------------------------------------------------------
+
+    @stacktrace
     def send_initial_letter(self, student_data, course_data):
         """
         Based on the given student, and course, the system sends

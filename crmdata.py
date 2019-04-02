@@ -51,8 +51,7 @@ class CrmData:
 
     @stacktrace
     def get_student_list_with_status(self, status):
-        self.jelentkezok.update_info_sent_out_students()
-        return self.jelentkezok.info_sent_out["Results"]
+        return self.jelentkezok.query_project_list_with_status(status)["Results"]
 
     @stacktrace
     def get_student(self, student):
@@ -70,6 +69,10 @@ class CrmData:
     def set_student_data(self, student, data):
         self.command_handler.get_json_array_for_command(
             self.command_mapper.set_project_data(student, data))
+
+    @stacktrace
+    def get_course_by_course_code(self, course_code):
+        return self.tanfolymok.get_course_by_course_code(course_code)
 
     # Private methods --------------------------------------------------------------------------------------------------
 

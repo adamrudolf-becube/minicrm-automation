@@ -14,15 +14,14 @@ def handle_waiting_list(crm_data):
     free space in their course, it sends them the INFO letter and chenges their
     status. Also updates the headcounts of courses.
     """
-    crm_data.jelentkezok.update_waitin_list_students()
-    student_list = crm_data.jelentkezok.waiting_list_students["Results"]
+    student_list = crm_data.get_student_list_with_status("Várólistán van")
     trace("LOOPING THROUGH STUDENTS ON WAITING LIST")
 
     student_ordered_list = []
 
     for student in student_list:
         trace("GETTING DETAILED DATA FOR SORTING")
-        student_data = crm_data.get_project(student)
+        student_data = crm_data.get_student(student)
         student_ordered_list.append(student_data)
 
     student_ordered_list.sort(key=lambda student_instance: student_instance["CreatedAt"])
@@ -36,7 +35,7 @@ def handle_waiting_list(crm_data):
         crm_data.update_headcounts()
         trace("COURSE FOR " + student_data["Name"] + " IS " + student_data["MelyikTanfolyamErdekli"])
         course_code = student_data["MelyikTanfolyamErdekli"]
-        course_data = crm_data.tanfolymok.get_course_by_course_code(course_code)
+        course_data = crm_data.get_course_by_course_code(course_code)
 
         is_there_free_spot = (course_data["MaximalisLetszam"] - course_data["AktualisLetszam"]) > 0
 
@@ -48,12 +47,11 @@ def handle_waiting_list(crm_data):
 
             update_data["Levelkuldesek"] = student_data[
                                                "Levelkuldesek"] + ", Kezdő INFO levél, Felszabadult egy hely"
-            update_data["StatusId"] = crm_data.jelentkezok.get_status_number_by_name("INFO levél kiment")
+            update_data["StatusId"] = crm_data.get_student_status_number_by_name("INFO levél kiment")
 
             trace("DATA TO UPDATE:")
             pretty_print(update_data)
 
-            crm_data.command_handler.get_json_array_for_command(
-                crm_data.command_mapper.set_project_data(student_data["Id"], update_data))
+            crm_data.set_student_data(student_data["Id"], update_data)
 
     crm_data.update_headcounts()

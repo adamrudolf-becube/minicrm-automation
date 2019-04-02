@@ -17,19 +17,19 @@ def register_new_applicants(crm_data):
     If the course is not found, it raises a task in CRM. (Not yet)
     Assumes that jelentkezok.new_students is up-to-date
     """
-    crm_data.jelentkezok.update_new_students()
-    student_list = crm_data.jelentkezok.new_students["Results"]
+
+    student_list = crm_data.get_student_list_with_status("Jelentkezett")
     trace("LOOPING THROUGH STUDENTS WITH NEW STATUS")
 
     for student in student_list:
         crm_data.update_headcounts()
-        student_data = crm_data.get_project(student)
+        student_data = crm_data.get_student(student)
         trace("COURSE FOR " + student_data["Name"] + " IS " + student_data["MelyikTanfolyamErdekli"])
         course_code = student_data["MelyikTanfolyamErdekli"]
 
         trace("\nGET COURSE DATA BASED ON COURSE CODE\n")
 
-        course_data = crm_data.tanfolymok.get_course_by_course_code(course_code)
+        course_data = crm_data.get_course_by_course_code(course_code)
         if course_data:
             crm_data.fill_student_data(student_data, course_data)
             crm_data.send_initial_letter(student_data, course_data)
@@ -54,5 +54,5 @@ def register_new_applicants(crm_data):
 
                 Az adatok korrigálása után a rendszer automatiksuan megteszi a szokásos lépéseket, így ne küldj manuálisan INFO levelet, és ne változtasd meg a jelentkező státásuzát, mert az elronthatja a folyamatot!
                 """.format(student_data["MelyikTanfolyamErdekli"]),
-                (crm_data.today + datetime.timedelta(days=3)).__str__())
+                (crm_data.get_today() + datetime.timedelta(days=3)).__str__())
 

@@ -38,3 +38,12 @@ def add_element_to_commasep_list(input_list, element):
     else:
         out_list = input_list
     return out_list
+
+
+def merge_dicts(left_dict, right_dict, third_dict=None):
+    if third_dict:
+        out_list = dict(dict(left_dict), **dict(right_dict))
+        out_list = dict(dict(out_list), **dict(third_dict))
+        return out_list
+    else:
+        return dict(dict(left_dict, **dict(right_dict)))

@@ -186,8 +186,3 @@ def ok_for_certification(student_data):
     visited_classes = len(student_data["Jelenlet"].split(", "))
     sent_homeworks = len(student_data["Hazi"].split(", "))
     return visited_classes >= 8 and sent_homeworks >= 8
-
-
-@stacktrace
-def merge_dicts(left_dict, right_dict):
-    return dict(dict(left_dict, **dict(right_dict)))

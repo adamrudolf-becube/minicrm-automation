@@ -58,6 +58,10 @@ class CrmData:
         return self.get_project(student)
 
     @stacktrace
+    def get_course(self, course):
+        return self.get_project(course)
+
+    @stacktrace
     def get_today(self):
         return self.today
 
@@ -66,13 +70,29 @@ class CrmData:
         return self.jelentkezok.get_status_number_by_name(statusname)
 
     @stacktrace
+    def get_course_status_number_by_name(self, statusname):
+        return self.tanfolymok.get_status_number_by_name(statusname)
+
+    @stacktrace
     def set_student_data(self, student, data):
+        self.set_project_data(student, data)
+
+    @stacktrace
+    def set_course_data(self, course, data):
+        self.set_project_data(course, data)
+
+    @stacktrace
+    def set_project_data(self, student, data):
         self.command_handler.get_json_array_for_command(
             self.command_mapper.set_project_data(student, data))
 
     @stacktrace
     def get_course_by_course_code(self, course_code):
         return self.tanfolymok.get_course_by_course_code(course_code)
+
+    @stacktrace
+    def get_course_list_with_status(self, status):
+        return self.tanfolymok.query_project_list_with_status(status)["Results"]
 
     # Private methods --------------------------------------------------------------------------------------------------
 

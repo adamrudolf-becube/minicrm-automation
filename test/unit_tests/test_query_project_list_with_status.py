@@ -12,5 +12,5 @@ class TestQueryProjectListWithStatus(MiniCrmTestBase):
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2749&Page=1"',
             'student_list_105_active_page1'
         )
-        results = self.crm_data.jelentkezok.query_project_list_with_status("Kurzus folyamatban")
-        self.assertEqual(len(results["Results"]), 105)
+        results = self.crm_data.get_student_list_with_status("Kurzus folyamatban")
+        self.assertEqual(len(results), 105)

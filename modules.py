@@ -54,28 +54,6 @@ class Module:
         return get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
 
 
-class CustomerList(Module):
-    @stacktrace
-    def update_new_students(self):
-        self.new_students = self.query_project_list_with_status("Jelentkezett")
-
-    @stacktrace
-    def update_info_sent_out_students(self):
-        self.info_sent_out = self.query_project_list_with_status("INFO levél kiment")
-
-    @stacktrace
-    def update_waitin_list_students(self):
-        self.waiting_list_students = self.query_project_list_with_status("Várólistán van")
-
-    @stacktrace
-    def update_active_students(self):
-        self.active_students = self.query_project_list_with_status("Kurzus folyamatban")
-
-    @stacktrace
-    def update_spectators(self):
-        self.spectators = self.query_project_list_with_status("Megfigyelő")
-
-
 class CourseList(Module):
     @stacktrace
     def get_course_by_course_code(self, course_code):

@@ -26,9 +26,9 @@ class MiniCrmTestBase(unittest.TestCase, object):
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Schema/Project/20"',
             'project_20_01')
-        self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?CategoryId=20"',
-            'category_id_20')
+        #self.command_handler.expect_command(
+        #    'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?CategoryId=20"',
+        #    'category_id_20')
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Schema/Project/21"',
             'schema_project_21')

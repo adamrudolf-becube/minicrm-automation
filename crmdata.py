@@ -6,8 +6,8 @@
 from tracing import stacktrace, trace, pretty_print
 import datetime
 from commandmapper import CommandMapper
-from modules import CustomerList, CourseList, LocationList
-from commonfunctions import add_element_to_commasep_list
+from modules import CourseList, LocationList
+from commonfunctions import add_element_to_commasep_list, get_key_from_value
 
 
 class CrmData:
@@ -28,11 +28,7 @@ class CrmData:
         self.command_handler = command_handler
         self.set_modules_dictionary()
         # TODO are these lists really used?
-        self.jelentkezok = CustomerList(
-            self.get_module_number_by_name("Jelentkezés"),
-            self.system_id,
-            self.api_key,
-            command_handler)
+        self.student_schema = self.get_schema_for_module(self.get_module_number_by_name("Jelentkezés"))
         self.tanfolymok = CourseList(
             self.get_module_number_by_name("Tanfolyamok"),
             self.system_id,
@@ -51,7 +47,7 @@ class CrmData:
 
     @stacktrace
     def get_student_list_with_status(self, status):
-        return self.jelentkezok.query_project_list_with_status(status)["Results"]
+        return self.query_project_list_with_status_id(self.get_student_status_number_by_name(status))
 
     @stacktrace
     def get_student(self, student):
@@ -66,8 +62,11 @@ class CrmData:
         return self.today
 
     @stacktrace
-    def get_student_status_number_by_name(self, statusname):
-        return self.jelentkezok.get_status_number_by_name(statusname)
+    def get_student_status_number_by_name(self, status_name):
+        status_dictionary = self.student_schema["StatusId"]
+        return_value = get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
+        trace("STATUS CODE FOR [{}] IS [{}]".format(status_name, return_value))
+        return return_value
 
     @stacktrace
     def get_course_status_number_by_name(self, statusname):
@@ -97,6 +96,22 @@ class CrmData:
     # Private methods --------------------------------------------------------------------------------------------------
 
     @stacktrace
+    def query_project_list_with_status_id(self, status_id):
+        trace(status_id)
+        response = self.command_handler.get_json_array_for_command(
+                        self.command_mapper.get_project_list_for_status(status_id))
+        if response["Count"] > 100:
+            response_second_page = self.command_handler.get_json_array_for_command(
+                        self.command_mapper.get_project_list_for_status_page1(status_id))
+            response["Results"] = dict(dict(response["Results"]), **dict(response_second_page["Results"]))
+
+        return response["Results"]
+
+    def get_schema_for_module(self, module):
+        return self.command_handler.get_json_array_for_command(
+            self.command_mapper.get_schema_for_module_number(module))
+
+    @stacktrace
     def send_initial_letter(self, student_data, course_data):
         """
         Based on the given student, and course, the system sends
@@ -112,7 +127,7 @@ class CrmData:
 
             update_data["Levelkuldesek"] = student_data["Levelkuldesek"] + ", Várólista"
 
-            update_data["StatusId"] = self.jelentkezok.get_status_number_by_name("Várólistán van")
+            update_data["StatusId"] = self.get_student_status_number_by_name("Várólistán van")
 
         else:
 
@@ -129,7 +144,7 @@ class CrmData:
                 trace("IN HALADO IF")
                 update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"], "Haladó INFO levél")
 
-            update_data["StatusId"] = self.jelentkezok.get_status_number_by_name("INFO levél kiment")
+            update_data["StatusId"] = self.get_student_status_number_by_name("INFO levél kiment")
 
 
         trace("DATA TO UPDATE:")
@@ -159,8 +174,8 @@ class CrmData:
                              self.command_mapper.get_course_by_course_code(course_code))["Results"]
 
             acceptable_statuses = [
-                int(self.jelentkezok.get_status_number_by_name("INFO levél kiment")),
-                int(self.jelentkezok.get_status_number_by_name("Kurzus folyamatban"))
+                int(self.get_student_status_number_by_name("INFO levél kiment")),
+                int(self.get_student_status_number_by_name("Kurzus folyamatban"))
             ]
 
             trace("ACCEPTABLE STATUSES: [{}]".format(acceptable_statuses))

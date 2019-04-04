@@ -171,7 +171,7 @@ class CrmData:
             trace("APPLICATION IS OPEN, CALCULATING HEADCOUNT")
 
             student_list = self.command_handler.get_json_array_for_command(
-                             self.command_mapper.get_course_by_course_code(course_code))["Results"]
+                             self.command_mapper.get_student_list_by_course_code(course_code))["Results"]
 
             acceptable_statuses = [
                 int(self.get_student_status_number_by_name("INFO levél kiment")),

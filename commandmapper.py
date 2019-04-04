@@ -41,7 +41,7 @@ class CommandMapper:
                    format(self.system_id, self.api_key, project_id) +\
                    "'{}'".format(json.dumps(data_json, separators=(',', ':')))
 
-    def get_course_by_course_code(self, course_code):
+    def get_student_list_by_course_code(self, course_code):
         return 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?TanfolyamKodja={}"'. \
                              format(self.system_id, self.api_key, course_code)
 

@@ -18,6 +18,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             'fake_student_zero_mails')
 
         self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
+        self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_one_place_free')
 
@@ -53,6 +57,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             'fake_student_advanced_zero_mails')
 
         self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
+        self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_advanced_one_place_free')
 
@@ -85,12 +93,13 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2941"',
-            'project_2601_fake_student_nonexistent_course')
+            'project_2601_fake_student_nonexistent_course'
+        )
 
-        for i in range(1, 76):
-            self.command_handler.expect_command(
-                "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project/",
-                'project_2037_2019-1_Q_one_place_free')
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=NONEXISTENT"',
+            'course_list_for_nonexistent_course_code'
+        )
 
         self.command_handler.expect_command(
             'curl -XPUT https://FakeUserName:FakeApiKey@r3.minicrm.hu/Api/R3/ToDo/ -d ',
@@ -108,6 +117,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2941"',
             'project_2601_fake_student')
 
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_full')

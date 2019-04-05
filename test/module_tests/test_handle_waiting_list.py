@@ -4,12 +4,6 @@ from functionalities.handlewaitinglist import handle_waiting_list
 
 class TestHandleWaitingList(MiniCrmTestBase):
 
-    def set_participant_number_expectations(self):
-        self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2753"', 'status_id_2753_one_course_open')
-        self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2037"', 'project_2037_2019-1_Q')
-        self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamKodja=2019-1-Q"', 'tanfolyam_kodja_2019_1_Q')
-        self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2037" -d \'{"AktualisLetszam":6}\'', 'xput_response')
-
     def test_there_is_one_student_on_waiting_list_but_there_are_no_free_places_do_nothing(self):
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2750"',
@@ -18,6 +12,10 @@ class TestHandleWaitingList(MiniCrmTestBase):
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2790"',
             'project_2601_fake_student')
         self.set_participant_number_expectations()
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_full'
@@ -37,10 +35,18 @@ class TestHandleWaitingList(MiniCrmTestBase):
             'project_later_fake_student')
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
+        self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_full'
         )
         self.set_participant_number_expectations()
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_full'
@@ -56,6 +62,10 @@ class TestHandleWaitingList(MiniCrmTestBase):
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2790"',
             'project_2601_fake_student')
         self.set_participant_number_expectations()
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_one_place_free')
@@ -77,12 +87,20 @@ class TestHandleWaitingList(MiniCrmTestBase):
             'project_later_fake_student')
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
+        self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_one_place_free')
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d \'{"StatusId":"2781","Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"}\'',
             'xput_response')
         self.set_participant_number_expectations()
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_full'
@@ -102,12 +120,20 @@ class TestHandleWaitingList(MiniCrmTestBase):
             'project_later_fake_student')
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
+        self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_one_place_free')
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d \'{"StatusId":"2781","Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"}\'',
             'xput_response')
         self.set_participant_number_expectations()
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_one_place_free'
@@ -140,12 +166,20 @@ class TestHandleWaitingList(MiniCrmTestBase):
 
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
+        self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_one_place_free')
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d \'{"StatusId":"2781","Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"}\'',
             'xput_response')
         self.set_participant_number_expectations()
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_one_place_free'
@@ -156,15 +190,27 @@ class TestHandleWaitingList(MiniCrmTestBase):
 
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
-            'project_2037_2019-1_Q_full'
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
         )
-        self.set_participant_number_expectations()
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_full'
         )
         self.set_participant_number_expectations()
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
+            'project_2037_2019-1_Q_full'
+        )
+        self.set_participant_number_expectations()
+        self.command_handler.expect_command(
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-1-Q',
+            'course_list_for_course_code'
+        )
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_full'

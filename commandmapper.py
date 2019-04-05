@@ -29,6 +29,10 @@ class CommandMapper:
     def get_course(self, course_id):
         return self.get_project(course_id)
 
+    def get_course_list_by_course_code(self, course_code):
+        return 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele={}"'.\
+            format(self.system_id, self.api_key, course_code)
+
     def get_location(self, location_id):
         return self.get_project(location_id)
 

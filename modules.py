@@ -54,20 +54,6 @@ class Module:
         return get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
 
 
-class CourseList(Module):
-    @stacktrace
-    def get_course_by_course_code(self, course_code):
-
-        # TODO https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-4-E
-        pretty_print(self.project_list)
-        for course in self.project_list["Results"]:
-            course_info = self.command_handler.get_json_array_for_command(
-                 self.command_mapper.get_course(course))
-            if course_info["TanfolyamBetujele"] == course_code:
-                return course_info
-        trace("COURSE NOT FOUND: [{}]".format(course_code))
-
-
 class LocationList(Module):
     @stacktrace
     def get_location_by_name(self, location_name):

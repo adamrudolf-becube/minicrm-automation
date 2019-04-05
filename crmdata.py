@@ -6,7 +6,7 @@
 from tracing import stacktrace, trace, pretty_print
 import datetime
 from commandmapper import CommandMapper
-from modules import CourseList, LocationList
+from modules import LocationList
 from commonfunctions import add_element_to_commasep_list, get_key_from_value
 
 
@@ -29,11 +29,7 @@ class CrmData:
         self.set_modules_dictionary()
         # TODO are these lists really used?
         self.student_schema = self.get_schema_for_module(self.get_module_number_by_name("Jelentkezés"))
-        self.tanfolymok = CourseList(
-            self.get_module_number_by_name("Tanfolyamok"),
-            self.system_id,
-            self.api_key,
-            command_handler)
+        self.course_schema = self.get_schema_for_module(self.get_module_number_by_name("Tanfolyamok"))
         self.today = today
 
     def set_today(self, today):
@@ -48,6 +44,10 @@ class CrmData:
     @stacktrace
     def get_student_list_with_status(self, status):
         return self.query_project_list_with_status_id(self.get_student_status_number_by_name(status))
+
+    @stacktrace
+    def get_course_list_with_status(self, status):
+        return self.query_project_list_with_status_id(self.get_course_status_number_by_name(status))
 
     @stacktrace
     def get_student(self, student):
@@ -69,8 +69,11 @@ class CrmData:
         return return_value
 
     @stacktrace
-    def get_course_status_number_by_name(self, statusname):
-        return self.tanfolymok.get_status_number_by_name(statusname)
+    def get_course_status_number_by_name(self, status_name):
+        status_dictionary = self.course_schema["StatusId"]
+        return_value = get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
+        trace("STATUS CODE FOR [{}] IS [{}]".format(status_name, return_value))
+        return return_value
 
     @stacktrace
     def set_student_data(self, student, data):
@@ -87,11 +90,18 @@ class CrmData:
 
     @stacktrace
     def get_course_by_course_code(self, course_code):
-        return self.tanfolymok.get_course_by_course_code(course_code)
 
-    @stacktrace
-    def get_course_list_with_status(self, status):
-        return self.tanfolymok.query_project_list_with_status(status)["Results"]
+        course_list = self.command_handler.get_json_array_for_command(
+            self.command_mapper.get_course_list_by_course_code(course_code)
+        )
+
+        pretty_print(course_list)
+        for course in course_list["Results"]:
+
+            return self.command_handler.get_json_array_for_command(
+                 self.command_mapper.get_course(course))
+        trace("COURSE NOT FOUND: [{}]".format(course_code))
+        return None
 
     # Private methods --------------------------------------------------------------------------------------------------
 
@@ -158,7 +168,7 @@ class CrmData:
         """
         Loops through all open ("Jelentkezés nyitva") courses, and calculates how many applicants are there. It writes the result to the CRM page of the course.
         """
-        course_list = self.tanfolymok.query_project_list_with_status("Jelentkezés nyitva")["Results"]
+        course_list = self.get_course_list_with_status("Jelentkezés nyitva")
         pretty_print(course_list)
 
         for course in course_list:

@@ -44,7 +44,6 @@ def set_course_states(crm_data):
         if update_data:
             pretty_print(update_data)
 
-            crm_data.command_handler.get_json_array_for_command(
-                crm_data.command_mapper.set_project_data(course, update_data))
+            crm_data.set_course_data(course, update_data)
         else:
             trace("NO DATA TO UPDATE")

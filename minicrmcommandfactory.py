@@ -6,7 +6,8 @@ higher level logic independent from the concrete commands, but also to help phra
 
 import json
 
-class CommandMapper:
+
+class MinicrmCommandFactory:
     def __init__(self, system_id, api_key):
         self.system_id = system_id
         self.api_key = api_key

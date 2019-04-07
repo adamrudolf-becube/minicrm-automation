@@ -186,6 +186,9 @@ For all APPLICATION_OPEN courses: INFO_SENT and ACTIVE students should be counte
 set PYTHONPATH=%PYTHONPATH%;.
 nosetests --with-coverage --cover-erase --cover-html-dir=./coverage-reports --cover-html --cov-config .coveragerc
 
+nosetests --with-coverage --cover-erase --cover-html-dir=./coverage-reports --cover-html --cov-config .coveragerc > tex
+t.txt 2>&1
+
 
 * Description
 * Testname (slogan)

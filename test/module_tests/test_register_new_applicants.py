@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 from functionalities.registernewapplicants import register_new_applicants
 
@@ -23,15 +24,12 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
-            'project_2037_2019-1_Q_one_place_free')
+            'project_2037_2019-1_Q_one_place_free'
+        )
 
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Schema/Project/22"',
-            'places_schema'
-        )
-        self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?CategoryId=22"',
-            'places_list'
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?EgyediAzonosito=\"Pannon Kincstár\""',
+            'location_list_for_location_name'
         )
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/19"',
@@ -65,12 +63,8 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             'project_2037_2019-1_Q_advanced_one_place_free')
 
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Schema/Project/22"',
-            'places_schema'
-        )
-        self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?CategoryId=22"',
-            'places_list'
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?EgyediAzonosito=\"Pannon Kincstár\""',
+            'location_list_for_location_name'
         )
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/19"',
@@ -124,14 +118,9 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/1164"',
             'project_2037_2019-1_Q_full')
-
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Schema/Project/22"',
-            'places_schema'
-        )
-        self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?CategoryId=22"',
-            'places_list'
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?EgyediAzonosito=\"Pannon Kincstár\""',
+            'location_list_for_location_name'
         )
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/19"',

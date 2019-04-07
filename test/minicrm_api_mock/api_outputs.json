@@ -6412,6 +6412,25 @@
 		}
 	},
 
+	"location_list_for_location_name": {
+		"description": "",
+		"command": "curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?EgyediAzonosito=\"Pannon Kincstár\"\"",
+		"response": {
+			"Count":1,
+			"Results": {
+				"19": {
+					"Id":19,
+					"Name":"Pannon Kincstár",
+					"Url":"https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/19",
+					"ContactId":1290,
+					"StatusId":2753,
+					"UserId":56733,
+					"Deleted":0
+				}
+			}
+		}
+	},
+
 
 	"course_list_for_nonexistent_course_code": {
 		"description": "",

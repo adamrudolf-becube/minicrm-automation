@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import datetime
 import quick_script
@@ -66,13 +67,10 @@ class TestQuickScript(MiniCrmTestBase):
             'project_2037_2019-1_Q_one_place_free')
 
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Schema/Project/22"',
-            'places_schema'
+            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?EgyediAzonosito=\"Pannon Kincstár\""',
+            'location_list_for_location_name'
         )
-        self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?CategoryId=22"',
-            'places_list'
-        )
+
         self.command_handler.expect_command(
             'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/19"',
             'pannon_kincstar_data'

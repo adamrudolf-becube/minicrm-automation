@@ -6,7 +6,6 @@
 from tracing import stacktrace, trace, pretty_print
 import datetime
 from commandmapper import CommandMapper
-from modules import LocationList
 from commonfunctions import add_element_to_commasep_list, get_key_from_value
 
 
@@ -27,7 +26,6 @@ class CrmData:
         self.command_mapper = CommandMapper(system_id, api_key)
         self.command_handler = command_handler
         self.set_modules_dictionary()
-        # TODO are these lists really used?
         self.student_schema = self.get_schema_for_module(self.get_module_number_by_name("Jelentkezés"))
         self.course_schema = self.get_schema_for_module(self.get_module_number_by_name("Tanfolyamok"))
         self.today = today
@@ -97,10 +95,25 @@ class CrmData:
 
         pretty_print(course_list)
         for course in course_list["Results"]:
-
             return self.command_handler.get_json_array_for_command(
                  self.command_mapper.get_course(course))
+
         trace("COURSE NOT FOUND: [{}]".format(course_code))
+        return None
+
+    @stacktrace
+    def get_location_by_name(self, location_name):
+
+        location_list = self.command_handler.get_json_array_for_command(
+            self.command_mapper.get_location_list_by_location_name(location_name)
+        )
+
+        pretty_print(location_list)
+        for location in location_list["Results"]:
+            return self.command_handler.get_json_array_for_command(
+                 self.command_mapper.get_location(location))
+
+        trace("COURSE NOT FOUND: [{}]".format(location_name))
         return None
 
     # Private methods --------------------------------------------------------------------------------------------------
@@ -121,6 +134,7 @@ class CrmData:
         return self.command_handler.get_json_array_for_command(
             self.command_mapper.get_schema_for_module_number(module))
 
+    # TODO put it maybe to register_new_applicants
     @stacktrace
     def send_initial_letter(self, student_data, course_data):
         """
@@ -218,13 +232,8 @@ class CrmData:
         return self.module_dict.keys()[self.module_dict.values().index(unicode(module_name, "utf-8"))]
 
     @stacktrace
-    def get_detailed_description(self, location):
-        location_list = LocationList(self.get_module_number_by_name("Helyszínek"),
-                                     self.system_id,
-                                     self.api_key,
-                                     self.command_handler)
-
-        location_data = location_list.get_location_by_name(location)
+    def get_detailed_description(self, location_name):
+        location_data = self.get_location_by_name(location_name)
         pretty_print(location_data)
         return location_data["ReszletesHelyszinleiras"]
 

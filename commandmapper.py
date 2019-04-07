@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 This library defines abstract functionalities and returns a string for them. This can be used for having the
 higher level logic independent from the concrete commands, but also to help phrase the exoectations in the tests
@@ -26,6 +27,9 @@ class CommandMapper:
         return 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?StatusId={}&Page=1"'. \
                format(self.system_id, self.api_key, status_number)
 
+    def get_location(self, location_id):
+        return self.get_project(location_id)
+
     def get_course(self, course_id):
         return self.get_project(course_id)
 
@@ -33,8 +37,9 @@ class CommandMapper:
         return 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele={}"'.\
             format(self.system_id, self.api_key, course_code)
 
-    def get_location(self, location_id):
-        return self.get_project(location_id)
+    def get_location_list_by_location_name(self, location_name):
+        return 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?EgyediAzonosito=\"{}\""'.\
+            format(self.system_id, self.api_key, location_name)
 
     def get_project(self, project_id):
         return 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project/{}"'. \

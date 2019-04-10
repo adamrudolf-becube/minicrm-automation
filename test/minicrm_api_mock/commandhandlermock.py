@@ -20,7 +20,6 @@ with open(api_response_file_path) as api_response_file:
     API_RESPONSES = json.load(api_response_file)
 
 
-
 class CommandHandlerMock(unittest.TestCase):
 
     def __init__(self):

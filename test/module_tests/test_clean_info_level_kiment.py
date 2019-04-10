@@ -14,15 +14,15 @@ class TestInfoSent(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 1, 22, 12, 0))
 
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2781"',
+            self.crm_command_factory.get_project_list_for_status(2781),
             'status_id_2781_one_student_info_sent')
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2601"',
+            self.crm_command_factory.get_student(2601),
             "project_2601_fake_student")
 
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d \'{"Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni"}\'',
+            self.crm_command_factory.set_project_data(2601, {"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni"}),
             'xput_response')
 
         self.set_participant_number_expectations()
@@ -34,15 +34,18 @@ class TestInfoSent(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 1, 23, 12, 0))
 
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2781"',
+            self.crm_command_factory.get_project_list_for_status(2781),
             'status_id_2781_one_student_info_sent')
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2601"',
+            self.crm_command_factory.get_student(2601),
             "project_2601_fake_student")
 
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d \'{"Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni, Ma kell jelentkezni"}\'',
+            self.crm_command_factory.set_project_data(
+                2601,
+                {u"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni, Ma kell jelentkezni"}
+            ),
             'xput_response')
 
         self.set_participant_number_expectations()
@@ -54,15 +57,15 @@ class TestInfoSent(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 1, 24, 12, 0))
 
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2781"',
+            self.crm_command_factory.get_project_list_for_status(2781),
             'status_id_2781_one_student_info_sent')
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2601"',
+            self.crm_command_factory.get_student(2601),
             "project_2601_fake_student")
 
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d \'{"StatusId":"2782","Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni, Ma kell jelentkezni, Toroltunk"}\'',
+            self.crm_command_factory.set_project_data(2601, {u"StatusId":u"2782",u"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni, Ma kell jelentkezni, Toroltunk"}),
             'xput_response')
 
         self.set_participant_number_expectations()
@@ -71,9 +74,15 @@ class TestInfoSent(MiniCrmTestBase):
 
     def test_student_did_not_finalize_and_deadline_is_more_than_1_day_away_do_nothing(self):
 
-        self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2781"', 'status_id_2781_one_student_info_sent')
+        self.command_handler.expect_command(
+            self.crm_command_factory.get_project_list_for_status(2781),
+            'status_id_2781_one_student_info_sent'
+        )
         self.set_participant_number_expectations()
-        self.command_handler.expect_command('curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2601"', "project_2601_fake_student")
+        self.command_handler.expect_command(
+            self.crm_command_factory.get_student(2601),
+            "project_2601_fake_student"
+        )
         self.set_participant_number_expectations()
 
         clean_info_level_kiment(self.crm_data)

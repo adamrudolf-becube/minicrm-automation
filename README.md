@@ -75,7 +75,7 @@ This loops through students in the given state. The action made on them is indep
 * Given:
     * Student is in INFO_SENT state
     * Finalizing form has not been sent
-    * Deadline is greater than today's date, but difference is smaller than 24 hours
+    * Deadline is greater than _today's date, but difference is smaller than 24 hours
 * Then:
     * Trigger sending reminder e-mail
     * Create task for MiniCRM responsible

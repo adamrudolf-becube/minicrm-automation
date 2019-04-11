@@ -12,28 +12,28 @@ class TestDailyScript(MiniCrmTestBase):
 
     def expect_send_scheduled_mails(self):
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2749"',
+            self.crm_command_factory.get_project_list_for_status(2749),
             'list_of_active_studetns_only_one_student'
         )
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2784"',
+            self.crm_command_factory.get_project_list_for_status(2784),
             'empty_student_list'
         )
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2126"',
+            self.crm_command_factory.get_student(2126),
             'project_2601_fake_student'
         )
 
     def expect_set_course_states(self):
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2753"',
+            self.crm_command_factory.get_project_list_for_status(2753),
             'status_id_2753_one_course_open')
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2758"',
+            self.crm_command_factory.get_project_list_for_status(2758),
             'empty_new_applicant_list')
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2797"',
+            self.crm_command_factory.get_project_list_for_status(2797),
             'empty_new_applicant_list')
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project/2037"',
+            self.crm_command_factory.get_course(2037),
             'project_2037_2019-1_Q')

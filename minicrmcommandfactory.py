@@ -7,6 +7,9 @@ higher level logic independent from the concrete commands, but also to help phra
 import json
 
 
+_ = "WILDCARD"
+
+
 class MinicrmCommandFactory:
     def __init__(self, system_id, api_key):
         self.system_id = system_id
@@ -50,9 +53,12 @@ class MinicrmCommandFactory:
                  format(self.system_id, self.api_key, project_id)
 
     def set_project_data(self, project_id, data_json):
-        return 'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '. \
-                   format(self.system_id, self.api_key, project_id) +\
-                   "'{}'".format(json.dumps(data_json, separators=(',', ':')))
+        if data_json == _:
+            return 'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '
+        else:
+            return 'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '. \
+                       format(self.system_id, self.api_key, project_id) +\
+                       "'{}'".format(json.dumps(data_json, separators=(',', ':')))
 
     def get_student_list_by_course_code(self, course_code):
         return 'curl -s --user {}:{} "https://r3.minicrm.hu/Api/R3/Project?TanfolyamKodja={}"'. \

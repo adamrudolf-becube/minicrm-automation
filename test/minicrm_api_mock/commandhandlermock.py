@@ -1,23 +1,9 @@
 from tracing import stacktrace, trace
 from test.minicrm_api_mock.expextationqueue import ExpectationQueue
 from test.minicrm_api_mock.expectation import Expectation
+from api_outputs import API_OUTPUTS
 import unittest
-import json
-import os
-
-#from api_outputs import API_OUTPUTS
-#API_RESPONSES = API_OUTPUTS
 # TODO find out why some JSON is outputted even if tracing is turned off
-# TODO put json outputs to one file to make it faster
-
-API_RESPONSES = None
-
-currentDirectory = os.path.dirname(os.path.realpath(__file__))
-
-api_response_file_path = currentDirectory + "/api_outputs.json"
-
-with open(api_response_file_path) as api_response_file:
-    API_RESPONSES = json.load(api_response_file)
 
 
 class CommandHandlerMock(unittest.TestCase):
@@ -36,7 +22,7 @@ class CommandHandlerMock(unittest.TestCase):
     def get_json_array_for_command(self, command):
         print("COMMAND SENT TO ---MOCK--- API: {}".format(command))
         response_identifier = self.match_expectation(command)
-        formatted_output = API_RESPONSES[response_identifier]["response"]
+        formatted_output = API_OUTPUTS[response_identifier]["response"]
         trace("ANSWER RECEIVED:")
         return formatted_output
 

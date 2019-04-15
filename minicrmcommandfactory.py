@@ -54,7 +54,8 @@ class MinicrmCommandFactory:
 
     def set_project_data(self, project_id, data_json):
         if data_json == _:
-            return 'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '
+            return 'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '. \
+                format(self.system_id, self.api_key, project_id)
         else:
             return 'curl -s --user {}:{} -XPUT "https://r3.minicrm.hu/Api/R3/Project/{}" -d '. \
                        format(self.system_id, self.api_key, project_id) +\
@@ -77,13 +78,17 @@ class MinicrmCommandFactory:
         Creates a new task in teh CRM ssytem with the given details
         """
 
-        task_data = {
-            "ProjectId":project_id,
-            "Status":"Open",
-            "Comment":comment,
-            "Deadline":deadline,
-            "UserId":userid
-        }
+        if project_id == _:
+            return "curl -XPUT https://{}:{}@r3.minicrm.hu/Api/R3/ToDo/ -d".format(self.system_id, self.api_key)
 
-        return "curl -XPUT https://{}:{}@r3.minicrm.hu/Api/R3/ToDo/ -d '{}'".\
-                    format(self.system_id, self.api_key, json.dumps(task_data, separators=(',',':')))
+        else:
+            task_data = {
+                "ProjectId": project_id,
+                "Status": "Open",
+                "Comment": comment,
+                "Deadline": deadline,
+                "UserId": userid
+            }
+
+            return "curl -XPUT https://{}:{}@r3.minicrm.hu/Api/R3/ToDo/ -d '{}'".\
+                        format(self.system_id, self.api_key, json.dumps(task_data, separators=(',',':')))

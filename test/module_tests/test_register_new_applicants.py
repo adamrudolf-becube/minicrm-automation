@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
+import minicrmcommandfactory
 from functionalities.registernewapplicants import register_new_applicants
+from datetime import datetime
 
 
 class TestRegisterNewApplicants(MiniCrmTestBase):
@@ -39,7 +41,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             'pannon_kincstar_data'
         )
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d',
+            self.crm_command_factory.set_project_data(2601, minicrmcommandfactory._),
             'xput_response')
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -77,7 +79,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             'pannon_kincstar_data'
         )
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d',
+            self.crm_command_factory.set_project_data(2601, minicrmcommandfactory._),
             'xput_response')
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -105,7 +107,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         )
 
         self.command_handler.expect_command(
-            'curl -XPUT https://FakeUserName:FakeApiKey@r3.minicrm.hu/Api/R3/ToDo/ -d ',
+            self.crm_command_factory.raise_task(
+                minicrmcommandfactory._,
+                minicrmcommandfactory._,
+                minicrmcommandfactory._),
             'xput_response')
 
         register_new_applicants(self.crm_data)
@@ -136,7 +141,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             'pannon_kincstar_data'
         )
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d',
+            self.crm_command_factory.set_project_data(2601, minicrmcommandfactory._),
             'xput_response')
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(

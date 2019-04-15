@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
+import minicrmcommandfactory
 import datetime
 import quick_script
 
@@ -79,7 +80,7 @@ class TestQuickScript(MiniCrmTestBase):
             'pannon_kincstar_data'
         )
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2601" -d',
+            self.crm_command_factory.set_project_data(2601, minicrmcommandfactory._),
             'xput_response')
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(

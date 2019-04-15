@@ -173,7 +173,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
             'fake_student_advanced'
         )
         self.command_handler.expect_command(
-            'curl -s --user FakeUserName:FakeApiKey -XPUT "https://r3.minicrm.hu/Api/R3/Project/2126" -d \'{"Levelkuldesek":"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}\'',
+            self.crm_command_factory.set_project_data(2126, {u"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}),
             'xput_response'
         )
         send_scheduled_emails(self.crm_data)

@@ -34,7 +34,7 @@ u"project_20_01": {
 			u"2796":u"\u00c9rdekl\u0151d\u0151",
 			u"2741":u"Jelentkezett",
 			u"2750":u"V\u00e1r\u00f3list\u00e1n van",
-			u"2781":u"INFO lev\xe9l kiment",
+			u"2781":u"INFO lev\u00e9l kiment",
 			u"2749":u"Kurzus folyamatban",
 			u"2743":u"Elv\u00e9gezte",
 			u"2784":u"Megfigyel\u0151",
@@ -6346,7 +6346,7 @@ u"pannon_kincstar_data": {
 		u"UpdatedBy":u"Rudolf \u00c1d\u00e1m",
 		u"UpdatedAt":u"2018-07-17 19:47:08",
 		u"EgyediAzonosito":u"Pannon Kincst\u00e1r",
-		u"ReszletesHelyszinleiras":u"Pannon Kincst\u00e1r Hum\u00e1n Szakk\u00e9pz\u0151 K\u00f6zpont,1056 Budapest, V\u00e1ci utca 47., p\u00e1r perc s\u00e9t\u00e1ra a Ferenciek tere metr\u00f3meg\u00e1ll\u00f3t\u00f3l. K\u00e9p \u00e9s t\u00e9rk\u00e9p a honlapon, ezen a linken: https:\/\/www.becube.hu\/kapcsolat\n\nKapucseng\u0151: 12\n\nAz \u00e9p\u00fcletbe \u00e9rve k\u00f6vesd a Pannon Kincst\u00e1r feliratot a m\u00e1sodik emeletre, \u00e9s k\u00e9rdezd nyugodtan a recepci\u00f3st!\n\nTerem: minden h\u00e9ten v\u00e1ltozhat, az aktu\u00e1lis beoszt\u00e1st minden alkalommal n\u00e9zd meg a recepci\u00f3 mellett! Keresd a csoportod bet\u0171jel\u00e9tu"
+		u"ReszletesHelyszinleiras":u"A lot of detailes here..u"
 		}
 	},
 u"list_of_active_studetns_only_one_student": {
@@ -6393,6 +6393,55 @@ u"empty_student_list": {
 		u"Results": {}
 		}
 	},
+
+
+u"course_list_for_course_code": {
+	u"description":u"",
+	u"command":u"https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-4-E",
+	u"response": {
+		u"Count":1,
+		u"Results": {
+			u"1164": {
+				u"Id":1164,
+				u"Name": u"2019-4-E",
+				u"Url": u"https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/3110",
+				u"ContactId":1290,
+				u"StatusId":2753,
+				u"UserId":56733,
+				u"Deleted":0
+				}
+			}
+		}
+	},
+
+u"location_list_for_location_name": {
+	u"description":u"",
+	u"command":u"curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?EgyediAzonosito=\"Pannon Kincstár\"\"",
+	u"response": {
+		u"Count":1,
+		u"Results": {
+			u"19": {
+				u"Id":19,
+				u"Name": u"Pannon Kincstár",
+				u"Url": u"https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/19",
+				u"ContactId":1290,
+				u"StatusId":2753,
+				u"UserId":56733,
+				u"Deleted":0
+				}
+			}
+		}
+	},
+
+
+u"course_list_for_nonexistent_course_code": {
+	u"description":u"",
+	u"command": u"https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=NONEXISTENT",
+	u"response": {
+		u"Count":0,
+		u"Results":[]}
+	},
+
 u"": {
 	u"description":u"",
 	u"command":u"",

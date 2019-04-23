@@ -3,7 +3,6 @@
 # Copyright Adam Rudolf, 2018
 # BeCube programming school
 
-
 import unittest
 from commonfunctions import get_key_from_value
 

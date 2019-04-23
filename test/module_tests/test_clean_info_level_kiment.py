@@ -1,6 +1,7 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import datetime
 from functionalities.clean_info_sent import clean_info_level_kiment
+import test.minicrm_api_mock.api_outputs as apioutputs
 
 
 class TestInfoSent(MiniCrmTestBase):
@@ -15,15 +16,15 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2781),
-            'status_id_2781_one_student_info_sent')
+            apioutputs.API_OUTPUTS['status_id_2781_one_student_info_sent'])
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2601),
-            "project_2601_fake_student")
+            apioutputs.API_OUTPUTS["project_2601_fake_student"])
 
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2601, {"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni"}),
-            'xput_response')
+            apioutputs.API_OUTPUTS['xput_response'])
 
         self.set_participant_number_expectations()
 
@@ -35,18 +36,18 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2781),
-            'status_id_2781_one_student_info_sent')
+            apioutputs.API_OUTPUTS['status_id_2781_one_student_info_sent'])
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2601),
-            "project_2601_fake_student")
+            apioutputs.API_OUTPUTS["project_2601_fake_student"])
 
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
                 2601,
                 {u"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni, Ma kell jelentkezni"}
             ),
-            'xput_response')
+            apioutputs.API_OUTPUTS['xput_response'])
 
         self.set_participant_number_expectations()
 
@@ -58,15 +59,15 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2781),
-            'status_id_2781_one_student_info_sent')
+            apioutputs.API_OUTPUTS['status_id_2781_one_student_info_sent'])
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2601),
-            "project_2601_fake_student")
+            apioutputs.API_OUTPUTS["project_2601_fake_student"])
 
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2601, {u"StatusId":u"2782",u"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni, Ma kell jelentkezni, Toroltunk"}),
-            'xput_response')
+            apioutputs.API_OUTPUTS['xput_response'])
 
         self.set_participant_number_expectations()
 
@@ -76,12 +77,12 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2781),
-            'status_id_2781_one_student_info_sent'
+            apioutputs.API_OUTPUTS['status_id_2781_one_student_info_sent']
         )
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2601),
-            "project_2601_fake_student"
+            apioutputs.API_OUTPUTS["project_2601_fake_student"]
         )
         self.set_participant_number_expectations()
 

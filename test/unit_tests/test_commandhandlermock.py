@@ -1,8 +1,6 @@
 import unittest
 from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
-import os
 
-currentDirectory = os.path.dirname(os.path.realpath(__file__))
 
 class TestCommandHandlerMock(unittest.TestCase):
     def setUp(self):
@@ -51,6 +49,12 @@ class TestCommandHandlerMock(unittest.TestCase):
             self.command_handler.match_expectation('E')
 
     def test_get_json_array_for_command_returns_and_parses_given_file(self):
-        self.command_handler.expect_command('A', 'category_01')
+        self.command_handler.expect_command(
+            'A',
+            {
+                u"response": {
+                    u"5": u"Info"
+                }
+            })
         return_value = self.command_handler.get_json_array_for_command('A')
         self.assertEqual(return_value['5'], "Info")

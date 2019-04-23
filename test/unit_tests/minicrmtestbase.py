@@ -4,6 +4,7 @@ from minicrmcommandfactory import MinicrmCommandFactory
 from commonfunctions import load_api_info
 import datetime
 from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
+import test.minicrm_api_mock.api_outputs as apioutputs
 
 
 API_INFO_JSON_FILE = "api_info_fake.json"
@@ -24,28 +25,28 @@ class MiniCrmTestBase(unittest.TestCase, object):
     def expect_crmdata_constructor(self):
         self.command_handler.expect_command(
             self.crm_command_factory.get_modul_dictionary(),
-            'category_01')
+            apioutputs.API_OUTPUTS['category_01'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_schema_for_module_number(20),
-            'project_20_01')
+            apioutputs.API_OUTPUTS['project_20_01'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_schema_for_module_number(21),
-            'schema_project_21')
+            apioutputs.API_OUTPUTS['schema_project_21'])
 
     def set_participant_number_expectations(self):
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2753),
-            'status_id_2753_one_course_open'
+            apioutputs.API_OUTPUTS['status_id_2753_one_course_open']
         )
         self.command_handler.expect_command(
             self.crm_command_factory.get_project(2037),
-            'project_2037_2019-1_Q'
+            apioutputs.API_OUTPUTS['project_2037_2019-1_Q']
         )
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            'tanfolyam_kodja_2019_1_Q'
+            apioutputs.API_OUTPUTS['tanfolyam_kodja_2019_1_Q']
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {"AktualisLetszam":6}),
-            'xput_response'
+            apioutputs.API_OUTPUTS['xput_response']
         )

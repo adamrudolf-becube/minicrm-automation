@@ -1,4 +1,5 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
+import test.minicrm_api_mock.api_outputs as apioutputs
 
 
 class TestGetCourseByCourseCode(MiniCrmTestBase):
@@ -8,12 +9,12 @@ class TestGetCourseByCourseCode(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code(wanted_course_code),
-            'course_list_for_course_code'
+            apioutputs.API_OUTPUTS['course_list_for_course_code']
         )
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(1164),
-            'project_2037_2019-1_Q'
+            apioutputs.API_OUTPUTS['project_2037_2019-1_Q']
         )
         course_info = self.crm_data.get_course_by_course_code(wanted_course_code)
         self.assertEqual(course_info["TanfolyamBetujele"], wanted_course_code)

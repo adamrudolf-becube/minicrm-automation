@@ -22,7 +22,7 @@ class CommandHandlerMock(unittest.TestCase):
     def get_json_array_for_command(self, command):
         print("COMMAND SENT TO ---MOCK--- API: {}".format(command))
         response_identifier = self.match_expectation(command)
-        formatted_output = API_OUTPUTS[response_identifier]["response"]
+        formatted_output = response_identifier["response"]
         trace("ANSWER RECEIVED:")
         return formatted_output
 

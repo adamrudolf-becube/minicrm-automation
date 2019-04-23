@@ -1,5 +1,6 @@
 from minicrmtestbase import MiniCrmTestBase
 from functionalities.sendscheduledmails import ok_for_certification
+import test.minicrm_api_mock.api_outputs as apioutputs
 
 
 class TestOkForCertification(MiniCrmTestBase):
@@ -8,7 +9,7 @@ class TestOkForCertification(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(42),
-            'project_2601_fake_student')
+            apioutputs.API_OUTPUTS['project_2601_fake_student'])
         self.student_data = self.crm_data.get_student(42)
         self.assertFalse(ok_for_certification(self.student_data))
 
@@ -16,7 +17,7 @@ class TestOkForCertification(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(42),
-            'project_2601_fake_student_good_for_certification')
+            apioutputs.API_OUTPUTS['project_2601_fake_student_good_for_certification'])
         self.student_data = self.crm_data.get_student(42)
 
         self.assertTrue(ok_for_certification(self.student_data))
@@ -25,7 +26,7 @@ class TestOkForCertification(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(42),
-            'partial_student_full_attendance_no_homework')
+            apioutputs.API_OUTPUTS['partial_student_full_attendance_no_homework'])
         self.student_data = self.crm_data.get_student(42)
 
         self.assertFalse(ok_for_certification(self.student_data))
@@ -34,7 +35,7 @@ class TestOkForCertification(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(42),
-            'partial_student_no_attendance_full_homework')
+            apioutputs.API_OUTPUTS['partial_student_no_attendance_full_homework'])
         self.student_data = self.crm_data.get_student(42)
 
         self.assertFalse(ok_for_certification(self.student_data))
@@ -43,7 +44,7 @@ class TestOkForCertification(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(42),
-            'partial_student_full_attendance_almost_full_homework')
+            apioutputs.API_OUTPUTS['partial_student_full_attendance_almost_full_homework'])
         self.student_data = self.crm_data.get_student(42)
 
         self.assertFalse(ok_for_certification(self.student_data))
@@ -52,7 +53,7 @@ class TestOkForCertification(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(42),
-            'partial_student_9_of_10_attendance_full_homework')
+            apioutputs.API_OUTPUTS['partial_student_9_of_10_attendance_full_homework'])
         self.student_data = self.crm_data.get_student(42)
 
         self.assertTrue(ok_for_certification(self.student_data))
@@ -61,7 +62,7 @@ class TestOkForCertification(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(42),
-            'partial_student_8_of_10_attendance_full_homework')
+            apioutputs.API_OUTPUTS['partial_student_8_of_10_attendance_full_homework'])
         self.student_data = self.crm_data.get_student(42)
 
         self.assertTrue(ok_for_certification(self.student_data))
@@ -70,7 +71,7 @@ class TestOkForCertification(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(42),
-            'partial_student_7_of_10_attendance_full_homework')
+            apioutputs.API_OUTPUTS['partial_student_7_of_10_attendance_full_homework'])
         self.student_data = self.crm_data.get_student(42)
 
         self.assertFalse(ok_for_certification(self.student_data))

@@ -2,6 +2,7 @@ from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import datetime
 from functionalities.sendscheduledmails import send_scheduled_emails
 import test.minicrm_api_mock.api_outputs as apioutputs
+import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 
 
 class TestSendScheduledMails(MiniCrmTestBase):
@@ -36,7 +37,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -51,7 +52,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -74,7 +75,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -89,7 +90,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 1. sz\u00fcnet, 2. sz\u00fcnet"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -104,7 +105,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -119,7 +120,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, \u00datraval\u00f3, 1. sz\u00fcnet"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -137,7 +138,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, \u00datraval\u00f3, Oklev\u00e9l - kezd\u0151, 1. sz\u00fcnet"
                 }
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -156,7 +157,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 }
 
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -175,7 +176,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2126, {u"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -187,7 +188,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2126, {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -207,7 +208,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2126, {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3"}),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -219,7 +220,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2126, {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet"}),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -234,7 +235,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -249,7 +250,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, 1. sz\u00fcnet"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -267,7 +268,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, Oklev\u00e9l - halad\u00f3, 1. sz\u00fcnet"
                 }
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -285,7 +286,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, 1. sz\u00fcnet"
                 }
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -307,7 +308,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -322,7 +323,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -345,7 +346,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -360,7 +361,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, 1. sz\u00fcnet"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -378,7 +379,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, 1. sz\u00fcnet"
                 }
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -396,7 +397,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, 1. sz\u00fcnet"
                 }
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -418,7 +419,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -433,7 +434,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -456,7 +457,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -471,7 +472,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -486,7 +487,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -501,7 +502,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 2126,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, 1. sz\u00fcnet"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -519,7 +520,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, Oklev\u00e9l - halad\u00f3, 1. sz\u00fcnet"
                 }
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
@@ -536,6 +537,6 @@ class TestSendScheduledMails(MiniCrmTestBase):
                     u"StatusId": u"2743",
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, Oklev\u00e9l - halad\u00f3, 1. sz\u00fcnet"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)

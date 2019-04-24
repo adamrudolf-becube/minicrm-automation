@@ -6,6 +6,7 @@ import datetime
 from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
 import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
+import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 
 
 API_INFO_JSON_FILE = "api_info_fake.json"
@@ -37,7 +38,7 @@ class MiniCrmTestBase(unittest.TestCase, object):
     def set_participant_number_expectations(self):
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2753),
-            apioutputs.API_OUTPUTS['status_id_2753_one_course_open']
+            apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN
         )
         self.command_handler.expect_command(
             self.crm_command_factory.get_project(2037),
@@ -49,5 +50,5 @@ class MiniCrmTestBase(unittest.TestCase, object):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {"AktualisLetszam":6}),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )

@@ -1,6 +1,14 @@
 # -*- coding: ISO-8859-2 -*-
 
 """
+This is a dummy answer for an XPUT. These responses are not checked by the script, so there can be one response defined for all XPUT commands,
+Example command: curl -s --user FakeUserName:FakeApiKey -XPUT \"https://r3.minicrm.hu/Api/R3/Project/2037\" -d '{\"AktualisLetszam\":6}',
+"""
+XPUT_RESPONSE = {
+	u"response": {u"Id": 42	}
+}
+
+"""
 List of MiniCRM modules (categories) with their ID numbers.
 
 Example command: curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Category"

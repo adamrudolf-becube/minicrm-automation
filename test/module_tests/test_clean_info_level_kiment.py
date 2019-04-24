@@ -2,6 +2,7 @@ from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import datetime
 from functionalities.clean_info_sent import clean_info_level_kiment
 import test.minicrm_api_mock.api_outputs as apioutputs
+import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 
 
 class TestInfoSent(MiniCrmTestBase):
@@ -24,7 +25,8 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2601, {"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni"}),
-            apioutputs.API_OUTPUTS['xput_response'])
+            apioutputs_general.XPUT_RESPONSE
+        )
 
         self.set_participant_number_expectations()
 
@@ -47,7 +49,8 @@ class TestInfoSent(MiniCrmTestBase):
                 2601,
                 {u"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni, Ma kell jelentkezni"}
             ),
-            apioutputs.API_OUTPUTS['xput_response'])
+            apioutputs_general.XPUT_RESPONSE
+        )
 
         self.set_participant_number_expectations()
 
@@ -67,7 +70,8 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2601, {u"StatusId":u"2782",u"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni, Ma kell jelentkezni, Toroltunk"}),
-            apioutputs.API_OUTPUTS['xput_response'])
+            apioutputs_general.XPUT_RESPONSE
+        )
 
         self.set_participant_number_expectations()
 

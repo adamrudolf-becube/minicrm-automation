@@ -3,6 +3,7 @@ from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import minicrmcommandfactory
 from functionalities.registernewapplicants import register_new_applicants
 import test.minicrm_api_mock.api_outputs as apioutputs
+import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 
 
 class TestRegisterNewApplicants(MiniCrmTestBase):
@@ -42,13 +43,14 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2601, minicrmcommandfactory._),
-            apioutputs.API_OUTPUTS['xput_response'])
+            apioutputs_general.XPUT_RESPONSE
+        )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
                 2601,
                 {u"StatusId": u"2781", u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         register_new_applicants(self.crm_data)
 
@@ -80,13 +82,14 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2601, minicrmcommandfactory._),
-            apioutputs.API_OUTPUTS['xput_response'])
+            apioutputs_general.XPUT_RESPONSE
+        )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
                 2601,
                 {u"StatusId": u"2781", u"Levelkuldesek": u"Halad\u00f3 INFO lev\u00e9l"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         register_new_applicants(self.crm_data)
 
@@ -111,7 +114,8 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
                 minicrmcommandfactory._,
                 minicrmcommandfactory._,
                 minicrmcommandfactory._),
-            apioutputs.API_OUTPUTS['xput_response'])
+            apioutputs_general.XPUT_RESPONSE
+        )
 
         register_new_applicants(self.crm_data)
 
@@ -142,12 +146,13 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2601, minicrmcommandfactory._),
-            apioutputs.API_OUTPUTS['xput_response'])
+            apioutputs_general.XPUT_RESPONSE
+        )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
                 2601,
                 {u"StatusId": u"2750", u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, V\u00e1r\u00f3lista"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         register_new_applicants(self.crm_data)

@@ -1,6 +1,7 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 from functionalities.handlewaitinglist import handle_waiting_list
 import test.minicrm_api_mock.api_outputs as apioutputs
+import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 
 
 class TestHandleWaitingList(MiniCrmTestBase):
@@ -78,7 +79,8 @@ class TestHandleWaitingList(MiniCrmTestBase):
                     u"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
-            apioutputs.API_OUTPUTS['xput_response'])
+            apioutputs_general.XPUT_RESPONSE
+        )
         self.set_participant_number_expectations()
         handle_waiting_list(self.crm_data)
 
@@ -108,7 +110,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
                     u"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
@@ -149,7 +151,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
@@ -169,7 +171,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         self.set_participant_number_expectations()
         handle_waiting_list(self.crm_data)
@@ -211,7 +213,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
@@ -231,7 +233,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )
 
         self.set_participant_number_expectations()

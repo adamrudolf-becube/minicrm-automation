@@ -4,6 +4,7 @@ import minicrmcommandfactory
 import datetime
 import quick_script
 import test.minicrm_api_mock.api_outputs as apioutputs
+import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 
 
 class TestQuickScript(MiniCrmTestBase):
@@ -31,7 +32,8 @@ class TestQuickScript(MiniCrmTestBase):
                 2601,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni"}
             ),
-            apioutputs.API_OUTPUTS['xput_response'])
+            apioutputs_general.XPUT_RESPONSE
+        )
 
         self.set_participant_number_expectations()
 
@@ -82,11 +84,12 @@ class TestQuickScript(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2601, minicrmcommandfactory._),
-            apioutputs.API_OUTPUTS['xput_response'])
+            apioutputs_general.XPUT_RESPONSE
+        )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
                 2601,
                 {u"StatusId": u"2781", u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l"}
             ),
-            apioutputs.API_OUTPUTS['xput_response']
+            apioutputs_general.XPUT_RESPONSE
         )

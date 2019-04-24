@@ -5,6 +5,7 @@ from commonfunctions import load_api_info
 import datetime
 from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
 import test.minicrm_api_mock.api_outputs as apioutputs
+import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 
 
 API_INFO_JSON_FILE = "api_info_fake.json"
@@ -25,13 +26,13 @@ class MiniCrmTestBase(unittest.TestCase, object):
     def expect_crmdata_constructor(self):
         self.command_handler.expect_command(
             self.crm_command_factory.get_modul_dictionary(),
-            apioutputs.API_OUTPUTS['category_01'])
+            apioutputs_general.MODULE_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_schema_for_module_number(20),
-            apioutputs.API_OUTPUTS['project_20_01'])
+            apioutputs_general.SCHEMA_PROJECT_20_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_schema_for_module_number(21),
-            apioutputs.API_OUTPUTS['schema_project_21'])
+            apioutputs_general.SCHEMA_PRPJECT_21_COURSES)
 
     def set_participant_number_expectations(self):
         self.command_handler.expect_command(

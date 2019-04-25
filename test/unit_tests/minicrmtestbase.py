@@ -7,6 +7,7 @@ from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
 import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
+import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 
 
 API_INFO_JSON_FILE = "api_info_fake.json"
@@ -42,7 +43,7 @@ class MiniCrmTestBase(unittest.TestCase, object):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.get_project(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q']
+            apioutputs_courses.COURSE_2019_1_Q
         )
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),

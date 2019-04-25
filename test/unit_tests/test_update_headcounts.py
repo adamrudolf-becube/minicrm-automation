@@ -2,6 +2,7 @@ from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
+import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 
 
 class TestUpdateHeadcounts(MiniCrmTestBase):
@@ -12,7 +13,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_1_student'])
+            apioutputs_courses.COURSE_2019_1_Q_1_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['empty_new_applicant_list'])
@@ -27,7 +28,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_1_student'])
+            apioutputs_courses.COURSE_2019_1_Q_1_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['empty_new_applicant_list'])
@@ -42,7 +43,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_2_students'])
+            apioutputs_courses.COURSE_2019_1_Q_2_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['empty_new_applicant_list'])
@@ -57,7 +58,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_1_student'])
+            apioutputs_courses.COURSE_2019_1_Q_1_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_info_sent'])
@@ -72,7 +73,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_2_students'])
+            apioutputs_courses.COURSE_2019_1_Q_2_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_info_sent'])
@@ -87,7 +88,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_0_students'])
+            apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_info_sent'])
@@ -102,7 +103,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_0_students'])
+            apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_active'])
@@ -117,7 +118,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_0_students'])
+            apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_active_and_one_info_sent'])
@@ -132,7 +133,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_0_students'])
+            apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_did_not_answer'])
@@ -147,7 +148,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_0_students'])
+            apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_cancelled'])
@@ -162,7 +163,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_0_students'])
+            apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_not_payed'])
@@ -177,7 +178,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_0_students'])
+            apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_spectator'])
@@ -192,7 +193,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_0_students'])
+            apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_waiting_list'])
@@ -207,7 +208,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_0_students'])
+            apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_subscribed'])
@@ -222,7 +223,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_0_students'])
+            apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_applied'])
@@ -237,7 +238,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_0_students'])
+            apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_finished'])
@@ -252,7 +253,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_0_students'])
+            apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_one_unsubscribed'])
@@ -267,7 +268,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_0_students'])
+            apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs.API_OUTPUTS['student_list_complex'])

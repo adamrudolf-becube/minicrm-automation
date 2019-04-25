@@ -4,6 +4,7 @@ from functionalities.setcoursestates import set_course_states
 import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
+import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 
 
 class TestRegisterNewApplicants(MiniCrmTestBase):
@@ -20,7 +21,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['empty_new_applicant_list'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q'])
+            apioutputs_courses.COURSE_2019_1_Q)
         set_course_states(self.crm_data)
 
     def test_application_is_open_first_day_spent_but_last_didnt_put_to_in_progress(self):
@@ -36,7 +37,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['empty_new_applicant_list'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q'])
+            apioutputs_courses.COURSE_2019_1_Q)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"StatusId":u"2758"}),
             apioutputs_general.XPUT_RESPONSE)
@@ -55,7 +56,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['empty_new_applicant_list'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_in_progress'])
+            apioutputs_courses.COURSE_2019_1_Q_IN_PROGRESS)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"StatusId":u"2758"}),
             apioutputs_general.XPUT_RESPONSE)
@@ -74,7 +75,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['empty_new_applicant_list'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_recently_finished'])
+            apioutputs_courses.COURSE_2019_1_Q_RECENTLY_FINISHED)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"StatusId":u"2758"}),
             apioutputs_general.XPUT_RESPONSE)
@@ -93,7 +94,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['empty_new_applicant_list'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_in_progress'])
+            apioutputs_courses.COURSE_2019_1_Q_IN_PROGRESS)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"StatusId":u"2797"}),
             apioutputs_general.XPUT_RESPONSE)
@@ -112,7 +113,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['empty_new_applicant_list'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_recently_finished'])
+            apioutputs_courses.COURSE_2019_1_Q_RECENTLY_FINISHED)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"StatusId":u"2797"}),
             apioutputs_general.XPUT_RESPONSE)
@@ -131,7 +132,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['empty_new_applicant_list'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_recently_finished'])
+            apioutputs_courses.COURSE_2019_1_Q_RECENTLY_FINISHED)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"StatusId":u"2754"}),
             apioutputs_general.XPUT_RESPONSE)
@@ -150,7 +151,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['empty_new_applicant_list'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_first_date_missing'])
+            apioutputs_courses.COURSE_2019_1_Q_FIRST_DATE_MISSING)
         set_course_states(self.crm_data)
 
     def test_last_day_is_missing_no_error_is_raised_put_to_in_progress(self):
@@ -166,7 +167,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['empty_new_applicant_list'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q_last_date_missing'])
+            apioutputs_courses.COURSE_2019_1_Q_LAST_DATE_MISSING)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"StatusId":u"2758"}),
             apioutputs_general.XPUT_RESPONSE)

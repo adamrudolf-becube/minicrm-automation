@@ -2,6 +2,7 @@ from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import daily_script
 import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
+import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 
 class TestDailyScript(MiniCrmTestBase):
     def test_quick_script_calls_correct_functions(self):
@@ -37,4 +38,4 @@ class TestDailyScript(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['empty_new_applicant_list'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
-            apioutputs.API_OUTPUTS['project_2037_2019-1_Q'])
+            apioutputs_courses.COURSE_2019_1_Q)

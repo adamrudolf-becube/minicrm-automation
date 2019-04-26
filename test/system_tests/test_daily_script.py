@@ -3,6 +3,7 @@ import daily_script
 import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
+import test.minicrm_api_mock.apioutputs.students as apioutputs_students
 
 class TestDailyScript(MiniCrmTestBase):
     def test_quick_script_calls_correct_functions(self):
@@ -23,7 +24,7 @@ class TestDailyScript(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['project_2601_fake_student']
+            apioutputs_students.FAKE_STUDENT
         )
 
     def expect_set_course_states(self):

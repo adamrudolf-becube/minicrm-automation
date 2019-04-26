@@ -1,6 +1,7 @@
 from minicrmtestbase import MiniCrmTestBase
 from functionalities.sendscheduledmails import ok_for_certification
 import test.minicrm_api_mock.api_outputs as apioutputs
+import test.minicrm_api_mock.apioutputs.students as apioutputs_students
 
 
 class TestOkForCertification(MiniCrmTestBase):
@@ -9,7 +10,7 @@ class TestOkForCertification(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(42),
-            apioutputs.API_OUTPUTS['project_2601_fake_student'])
+            apioutputs_students.FAKE_STUDENT)
         self.student_data = self.crm_data.get_student(42)
         self.assertFalse(ok_for_certification(self.student_data))
 

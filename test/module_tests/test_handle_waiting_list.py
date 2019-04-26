@@ -2,6 +2,7 @@ from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 from functionalities.handlewaitinglist import handle_waiting_list
 import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
+import test.minicrm_api_mock.apioutputs.students as apioutputs_students
 
 
 class TestHandleWaitingList(MiniCrmTestBase):
@@ -12,7 +13,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['waiting_list_one_student_status_2750'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2790),
-            apioutputs.API_OUTPUTS['project_2601_fake_student'])
+            apioutputs_students.FAKE_STUDENT)
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code("2019-1-Q"),
@@ -31,7 +32,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['waiting_list_two_students_status_2750'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2790),
-            apioutputs.API_OUTPUTS['project_2601_fake_student'])
+            apioutputs_students.FAKE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2796),
             apioutputs.API_OUTPUTS['project_later_fake_student'])
@@ -62,7 +63,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['waiting_list_one_student_status_2750'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2790),
-            apioutputs.API_OUTPUTS['project_2601_fake_student'])
+            apioutputs_students.FAKE_STUDENT)
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code("2019-1-Q"),
@@ -90,7 +91,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['waiting_list_two_students_status_2750'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2790),
-            apioutputs.API_OUTPUTS['project_2601_fake_student'])
+            apioutputs_students.FAKE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2796),
             apioutputs.API_OUTPUTS['project_later_fake_student'])
@@ -130,7 +131,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['waiting_list_two_students_status_2750'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2790),
-            apioutputs.API_OUTPUTS['project_2601_fake_student'])
+            apioutputs_students.FAKE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2796),
             apioutputs.API_OUTPUTS['project_later_fake_student'])
@@ -182,7 +183,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['waiting_list_five_students_status_2750'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2798),
-            apioutputs.API_OUTPUTS['project_2601_fake_student'])
+            apioutputs_students.FAKE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2790),
             apioutputs.API_OUTPUTS['project_later_fake_student'])

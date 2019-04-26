@@ -6,6 +6,7 @@ import quick_script
 import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
+import test.minicrm_api_mock.apioutputs.students as apioutputs_students
 
 
 class TestQuickScript(MiniCrmTestBase):
@@ -26,7 +27,7 @@ class TestQuickScript(MiniCrmTestBase):
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2601),
-            apioutputs.API_OUTPUTS['project_2601_fake_student'])
+            apioutputs_students.FAKE_STUDENT)
 
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -44,7 +45,7 @@ class TestQuickScript(MiniCrmTestBase):
             apioutputs.API_OUTPUTS['waiting_list_one_student_status_2750'])
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2790),
-            apioutputs.API_OUTPUTS['project_2601_fake_student'])
+            apioutputs_students.FAKE_STUDENT)
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code("2019-1-Q"),
@@ -64,7 +65,7 @@ class TestQuickScript(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2941),
-            apioutputs.API_OUTPUTS['project_2601_fake_student'])
+            apioutputs_students.FAKE_STUDENT)
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code("2019-1-Q"),

@@ -4,6 +4,7 @@ from functionalities.clean_info_sent import clean_info_level_kiment
 import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
+import test.minicrm_api_mock.apioutputs.students as apioutputs_students
 
 
 class TestInfoSent(MiniCrmTestBase):
@@ -22,7 +23,7 @@ class TestInfoSent(MiniCrmTestBase):
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2601),
-            apioutputs.API_OUTPUTS["project_2601_fake_student"])
+            apioutputs_students.FAKE_STUDENT)
 
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2601, {"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni"}),
@@ -43,7 +44,7 @@ class TestInfoSent(MiniCrmTestBase):
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2601),
-            apioutputs.API_OUTPUTS["project_2601_fake_student"])
+            apioutputs_students.FAKE_STUDENT)
 
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -67,7 +68,7 @@ class TestInfoSent(MiniCrmTestBase):
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2601),
-            apioutputs.API_OUTPUTS["project_2601_fake_student"])
+            apioutputs_students.FAKE_STUDENT)
 
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2601, {u"StatusId":u"2782",u"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni, Ma kell jelentkezni, Toroltunk"}),
@@ -87,7 +88,7 @@ class TestInfoSent(MiniCrmTestBase):
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2601),
-            apioutputs.API_OUTPUTS["project_2601_fake_student"]
+            apioutputs_students.FAKE_STUDENT
         )
         self.set_participant_number_expectations()
 

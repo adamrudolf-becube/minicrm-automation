@@ -3,6 +3,7 @@ import datetime
 from functionalities.clean_info_sent import clean_info_level_kiment
 import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
+import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
 
 
 class TestInfoSent(MiniCrmTestBase):
@@ -17,7 +18,7 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2781),
-            apioutputs.API_OUTPUTS['status_id_2781_one_student_info_sent'])
+            apioutputs_studentlists.ONE_STUDENT_IN_INFO_SENT_STATE)
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2601),
@@ -38,7 +39,7 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2781),
-            apioutputs.API_OUTPUTS['status_id_2781_one_student_info_sent'])
+            apioutputs_studentlists.ONE_STUDENT_IN_INFO_SENT_STATE)
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2601),
@@ -62,7 +63,7 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2781),
-            apioutputs.API_OUTPUTS['status_id_2781_one_student_info_sent'])
+            apioutputs_studentlists.ONE_STUDENT_IN_INFO_SENT_STATE)
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2601),
@@ -81,7 +82,7 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2781),
-            apioutputs.API_OUTPUTS['status_id_2781_one_student_info_sent']
+            apioutputs_studentlists.ONE_STUDENT_IN_INFO_SENT_STATE
         )
         self.set_participant_number_expectations()
         self.command_handler.expect_command(

@@ -8,6 +8,7 @@ import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
+import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
 
 
 API_INFO_JSON_FILE = "api_info_fake.json"
@@ -47,9 +48,9 @@ class MiniCrmTestBase(unittest.TestCase, object):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['tanfolyam_kodja_2019_1_Q']
+            apioutputs_studentlists.COURSE_CODE_IS_2019_1_Q
         )
         self.command_handler.expect_command(
-            self.crm_command_factory.set_project_data(2037, {"AktualisLetszam":6}),
+            self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":6}),
             apioutputs_general.XPUT_RESPONSE
         )

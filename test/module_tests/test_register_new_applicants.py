@@ -64,7 +64,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2941),
-            apioutputs.API_OUTPUTS['fake_student_advanced_zero_mails'])
+            apioutputs_students.FAKE_STUDENT_ADVANCED_ZERO_MAILS)
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code("2019-1-Q"),
@@ -103,7 +103,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2941),
-            apioutputs.API_OUTPUTS['project_2601_fake_student_nonexistent_course']
+            apioutputs_students.FAKE_STUDENT_NONEXISTENT_COURSE
         )
 
         self.command_handler.expect_command(

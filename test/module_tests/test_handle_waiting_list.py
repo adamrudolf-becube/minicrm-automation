@@ -35,7 +35,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
             apioutputs_students.FAKE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2796),
-            apioutputs.API_OUTPUTS['project_later_fake_student'])
+            apioutputs_students.FAKE_STUDENT_APPLIED_LATER)
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code("2019-1-Q"),
@@ -94,7 +94,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
             apioutputs_students.FAKE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2796),
-            apioutputs.API_OUTPUTS['project_later_fake_student'])
+            apioutputs_students.FAKE_STUDENT_APPLIED_LATER)
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code("2019-1-Q"),
@@ -134,7 +134,7 @@ class TestHandleWaitingList(MiniCrmTestBase):
             apioutputs_students.FAKE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2796),
-            apioutputs.API_OUTPUTS['project_later_fake_student'])
+            apioutputs_students.FAKE_STUDENT_APPLIED_LATER)
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code("2019-1-Q"),
@@ -186,16 +186,16 @@ class TestHandleWaitingList(MiniCrmTestBase):
             apioutputs_students.FAKE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2790),
-            apioutputs.API_OUTPUTS['project_later_fake_student'])
+            apioutputs_students.FAKE_STUDENT_APPLIED_LATER)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2799),
-            apioutputs.API_OUTPUTS['project_later_fake_student'])
+            apioutputs_students.FAKE_STUDENT_APPLIED_LATER)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2796),
-            apioutputs.API_OUTPUTS['project_fourth_fake_student'])
+            apioutputs_students.FAKE_STUDENT_4TH_APPLIED)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2797),
-            apioutputs.API_OUTPUTS['project_fifth_fake_student'])
+            apioutputs_students.FAKE_STUDENT_5TH_APPLIED)
 
         self.set_participant_number_expectations()
         self.command_handler.expect_command(

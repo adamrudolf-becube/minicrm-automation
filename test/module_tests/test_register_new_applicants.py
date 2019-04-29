@@ -24,7 +24,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2941),
-            apioutputs.API_OUTPUTS['fake_student_zero_mails'])
+            apioutputs_students.FAKE_STUDENT_ZERO_MAILS)
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code("2019-1-Q"),

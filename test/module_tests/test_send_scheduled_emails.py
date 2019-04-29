@@ -84,7 +84,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 3, 17, 7, 30))
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['project_2601_fake_student_3_breaks']
+            apioutputs_students.FAKE_STUDENT_WITH_3_BREAKS
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -99,7 +99,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 3, 27, 7, 30))
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['project_2601_fake_student_3_breaks']
+            apioutputs_students.FAKE_STUDENT_WITH_3_BREAKS
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -129,7 +129,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 4, 10, 7, 30))
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['project_2601_fake_student_good_for_certification']
+			apioutputs_students.FAKE_STUDENT_GOOD_FOR_CERTIFICATION
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -217,7 +217,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 3, 17, 7, 30))
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['fake_student_advanced_3_breaks']
+            apioutputs_students.FAKE_STUDENT_ADVANCED_WITH_3_BREAKS
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2126, {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet"}),
@@ -229,7 +229,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 3, 27, 7, 30))
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['fake_student_advanced_3_breaks']
+            apioutputs_students.FAKE_STUDENT_ADVANCED_WITH_3_BREAKS
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -294,7 +294,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
     def test_company_beginner_date_is_more_than_delta_days_less_than_1st_occasion_do_nothing(self):
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['fake_student_company_beginner']
+            apioutputs_students.FAKE_STUDENT_COMPANY_BEGINNER
         )
         send_scheduled_emails(self.crm_data)
 
@@ -302,7 +302,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 1, 27, 7, 30))
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['fake_student_company_beginner']
+            apioutputs_students.FAKE_STUDENT_COMPANY_BEGINNER
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -317,7 +317,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 1, 29, 7, 30))
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['fake_student_company_beginner']
+            apioutputs_students.FAKE_STUDENT_COMPANY_BEGINNER
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -355,7 +355,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 4, 9, 7, 30))
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['fake_student_company_beginner']
+            apioutputs_students.FAKE_STUDENT_COMPANY_BEGINNER
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -370,7 +370,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 4, 10, 7, 30))
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['fake_student_good_for_certification_company_beginner']
+            apioutputs_students.FAKE_STUDENT_GOOD_FOR_CERTIFICATION_COMPANY_BEGINNER
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -388,7 +388,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 4, 10, 7, 30))
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['fake_student_company_beginner']
+            apioutputs_students.FAKE_STUDENT_COMPANY_BEGINNER
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -466,7 +466,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 3, 17, 7, 30))
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['fake_student_company_advanced_3_breaks']
+            apioutputs_students.FAKE_STUDENT_COMPANY_ADVANCED_WITH_3_BREAKS
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(
@@ -481,7 +481,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 3, 27, 7, 30))
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2126),
-            apioutputs.API_OUTPUTS['fake_student_company_advanced_3_breaks']
+            apioutputs_students.FAKE_STUDENT_COMPANY_ADVANCED_WITH_3_BREAKS
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(

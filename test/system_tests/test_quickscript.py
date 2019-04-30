@@ -42,7 +42,7 @@ class TestQuickScript(MiniCrmTestBase):
     def expect_handle_waiting_list(self):
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2750),
-            apioutputs.API_OUTPUTS['waiting_list_one_student_status_2750'])
+            apioutputs_studentlists.WAITING_LIST_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student(2790),
             apioutputs_students.FAKE_STUDENT)
@@ -60,7 +60,7 @@ class TestQuickScript(MiniCrmTestBase):
     def expect_register_new_applicants(self):
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2741),
-            apioutputs.API_OUTPUTS["one_new_applicant_list"])
+            apioutputs_studentlists.NEW_APPLICANTS_ONE_STUDENT)
         self.set_participant_number_expectations()
 
         self.command_handler.expect_command(

@@ -3,6 +3,7 @@ import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
+import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
 
 
 class TestUpdateHeadcounts(MiniCrmTestBase):
@@ -16,7 +17,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_1_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['empty_new_applicant_list'])
+            apioutputs_studentlists.EMPTY_STUDENT_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":0}),
             apioutputs_general.XPUT_RESPONSE)
@@ -31,7 +32,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_1_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['empty_new_applicant_list'])
+            apioutputs_studentlists.EMPTY_STUDENT_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":0}),
             apioutputs_general.XPUT_RESPONSE)
@@ -46,7 +47,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_2_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['empty_new_applicant_list'])
+            apioutputs_studentlists.EMPTY_STUDENT_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":0}),
             apioutputs_general.XPUT_RESPONSE)
@@ -61,7 +62,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_1_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_info_sent'])
+            apioutputs_studentlists.INFO_SENT_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":1}),
             apioutputs_general.XPUT_RESPONSE)
@@ -76,7 +77,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_2_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_info_sent'])
+            apioutputs_studentlists.INFO_SENT_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":1}),
             apioutputs_general.XPUT_RESPONSE)
@@ -91,7 +92,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_info_sent'])
+            apioutputs_studentlists.INFO_SENT_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":1}),
             apioutputs_general.XPUT_RESPONSE)
@@ -106,7 +107,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_active'])
+            apioutputs_studentlists.ACTIVE_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":1}),
             apioutputs_general.XPUT_RESPONSE)
@@ -121,7 +122,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_active_and_one_info_sent'])
+            apioutputs_studentlists.ONE_ACTIVE_AND_ONE_INFO_SENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":2}),
             apioutputs_general.XPUT_RESPONSE)
@@ -136,7 +137,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_did_not_answer'])
+            apioutputs_studentlists.DID_NOT_ANSERT_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":0}),
             apioutputs_general.XPUT_RESPONSE)
@@ -151,7 +152,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_cancelled'])
+            apioutputs_studentlists.CANCELLED_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":0}),
             apioutputs_general.XPUT_RESPONSE)
@@ -166,7 +167,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_not_payed'])
+            apioutputs_studentlists.NOT_PAYED_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":0}),
             apioutputs_general.XPUT_RESPONSE)
@@ -181,7 +182,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_spectator'])
+            apioutputs_studentlists.SPECTATORS_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":0}),
             apioutputs_general.XPUT_RESPONSE)
@@ -196,7 +197,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_waiting_list'])
+            apioutputs_studentlists.WAITING_LIST_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":0}),
             apioutputs_general.XPUT_RESPONSE)
@@ -211,7 +212,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_subscribed'])
+            apioutputs_studentlists.SUBSCRIBED_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":0}),
             apioutputs_general.XPUT_RESPONSE)
@@ -226,7 +227,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_applied'])
+            apioutputs_studentlists.APPLIED_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":0}),
             apioutputs_general.XPUT_RESPONSE)
@@ -241,7 +242,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_finished'])
+            apioutputs_studentlists.FINISHED_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":0}),
             apioutputs_general.XPUT_RESPONSE)
@@ -256,7 +257,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_one_unsubscribed'])
+            apioutputs_studentlists.UNSUBSCRIBED_ONE_STUDENT)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":0}),
             apioutputs_general.XPUT_RESPONSE)
@@ -271,7 +272,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             apioutputs_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.command_handler.expect_command(
             self.crm_command_factory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['student_list_complex'])
+            apioutputs_studentlists.COMPLEX_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2037, {u"AktualisLetszam":5}),
             apioutputs_general.XPUT_RESPONSE)

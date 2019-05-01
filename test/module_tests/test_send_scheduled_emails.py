@@ -18,7 +18,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2784),
-            apioutputs.API_OUTPUTS['empty_student_list']
+            apioutputs_general.EMPTY_LIST
         )
 
     def test_beginner_date_is_more_than_delta_days_less_than_1st_occasion_do_nothing(self):

@@ -15,7 +15,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
     def test_no_new_applicant_do_nothing(self):
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2741),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST
+            apioutputs_general.EMPTY_LIST
         )
         register_new_applicants(self.crm_data)
 
@@ -111,7 +111,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code("NONEXISTENT"),
-            apioutputs.API_OUTPUTS['course_list_for_nonexistent_course_code']
+            apioutputs_general.EMPTY_LIST
         )
 
         self.command_handler.expect_command(

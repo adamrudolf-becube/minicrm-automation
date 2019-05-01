@@ -212,15 +212,6 @@ WAITING_LIST_TWO_STUDENTS = {
 		}
 	}
 
-EMPTY_STUDENT_LIST = {
-	u"description":u"Response to (practically any) request which queries an empty list",
-	u"command":u"curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
-	u"response": {
-		u"Count": 0,
-		u"Results": []
-		}
-	}
-
 NEW_APPLICANTS_ONE_STUDENT = {
 	u"description":u"List of new applicants where there is 1 new applicant",
 	u"command":u"curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",

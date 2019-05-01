@@ -1,16 +1,6 @@
 # -*- coding: ISO-8859-2 -*-
 
 API_OUTPUTS = {
-u"empty_student_list": {
-	u"description":u"",
-	u"command":u"",
-	u"response": {
-		u"Count": 0,
-		u"Results": {}
-		}
-	},
-
-
 u"course_list_for_course_code": {
 	u"description":u"",
 	u"command":u"https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-4-E",
@@ -47,14 +37,5 @@ u"location_list_for_location_name": {
 				}
 			}
 		}
-	},
-
-
-u"course_list_for_nonexistent_course_code": {
-	u"description":u"",
-	u"command": u"https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=NONEXISTENT",
-	u"response": {
-		u"Count":0,
-		u"Results":[]}
 	}
 }

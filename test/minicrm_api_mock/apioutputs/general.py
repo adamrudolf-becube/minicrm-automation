@@ -498,3 +498,12 @@ SCHEMA_PRPJECT_21_COURSES = {
 			}
 		}
 	}
+
+EMPTY_LIST = {
+	u"description":u"",
+	u"command":u"",
+	u"response": {
+		u"Count": 0,
+		u"Results": {}
+		}
+	}

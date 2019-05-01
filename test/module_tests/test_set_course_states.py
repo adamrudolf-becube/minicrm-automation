@@ -16,10 +16,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2758),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2797),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
             apioutputs_courses.COURSE_2019_1_Q)
@@ -32,10 +32,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2758),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2797),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
             apioutputs_courses.COURSE_2019_1_Q)
@@ -51,10 +51,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2758),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2797),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
             apioutputs_courses.COURSE_2019_1_Q_IN_PROGRESS)
@@ -70,10 +70,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2758),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2797),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
             apioutputs_courses.COURSE_2019_1_Q_RECENTLY_FINISHED)
@@ -89,10 +89,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2758),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2797),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
             apioutputs_courses.COURSE_2019_1_Q_IN_PROGRESS)
@@ -108,10 +108,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2758),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2797),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
             apioutputs_courses.COURSE_2019_1_Q_RECENTLY_FINISHED)
@@ -127,10 +127,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2758),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2797),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
             apioutputs_courses.COURSE_2019_1_Q_RECENTLY_FINISHED)
@@ -146,10 +146,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2758),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2797),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
             apioutputs_courses.COURSE_2019_1_Q_FIRST_DATE_MISSING)
@@ -162,10 +162,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2758),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_project_list_for_status(2797),
-            apioutputs_studentlists.EMPTY_STUDENT_LIST)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(2037),
             apioutputs_courses.COURSE_2019_1_Q_LAST_DATE_MISSING)

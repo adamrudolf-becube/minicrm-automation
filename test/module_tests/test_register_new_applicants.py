@@ -7,7 +7,7 @@ import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 import test.minicrm_api_mock.apioutputs.students as apioutputs_students
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
-import test.minicrm_api_mock.apioutputs.places as apioutputs_places
+import test.minicrm_api_mock.apioutputs.locations as apioutputs_places
 
 
 

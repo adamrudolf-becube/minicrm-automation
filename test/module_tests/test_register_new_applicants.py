@@ -7,6 +7,7 @@ import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 import test.minicrm_api_mock.apioutputs.students as apioutputs_students
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
+import test.minicrm_api_mock.apioutputs.places as apioutputs_places
 
 
 
@@ -43,7 +44,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.get_location(19),
-            apioutputs.API_OUTPUTS['pannon_kincstar_data']
+            apioutputs_places.PANNON_KINCSTAR
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2601, minicrmcommandfactory._),
@@ -82,7 +83,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.get_location(19),
-            apioutputs.API_OUTPUTS['pannon_kincstar_data']
+			apioutputs_places.PANNON_KINCSTAR
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2601, minicrmcommandfactory._),
@@ -146,7 +147,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             self.crm_command_factory.get_location(19),
-            apioutputs.API_OUTPUTS['pannon_kincstar_data']
+			apioutputs_places.PANNON_KINCSTAR
         )
         self.command_handler.expect_command(
             self.crm_command_factory.set_project_data(2601, minicrmcommandfactory._),

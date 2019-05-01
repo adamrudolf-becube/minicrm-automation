@@ -1,49 +1,6 @@
 # -*- coding: ISO-8859-2 -*-
 
 API_OUTPUTS = {
-u"places_schema": {
-	u"description":u"Schema for modue 22, the places",
-	u"command":u"curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Schema/Project/22\"",
-	u"response": {
-		u"Id":u"Int",
-		u"CategoryId": {
-			u"20":u"Jelentkez\u00e9s",
-			u"21":u"Tanfolyamok",
-			u"22":u"Helysz\u00ednek",
-			u"24":u"Kuponok",
-			u"9":u"Sz\u00e1ml\u00e1z\u00f3",
-			u"5":u"Info",
-			u"23":u"HR"
-			},
-		u"ContactId":u"Int",
-		u"BusinessId":u"Int",
-		u"StatusId": {
-			u"2759":u"Majd egyszer\/tal\u00e1n",
-			u"2760":u"T\u00e1rgyal\u00e1s alatt",
-			u"2761":u"Haszn\u00e1latban",
-			u"2764":u"Megszak\u00edtva"
-			},
-		u"UserId": {
-			u"56733":u"Rudolf \u00c1d\u00e1m",
-			u"56032":u"Vogel S\u00e1ra"
-			},
-		u"Name":u"Text(512u",
-		u"StatusUpdatedAt":u"DateTime",
-		u"Deleted":u"Int",
-		u"CreatedBy": {
-			u"56733":u"Rudolf \u00c1d\u00e1m",
-			u"56032":u"Vogel S\u00e1ra"
-			},
-		u"CreatedAt":u"DateTime",
-		u"UpdatedBy": {
-			u"56733":u"Rudolf \u00c1d\u00e1m",
-			u"56032":u"Vogel S\u00e1ra"
-			},
-		u"UpdatedAt":u"DateTime",
-		u"EgyediAzonosito":u"Text(1024u",
-		u"ReszletesHelyszinleiras":u"Text(1024u"
-		}
-	},
 u"places_list": {
 	u"description":u"List of possible places of courses",
 	u"command":u"curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?CategoryId=22\"",

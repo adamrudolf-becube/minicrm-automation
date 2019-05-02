@@ -1,6 +1,5 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 from functionalities.handlewaitinglist import handle_waiting_list
-import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists

@@ -4,7 +4,6 @@ from minicrmcommandfactory import MinicrmCommandFactory
 from commonfunctions import load_api_info
 import datetime
 from test.minicrm_api_mock.commandhandlermock import CommandHandlerMock
-import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses

@@ -1,6 +1,5 @@
 from minicrmtestbase import MiniCrmTestBase
 from functionalities.sendscheduledmails import ok_for_certification
-import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.students as apioutputs_students
 
 

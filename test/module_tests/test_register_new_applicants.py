@@ -2,7 +2,6 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import minicrmcommandfactory
 from functionalities.registernewapplicants import register_new_applicants
-import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists

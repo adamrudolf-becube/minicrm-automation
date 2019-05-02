@@ -1,6 +1,5 @@
 import unittest
 from commonfunctions import add_element_to_commasep_list
-import test.minicrm_api_mock.api_outputs as apioutputs
 
 
 class TestAddElementToCommaseparatedList(unittest.TestCase):

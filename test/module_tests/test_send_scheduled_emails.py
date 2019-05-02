@@ -1,7 +1,6 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import datetime
 from functionalities.sendscheduledmails import send_scheduled_emails
-import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.students as apioutputs_students
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists

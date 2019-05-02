@@ -1,7 +1,6 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import datetime
 from functionalities.setcoursestates import set_course_states
-import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses

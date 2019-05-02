@@ -1,6 +1,5 @@
 from minicrmtestbase import MiniCrmTestBase
 import datetime
-import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 
 

@@ -6,9 +6,11 @@ import quick_script
 import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
+import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
 import test.minicrm_api_mock.apioutputs.students as apioutputs_students
 import test.minicrm_api_mock.apioutputs.locations as apioutputs_places
+import test.minicrm_api_mock.apioutputs.locationlists as apioutputs_locationlists
 
 
 class TestQuickScript(MiniCrmTestBase):
@@ -51,7 +53,7 @@ class TestQuickScript(MiniCrmTestBase):
         self.set_participant_number_expectations()
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['course_list_for_course_code']
+            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(1164),
@@ -71,7 +73,7 @@ class TestQuickScript(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs.API_OUTPUTS['course_list_for_course_code']
+            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
         self.command_handler.expect_command(
             self.crm_command_factory.get_course(1164),
@@ -79,7 +81,7 @@ class TestQuickScript(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_location_list_by_location_name("Pannon Kincstár"),
-            apioutputs.API_OUTPUTS['location_list_for_location_name']
+            apioutputs_locationlists.LOCATION_LIST_FOR_LOCATION_NAME
         )
 
         self.command_handler.expect_command(

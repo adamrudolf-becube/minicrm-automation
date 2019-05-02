@@ -1,6 +1,7 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import test.minicrm_api_mock.api_outputs as apioutputs
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
+import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 
 
 class TestGetCourseByCourseCode(MiniCrmTestBase):
@@ -10,7 +11,7 @@ class TestGetCourseByCourseCode(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             self.crm_command_factory.get_course_list_by_course_code(wanted_course_code),
-            apioutputs.API_OUTPUTS['course_list_for_course_code']
+            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
 
         self.command_handler.expect_command(

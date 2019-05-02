@@ -763,3 +763,21 @@ LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN = {
 		}
 	}
 
+COURSE_LIST_FOR_COURSE_CODE = {
+	u"description":u"",
+	u"command":u"https://r3.minicrm.hu/Api/R3/Project?TanfolyamBetujele=2019-4-E",
+	u"response": {
+		u"Count":1,
+		u"Results": {
+			u"1164": {
+				u"Id":1164,
+				u"Name": u"2019-4-E",
+				u"Url": u"https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/3110",
+				u"ContactId":1290,
+				u"StatusId":2753,
+				u"UserId":56733,
+				u"Deleted":0
+				}
+			}
+		}
+	}

@@ -186,8 +186,18 @@ For all APPLICATION_OPEN courses: INFO_SENT and ACTIVE students should be counte
 set PYTHONPATH=%PYTHONPATH%;.
 nosetests --with-coverage --cover-erase --cover-html-dir=./coverage-reports --cover-html --cov-config .coveragerc
 
-nosetests --with-coverage --cover-erase --cover-html-dir=./coverage-reports --cover-html --cov-config .coveragerc > tex
-t.txt 2>&1
+nosetests test.module_tests.test_clean_info_level_kiment > text.txt 2>&1
+
+
+nosetests --with-coverage --cover-erase --cover-html-dir=./coverage-reports --cover-html --cov-config .coveragerc > text.txt 2>&1
+
+todo:
+- make commandfactory not a class
+- create consistent naming (command/request, factory, execute, etc)
+- structure of 
+- folder structure
+- eliminate magic values
+- format PEP8
 
 
 * Description

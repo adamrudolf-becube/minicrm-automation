@@ -17,11 +17,11 @@ class CrmData:
     """
 
     @stacktrace
-    def __init__(self, system_id, api_key, command_handler, today=datetime.datetime.now()):
+    def __init__(self, command_handler, today=datetime.datetime.now()):
         """
         Sets the login data required by the API, collects information about existing modules, and even initializes some fo them
         """
-        self._crm_command_factory = MinicrmCommandFactory(system_id, api_key)
+        self._crm_command_factory = MinicrmCommandFactory()
         self._command_handler = command_handler
         self._module_dict = None
         self._set_modules_dictionary()

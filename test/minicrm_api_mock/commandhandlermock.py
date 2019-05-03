@@ -1,46 +1,54 @@
 from tracing import stacktrace, trace
 from test.minicrm_api_mock.expextationqueue import ExpectationQueue
 from test.minicrm_api_mock.expectation import Expectation
+from minicrmcommandfactory import _
 import unittest
 # TODO find out why some JSON is outputted even if tracing is turned off
 
 
 class CommandHandlerMock(unittest.TestCase):
 
-    def __init__(self):
+    def __init__(self, username, api_key):
         self.expectation_queue = ExpectationQueue()
+        self._username = username
+        self._api_key = api_key
 
     def check_is_satisfied(self):
         next_expectation = self.expectation_queue.get_next_element()
         if next_expectation is not None:
             self.assertIsNone(next_expectation,
                               "Not all expectations were fulfilled when test ended. First unsatisfied expectation: [{}]".
-                              format(next_expectation.command_pattern))
+                              format(next_expectation.request.get_slogan()))
 
     @stacktrace
     def get_json_array_for_command(self, command):
-        print("COMMAND SENT TO ---MOCK--- API: {}".format(command))
-        response_identifier = self.match_expectation(command)
-        formatted_output = response_identifier["response"]
+        print("COMMAND SENT TO ---MOCK--- API: {}".format(command.get_slogan()))
+        response = self.match_expectation(command)
+        formatted_output = response["response"]
         trace("ANSWER RECEIVED:")
         return formatted_output
 
     @stacktrace
-    def expect_command(self, command_pattern, response_identifier, repeatedly = False):
-        self.expectation_queue.push(Expectation(command_pattern, response_identifier, repeatedly))
+    def expect_command(self, expected_request, response, repeatedly = False):
+        self.expectation_queue.push(Expectation(expected_request, response, repeatedly))
 
     @stacktrace
-    def match_expectation(self, command):
+    def match_expectation(self, request):
         next_expectation = self.expectation_queue.pop()
 
-        self.assertIsNotNone(next_expectation, "No more commands were expected, but got [{}]".format(command))
+        self.assertIsNotNone(
+            next_expectation,
+            "No more commands were expected, but got [{}]".format(request.get_slogan())
+        )
 
-        if next_expectation.command_pattern != "anything":
-            if not next_expectation.command_pattern in command:
+        if next_expectation.request.get_slogan() != "anything":
+            if not self._compare_requests(request, next_expectation.request):
                 raise AssertionError("Unexpected command: [{}]. Expected: [{}]".
-                                     format(command, next_expectation.command_pattern))
+                                     format(request.get_slogan(), next_expectation.request.get_slogan()))
+        else:
+            pass
 
-        return next_expectation.response_identifier
+        return next_expectation.response
 
     @stacktrace
     def read_file(self, filename):
@@ -48,3 +56,14 @@ class CommandHandlerMock(unittest.TestCase):
         with open(filename, 'r') as inputfile:
             contents = inputfile.read()
         return contents
+
+    @stacktrace
+    def _compare_requests(self, got_request, expected_request):
+        if expected_request.get_payload() == _:
+            return got_request.get_url() == expected_request.get_url() and \
+                   got_request.get_method() == expected_request.get_method()
+        else:
+            return got_request.get_url() == expected_request.get_url() and \
+                   got_request.get_method() == expected_request.get_method() and \
+                   got_request.get_slogan() == expected_request.get_slogan() and \
+                   got_request.get_payload() == expected_request.get_payload()

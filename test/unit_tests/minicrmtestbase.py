@@ -15,12 +15,12 @@ API_INFO_JSON_FILE = "api_info_fake.json"
 
 class MiniCrmTestBase(unittest.TestCase, object):
     def setUp(self):
-        self.command_handler = CommandHandlerMock()
         system_id, api_key = load_api_info(API_INFO_JSON_FILE)
-        self.crm_command_factory = MinicrmCommandFactory(system_id, api_key)
+        self.command_handler = CommandHandlerMock(system_id, api_key)
+        self.crm_command_factory = MinicrmCommandFactory()
 
         self.expect_crmdata_constructor()
-        self.crm_data = CrmData(system_id, api_key, self.command_handler, datetime.datetime(2019, 1, 25, 7, 30))
+        self.crm_data = CrmData(self.command_handler, datetime.datetime(2019, 1, 25, 7, 30))
 
     def tearDown(self):
         self.command_handler.check_is_satisfied()

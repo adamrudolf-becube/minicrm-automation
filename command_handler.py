@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 from apirequest import GET_METHOD, PUT_METHOD
 import requests
@@ -16,15 +17,17 @@ class CommandHandler:
         """
         Sends the API command to the CRM system, and returns the formatted JSON array.
         """
-        trace("COMMAND SENT TO API: {}".format(command.get_slogan()))
+        trace("COMMAND SENT TO API: {}, URL: {}".format(command.get_slogan(), command.get_url()))
 
-        if command.get_method == GET_METHOD:
+        if command.get_method() == GET_METHOD:
             response = requests.get(command.get_url(), auth=(self._username, self._api_key))
-        elif command.get_method == PUT_METHOD:
+        elif command.get_method() == PUT_METHOD:
             response = requests.put(
                 command.get_url(),
                 auth=(self._username, self._api_key),
                 data=json.dumps(command.get_payload()))
+        else:
+            ValueError("Unsupported method type: [{}]".format(command.get_method()))
 
         trace("RAW RECEIVED: {}".format(response))
         formatted_output = response.json

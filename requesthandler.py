@@ -13,7 +13,7 @@ class CommandHandler:
         self._api_key = api_key
 
     @stacktrace
-    def get_json_array_for_command(self, command):
+    def fetch(self, command):
         """
         Sends the API command to the CRM system, and returns the formatted JSON array.
         """

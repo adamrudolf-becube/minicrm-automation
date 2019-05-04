@@ -5,7 +5,7 @@
 
 from tracing import stacktrace, trace, pretty_print
 import datetime
-import minicrmcommandfactory
+import crmrequestfactory
 from commonfunctions import add_element_to_commasep_list, get_key_from_value
 
 
@@ -83,14 +83,14 @@ class CrmData:
     @stacktrace
     def get_course_by_course_code(self, course_code):
 
-        course_list = self._command_handler.get_json_array_for_command(
-            minicrmcommandfactory.get_course_list_by_course_code(course_code)
+        course_list = self._command_handler.fetch(
+            crmrequestfactory.get_course_list_by_course_code(course_code)
         )
 
         pretty_print(course_list)
         for course in course_list["Results"]:
-            return self._command_handler.get_json_array_for_command(
-                 minicrmcommandfactory.get_course(course))
+            return self._command_handler.fetch(
+                 crmrequestfactory.get_course(course))
 
         trace("COURSE NOT FOUND: [{}]".format(course_code))
         return None
@@ -102,14 +102,14 @@ class CrmData:
     @stacktrace
     def get_location_by_name(self, location_name):
 
-        location_list = self._command_handler.get_json_array_for_command(
-            minicrmcommandfactory.get_location_list_by_location_name(location_name)
+        location_list = self._command_handler.fetch(
+            crmrequestfactory.get_location_list_by_location_name(location_name)
         )
 
         pretty_print(location_list)
         for location in location_list["Results"]:
-            return self._command_handler.get_json_array_for_command(
-                minicrmcommandfactory.get_location(location))
+            return self._command_handler.fetch(
+                crmrequestfactory.get_location(location))
 
         trace("COURSE NOT FOUND: [{}]".format(location_name))
         return None
@@ -132,8 +132,8 @@ class CrmData:
 
             trace("APPLICATION IS OPEN, CALCULATING HEADCOUNT")
 
-            student_list = self._command_handler.get_json_array_for_command(
-                minicrmcommandfactory.get_student_list_by_course_code(course_code))["Results"]
+            student_list = self._command_handler.fetch(
+                crmrequestfactory.get_student_list_by_course_code(course_code))["Results"]
 
             acceptable_statuses = [
                 int(self.get_student_status_number_by_name("INFO levél kiment")),
@@ -154,8 +154,8 @@ class CrmData:
 
             trace("END OF STUDENT LIST, UPDATING HEADCOUNT TO [{}]".format(count))
 
-            self._command_handler.get_json_array_for_command(
-                minicrmcommandfactory.set_project_data(course, {"AktualisLetszam": count}))
+            self._command_handler.fetch(
+                crmrequestfactory.set_project_data(course, {"AktualisLetszam": count}))
 
     @stacktrace
     def raise_task(
@@ -168,8 +168,8 @@ class CrmData:
         Creates a new task in teh CRM ssytem with the given details
         """
 
-        self._command_handler.get_json_array_for_command(
-            minicrmcommandfactory.raise_task(project_id, comment, deadline, userid))
+        self._command_handler.fetch(
+            crmrequestfactory.raise_task(project_id, comment, deadline, userid))
 
     # TODO put it maybe to register_new_applicants
     @stacktrace
@@ -210,8 +210,8 @@ class CrmData:
         trace("DATA TO UPDATE:")
         pretty_print(update_data)
 
-        self._command_handler.get_json_array_for_command(
-            minicrmcommandfactory.set_project_data(student_data["Id"], update_data))
+        self._command_handler.fetch(
+            crmrequestfactory.set_project_data(student_data["Id"], update_data))
 
     @stacktrace
     def fill_student_data(self, student_data, course_data):
@@ -241,39 +241,39 @@ class CrmData:
         trace("DATA TO BE REPLACED:")
         pretty_print(data_to_update)
 
-        self._command_handler.get_json_array_for_command(
-            minicrmcommandfactory.set_project_data(student_data["Id"], data_to_update))
+        self._command_handler.fetch(
+            crmrequestfactory.set_project_data(student_data["Id"], data_to_update))
 
     # Private methods --------------------------------------------------------------------------------------------------
 
     @stacktrace
     def _set_project_data(self, student, data):
-        self._command_handler.get_json_array_for_command(
-            minicrmcommandfactory.set_project_data(student, data))
+        self._command_handler.fetch(
+            crmrequestfactory.set_project_data(student, data))
 
     @stacktrace
     def _query_project_list_with_status_id(self, status_id):
         trace(status_id)
-        response = self._command_handler.get_json_array_for_command(
-            minicrmcommandfactory.get_project_list_for_status(status_id))
+        response = self._command_handler.fetch(
+            crmrequestfactory.get_project_list_for_status(status_id))
         if response["Count"] > 100:
-            response_second_page = self._command_handler.get_json_array_for_command(
-                minicrmcommandfactory.get_project_list_for_status_page1(status_id))
+            response_second_page = self._command_handler.fetch(
+                crmrequestfactory.get_project_list_for_status_page1(status_id))
             response["Results"] = dict(dict(response["Results"]), **dict(response_second_page["Results"]))
 
         return response["Results"]
 
     def _get_schema_for_module(self, module):
-        return self._command_handler.get_json_array_for_command(
-            minicrmcommandfactory.get_schema_for_module_number(module))
+        return self._command_handler.fetch(
+            crmrequestfactory.get_schema_for_module_number(module))
 
     @stacktrace
     def _set_modules_dictionary(self):
-        self._module_dict = self._command_handler.get_json_array_for_command(minicrmcommandfactory.get_modul_dictionary())
+        self._module_dict = self._command_handler.fetch(crmrequestfactory.get_modul_dictionary())
 
     @stacktrace
     def _get_project(self, id):
-        return self._command_handler.get_json_array_for_command(minicrmcommandfactory.get_project(id))
+        return self._command_handler.fetch(crmrequestfactory.get_project(id))
 
     @stacktrace
     def _get_module_number_by_name(self, module_name):

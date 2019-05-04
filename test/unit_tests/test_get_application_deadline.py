@@ -1,5 +1,5 @@
 from minicrmtestbase import MiniCrmTestBase
-import minicrmcommandfactory
+import crmrequestfactory
 import datetime
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 
@@ -7,8 +7,8 @@ import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 class TestGetApplicationDeadline(MiniCrmTestBase):
 
     def set_course(self, api_response):
-        self.command_handler.expect_command(minicrmcommandfactory.get_student(42), api_response)
-        self.course_data = self.command_handler.get_json_array_for_command(minicrmcommandfactory.get_student(42))
+        self.command_handler.expect_command(crmrequestfactory.get_student(42), api_response)
+        self.course_data = self.command_handler.fetch(crmrequestfactory.get_student(42))
 
     def test_if_course_starts_in_not_less_than_7_days_away_and_more_than_places_30_percent_if_free_deadline_is_5_days(self):
         self.set_course(apioutputs_courses.COURSE_2019_1_Q)

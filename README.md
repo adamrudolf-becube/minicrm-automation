@@ -191,13 +191,23 @@ nosetests test.module_tests.test_clean_info_level_kiment > text.txt 2>&1
 
 nosetests --with-coverage --cover-erase --cover-html-dir=./coverage-reports --cover-html --cov-config .coveragerc > text.txt 2>&1
 
-todo:
+DONE
 - make commandfactory not a class
-- create consistent naming (command/request, factory, execute, etc)
-- structure of 
+
+todo:
+- create consistent naming (command/request, factory, execute, no Hungarian names, etc)
+- fix coverage
+- fix import order
+- structure of functions/classes
 - folder structure
 - eliminate magic values
+- go through it few times for little errors/illogical stuff
 - format PEP8
+- dunder names
+- check against clean code checklists
+- check against design patterns (correct pattern structure, consistent naming)
+- write code documentation
+- write readme correctly
 
 
 * Description

@@ -56,7 +56,7 @@ def get_course_list_by_course_code(course_code):
 
 def get_location_list_by_location_name(location_name):
     return ApiRequest(
-        "https://r3.minicrm.hu/Api/R3/Project?EgyediAzonosito=\"{}\"".format(location_name),
+        "https://r3.minicrm.hu/Api/R3/Project?EgyediAzonosito={}".format(location_name),
         GET_METHOD,
         "Get location list by location name: {}".format(location_name)
     )

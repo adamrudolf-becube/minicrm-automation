@@ -17,13 +17,6 @@ def get_schema_for_module_number(module_id):
         "Get schema for module {}".format(module_id)
     )
 
-def query_project_list(module_id):
-    return ApiRequest(
-        "https://r3.minicrm.hu/Api/R3/Project?CategoryId={}".format(module_id),
-        GET_METHOD,
-        "Query project list for category {}".format(module_id)
-    )
-
 def get_project_list_for_status(status_number):
     return ApiRequest(
         "https://r3.minicrm.hu/Api/R3/Project?StatusId={}".format(status_number),

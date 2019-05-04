@@ -29,8 +29,8 @@ class CommandHandlerMock(unittest.TestCase):
         return formatted_output
 
     @stacktrace
-    def expect_command(self, expected_request, response, repeatedly = False):
-        self.expectation_queue.push(Expectation(expected_request, response, repeatedly))
+    def expect_command(self, expected_request, response):
+        self.expectation_queue.push(Expectation(expected_request, response))
 
     @stacktrace
     def match_expectation(self, request):
@@ -41,12 +41,9 @@ class CommandHandlerMock(unittest.TestCase):
             "No more commands were expected, but got [{}]".format(request.get_slogan())
         )
 
-        if next_expectation.request.get_slogan() != "anything":
-            if not self._compare_requests(request, next_expectation.request):
-                raise AssertionError("Unexpected command: [{}]. Expected: [{}]".
-                                     format(request.get_slogan(), next_expectation.request.get_slogan()))
-        else:
-            pass
+        if not self._compare_requests(request, next_expectation.request):
+            raise AssertionError("Unexpected command: [{}]. Expected: [{}]".
+                                 format(request.get_slogan(), next_expectation.request.get_slogan()))
 
         return next_expectation.response
 

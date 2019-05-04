@@ -8,7 +8,7 @@ import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
 
 
-class TestRegisterNewApplicants(MiniCrmTestBase):
+class TestSetCourseStates(MiniCrmTestBase):
 
     def test_application_is_open_and_first_day_hasnt_spent_do_nothing(self):
         self.command_handler.expect_command(
@@ -67,10 +67,10 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 1, 29, 7, 30))
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2753),
-            apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2758),
-            apioutputs_general.EMPTY_LIST)
+            apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2797),
             apioutputs_general.EMPTY_LIST)
@@ -86,13 +86,13 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 4, 9, 7, 30))
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2753),
-            apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
+            apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2758),
             apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2797),
-            apioutputs_general.EMPTY_LIST)
+            apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
             crmrequestfactory.get_course(2037),
             apioutputs_courses.COURSE_2019_1_Q_IN_PROGRESS)

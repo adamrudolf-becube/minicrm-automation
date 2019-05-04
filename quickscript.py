@@ -24,7 +24,7 @@ def run(crm_data):
     trace("QUICK SCRIPT EXITED")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
     command_handler = CommandHandler(system_id, api_key)
     crm_data = CrmData(command_handler)
     run(crm_data)

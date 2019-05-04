@@ -1,4 +1,5 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
+import minicrmcommandfactory
 import daily_script
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
@@ -16,28 +17,28 @@ class TestDailyScript(MiniCrmTestBase):
 
     def expect_send_scheduled_mails(self):
         self.command_handler.expect_command(
-            self.crm_command_factory.get_project_list_for_status(2749),
+            minicrmcommandfactory.get_project_list_for_status(2749),
             apioutputs_studentlists.ACTIVE_ONE_STUDENT 
         )
         self.command_handler.expect_command(
-            self.crm_command_factory.get_project_list_for_status(2784),
+            minicrmcommandfactory.get_project_list_for_status(2784),
             apioutputs_general.EMPTY_LIST
         )
         self.command_handler.expect_command(
-            self.crm_command_factory.get_student(2941),
+            minicrmcommandfactory.get_student(2941),
             apioutputs_students.FAKE_STUDENT
         )
 
     def expect_set_course_states(self):
         self.command_handler.expect_command(
-            self.crm_command_factory.get_project_list_for_status(2753),
+            minicrmcommandfactory.get_project_list_for_status(2753),
             apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
         self.command_handler.expect_command(
-            self.crm_command_factory.get_project_list_for_status(2758),
+            minicrmcommandfactory.get_project_list_for_status(2758),
             apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
-            self.crm_command_factory.get_project_list_for_status(2797),
+            minicrmcommandfactory.get_project_list_for_status(2797),
             apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
-            self.crm_command_factory.get_course(2037),
+            minicrmcommandfactory.get_course(2037),
             apioutputs_courses.COURSE_2019_1_Q)

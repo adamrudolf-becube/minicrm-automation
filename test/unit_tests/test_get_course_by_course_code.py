@@ -1,4 +1,5 @@
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
+import minicrmcommandfactory
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 
@@ -9,12 +10,12 @@ class TestGetCourseByCourseCode(MiniCrmTestBase):
         wanted_course_code = "2019-1-Q"
 
         self.command_handler.expect_command(
-            self.crm_command_factory.get_course_list_by_course_code(wanted_course_code),
+            minicrmcommandfactory.get_course_list_by_course_code(wanted_course_code),
             apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
 
         self.command_handler.expect_command(
-            self.crm_command_factory.get_course(1164),
+            minicrmcommandfactory.get_course(1164),
             apioutputs_courses.COURSE_2019_1_Q
         )
         course_info = self.crm_data.get_course_by_course_code(wanted_course_code)

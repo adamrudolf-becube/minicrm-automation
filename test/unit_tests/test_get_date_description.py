@@ -1,4 +1,5 @@
 from minicrmtestbase import MiniCrmTestBase
+import minicrmcommandfactory
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 
 
@@ -6,11 +7,11 @@ class TestGetDateDescription(MiniCrmTestBase):
 
     def set_course(self, api_response):
         self.command_handler.expect_command(
-            self.crm_command_factory.get_student(42),
+            minicrmcommandfactory.get_student(42),
             api_response
         )
         self.course_data = self.command_handler.get_json_array_for_command(
-            self.crm_command_factory.get_student(42)
+            minicrmcommandfactory.get_student(42)
         )
 
     def test_date_description_returns_correct_string(self):

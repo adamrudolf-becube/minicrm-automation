@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
-from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import crmrequestfactory
 from functionalities.registernewapplicants import register_new_applicants
+
+from test.unit_tests.minicrmtestbase import MiniCrmTestBase
+
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
-import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
-import test.minicrm_api_mock.apioutputs.students as apioutputs_students
-import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
-import test.minicrm_api_mock.apioutputs.locations as apioutputs_locations
+import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 import test.minicrm_api_mock.apioutputs.locationlists as apioutputs_locationlists
+import test.minicrm_api_mock.apioutputs.locations as apioutputs_locations
+import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
+import test.minicrm_api_mock.apioutputs.students as apioutputs_students
 
 
 

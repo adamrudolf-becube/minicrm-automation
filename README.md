@@ -193,11 +193,13 @@ nosetests --with-coverage --cover-erase --cover-html-dir=./coverage-reports --co
 
 DONE
 - make commandfactory not a class
+- fix coverage
+- create consistent naming (command/request, factory, execute, no Hungarian names, etc)
+- fix import order
 
 todo:
-- create consistent naming (command/request, factory, execute, no Hungarian names, etc)
-- fix coverage
-- fix import order
+- fix remaining problems with naming
+- try to remove encoding things, only the necessary should remain
 - structure of functions/classes
 - folder structure
 - eliminate magic values

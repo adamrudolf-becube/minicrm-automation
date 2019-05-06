@@ -1,7 +1,9 @@
-from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import datetime
+
 import crmrequestfactory
 from functionalities.cleaninfosent import clean_info_level_kiment
+
+from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
 import test.minicrm_api_mock.apioutputs.students as apioutputs_students

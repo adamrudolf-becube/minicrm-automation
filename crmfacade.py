@@ -2,9 +2,9 @@
 # MiniCRM automation
 # Copyright Adam Rudolf, 2018
 # BeCube programming school
+import datetime
 
 from tracing import stacktrace, trace, pretty_print
-import datetime
 import crmrequestfactory
 from commonfunctions import add_element_to_commasep_list, get_key_from_value
 

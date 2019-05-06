@@ -1,5 +1,6 @@
-from minicrmtestbase import MiniCrmTestBase
 import crmrequestfactory
+
+from minicrmtestbase import MiniCrmTestBase
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
 
 

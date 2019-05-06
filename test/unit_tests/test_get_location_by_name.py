@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-from minicrmtestbase import MiniCrmTestBase
 import crmrequestfactory
+
+from minicrmtestbase import MiniCrmTestBase
+
+import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.locationlists as apioutputs_locationlists
 import test.minicrm_api_mock.apioutputs.locations as apioutputs_locations
-import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 
 
 class TestGetLocationByName(MiniCrmTestBase):

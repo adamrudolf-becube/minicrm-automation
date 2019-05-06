@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import json
-from apirequest import GET_METHOD, PUT_METHOD
 import requests
 
+from apirequest import GET_METHOD, PUT_METHOD
 from tracing import stacktrace, trace, pretty_print
 
 

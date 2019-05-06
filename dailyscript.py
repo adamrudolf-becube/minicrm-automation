@@ -3,13 +3,14 @@
 # -*- coding: utf-8 -*-
 # MiniCRM automation
 
+import os
+
 from functionalities.sendscheduledmails import send_scheduled_emails
 from functionalities.setcoursestates import set_course_states
 from commonfunctions import load_api_info
 from crmfacade import CrmData
 from requesthandler import CommandHandler
 from tracing import trace
-import os
 
 currentDirectory = os.path.dirname(os.path.realpath(__file__))
 

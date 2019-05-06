@@ -1,6 +1,8 @@
-from minicrmtestbase import MiniCrmTestBase
-import crmrequestfactory
 import datetime
+
+import crmrequestfactory
+
+from minicrmtestbase import MiniCrmTestBase
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
 
 

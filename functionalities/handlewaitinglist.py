@@ -4,6 +4,7 @@
 # BeCube programming school
 
 from __future__ import print_function
+
 from tracing import stacktrace, trace, pretty_print
 
 

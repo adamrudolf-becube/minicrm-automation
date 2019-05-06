@@ -1,11 +1,13 @@
-from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 import crmrequestfactory
 import dailyscript
+
+from test.unit_tests.minicrmtestbase import MiniCrmTestBase
+
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
-import test.minicrm_api_mock.apioutputs.students as apioutputs_students
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
+import test.minicrm_api_mock.apioutputs.students as apioutputs_students
 
 class TestDailyScript(MiniCrmTestBase):
     def test_quick_script_calls_correct_functions(self):

@@ -5,6 +5,7 @@ higher level logic independent from the concrete commands, but also to help phra
 """
 
 import json
+
 from apirequest import ApiRequest, GET_METHOD, PUT_METHOD
 
 

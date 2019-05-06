@@ -1,11 +1,13 @@
-from test.unit_tests.minicrmtestbase import MiniCrmTestBase
-import crmrequestfactory
 import datetime
+
+import crmrequestfactory
 from functionalities.setcoursestates import set_course_states
+
+from test.unit_tests.minicrmtestbase import MiniCrmTestBase
+
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
-import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
 
 
 class TestSetCourseStates(MiniCrmTestBase):

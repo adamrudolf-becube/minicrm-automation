@@ -7,7 +7,7 @@ from __future__ import print_function
 
 import datetime
 
-from tracing import stacktrace, trace
+from minicrm.tracing import stacktrace, trace
 
 
 @stacktrace

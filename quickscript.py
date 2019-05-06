@@ -3,13 +3,13 @@
 
 import os
 
-from commonfunctions import load_api_info
-from crmfacade import CrmFacade
+from minicrm.commonfunctions import load_api_info
+from minicrm.crmfacade import CrmFacade
 from functionalities.cleaninfosent import clean_info_level_kiment
 from functionalities.handlewaitinglist import handle_waiting_list
 from functionalities.registernewapplicants import register_new_applicants
-from requesthandler import RequestHandler
-from tracing import trace
+from minicrm.requesthandler import RequestHandler
+from minicrm.tracing import trace
 
 currentDirectory = os.path.dirname(os.path.realpath(__file__))
 

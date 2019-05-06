@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import crmrequestfactory
+from minicrm import crmrequestfactory
 import test.requesthandlermock.responses.courselists as responses_courselists
 import test.requesthandlermock.responses.courses as responses_courses
 import test.requesthandlermock.responses.general as responses_general

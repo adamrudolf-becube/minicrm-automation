@@ -1,6 +1,6 @@
 import unittest
 
-import crmrequestfactory
+from minicrm import crmrequestfactory
 from test.requesthandlermock.requesthandlermock import RequestHandlerMock
 
 

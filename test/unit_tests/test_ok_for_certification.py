@@ -1,4 +1,4 @@
-import crmrequestfactory
+from minicrm import crmrequestfactory
 import test.requesthandlermock.responses.students as responses_students
 from functionalities.sendscheduledmails import ok_for_certification
 from minicrmtestbase import MiniCrmTestBase

@@ -1,4 +1,4 @@
-import crmrequestfactory
+from minicrm import crmrequestfactory
 import test.requesthandlermock.responses.courses as responses_courses
 from minicrmtestbase import MiniCrmTestBase
 

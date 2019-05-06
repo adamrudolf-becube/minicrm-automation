@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-import crmrequestfactory
+from minicrm import crmrequestfactory
 import quickscript
 import test.requesthandlermock.responses.courselists as responses_courselists
 import test.requesthandlermock.responses.courses as responses_courses

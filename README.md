@@ -198,19 +198,19 @@ DONE
 - fix import order
 - format PEP8
 - fix remaining problems with naming
+- folder structure
 
 todo:
 - remove duplications from api outputs
 - try to remove encoding things, only the necessary should remain
 - structure of functions/classes
-- folder structure
 - test structure: put tests for one class to one file
 - eliminate magic values
 - go through it few times for little errors/illogical stuff
 - dunder names
 - check against clean code checklists
 - check against design patterns (correct pattern structure, consistent naming)
-- write code documentation
+- write code documentation and generate
 - write readme correctly
 
 

@@ -1,6 +1,6 @@
 import datetime
 
-import crmrequestfactory
+from minicrm import crmrequestfactory
 import test.requesthandlermock.responses.general as responses_general
 import test.requesthandlermock.responses.studentlists as responses_studentlists
 import test.requesthandlermock.responses.students as responses_students

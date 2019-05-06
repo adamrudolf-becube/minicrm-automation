@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import crmrequestfactory
+from minicrm import crmrequestfactory
 import test.requesthandlermock.responses.general as responses_general
 import test.requesthandlermock.responses.locationlists as responses_locationlists
 import test.requesthandlermock.responses.locations as responses_locations

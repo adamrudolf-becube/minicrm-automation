@@ -1,6 +1,6 @@
 import unittest
 
-from commonfunctions import add_element_to_commasep_list
+from minicrm.commonfunctions import add_element_to_commasep_list
 
 
 class TestAddElementToCommaseparatedList(unittest.TestCase):

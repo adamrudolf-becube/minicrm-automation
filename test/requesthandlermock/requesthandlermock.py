@@ -1,9 +1,9 @@
 import unittest
 
-from crmrequestfactory import _
+from minicrm.crmrequestfactory import _
 from test.requesthandlermock.expectation import Expectation
 from test.requesthandlermock.expextationqueue import ExpectationQueue
-from tracing import stacktrace, trace
+from minicrm.tracing import stacktrace, trace
 
 
 # TODO find out why some JSON is outputted even if tracing is turned off

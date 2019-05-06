@@ -5,7 +5,7 @@
 
 from __future__ import print_function
 
-from tracing import stacktrace, trace, pretty_print
+from minicrm.tracing import stacktrace, trace, pretty_print
 
 
 @stacktrace

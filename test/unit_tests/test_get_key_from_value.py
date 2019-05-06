@@ -4,7 +4,7 @@
 # BeCube programming school
 import unittest
 
-from commonfunctions import get_key_from_value
+from minicrm.commonfunctions import get_key_from_value
 
 
 class TestGetKeyFromValue(unittest.TestCase):

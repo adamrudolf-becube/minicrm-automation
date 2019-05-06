@@ -1,4 +1,4 @@
-import crmrequestfactory
+from minicrm import crmrequestfactory
 import dailyscript
 import test.requesthandlermock.responses.courselists as responses_courselists
 import test.requesthandlermock.responses.courses as responses_courses

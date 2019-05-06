@@ -5,12 +5,12 @@
 
 import os
 
-from commonfunctions import load_api_info
-from crmfacade import CrmFacade
+from minicrm.commonfunctions import load_api_info
+from minicrm.crmfacade import CrmFacade
 from functionalities.sendscheduledmails import send_scheduled_emails
 from functionalities.setcoursestates import set_course_states
-from requesthandler import RequestHandler
-from tracing import trace
+from minicrm.requesthandler import RequestHandler
+from minicrm.tracing import trace
 
 currentDirectory = os.path.dirname(os.path.realpath(__file__))
 

@@ -11,7 +11,6 @@ sys.setdefaultencoding('utf8')
 
 
 def load_api_info(api_info_json_file):
-
     with open(api_info_json_file) as api_info_file:
         api_info = json.load(api_info_file)
 

@@ -4,6 +4,7 @@
 # BeCube programming school
 
 from __future__ import print_function
+
 import datetime
 
 from commonfunctions import *
@@ -36,7 +37,7 @@ def send_scheduled_emails(crm_data):
         levelkuldesek_old = levelkuldesek
 
         if crm_data.get_today() >= datetime.datetime.strptime(student_data["N1Alkalom"],
-                                                    "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
+                                                              "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
             trace("Set: N1Alkalom, NOW: {}")
             if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
                     (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
@@ -46,7 +47,7 @@ def send_scheduled_emails(crm_data):
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "1. alkalom - haladó")
 
         if crm_data.get_today() >= datetime.datetime.strptime(student_data["N2Alkalom2"],
-                                                    "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
+                                                              "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
             trace("Set: N2Alkalom2")
             if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
                     (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
@@ -56,7 +57,7 @@ def send_scheduled_emails(crm_data):
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "2. alkalom - haladó")
 
         if crm_data.get_today() >= datetime.datetime.strptime(student_data["N3Alkalom2"],
-                                                    "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
+                                                              "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
             trace("Set: N3Alkalom2")
             if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
                     (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
@@ -66,7 +67,7 @@ def send_scheduled_emails(crm_data):
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "3. alkalom - haladó")
 
         if crm_data.get_today() >= datetime.datetime.strptime(student_data["N4Alkalom2"],
-                                                    "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
+                                                              "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
             trace("Set: N4Alkalom2")
             if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
                     (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
@@ -76,7 +77,7 @@ def send_scheduled_emails(crm_data):
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "4. alkalom - haladó")
 
         if crm_data.get_today() >= datetime.datetime.strptime(student_data["N5Alkalom2"],
-                                                    "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
+                                                              "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
             trace("Set: N5Alkalom2")
             if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
                     (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
@@ -86,7 +87,7 @@ def send_scheduled_emails(crm_data):
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "5. alkalom - haladó")
 
         if crm_data.get_today() >= datetime.datetime.strptime(student_data["N6Alkalom2"],
-                                                    "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
+                                                              "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
             trace("Set: N6Alkalom2")
             if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
                     (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
@@ -96,7 +97,7 @@ def send_scheduled_emails(crm_data):
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "6. alkalom - haladó")
 
         if crm_data.get_today() >= datetime.datetime.strptime(student_data["N7Alkalom2"],
-                                                    "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
+                                                              "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
             trace("Set: N7Alkalom2")
             if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
                     (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
@@ -106,7 +107,7 @@ def send_scheduled_emails(crm_data):
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "7. alkalom - haladó")
 
         if crm_data.get_today() >= datetime.datetime.strptime(student_data["N8Alkalom2"],
-                                                    "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
+                                                              "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
             trace("Set: N8Alkalom2")
             if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
                     (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
@@ -116,7 +117,7 @@ def send_scheduled_emails(crm_data):
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "8. alkalom - haladó")
 
         if crm_data.get_today() >= datetime.datetime.strptime(student_data["N9Alkalom2"],
-                                                    "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
+                                                              "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
             trace("Set: N9Alkalom2")
             if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
                     (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
@@ -126,7 +127,7 @@ def send_scheduled_emails(crm_data):
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "9. alkalom - haladó")
 
         if crm_data.get_today() >= datetime.datetime.strptime(student_data["N10Alkalom2"],
-                                                    "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
+                                                              "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-3):
             trace("Set: N10Alkalom2")
             if (student_data["TanfolyamTipusa2"] == "Kezdő programozó tanfolyam") or \
                     (student_data["TanfolyamTipusa2"] == "Céges kezdő"):
@@ -144,7 +145,7 @@ def send_scheduled_emails(crm_data):
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "Útravaló - haladó")
 
         if crm_data.get_today() >= datetime.datetime.strptime(student_data["N10Alkalom2"],
-                                                    "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=1):
+                                                              "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=1):
             trace("Set: N10Alkalom2 + 2 nap")
             update_data["StatusId"] = crm_data.get_student_status_number_by_name("Elvégezte")
             if (student_data["TanfolyamTipusa2"] == "Céges haladó"):
@@ -158,17 +159,17 @@ def send_scheduled_emails(crm_data):
 
         if student_data["N2SzunetOpcionalis2"] != "":
             if crm_data.get_today() >= datetime.datetime.strptime(student_data["N2SzunetOpcionalis2"],
-                                                        "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-2):
+                                                                  "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-2):
                 trace("Set: N2SzunetOpcionalis2")
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "1. szünet")
         if student_data["N2SzunetOpcionalis3"] != "":
             if crm_data.get_today() >= datetime.datetime.strptime(student_data["N2SzunetOpcionalis3"],
-                                                        "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-2):
+                                                                  "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-2):
                 trace("Set: N2SzunetOpcionalis3")
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "2. szünet")
         if student_data["N3SzunetOpcionalis2"] != "":
             if crm_data.get_today() >= datetime.datetime.strptime(student_data["N3SzunetOpcionalis2"],
-                                                        "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-2):
+                                                                  "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=-2):
                 trace("Set: N3SzunetOpcionalis2")
                 levelkuldesek = add_element_to_commasep_list(levelkuldesek, "3. szünet")
 

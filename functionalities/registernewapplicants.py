@@ -4,6 +4,7 @@
 # BeCube programming school
 
 from __future__ import print_function
+
 import datetime
 
 from tracing import stacktrace, trace
@@ -55,4 +56,3 @@ def register_new_applicants(crm_data):
                 Az adatok korrigálása után a rendszer automatiksuan megteszi a szokásos lépéseket, így ne küldj manuálisan INFO levelet, és ne változtasd meg a jelentkező státásuzát, mert az elronthatja a folyamatot!
                 """.format(student_data["MelyikTanfolyamErdekli"]),
                 (crm_data.get_today() + datetime.timedelta(days=3)).__str__())
-

@@ -1,17 +1,14 @@
 import datetime
 import unittest
 
-from crmfacade import CrmData
 import crmrequestfactory
-from commonfunctions import load_api_info
-
-from test.minicrm_api_mock.requesthandlermock import CommandHandlerMock
-
-import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
+import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
-
+from commonfunctions import load_api_info
+from crmfacade import CrmData
+from test.minicrm_api_mock.requesthandlermock import CommandHandlerMock
 
 API_INFO_JSON_FILE = "api_info_fake.json"
 

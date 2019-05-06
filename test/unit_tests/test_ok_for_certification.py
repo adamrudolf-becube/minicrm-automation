@@ -1,14 +1,12 @@
 import crmrequestfactory
-from functionalities.sendscheduledmails import ok_for_certification
-
-from minicrmtestbase import MiniCrmTestBase
 import test.minicrm_api_mock.apioutputs.students as apioutputs_students
+from functionalities.sendscheduledmails import ok_for_certification
+from minicrmtestbase import MiniCrmTestBase
 
 
 class TestOkForCertification(MiniCrmTestBase):
 
     def test_no_attendance_no_homework_returns_not_ok(self):
-
         self.command_handler.expect_command(
             crmrequestfactory.get_student(42),
             apioutputs_students.FAKE_STUDENT)
@@ -16,7 +14,6 @@ class TestOkForCertification(MiniCrmTestBase):
         self.assertFalse(ok_for_certification(self.student_data))
 
     def test_full_attendance_full_homework_returns_ok(self):
-
         self.command_handler.expect_command(
             crmrequestfactory.get_student(42),
             apioutputs_students.FAKE_STUDENT_GOOD_FOR_CERTIFICATION)
@@ -25,7 +22,6 @@ class TestOkForCertification(MiniCrmTestBase):
         self.assertTrue(ok_for_certification(self.student_data))
 
     def test_full_attendance_no_homework_returns_not_ok(self):
-
         self.command_handler.expect_command(
             crmrequestfactory.get_student(42),
             apioutputs_students.PARTIAL_STUDENT_FULL_ATTENDANCE_NO_HOMEWORK)
@@ -34,7 +30,6 @@ class TestOkForCertification(MiniCrmTestBase):
         self.assertFalse(ok_for_certification(self.student_data))
 
     def test_no_attendance_full_homework_returns_not_ok(self):
-
         self.command_handler.expect_command(
             crmrequestfactory.get_student(42),
             apioutputs_students.PARTIAL_STUDENT_NO_ATTENDANCE_FULL_HOMEWORK)
@@ -43,7 +38,6 @@ class TestOkForCertification(MiniCrmTestBase):
         self.assertFalse(ok_for_certification(self.student_data))
 
     def test_full_attendance_one_missing_homework_returns_not_ok(self):
-
         self.command_handler.expect_command(
             crmrequestfactory.get_student(42),
             apioutputs_students.PARTIAL_STUDENT_FULL_ATTENDANCE_ALMOST_FULL_HOMEWORK)
@@ -52,7 +46,6 @@ class TestOkForCertification(MiniCrmTestBase):
         self.assertFalse(ok_for_certification(self.student_data))
 
     def test_9_attendance_full_homework_returns_ok(self):
-
         self.command_handler.expect_command(
             crmrequestfactory.get_student(42),
             apioutputs_students.PARTIAL_STUDENT_9_OF_10_ATTENDANCE_FULL_HOMEWORK)
@@ -61,7 +54,6 @@ class TestOkForCertification(MiniCrmTestBase):
         self.assertTrue(ok_for_certification(self.student_data))
 
     def test_8_attendance_full_homework_returns_ok(self):
-
         self.command_handler.expect_command(
             crmrequestfactory.get_student(42),
             apioutputs_students.PARTIAL_STUDENT_8_OF_10_ATTENDANCE_FULL_HOMEWORK)
@@ -70,7 +62,6 @@ class TestOkForCertification(MiniCrmTestBase):
         self.assertTrue(ok_for_certification(self.student_data))
 
     def test_7_attendance_full_homework_returns_not_ok(self):
-
         self.command_handler.expect_command(
             crmrequestfactory.get_student(42),
             apioutputs_students.PARTIAL_STUDENT_7_OF_10_ATTENDANCE_FULL_HOMEWORK)

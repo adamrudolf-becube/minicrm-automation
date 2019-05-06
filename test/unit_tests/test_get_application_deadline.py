@@ -1,9 +1,8 @@
 import datetime
 
 import crmrequestfactory
-
-from minicrmtestbase import MiniCrmTestBase
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
+from minicrmtestbase import MiniCrmTestBase
 
 
 class TestGetApplicationDeadline(MiniCrmTestBase):
@@ -12,7 +11,8 @@ class TestGetApplicationDeadline(MiniCrmTestBase):
         self.command_handler.expect_command(crmrequestfactory.get_student(42), api_response)
         self.course_data = self.command_handler.fetch(crmrequestfactory.get_student(42))
 
-    def test_if_course_starts_in_not_less_than_7_days_away_and_more_than_places_30_percent_if_free_deadline_is_5_days(self):
+    def test_if_course_starts_in_not_less_than_7_days_away_and_more_than_places_30_percent_if_free_deadline_is_5_days(
+            self):
         self.set_course(apioutputs_courses.COURSE_2019_1_Q)
         self.crm_data.set_today(datetime.datetime(2019, 1, 10, 9, 8))
         self.assertEqual("2019-01-15 09:08:00", self.crm_data._get_application_deadline(self.course_data))
@@ -22,7 +22,8 @@ class TestGetApplicationDeadline(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 1, 23, 9, 8))
         self.assertEqual("2019-01-26 09:08:00", self.crm_data._get_application_deadline(self.course_data))
 
-    def test_if_course_starts_in_not_less_than_7_days_away_and_less_than_places_30_percent_if_free_deadline_is_3_days(self):
+    def test_if_course_starts_in_not_less_than_7_days_away_and_less_than_places_30_percent_if_free_deadline_is_3_days(
+            self):
         self.set_course(apioutputs_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
         self.crm_data.set_today(datetime.datetime(2019, 1, 10, 9, 8))
         self.assertEqual("2019-01-13 09:08:00", self.crm_data._get_application_deadline(self.course_data))

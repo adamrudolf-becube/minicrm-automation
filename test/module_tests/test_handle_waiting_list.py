@@ -1,13 +1,11 @@
 import crmrequestfactory
-from functionalities.handlewaitinglist import handle_waiting_list
-
-from test.unit_tests.minicrmtestbase import MiniCrmTestBase
-
-import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
+import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
 import test.minicrm_api_mock.apioutputs.students as apioutputs_students
+from functionalities.handlewaitinglist import handle_waiting_list
+from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 
 
 class TestHandleWaitingList(MiniCrmTestBase):
@@ -76,13 +74,13 @@ class TestHandleWaitingList(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             crmrequestfactory.get_course(1164),
-			apioutputs_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
+            apioutputs_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
                 2601,
                 {
-                    u"StatusId":u"2781",
-                    u"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
+                    u"StatusId": u"2781",
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
             apioutputs_general.XPUT_RESPONSE
@@ -90,7 +88,8 @@ class TestHandleWaitingList(MiniCrmTestBase):
         self.set_participant_number_expectations()
         handle_waiting_list(self.crm_data)
 
-    def test_there_are_multiple_students_on_waiting_list_and_there_is_one_free_place_put_earlier_student_to_info_sent(self):
+    def test_there_are_multiple_students_on_waiting_list_and_there_is_one_free_place_put_earlier_student_to_info_sent(
+            self):
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2750),
             apioutputs_studentlists.WAITING_LIST_TWO_STUDENTS)
@@ -112,8 +111,8 @@ class TestHandleWaitingList(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 2601,
                 {
-                    u"StatusId":u"2781",
-                    u"Levelkuldesek":u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
+                    u"StatusId": u"2781",
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
             apioutputs_general.XPUT_RESPONSE
@@ -130,7 +129,8 @@ class TestHandleWaitingList(MiniCrmTestBase):
         self.set_participant_number_expectations()
         handle_waiting_list(self.crm_data)
 
-    def test_there_are_multiple_students_on_waiting_list_and_there_are_two_free_places_put_both_students_to_info_sent(self):
+    def test_there_are_multiple_students_on_waiting_list_and_there_are_two_free_places_put_both_students_to_info_sent(
+            self):
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2750),
             apioutputs_studentlists.WAITING_LIST_TWO_STUDENTS)
@@ -182,7 +182,8 @@ class TestHandleWaitingList(MiniCrmTestBase):
         self.set_participant_number_expectations()
         handle_waiting_list(self.crm_data)
 
-    def test_there_are_5_students_on_the_waiting_list_and_there_are_two_free_places_put_the_earliest_two_to_info_sent(self):
+    def test_there_are_5_students_on_the_waiting_list_and_there_are_two_free_places_put_the_earliest_two_to_info_sent(
+            self):
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2750),
             apioutputs_studentlists.WAITING_LIST_FIVE_STUDENTS)

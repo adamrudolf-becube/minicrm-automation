@@ -4,9 +4,9 @@
 # BeCube programming school
 import datetime
 
-from tracing import stacktrace, trace, pretty_print
 import crmrequestfactory
 from commonfunctions import add_element_to_commasep_list, get_key_from_value
+from tracing import stacktrace, trace, pretty_print
 
 
 class CrmData:
@@ -90,7 +90,7 @@ class CrmData:
         pretty_print(course_list)
         for course in course_list["Results"]:
             return self._command_handler.fetch(
-                 crmrequestfactory.get_course(course))
+                crmrequestfactory.get_course(course))
 
         trace("COURSE NOT FOUND: [{}]".format(course_code))
         return None
@@ -128,7 +128,7 @@ class CrmData:
             course_data = self._get_project(course)
             course_code = course_data["TanfolyamBetujele"]
 
-            trace("CALCULATE HEADCOUNT OF COURSE ["+course+"], code: ["+course_code+"]")
+            trace("CALCULATE HEADCOUNT OF COURSE [" + course + "], code: [" + course_code + "]")
 
             trace("APPLICATION IS OPEN, CALCULATING HEADCOUNT")
 
@@ -147,10 +147,10 @@ class CrmData:
                 if student_list[student]["StatusId"] in acceptable_statuses:
                     count += 1
                     trace("STUDENT [{}] has status [{}], ACCEPTABLE, CURRENT HEADCOUNT: [{}]".
-                        format(student, student_list[student]["StatusId"], count))
+                          format(student, student_list[student]["StatusId"], count))
                 else:
                     trace("STUDENT [{}] has status [{}], NOT ACCEPTABLE, CURRENT HEADCOUNT: [{}]".
-                        format(student, student_list[student]["StatusId"], count))
+                          format(student, student_list[student]["StatusId"], count))
 
             trace("END OF STUDENT LIST, UPDATING HEADCOUNT TO [{}]".format(count))
 
@@ -163,7 +163,7 @@ class CrmData:
             project_id,
             comment,
             deadline,
-            userid = ""):
+            userid=""):
         """
         Creates a new task in teh CRM ssytem with the given details
         """
@@ -199,11 +199,13 @@ class CrmData:
 
             if course_data["TanfolyamTipusa"] == "Kezdő programozó tanfolyam":
                 trace("IN KEZDO IF")
-                update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"], "Kezdő INFO levél")
+                update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"],
+                                                                            "Kezdő INFO levél")
 
             elif course_data["TanfolyamTipusa"] == "Haladó programozó tanfolyam":
                 trace("IN HALADO IF")
-                update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"], "Haladó INFO levél")
+                update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"],
+                                                                            "Haladó INFO levél")
 
             update_data["StatusId"] = self.get_student_status_number_by_name("INFO levél kiment")
 
@@ -216,27 +218,27 @@ class CrmData:
     @stacktrace
     def fill_student_data(self, student_data, course_data):
         data_to_update = {
-                  "TanfolyamKodja": student_data["MelyikTanfolyamErdekli"],
-                  "TanfolyamTipusa2": course_data["TanfolyamTipusa"],
-                  "Helyszin2": course_data["Helyszin"],
-                  "HelyszinReszletesLeiras": self._get_detailed_description_of_location(course_data["Helyszin"]),
-                  "OrakIdopontja2": course_data["OrakIdopontja"],
-                  "N1Alkalom": course_data["ElsoAlkalom"],
-                  "N2Alkalom2": course_data["N2Alkalom"],
-                  "N3Alkalom2": course_data["N3Alkalom"],
-                  "N4Alkalom2": course_data["N4Alkalom"],
-                  "N5Alkalom2": course_data["N5Alkalom"],
-                  "N6Alkalom2": course_data["N6Alkalom"],
-                  "N7Alkalom2": course_data["N7Alkalom"],
-                  "N8Alkalom2": course_data["N8Alkalom"],
-                  "N9Alkalom2": course_data["N9Alkalom"],
-                  "N10Alkalom2": course_data["N10Alkalom"],
-                  "N2SzunetOpcionalis2": course_data["N1SzunetOpcionalis"],
-                  "N2SzunetOpcionalis3": course_data["N2SzunetOpcionalis"],
-                  "N3SzunetOpcionalis2": course_data["N3SzunetOpcionalis"],
-                  "VeglegesitesiHatarido": self._get_application_deadline(course_data),
-                  "Datumleirasok": self._get_date_description(course_data)
-            }
+            "TanfolyamKodja": student_data["MelyikTanfolyamErdekli"],
+            "TanfolyamTipusa2": course_data["TanfolyamTipusa"],
+            "Helyszin2": course_data["Helyszin"],
+            "HelyszinReszletesLeiras": self._get_detailed_description_of_location(course_data["Helyszin"]),
+            "OrakIdopontja2": course_data["OrakIdopontja"],
+            "N1Alkalom": course_data["ElsoAlkalom"],
+            "N2Alkalom2": course_data["N2Alkalom"],
+            "N3Alkalom2": course_data["N3Alkalom"],
+            "N4Alkalom2": course_data["N4Alkalom"],
+            "N5Alkalom2": course_data["N5Alkalom"],
+            "N6Alkalom2": course_data["N6Alkalom"],
+            "N7Alkalom2": course_data["N7Alkalom"],
+            "N8Alkalom2": course_data["N8Alkalom"],
+            "N9Alkalom2": course_data["N9Alkalom"],
+            "N10Alkalom2": course_data["N10Alkalom"],
+            "N2SzunetOpcionalis2": course_data["N1SzunetOpcionalis"],
+            "N2SzunetOpcionalis3": course_data["N2SzunetOpcionalis"],
+            "N3SzunetOpcionalis2": course_data["N3SzunetOpcionalis"],
+            "VeglegesitesiHatarido": self._get_application_deadline(course_data),
+            "Datumleirasok": self._get_date_description(course_data)
+        }
 
         trace("DATA TO BE REPLACED:")
         pretty_print(data_to_update)
@@ -304,10 +306,11 @@ class CrmData:
         if all_spots == 0:
             all_spots = 1
 
-        if starting_day - self.get_today() < datetime.timedelta(days = 7) or ((1.0 * free_spots) / (1.0 * all_spots)) < 0.3:
+        if starting_day - self.get_today() < datetime.timedelta(days=7) or (
+                (1.0 * free_spots) / (1.0 * all_spots)) < 0.3:
             days_left_to_apply = 3
 
-        if starting_day - self.get_today() < datetime.timedelta(days = 3) and free_spots <= 3:
+        if starting_day - self.get_today() < datetime.timedelta(days=3) and free_spots <= 3:
             days_left_to_apply = 1
 
         deadline = self.get_today() + datetime.timedelta(days=days_left_to_apply)

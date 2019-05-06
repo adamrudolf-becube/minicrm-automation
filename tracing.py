@@ -1,16 +1,17 @@
 import functools
-import traceback
 import json
+import traceback
 
-INDENT = 4*' '
+INDENT = 4 * ' '
 INDENT_GENERAL = 0
 
 TRACING = True
 TRACING = False
 
+
 def indent(txt):
     global INDENT_GENERAL
-    return '\n'.join(" " * INDENT_GENERAL + line for line in  txt.splitlines())
+    return '\n'.join(" " * INDENT_GENERAL + line for line in txt.splitlines())
 
 
 def stacktrace(func):
@@ -20,9 +21,9 @@ def stacktrace(func):
         # which is the line below.'
         global INDENT_GENERAL
         INDENT_GENERAL += 4
-        callstack = '\n'.join([INDENT+line.strip() for line in traceback.format_stack()][:-1])
+        callstack = '\n'.join([INDENT + line.strip() for line in traceback.format_stack()][:-1])
         if TRACING:
-            print('\n' + indent('-'*len('{}() called:'.format(func.__name__))))
+            print('\n' + indent('-' * len('{}() called:'.format(func.__name__))))
             print(indent('{}() called:'.format(func.__name__)))
             print(indent(callstack))
         return_value = func(*args, **kwds)
@@ -39,11 +40,13 @@ def trace(message):
         print()
     pass
 
+
 def format_json(json_array):
     """
     Returns a human-readable JSON array
     """
     return json.dumps(json_array, sort_keys=True, indent=4, separators=(',', ': '))
+
 
 def pretty_print(json_array):
     """

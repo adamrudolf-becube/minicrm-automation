@@ -3,21 +3,18 @@ import datetime
 
 import crmrequestfactory
 import quickscript
-
-from test.unit_tests.minicrmtestbase import MiniCrmTestBase
-
-import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
+import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.locationlists as apioutputs_locationlists
 import test.minicrm_api_mock.apioutputs.locations as apioutputs_locations
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
 import test.minicrm_api_mock.apioutputs.students as apioutputs_students
+from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 
 
 class TestQuickScript(MiniCrmTestBase):
     def test_quick_script_calls_correct_functions(self):
-
         self.expect_clean_info_sent()
         self.expect_handle_waiting_list()
         self.expect_register_new_applicants()
@@ -88,7 +85,7 @@ class TestQuickScript(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             crmrequestfactory.get_location(19),
-			apioutputs_locations.PANNON_KINCSTAR
+            apioutputs_locations.PANNON_KINCSTAR
         )
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(2601, crmrequestfactory._),

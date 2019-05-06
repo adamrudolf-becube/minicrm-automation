@@ -1,17 +1,15 @@
 import crmrequestfactory
 import dailyscript
-
-from test.unit_tests.minicrmtestbase import MiniCrmTestBase
-
-import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
+import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
 import test.minicrm_api_mock.apioutputs.students as apioutputs_students
+from test.unit_tests.minicrmtestbase import MiniCrmTestBase
+
 
 class TestDailyScript(MiniCrmTestBase):
     def test_quick_script_calls_correct_functions(self):
-
         self.expect_send_scheduled_mails()
         self.expect_set_course_states()
 
@@ -20,7 +18,7 @@ class TestDailyScript(MiniCrmTestBase):
     def expect_send_scheduled_mails(self):
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2749),
-            apioutputs_studentlists.ACTIVE_ONE_STUDENT 
+            apioutputs_studentlists.ACTIVE_ONE_STUDENT
         )
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2784),

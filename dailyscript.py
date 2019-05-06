@@ -5,10 +5,10 @@
 
 import os
 
-from functionalities.sendscheduledmails import send_scheduled_emails
-from functionalities.setcoursestates import set_course_states
 from commonfunctions import load_api_info
 from crmfacade import CrmData
+from functionalities.sendscheduledmails import send_scheduled_emails
+from functionalities.setcoursestates import set_course_states
 from requesthandler import CommandHandler
 from tracing import trace
 
@@ -25,7 +25,7 @@ def run(crm_data):
     trace("DAILY SCRIPT EXITED")
 
 
-if __name__ == "__main__": # pragma: no cover
+if __name__ == "__main__":  # pragma: no cover
     command_handler = CommandHandler(system_id, api_key)
     crm_data = CrmData(command_handler)
     run(crm_data)

@@ -196,15 +196,16 @@ DONE
 - fix coverage
 - create consistent naming (command/request, factory, execute, no Hungarian names, etc)
 - fix import order
+- format PEP8
 
 todo:
 - fix remaining problems with naming
+- remove duplications from api outputs
 - try to remove encoding things, only the necessary should remain
 - structure of functions/classes
 - folder structure
 - eliminate magic values
 - go through it few times for little errors/illogical stuff
-- format PEP8
 - dunder names
 - check against clean code checklists
 - check against design patterns (correct pattern structure, consistent naming)

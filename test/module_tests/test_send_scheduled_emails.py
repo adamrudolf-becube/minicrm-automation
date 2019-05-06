@@ -1,13 +1,11 @@
 import datetime
 
 import crmrequestfactory
-from functionalities.sendscheduledmails import send_scheduled_emails
-
-from test.unit_tests.minicrmtestbase import MiniCrmTestBase
-
 import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
 import test.minicrm_api_mock.apioutputs.students as apioutputs_students
+from functionalities.sendscheduledmails import send_scheduled_emails
+from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 
 
 class TestSendScheduledMails(MiniCrmTestBase):
@@ -17,7 +15,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2749),
-            apioutputs_studentlists.ACTIVE_ONE_STUDENT 
+            apioutputs_studentlists.ACTIVE_ONE_STUDENT
         )
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2784),
@@ -78,7 +76,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
                 2941,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151"}
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151"}
             ),
             apioutputs_general.XPUT_RESPONSE
         )
@@ -93,7 +92,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
                 2941,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 1. sz\u00fcnet, 2. sz\u00fcnet"}
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 1. sz\u00fcnet, 2. sz\u00fcnet"}
             ),
             apioutputs_general.XPUT_RESPONSE
         )
@@ -108,7 +108,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
                 2941,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}
             ),
             apioutputs_general.XPUT_RESPONSE
         )
@@ -123,7 +124,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
                 2941,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, \u00datraval\u00f3, 1. sz\u00fcnet"}
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, \u00datraval\u00f3, 1. sz\u00fcnet"}
             ),
             apioutputs_general.XPUT_RESPONSE
         )
@@ -133,7 +135,7 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.crm_data.set_today(datetime.datetime(2019, 4, 10, 7, 30))
         self.command_handler.expect_command(
             crmrequestfactory.get_student(2941),
-			apioutputs_students.FAKE_STUDENT_GOOD_FOR_CERTIFICATION
+            apioutputs_students.FAKE_STUDENT_GOOD_FOR_CERTIFICATION
         )
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
@@ -180,7 +182,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
             apioutputs_students.FAKE_STUDENT_ADVANCED
         )
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2941, {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}),
+            crmrequestfactory.set_project_data(2941, {
+                u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}),
             apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
@@ -192,7 +195,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
             apioutputs_students.FAKE_STUDENT_ADVANCED
         )
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2941, {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}),
+            crmrequestfactory.set_project_data(2941, {
+                u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}),
             apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
@@ -212,7 +216,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
             apioutputs_students.FAKE_STUDENT_ADVANCED
         )
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2941, {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3"}),
+            crmrequestfactory.set_project_data(2941, {
+                u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3"}),
             apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
@@ -224,7 +229,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
             apioutputs_students.FAKE_STUDENT_ADVANCED_WITH_3_BREAKS
         )
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2941, {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet"}),
+            crmrequestfactory.set_project_data(2941, {
+                u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet"}),
             apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
@@ -238,7 +244,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
                 2941,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}
             ),
             apioutputs_general.XPUT_RESPONSE
         )
@@ -253,7 +260,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
                 2941,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, 1. sz\u00fcnet"}
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, 1. sz\u00fcnet"}
             ),
             apioutputs_general.XPUT_RESPONSE
         )
@@ -277,7 +285,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
         )
         send_scheduled_emails(self.crm_data)
 
-    def test_advanced_dont_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable(self):
+    def test_advanced_dont_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable(
+            self):
         self.crm_data.set_today(datetime.datetime(2019, 4, 10, 7, 30))
         self.command_handler.expect_command(
             crmrequestfactory.get_student(2941),
@@ -349,7 +358,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
                 2941,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151"}
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151"}
             ),
             apioutputs_general.XPUT_RESPONSE
         )
@@ -364,13 +374,15 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
                 2941,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, 1. sz\u00fcnet"}
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, 1. sz\u00fcnet"}
             ),
             apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
-    def test_company_beginner_dont_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable(self):
+    def test_company_beginner_dont_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable(
+            self):
         self.crm_data.set_today(datetime.datetime(2019, 4, 10, 7, 30))
         self.command_handler.expect_command(
             crmrequestfactory.get_student(2941),
@@ -388,7 +400,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
         )
         send_scheduled_emails(self.crm_data)
 
-    def test_company_beginner_dont_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable(self):
+    def test_company_beginner_dont_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable(
+            self):
         self.crm_data.set_today(datetime.datetime(2019, 4, 10, 7, 30))
         self.command_handler.expect_command(
             crmrequestfactory.get_student(2941),
@@ -460,7 +473,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
                 2941,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3"}
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3"}
             ),
             apioutputs_general.XPUT_RESPONSE
         )
@@ -475,7 +489,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
                 2941,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet"}
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet"}
             ),
             apioutputs_general.XPUT_RESPONSE
         )
@@ -490,7 +505,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
                 2941,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}
             ),
             apioutputs_general.XPUT_RESPONSE
         )
@@ -505,13 +521,15 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(
                 2941,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, 1. sz\u00fcnet"}
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, 1. sz\u00fcnet"}
             ),
             apioutputs_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_data)
 
-    def test_company_advanced_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable(self):
+    def test_company_advanced_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable(
+            self):
         self.crm_data.set_today(datetime.datetime(2019, 4, 10, 7, 30))
         self.command_handler.expect_command(
             crmrequestfactory.get_student(2941),

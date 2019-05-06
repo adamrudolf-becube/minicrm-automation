@@ -4,10 +4,11 @@
 # BeCube programming school
 
 from __future__ import print_function
+
 import datetime
 
-from tracing import stacktrace, trace, pretty_print
 from commonfunctions import merge_dicts
+from tracing import stacktrace, trace, pretty_print
 
 
 @stacktrace
@@ -36,7 +37,7 @@ def set_course_states(crm_data):
                 trace("Set: N10Alkalom")
                 update_data["StatusId"] = crm_data.get_course_status_number_by_name("Frissen végzett")
             if crm_data.get_today() >= datetime.datetime.strptime(course_data["N10Alkalom"],
-                                                        "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=35):
+                                                                  "%Y-%m-%d %H:%M:%S") + datetime.timedelta(days=35):
                 trace("Set: N10Alkalom + 35 nap")
                 update_data["StatusId"] = crm_data.get_course_status_number_by_name("Befejezett")
         except:

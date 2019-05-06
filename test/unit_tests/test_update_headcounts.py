@@ -1,11 +1,9 @@
 import crmrequestfactory
-
-from test.unit_tests.minicrmtestbase import MiniCrmTestBase
-
-import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
+import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
+from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 
 
 class TestUpdateHeadcounts(MiniCrmTestBase):
@@ -21,7 +19,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":0}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 0}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -36,7 +34,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":0}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 0}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -51,7 +49,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_general.EMPTY_LIST)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":0}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 0}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -66,7 +64,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.INFO_SENT_ONE_STUDENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":1}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 1}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -81,7 +79,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.INFO_SENT_ONE_STUDENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":1}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 1}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -96,7 +94,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.INFO_SENT_ONE_STUDENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":1}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 1}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -111,7 +109,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.ACTIVE_ONE_STUDENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":1}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 1}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -126,7 +124,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.ONE_ACTIVE_AND_ONE_INFO_SENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":2}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 2}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -141,7 +139,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.DID_NOT_ANSERT_ONE_STUDENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":0}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 0}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -156,7 +154,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.CANCELLED_ONE_STUDENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":0}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 0}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -171,7 +169,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.NOT_PAYED_ONE_STUDENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":0}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 0}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -186,7 +184,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.SPECTATORS_ONE_STUDENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":0}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 0}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -201,7 +199,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.WAITING_LIST_ONE_STUDENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":0}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 0}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -216,7 +214,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.SUBSCRIBED_ONE_STUDENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":0}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 0}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -231,7 +229,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.APPLIED_ONE_STUDENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":0}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 0}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -246,7 +244,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.FINISHED_ONE_STUDENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":0}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 0}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -261,7 +259,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.UNSUBSCRIBED_ONE_STUDENT)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":0}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 0}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()
 
@@ -276,6 +274,6 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
             apioutputs_studentlists.COMPLEX_LIST)
         self.command_handler.expect_command(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":5}),
+            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 5}),
             apioutputs_general.XPUT_RESPONSE)
         self.crm_data.update_headcounts()

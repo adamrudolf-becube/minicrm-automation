@@ -1,18 +1,14 @@
 # -*- coding: utf-8 -*-
 import crmrequestfactory
-from functionalities.registernewapplicants import register_new_applicants
-
-from test.unit_tests.minicrmtestbase import MiniCrmTestBase
-
-import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
 import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
+import test.minicrm_api_mock.apioutputs.general as apioutputs_general
 import test.minicrm_api_mock.apioutputs.locationlists as apioutputs_locationlists
 import test.minicrm_api_mock.apioutputs.locations as apioutputs_locations
 import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
 import test.minicrm_api_mock.apioutputs.students as apioutputs_students
-
-
+from functionalities.registernewapplicants import register_new_applicants
+from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 
 
 class TestRegisterNewApplicants(MiniCrmTestBase):
@@ -23,7 +19,8 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         )
         register_new_applicants(self.crm_data)
 
-    def test_student_is_applied_headcount_is_less_than_the_limit_put_student_to_infosent_update_headcounts_copy_course_data(self):
+    def test_student_is_applied_headcount_is_less_than_the_limit_put_student_to_infosent_update_headcounts_copy_course_data(
+            self):
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2741),
             apioutputs_studentlists.NEW_APPLICANTS_ONE_STUDENT)
@@ -63,7 +60,8 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         )
         register_new_applicants(self.crm_data)
 
-    def test_advanced_student_is_applied_headcount_is_less_than_the_limit_put_student_to_infosent_update_headcounts_copy_course_data(self):
+    def test_advanced_student_is_applied_headcount_is_less_than_the_limit_put_student_to_infosent_update_headcounts_copy_course_data(
+            self):
         self.command_handler.expect_command(
             crmrequestfactory.get_project_list_for_status(2741),
             apioutputs_studentlists.NEW_APPLICANTS_ONE_STUDENT)
@@ -87,7 +85,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             crmrequestfactory.get_location(19),
-			apioutputs_locations.PANNON_KINCSTAR
+            apioutputs_locations.PANNON_KINCSTAR
         )
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(2601, crmrequestfactory._),
@@ -151,7 +149,7 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         )
         self.command_handler.expect_command(
             crmrequestfactory.get_location(19),
-			apioutputs_locations.PANNON_KINCSTAR
+            apioutputs_locations.PANNON_KINCSTAR
         )
         self.command_handler.expect_command(
             crmrequestfactory.set_project_data(2601, crmrequestfactory._),

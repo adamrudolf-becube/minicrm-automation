@@ -1,9 +1,9 @@
 import crmrequestfactory
-import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
-import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
-import test.minicrm_api_mock.apioutputs.general as apioutputs_general
-import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
-import test.minicrm_api_mock.apioutputs.students as apioutputs_students
+import test.requesthandlermock.responses.courselists as responses_courselists
+import test.requesthandlermock.responses.courses as responses_courses
+import test.requesthandlermock.responses.general as responses_general
+import test.requesthandlermock.responses.studentlists as responses_studentlists
+import test.requesthandlermock.responses.students as responses_students
 from functionalities.handlewaitinglist import handle_waiting_list
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 
@@ -11,71 +11,71 @@ from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 class TestHandleWaitingList(MiniCrmTestBase):
 
     def test_there_is_one_student_on_waiting_list_but_there_are_no_free_places_do_nothing(self):
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2750),
-            apioutputs_studentlists.WAITING_LIST_ONE_STUDENT)
-        self.command_handler.expect_command(
+            responses_studentlists.WAITING_LIST_ONE_STUDENT)
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2790),
-            apioutputs_students.FAKE_STUDENT)
+            responses_students.FAKE_STUDENT)
         self.set_participant_number_expectations()
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(1164),
-            apioutputs_courses.COURSE_2019_1_Q_FULL
+            responses_courses.COURSE_2019_1_Q_FULL
         )
         self.set_participant_number_expectations()
-        handle_waiting_list(self.crm_data)
+        handle_waiting_list(self.crm_facade)
 
     def test_there_are_multiple_students_on_waiting_list_but_there_are_no_free_places_do_nothing(self):
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2750),
-            apioutputs_studentlists.WAITING_LIST_TWO_STUDENTS)
-        self.command_handler.expect_command(
+            responses_studentlists.WAITING_LIST_TWO_STUDENTS)
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2790),
-            apioutputs_students.FAKE_STUDENT)
-        self.command_handler.expect_command(
+            responses_students.FAKE_STUDENT)
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2796),
-            apioutputs_students.FAKE_STUDENT_APPLIED_LATER)
+            responses_students.FAKE_STUDENT_APPLIED_LATER)
         self.set_participant_number_expectations()
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(1164),
-            apioutputs_courses.COURSE_2019_1_Q_FULL
+            responses_courses.COURSE_2019_1_Q_FULL
         )
         self.set_participant_number_expectations()
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(1164),
-            apioutputs_courses.COURSE_2019_1_Q_FULL
+            responses_courses.COURSE_2019_1_Q_FULL
         )
         self.set_participant_number_expectations()
-        handle_waiting_list(self.crm_data)
+        handle_waiting_list(self.crm_facade)
 
     def test_there_is_one_student_on_waiting_list_and_there_is_one_free_place_put_student_to_info_sent(self):
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2750),
-            apioutputs_studentlists.WAITING_LIST_ONE_STUDENT)
-        self.command_handler.expect_command(
+            responses_studentlists.WAITING_LIST_ONE_STUDENT)
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2790),
-            apioutputs_students.FAKE_STUDENT)
+            responses_students.FAKE_STUDENT)
         self.set_participant_number_expectations()
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(1164),
-            apioutputs_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
-        self.command_handler.expect_command(
+            responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
+        self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 2601,
                 {
@@ -83,31 +83,31 @@ class TestHandleWaitingList(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
-            apioutputs_general.XPUT_RESPONSE
+            responses_general.XPUT_RESPONSE
         )
         self.set_participant_number_expectations()
-        handle_waiting_list(self.crm_data)
+        handle_waiting_list(self.crm_facade)
 
     def test_there_are_multiple_students_on_waiting_list_and_there_is_one_free_place_put_earlier_student_to_info_sent(
             self):
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2750),
-            apioutputs_studentlists.WAITING_LIST_TWO_STUDENTS)
-        self.command_handler.expect_command(
+            responses_studentlists.WAITING_LIST_TWO_STUDENTS)
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2790),
-            apioutputs_students.FAKE_STUDENT)
-        self.command_handler.expect_command(
+            responses_students.FAKE_STUDENT)
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2796),
-            apioutputs_students.FAKE_STUDENT_APPLIED_LATER)
+            responses_students.FAKE_STUDENT_APPLIED_LATER)
         self.set_participant_number_expectations()
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(1164),
-            apioutputs_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
-        self.command_handler.expect_command(
+            responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
+        self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 2601,
                 {
@@ -115,41 +115,41 @@ class TestHandleWaitingList(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
-            apioutputs_general.XPUT_RESPONSE
+            responses_general.XPUT_RESPONSE
         )
         self.set_participant_number_expectations()
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(1164),
-            apioutputs_courses.COURSE_2019_1_Q_FULL
+            responses_courses.COURSE_2019_1_Q_FULL
         )
         self.set_participant_number_expectations()
-        handle_waiting_list(self.crm_data)
+        handle_waiting_list(self.crm_facade)
 
     def test_there_are_multiple_students_on_waiting_list_and_there_are_two_free_places_put_both_students_to_info_sent(
             self):
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2750),
-            apioutputs_studentlists.WAITING_LIST_TWO_STUDENTS)
-        self.command_handler.expect_command(
+            responses_studentlists.WAITING_LIST_TWO_STUDENTS)
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2790),
-            apioutputs_students.FAKE_STUDENT)
-        self.command_handler.expect_command(
+            responses_students.FAKE_STUDENT)
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2796),
-            apioutputs_students.FAKE_STUDENT_APPLIED_LATER)
+            responses_students.FAKE_STUDENT_APPLIED_LATER)
         self.set_participant_number_expectations()
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(1164),
-            apioutputs_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
+            responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
 
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 2601,
                 {
@@ -157,19 +157,19 @@ class TestHandleWaitingList(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
-            apioutputs_general.XPUT_RESPONSE
+            responses_general.XPUT_RESPONSE
         )
         self.set_participant_number_expectations()
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(1164),
-            apioutputs_courses.COURSE_2019_1_Q_ONE_PLACE_FREE
+            responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE
         )
 
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 2602,
                 {
@@ -177,42 +177,42 @@ class TestHandleWaitingList(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
-            apioutputs_general.XPUT_RESPONSE
+            responses_general.XPUT_RESPONSE
         )
         self.set_participant_number_expectations()
-        handle_waiting_list(self.crm_data)
+        handle_waiting_list(self.crm_facade)
 
     def test_there_are_5_students_on_the_waiting_list_and_there_are_two_free_places_put_the_earliest_two_to_info_sent(
             self):
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2750),
-            apioutputs_studentlists.WAITING_LIST_FIVE_STUDENTS)
-        self.command_handler.expect_command(
+            responses_studentlists.WAITING_LIST_FIVE_STUDENTS)
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2798),
-            apioutputs_students.FAKE_STUDENT)
-        self.command_handler.expect_command(
+            responses_students.FAKE_STUDENT)
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2790),
-            apioutputs_students.FAKE_STUDENT_APPLIED_LATER)
-        self.command_handler.expect_command(
+            responses_students.FAKE_STUDENT_APPLIED_LATER)
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2799),
-            apioutputs_students.FAKE_STUDENT_APPLIED_LATER)
-        self.command_handler.expect_command(
+            responses_students.FAKE_STUDENT_APPLIED_LATER)
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2796),
-            apioutputs_students.FAKE_STUDENT_4TH_APPLIED)
-        self.command_handler.expect_command(
+            responses_students.FAKE_STUDENT_4TH_APPLIED)
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2797),
-            apioutputs_students.FAKE_STUDENT_5TH_APPLIED)
+            responses_students.FAKE_STUDENT_5TH_APPLIED)
 
         self.set_participant_number_expectations()
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(1164),
-            apioutputs_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
+            responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
 
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 2601,
                 {
@@ -220,19 +220,19 @@ class TestHandleWaitingList(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
-            apioutputs_general.XPUT_RESPONSE
+            responses_general.XPUT_RESPONSE
         )
         self.set_participant_number_expectations()
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(1164),
-            apioutputs_courses.COURSE_2019_1_Q_ONE_PLACE_FREE
+            responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE
         )
 
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 2602,
                 {
@@ -240,36 +240,36 @@ class TestHandleWaitingList(MiniCrmTestBase):
                     u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
                 }
             ),
-            apioutputs_general.XPUT_RESPONSE
+            responses_general.XPUT_RESPONSE
         )
 
         self.set_participant_number_expectations()
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(1164),
-            apioutputs_courses.COURSE_2019_1_Q_FULL
+            responses_courses.COURSE_2019_1_Q_FULL
         )
         self.set_participant_number_expectations()
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(1164),
-            apioutputs_courses.COURSE_2019_1_Q_FULL
+            responses_courses.COURSE_2019_1_Q_FULL
         )
         self.set_participant_number_expectations()
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code("2019-1-Q"),
-            apioutputs_courselists.COURSE_LIST_FOR_COURSE_CODE
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(1164),
-            apioutputs_courses.COURSE_2019_1_Q_FULL
+            responses_courses.COURSE_2019_1_Q_FULL
         )
 
         self.set_participant_number_expectations()
-        handle_waiting_list(self.crm_data)
+        handle_waiting_list(self.crm_facade)

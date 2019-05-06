@@ -390,7 +390,7 @@ SCHEMA_PROJECT_20_STUDENTS = {
 Schema of project for module 21 (Tanfolyamok). This is how a course built up"
 Example command: curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Schema/Project/21"
 """
-SCHEMA_PRPJECT_21_COURSES = {
+SCHEMA_PROJECT_21_COURSES = {
     u"response": {
         u"AktualisLetszam": u"Int",
         u"BusinessId": u"Int",

@@ -2,13 +2,13 @@ import datetime
 import unittest
 
 import crmrequestfactory
-import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
-import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
-import test.minicrm_api_mock.apioutputs.general as apioutputs_general
-import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
+import test.requesthandlermock.responses.courselists as responses_courselists
+import test.requesthandlermock.responses.courses as responses_courses
+import test.requesthandlermock.responses.general as responses_general
+import test.requesthandlermock.responses.studentlists as responses_studentlists
 from commonfunctions import load_api_info
-from crmfacade import CrmData
-from test.minicrm_api_mock.requesthandlermock import CommandHandlerMock
+from crmfacade import CrmFacade
+from test.requesthandlermock.requesthandlermock import RequestHandlerMock
 
 API_INFO_JSON_FILE = "api_info_fake.json"
 
@@ -16,39 +16,39 @@ API_INFO_JSON_FILE = "api_info_fake.json"
 class MiniCrmTestBase(unittest.TestCase, object):
     def setUp(self):
         system_id, api_key = load_api_info(API_INFO_JSON_FILE)
-        self.command_handler = CommandHandlerMock(system_id, api_key)
+        self.request_handler = RequestHandlerMock(system_id, api_key)
 
-        self.expect_crmdata_constructor()
-        self.crm_data = CrmData(self.command_handler, datetime.datetime(2019, 1, 25, 7, 30))
+        self.expect_crmfacade_constructor()
+        self.crm_facade = CrmFacade(self.request_handler, datetime.datetime(2019, 1, 25, 7, 30))
 
     def tearDown(self):
-        self.command_handler.check_is_satisfied()
+        self.request_handler.check_is_satisfied()
 
-    def expect_crmdata_constructor(self):
-        self.command_handler.expect_command(
+    def expect_crmfacade_constructor(self):
+        self.request_handler.expect_request(
             crmrequestfactory.get_modul_dictionary(),
-            apioutputs_general.MODULE_LIST)
-        self.command_handler.expect_command(
+            responses_general.MODULE_LIST)
+        self.request_handler.expect_request(
             crmrequestfactory.get_schema_for_module_number(20),
-            apioutputs_general.SCHEMA_PROJECT_20_STUDENTS)
-        self.command_handler.expect_command(
+            responses_general.SCHEMA_PROJECT_20_STUDENTS)
+        self.request_handler.expect_request(
             crmrequestfactory.get_schema_for_module_number(21),
-            apioutputs_general.SCHEMA_PRPJECT_21_COURSES)
+            responses_general.SCHEMA_PROJECT_21_COURSES)
 
     def set_participant_number_expectations(self):
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2753),
-            apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN
+            responses_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_project(2037),
-            apioutputs_courses.COURSE_2019_1_Q
+            responses_courses.COURSE_2019_1_Q
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
-            apioutputs_studentlists.COURSE_CODE_IS_2019_1_Q
+            responses_studentlists.COURSE_CODE_IS_2019_1_Q
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":6}),
-            apioutputs_general.XPUT_RESPONSE
+            responses_general.XPUT_RESPONSE
         )

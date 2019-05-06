@@ -38,7 +38,6 @@ def trace(message):
         print()
         print(indent(message))
         print()
-    pass
 
 
 def format_json(json_array):

@@ -1,10 +1,10 @@
 import crmrequestfactory
 import dailyscript
-import test.minicrm_api_mock.apioutputs.courselists as apioutputs_courselists
-import test.minicrm_api_mock.apioutputs.courses as apioutputs_courses
-import test.minicrm_api_mock.apioutputs.general as apioutputs_general
-import test.minicrm_api_mock.apioutputs.studentlists as apioutputs_studentlists
-import test.minicrm_api_mock.apioutputs.students as apioutputs_students
+import test.requesthandlermock.responses.courselists as responses_courselists
+import test.requesthandlermock.responses.courses as responses_courses
+import test.requesthandlermock.responses.general as responses_general
+import test.requesthandlermock.responses.studentlists as responses_studentlists
+import test.requesthandlermock.responses.students as responses_students
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 
 
@@ -13,32 +13,32 @@ class TestDailyScript(MiniCrmTestBase):
         self.expect_send_scheduled_mails()
         self.expect_set_course_states()
 
-        dailyscript.run(self.crm_data)
+        dailyscript.run(self.crm_facade)
 
     def expect_send_scheduled_mails(self):
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2749),
-            apioutputs_studentlists.ACTIVE_ONE_STUDENT
+            responses_studentlists.ACTIVE_ONE_STUDENT
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2784),
-            apioutputs_general.EMPTY_LIST
+            responses_general.EMPTY_LIST
         )
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_student(2941),
-            apioutputs_students.FAKE_STUDENT
+            responses_students.FAKE_STUDENT
         )
 
     def expect_set_course_states(self):
-        self.command_handler.expect_command(
+        self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2753),
-            apioutputs_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
-        self.command_handler.expect_command(
+            responses_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
+        self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2758),
-            apioutputs_general.EMPTY_LIST)
-        self.command_handler.expect_command(
+            responses_general.EMPTY_LIST)
+        self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2797),
-            apioutputs_general.EMPTY_LIST)
-        self.command_handler.expect_command(
+            responses_general.EMPTY_LIST)
+        self.request_handler.expect_request(
             crmrequestfactory.get_course(2037),
-            apioutputs_courses.COURSE_2019_1_Q)
+            responses_courses.COURSE_2019_1_Q)

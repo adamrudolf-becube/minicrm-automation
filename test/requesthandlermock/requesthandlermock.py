@@ -1,15 +1,15 @@
 import unittest
 
 from crmrequestfactory import _
-from test.minicrm_api_mock.expectation import Expectation
-from test.minicrm_api_mock.expextationqueue import ExpectationQueue
+from test.requesthandlermock.expectation import Expectation
+from test.requesthandlermock.expextationqueue import ExpectationQueue
 from tracing import stacktrace, trace
 
 
 # TODO find out why some JSON is outputted even if tracing is turned off
 
 
-class CommandHandlerMock(unittest.TestCase):
+class RequestHandlerMock(unittest.TestCase):
 
     def __init__(self, username, api_key):
         self.expectation_queue = ExpectationQueue()
@@ -32,7 +32,7 @@ class CommandHandlerMock(unittest.TestCase):
         return formatted_output
 
     @stacktrace
-    def expect_command(self, expected_request, response):
+    def expect_request(self, expected_request, response):
         self.expectation_queue.push(Expectation(expected_request, response))
 
     @stacktrace
@@ -49,13 +49,6 @@ class CommandHandlerMock(unittest.TestCase):
                                  format(request.get_slogan(), next_expectation.request.get_slogan()))
 
         return next_expectation.response
-
-    @stacktrace
-    def read_file(self, filename):
-        trace("Trying to read {}".format(filename))
-        with open(filename, 'r') as inputfile:
-            contents = inputfile.read()
-        return contents
 
     @stacktrace
     def _compare_requests(self, got_request, expected_request):

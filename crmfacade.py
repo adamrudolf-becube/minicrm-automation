@@ -9,7 +9,7 @@ from commonfunctions import add_element_to_commasep_list, get_key_from_value
 from tracing import stacktrace, trace, pretty_print
 
 
-class CrmData:
+class CrmFacade:
     """
     Acts as a facade to the MiniCRM. This class implements human understandable methods to fetch from and write to the
     MiniCRM system, caches data if needed and handles the connection. Business code needs to use an instance of this

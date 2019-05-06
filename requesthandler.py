@@ -7,28 +7,28 @@ from apirequest import GET_METHOD, PUT_METHOD
 from tracing import stacktrace, trace, pretty_print
 
 
-class CommandHandler:
+class RequestHandler:
 
     def __init__(self, username, api_key):
         self._username = username
         self._api_key = api_key
 
     @stacktrace
-    def fetch(self, command):
+    def fetch(self, request):
         """
-        Sends the API command to the CRM system, and returns the formatted JSON array.
+        Sends the API request to the CRM system, and returns the formatted JSON array.
         """
-        trace("COMMAND SENT TO API: {}, URL: {}".format(command.get_slogan(), command.get_url()))
+        trace("COMMAND SENT TO API: {}, URL: {}".format(request.get_slogan(), request.get_url()))
 
-        if command.get_method() == GET_METHOD:
-            response = requests.get(command.get_url(), auth=(self._username, self._api_key))
-        elif command.get_method() == PUT_METHOD:
+        if request.get_method() == GET_METHOD:
+            response = requests.get(request.get_url(), auth=(self._username, self._api_key))
+        elif request.get_method() == PUT_METHOD:
             response = requests.put(
-                command.get_url(),
+                request.get_url(),
                 auth=(self._username, self._api_key),
-                data=json.dumps(command.get_payload()))
+                data=json.dumps(request.get_payload()))
         else:
-            ValueError("Unsupported method type: [{}]".format(command.get_method()))
+            ValueError("Unsupported method type: [{}]".format(request.get_method()))
 
         trace("RAW RECEIVED: {}".format(response))
         formatted_output = response.json

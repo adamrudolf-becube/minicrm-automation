@@ -1,10 +1,10 @@
 import datetime
 
-from minicrm import crmrequestfactory
 import test.requesthandlermock.responses.general as responses_general
 import test.requesthandlermock.responses.studentlists as responses_studentlists
 import test.requesthandlermock.responses.students as responses_students
 from functionalities.cleaninfosent import clean_info_level_kiment
+from minicrm import crmrequestfactory
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 
 
@@ -19,15 +19,17 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2781),
-            responses_studentlists.ONE_STUDENT_IN_INFO_SENT_STATE)
+            responses_studentlists.INFO_SENT_ONE_STUDENT)
         self.set_participant_number_expectations()
         self.request_handler.expect_request(
-            crmrequestfactory.get_student(2601),
+            crmrequestfactory.get_student(2941),
             responses_students.FAKE_STUDENT)
 
         self.request_handler.expect_request(
-            crmrequestfactory.set_project_data(2601, {
-                "Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni"}),
+            crmrequestfactory.set_project_data(
+                2941,
+                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni"}
+            ),
             responses_general.XPUT_RESPONSE
         )
 
@@ -40,15 +42,15 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2781),
-            responses_studentlists.ONE_STUDENT_IN_INFO_SENT_STATE)
+            responses_studentlists.INFO_SENT_ONE_STUDENT)
         self.set_participant_number_expectations()
         self.request_handler.expect_request(
-            crmrequestfactory.get_student(2601),
+            crmrequestfactory.get_student(2941),
             responses_students.FAKE_STUDENT)
 
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
-                2601,
+                2941,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni, Ma kell jelentkezni"}
             ),
             responses_general.XPUT_RESPONSE
@@ -63,15 +65,20 @@ class TestInfoSent(MiniCrmTestBase):
 
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2781),
-            responses_studentlists.ONE_STUDENT_IN_INFO_SENT_STATE)
+            responses_studentlists.INFO_SENT_ONE_STUDENT)
         self.set_participant_number_expectations()
         self.request_handler.expect_request(
-            crmrequestfactory.get_student(2601),
+            crmrequestfactory.get_student(2941),
             responses_students.FAKE_STUDENT)
 
         self.request_handler.expect_request(
-            crmrequestfactory.set_project_data(2601, {u"StatusId": u"2782",
-                                                      u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni, Ma kell jelentkezni, Toroltunk"}),
+            crmrequestfactory.set_project_data(
+                2941,
+                {
+                    u"StatusId": u"2782",
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni, Ma kell jelentkezni, Toroltunk"
+                }
+            ),
             responses_general.XPUT_RESPONSE
         )
 
@@ -82,11 +89,11 @@ class TestInfoSent(MiniCrmTestBase):
     def test_student_did_not_finalize_and_deadline_is_more_than_1_day_away_do_nothing(self):
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2781),
-            responses_studentlists.ONE_STUDENT_IN_INFO_SENT_STATE
+            responses_studentlists.INFO_SENT_ONE_STUDENT
         )
         self.set_participant_number_expectations()
         self.request_handler.expect_request(
-            crmrequestfactory.get_student(2601),
+            crmrequestfactory.get_student(2941),
             responses_students.FAKE_STUDENT
         )
         self.set_participant_number_expectations()

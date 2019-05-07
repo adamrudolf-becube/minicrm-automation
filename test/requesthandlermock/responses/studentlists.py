@@ -231,25 +231,6 @@ NEW_APPLICANTS_ONE_STUDENT = {
     }
 }
 
-ONE_STUDENT_IN_INFO_SENT_STATE = {
-    u"description": u"List of students with status INFO_SENT. For simplify testing, this contains only 1 student nowu",
-    u"command": u"curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2781\"",
-    u"response": {
-        u"Count": 1,
-        u"Results": {
-            u"2601": {
-                u"ContactId": 1176,
-                u"Deleted": 0,
-                u"Id": 2601,
-                u"Name": u"Gipsz Jakab",
-                u"StatusId": 2601,
-                u"Url": u"https://r3.minicrm.hu/Api/R3/Project/2601",
-                u"UserId": 56733
-            }
-        }
-    }
-}
-
 INFO_SENT_ONE_STUDENT = {
     u"description": u"List of new applicants where there is 1 new applicant",
     u"command": u"curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
@@ -262,25 +243,6 @@ INFO_SENT_ONE_STUDENT = {
                 u"Url": u"https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2941",
                 u"ContactId": 647,
                 u"StatusId": 2781,
-                u"UserId": 56733,
-                u"Deleted": 0
-            }
-        }
-    }
-}
-
-ACTIVE_ONE_STUDENT_VALAMI_MAS = {
-    u"description": u"List of ACTIVE students with only one student",
-    u"command": u"curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2749\"",
-    u"response": {
-        u"Count": 1,
-        u"Results": {
-            u"2126": {
-                u"Id": 2126,
-                u"Name": u"Gipsz Jakab",
-                u"Url": u"https:\/\/r3.minicrm.hu\/Api\/R3\/Project\/2126",
-                u"ContactId": 1005,
-                u"StatusId": 2749,
                 u"UserId": 56733,
                 u"Deleted": 0
             }
@@ -335,7 +297,7 @@ ONE_ACTIVE_AND_ONE_INFO_SENT = {
     }
 }
 
-DID_NOT_ANSERT_ONE_STUDENT = {
+DID_NOT_ANSWER_ONE_STUDENT = {
     u"description": u"List of new applicants where there is 1 new applicant",
     u"command": u"curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?StatusId=2741\"",
     u"response": {

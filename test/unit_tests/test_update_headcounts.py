@@ -137,7 +137,7 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             responses_courses.COURSE_2019_1_Q_0_STUDENTS)
         self.request_handler.expect_request(
             crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
-            responses_studentlists.DID_NOT_ANSERT_ONE_STUDENT)
+            responses_studentlists.DID_NOT_ANSWER_ONE_STUDENT)
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(2037, {u"AktualisLetszam": 0}),
             responses_general.XPUT_RESPONSE)

@@ -26,15 +26,15 @@ class TestQuickScript(MiniCrmTestBase):
 
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(2781),
-            responses_studentlists.ONE_STUDENT_IN_INFO_SENT_STATE)
+            responses_studentlists.INFO_SENT_ONE_STUDENT)
         self.set_participant_number_expectations()
         self.request_handler.expect_request(
-            crmrequestfactory.get_student(2601),
+            crmrequestfactory.get_student(2941),
             responses_students.FAKE_STUDENT)
 
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
-                2601,
+                2941,
                 {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Egy napod van jelentkezni"}
             ),
             responses_general.XPUT_RESPONSE

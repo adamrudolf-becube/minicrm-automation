@@ -200,9 +200,9 @@ DONE
 - fix remaining problems with naming
 - folder structure
 - remove duplications from api outputs
+- try to remove encoding things, only the necessary should remain
 
 todo:
-- try to remove encoding things, only the necessary should remain
 - structure of functions/classes
 - test structure: put tests for one class to one file
 - eliminate magic values

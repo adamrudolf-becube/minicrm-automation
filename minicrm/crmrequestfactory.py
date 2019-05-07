@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 This library defines abstract functionalities and returns a string for them. This can be used for having the
 higher level logic independent from the concrete commands, but also to help phrase the exoectations in the tests

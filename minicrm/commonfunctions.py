@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # MiniCRM automation
 # Copyright Adam Rudolf, 2018
 # BeCube programming school

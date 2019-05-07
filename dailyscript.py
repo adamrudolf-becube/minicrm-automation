@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-# MiniCRM automation
-# -*- coding: utf-8 -*-
 # MiniCRM automation
 
 import os

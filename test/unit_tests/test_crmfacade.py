@@ -104,7 +104,7 @@ class TestGetLocationByName(MiniCrmTestBase):
         )
 
         result = self.crm_facade.get_location_by_name("Pannon Kincstár")
-        self.assertEqual(result, responses_locations.PANNON_KINCSTAR[u"response"])
+        self.assertEqual(result, responses_locations.PANNON_KINCSTAR)
 
     def test_get_location_by_name_returns_none_for_nonexistent_course_code(self):
         self.request_handler.expect_request(

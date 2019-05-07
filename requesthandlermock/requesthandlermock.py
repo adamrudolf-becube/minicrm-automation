@@ -27,7 +27,7 @@ class RequestHandlerMock(unittest.TestCase):
     def fetch(self, command):
         print("COMMAND SENT TO ---MOCK--- API: {}".format(command.get_slogan()))
         response = self.match_expectation(command)
-        formatted_output = response["response"]
+        formatted_output = response
         trace("ANSWER RECEIVED:")
         return formatted_output
 

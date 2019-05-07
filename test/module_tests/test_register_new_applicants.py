@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from minicrm import crmrequestfactory
-import test.requesthandlermock.responses.courselists as responses_courselists
-import test.requesthandlermock.responses.courses as responses_courses
-import test.requesthandlermock.responses.general as responses_general
-import test.requesthandlermock.responses.locationlists as responses_locationlists
-import test.requesthandlermock.responses.locations as responses_locations
-import test.requesthandlermock.responses.studentlists as responses_studentlists
-import test.requesthandlermock.responses.students as responses_students
+import requesthandlermock.responses.courselists as responses_courselists
+import requesthandlermock.responses.courses as responses_courses
+import requesthandlermock.responses.general as responses_general
+import requesthandlermock.responses.locationlists as responses_locationlists
+import requesthandlermock.responses.locations as responses_locations
+import requesthandlermock.responses.studentlists as responses_studentlists
+import requesthandlermock.responses.students as responses_students
 from functionalities.registernewapplicants import register_new_applicants
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 

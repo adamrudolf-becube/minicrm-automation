@@ -5,22 +5,22 @@ omit =
     */_strptime.py
 
 include =
-    test.minicrm_api_mock.requesthandlermock.py
+    requesthandlermock/requesthandlermock.py
     quickscript.py
 	dailyscript.py
-	crmfacade.py
-	crmrequestfactory.py
-	commonfunctions.py    
-    
+	minicrm/crmfacade.py
+	minicrm/crmrequestfactory.py
+	minicrm/commonfunctions.py
+
 [report]
 omit =
     command_handler.py
     */_strptime.py
 
 include =
-    test.minicrm_api_mock.requesthandlermock.py
+    requesthandlermock/requesthandlermock.py
     quickscript.py
 	dailyscript.py
-	crmfacade.py
-	crmrequestfactory.py
-	commonfunctions.py
+	minicrm/crmfacade.py
+	minicrm/crmrequestfactory.py
+	minicrm/commonfunctions.py

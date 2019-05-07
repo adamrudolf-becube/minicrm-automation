@@ -1,8 +1,8 @@
 import unittest
 
 from minicrm.crmrequestfactory import _
-from test.requesthandlermock.expectation import Expectation
-from test.requesthandlermock.expextationqueue import ExpectationQueue
+from expectation import Expectation
+from expextationqueue import ExpectationQueue
 from minicrm.tracing import stacktrace, trace
 
 

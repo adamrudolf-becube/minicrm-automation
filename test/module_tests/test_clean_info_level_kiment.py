@@ -1,8 +1,8 @@
 import datetime
 
-import test.requesthandlermock.responses.general as responses_general
-import test.requesthandlermock.responses.studentlists as responses_studentlists
-import test.requesthandlermock.responses.students as responses_students
+import requesthandlermock.responses.general as responses_general
+import requesthandlermock.responses.studentlists as responses_studentlists
+import requesthandlermock.responses.students as responses_students
 from functionalities.cleaninfosent import clean_info_level_kiment
 from minicrm import crmrequestfactory
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase

@@ -1,10 +1,10 @@
 from minicrm import crmrequestfactory
 import dailyscript
-import test.requesthandlermock.responses.courselists as responses_courselists
-import test.requesthandlermock.responses.courses as responses_courses
-import test.requesthandlermock.responses.general as responses_general
-import test.requesthandlermock.responses.studentlists as responses_studentlists
-import test.requesthandlermock.responses.students as responses_students
+import requesthandlermock.responses.courselists as responses_courselists
+import requesthandlermock.responses.courses as responses_courses
+import requesthandlermock.responses.general as responses_general
+import requesthandlermock.responses.studentlists as responses_studentlists
+import requesthandlermock.responses.students as responses_students
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 
 

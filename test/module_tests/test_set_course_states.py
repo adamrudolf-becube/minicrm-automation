@@ -1,9 +1,9 @@
 import datetime
 
 from minicrm import crmrequestfactory
-import test.requesthandlermock.responses.courselists as responses_courselists
-import test.requesthandlermock.responses.courses as responses_courses
-import test.requesthandlermock.responses.general as responses_general
+import requesthandlermock.responses.courselists as responses_courselists
+import requesthandlermock.responses.courses as responses_courses
+import requesthandlermock.responses.general as responses_general
 from functionalities.setcoursestates import set_course_states
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 

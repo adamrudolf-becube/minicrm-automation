@@ -2,13 +2,13 @@ import datetime
 import unittest
 
 from minicrm import crmrequestfactory
-import test.requesthandlermock.responses.courselists as responses_courselists
-import test.requesthandlermock.responses.courses as responses_courses
-import test.requesthandlermock.responses.general as responses_general
-import test.requesthandlermock.responses.studentlists as responses_studentlists
+import requesthandlermock.responses.courselists as responses_courselists
+import requesthandlermock.responses.courses as responses_courses
+import requesthandlermock.responses.general as responses_general
+import requesthandlermock.responses.studentlists as responses_studentlists
 from minicrm.commonfunctions import load_api_info
 from minicrm.crmfacade import CrmFacade
-from test.requesthandlermock.requesthandlermock import RequestHandlerMock
+from requesthandlermock.requesthandlermock import RequestHandlerMock
 
 API_INFO_JSON_FILE = "api_info_fake.json"
 

@@ -171,50 +171,6 @@ class CrmFacade:
         self._command_handler.fetch(
             crmrequestfactory.raise_task(project_id, comment, deadline, userid))
 
-    # TODO put it maybe to register_new_applicants
-    @stacktrace
-    def send_initial_letter(self, student_data, course_data):
-        """
-        Based on the given student, and course, the system sends
-        an INFO or a waitinglist letter, and sets the status of
-        the student accordingly.
-        """
-        update_data = {}
-
-        if course_data["AktualisLetszam"] >= course_data["MaximalisLetszam"]:
-
-            trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO WAITING LIST.".
-                  format(course_data["AktualisLetszam"], course_data["MaximalisLetszam"]))
-
-            update_data["Levelkuldesek"] = student_data["Levelkuldesek"] + ", Várólista"
-
-            update_data["StatusId"] = self.get_student_status_number_by_name("Várólistán van")
-
-        else:
-
-            trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO COURSE.".
-                  format(course_data["AktualisLetszam"], course_data["MaximalisLetszam"]))
-
-            trace("TYPE OF COURSE IS: [{}] ".format(course_data["TanfolyamTipusa"]))
-
-            if course_data["TanfolyamTipusa"] == "Kezdő programozó tanfolyam":
-                trace("IN KEZDO IF")
-                update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"],
-                                                                            "Kezdő INFO levél")
-
-            elif course_data["TanfolyamTipusa"] == "Haladó programozó tanfolyam":
-                trace("IN HALADO IF")
-                update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"],
-                                                                            "Haladó INFO levél")
-
-            update_data["StatusId"] = self.get_student_status_number_by_name("INFO levél kiment")
-
-        trace("DATA TO UPDATE:")
-        pretty_print(update_data)
-
-        self._command_handler.fetch(
-            crmrequestfactory.set_project_data(student_data["Id"], update_data))
-
     @stacktrace
     def fill_student_data(self, student_data, course_data):
         data_to_update = {

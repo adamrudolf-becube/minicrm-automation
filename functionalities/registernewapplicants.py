@@ -8,6 +8,51 @@ from __future__ import print_function
 import datetime
 
 from minicrm.tracing import stacktrace, trace
+from minicrm.commonfunctions import add_element_to_commasep_list
+from minicrm.tracing import pretty_print
+
+
+@stacktrace
+def send_initial_letter(crm_facade, student_data, course_data):
+    """
+    Based on the given student, and course, the system sends
+    an INFO or a waitinglist letter, and sets the status of
+    the student accordingly.
+    """
+    update_data = {}
+
+    if course_data["AktualisLetszam"] >= course_data["MaximalisLetszam"]:
+
+        trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO WAITING LIST.".
+              format(course_data["AktualisLetszam"], course_data["MaximalisLetszam"]))
+
+        update_data["Levelkuldesek"] = student_data["Levelkuldesek"] + ", Várólista"
+
+        update_data["StatusId"] = crm_facade.get_student_status_number_by_name("Várólistán van")
+
+    else:
+
+        trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO COURSE.".
+              format(course_data["AktualisLetszam"], course_data["MaximalisLetszam"]))
+
+        trace("TYPE OF COURSE IS: [{}] ".format(course_data["TanfolyamTipusa"]))
+
+        if course_data["TanfolyamTipusa"] == "Kezdő programozó tanfolyam":
+            trace("IN KEZDO IF")
+            update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"],
+                                                                        "Kezdő INFO levél")
+
+        elif course_data["TanfolyamTipusa"] == "Haladó programozó tanfolyam":
+            trace("IN HALADO IF")
+            update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"],
+                                                                        "Haladó INFO levél")
+
+        update_data["StatusId"] = crm_facade.get_student_status_number_by_name("INFO levél kiment")
+
+    trace("DATA TO UPDATE:")
+    pretty_print(update_data)
+
+    crm_facade.set_student_data(student_data["Id"], update_data)
 
 
 @stacktrace
@@ -33,7 +78,7 @@ def register_new_applicants(crm_data):
         course_data = crm_data.get_course_by_course_code(course_code)
         if course_data:
             crm_data.fill_student_data(student_data, course_data)
-            crm_data.send_initial_letter(student_data, course_data)
+            send_initial_letter(crm_data, student_data, course_data)
         else:
             crm_data.raise_task(
                 student,

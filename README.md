@@ -207,9 +207,9 @@ DONE
 - get rid of unicode encodings
 - merge_dicts on crmfacade 228 and other places
 - crm_data to facade, commandhandler to requesthandler
+- hun names still
 
 todo:
-- hun names still
 - go through it few times for little errors/illogical stuff
 - dunder names
 - check against clean code checklists

@@ -22,7 +22,7 @@ ZERO_DAY_MAIL_NAME = "Ma kell jelentkezni"
 WE_DELETED_YOU_MAIL_NAME = "Toroltunk"
 
 @stacktrace
-def clean_info_level_kiment(crm_facade):
+def clean_info_sent(crm_facade):
     """
     Checks all students in "INFO levöl kiment" status, and
     - NOT DONE BY SCRIPT If billing info is filled, student gets to "Kurzus folyamatban" NOT DONE BY SCRIPT, autmated in MiniCRTM

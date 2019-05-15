@@ -5,7 +5,7 @@
 import datetime
 
 import crmrequestfactory
-from commonfunctions import get_key_from_value
+from commonfunctions import get_key_from_value, merge_dicts
 from tracing import stacktrace, trace, pretty_print
 
 STUDENTS_MODULE_NAME = "Jelentkezés"
@@ -245,7 +245,7 @@ class CrmFacade:
         if response[COUNT_FIELD] > 100:
             response_second_page = self._command_handler.fetch(
                 crmrequestfactory.get_project_list_for_status_page1(status_id))
-            response[RESULTS_FIELD] = dict(dict(response[RESULTS_FIELD]), **dict(response_second_page[RESULTS_FIELD]))
+            response[RESULTS_FIELD] = merge_dicts(response[RESULTS_FIELD], response_second_page[RESULTS_FIELD])
 
         return response[RESULTS_FIELD]
 

@@ -204,10 +204,10 @@ DONE
 - structure of functions/classes
 - test structure: put tests for one class to one file
 - eliminate magic values
-
-todo:
 - get rid of unicode encodings
 - merge_dicts on crmfacade 228 and other places
+
+todo:
 - crm_data to facade, commandhandler to requesthandler
 - hun names still
 - go through it few times for little errors/illogical stuff

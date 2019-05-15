@@ -5,8 +5,37 @@
 import datetime
 
 import crmrequestfactory
-from commonfunctions import add_element_to_commasep_list, get_key_from_value
+from commonfunctions import get_key_from_value
 from tracing import stacktrace, trace, pretty_print
+
+STUDENTS_MODULE_NAME = "Jelentkezés"
+COURSES_MODULE_NAME = "Tanfolyamok"
+APPLICATION_OPEN_STATE = "Jelentkezés nyitva"
+INFO_SENT_STATE = "INFO levél kiment"
+COURSE_IN_PROGRESS_STATE = "Kurzus folyamatban"
+RESULTS_FIELD = "Results"
+STATUS_ID_FIELD = "StatusId"
+COUSE_CODE_FIELD = "TanfolyamBetujele"
+CURRENT_HEADCOUNT_FIELD = "AktualisLetszam"
+MAX_HEADCOUNT_FIELD = "MaximalisLetszam"
+DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+DETAILED_LOCATION_DESCRIPTION_FIELD = "ReszletesHelyszinleiras"
+COUNT_FIELD = "Count"
+
+COURSE_FIRST_OCCASION_DATE_FIELD = "ElsoAlkalom"
+COURSE_SECOND_OCCASION_DATE_FIELD = "N2Alkalom"
+COURSE_THIRD_OCCASION_DATE_FIELD = "N3Alkalom"
+COURSE_FOURTH_OCCASION_DATE_FIELD = "N4Alkalom"
+COURSE_FIFTH_OCCASION_DATE_FIELD = "N5Alkalom"
+COURSE_SIXTH_OCCASION_DATE_FIELD = "N6Alkalom"
+COURSE_SEVENTH_OCCASION_DATE_FIELD = "N7Alkalom"
+COURSE_EIGTH_OCCASION_DATE_FIELD = "N8Alkalom"
+COURSE_NINTH_OCCASION_DATE_FIELD = "N9Alkalom"
+COURSE_TENTH_OCCASION_DATE_FIELD = "N10Alkalom"
+
+COURSE_FISRST_DAYOFF_FIELD = "N1SzunetOpcionalis"
+COURSE_SECOND_DAYOFF_FIELD = "N2SzunetOpcionalis"
+COURSE_THIRD_DAYOFF_FIELD = "N3SzunetOpcionalis"
 
 
 class CrmFacade:
@@ -24,8 +53,8 @@ class CrmFacade:
         self._command_handler = command_handler
         self._module_dict = None
         self._set_modules_dictionary()
-        self._student_schema = self._get_schema_for_module(self._get_module_number_by_name("Jelentkezés"))
-        self._course_schema = self._get_schema_for_module(self._get_module_number_by_name("Tanfolyamok"))
+        self._student_schema = self._get_schema_for_module(self._get_module_number_by_name(STUDENTS_MODULE_NAME))
+        self._course_schema = self._get_schema_for_module(self._get_module_number_by_name(COURSES_MODULE_NAME))
         self._today = today
 
     @stacktrace
@@ -56,7 +85,7 @@ class CrmFacade:
 
     @stacktrace
     def get_student_status_number_by_name(self, status_name):
-        status_dictionary = self._student_schema["StatusId"]
+        status_dictionary = self._student_schema[STATUS_ID_FIELD]
         return_value = get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
         trace("STATUS CODE FOR [{}] IS [{}]".format(status_name, return_value))
         return return_value
@@ -75,7 +104,7 @@ class CrmFacade:
 
     @stacktrace
     def get_course_status_number_by_name(self, status_name):
-        status_dictionary = self._course_schema["StatusId"]
+        status_dictionary = self._course_schema[STATUS_ID_FIELD]
         return_value = get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
         trace("STATUS CODE FOR [{}] IS [{}]".format(status_name, return_value))
         return return_value
@@ -88,7 +117,7 @@ class CrmFacade:
         )
 
         pretty_print(course_list)
-        for course in course_list["Results"]:
+        for course in course_list[RESULTS_FIELD]:
             return self._command_handler.fetch(
                 crmrequestfactory.get_course(course))
 
@@ -107,7 +136,7 @@ class CrmFacade:
         )
 
         pretty_print(location_list)
-        for location in location_list["Results"]:
+        for location in location_list[RESULTS_FIELD]:
             return self._command_handler.fetch(
                 crmrequestfactory.get_location(location))
 
@@ -120,42 +149,42 @@ class CrmFacade:
         Loops through all open ("Jelentkezés nyitva") courses, and calculates how many applicants are there.
         It writes the result to the CRM page of the course.
         """
-        course_list = self.get_course_list_with_status("Jelentkezés nyitva")
+        course_list = self.get_course_list_with_status(APPLICATION_OPEN_STATE)
         pretty_print(course_list)
 
         for course in course_list:
 
             course_data = self._get_project(course)
-            course_code = course_data["TanfolyamBetujele"]
+            course_code = course_data[COUSE_CODE_FIELD]
 
             trace("CALCULATE HEADCOUNT OF COURSE [" + course + "], code: [" + course_code + "]")
 
             trace("APPLICATION IS OPEN, CALCULATING HEADCOUNT")
 
             student_list = self._command_handler.fetch(
-                crmrequestfactory.get_student_list_by_course_code(course_code))["Results"]
+                crmrequestfactory.get_student_list_by_course_code(course_code))[RESULTS_FIELD]
 
             acceptable_statuses = [
-                int(self.get_student_status_number_by_name("INFO levél kiment")),
-                int(self.get_student_status_number_by_name("Kurzus folyamatban"))
+                int(self.get_student_status_number_by_name(INFO_SENT_STATE)),
+                int(self.get_student_status_number_by_name(COURSE_IN_PROGRESS_STATE))
             ]
 
             trace("ACCEPTABLE STATUSES: [{}]".format(acceptable_statuses))
 
             count = 0
             for student in student_list:
-                if student_list[student]["StatusId"] in acceptable_statuses:
+                if student_list[student][STATUS_ID_FIELD] in acceptable_statuses:
                     count += 1
                     trace("STUDENT [{}] has status [{}], ACCEPTABLE, CURRENT HEADCOUNT: [{}]".
-                          format(student, student_list[student]["StatusId"], count))
+                          format(student, student_list[student][STATUS_ID_FIELD], count))
                 else:
                     trace("STUDENT [{}] has status [{}], NOT ACCEPTABLE, CURRENT HEADCOUNT: [{}]".
-                          format(student, student_list[student]["StatusId"], count))
+                          format(student, student_list[student][STATUS_ID_FIELD], count))
 
             trace("END OF STUDENT LIST, UPDATING HEADCOUNT TO [{}]".format(count))
 
             self._command_handler.fetch(
-                crmrequestfactory.set_project_data(course, {"AktualisLetszam": count}))
+                crmrequestfactory.set_project_data(course, {CURRENT_HEADCOUNT_FIELD: count}))
 
     @stacktrace
     def raise_task(
@@ -199,8 +228,7 @@ class CrmFacade:
         trace("DATA TO BE REPLACED:")
         pretty_print(data_to_update)
 
-        self._command_handler.fetch(
-            crmrequestfactory.set_project_data(student_data["Id"], data_to_update))
+        self._command_handler.fetch(crmrequestfactory.set_project_data(student_data["Id"], data_to_update))
 
     # Private methods --------------------------------------------------------------------------------------------------
 
@@ -214,12 +242,12 @@ class CrmFacade:
         trace(status_id)
         response = self._command_handler.fetch(
             crmrequestfactory.get_project_list_for_status(status_id))
-        if response["Count"] > 100:
+        if response[COUNT_FIELD] > 100:
             response_second_page = self._command_handler.fetch(
                 crmrequestfactory.get_project_list_for_status_page1(status_id))
-            response["Results"] = dict(dict(response["Results"]), **dict(response_second_page["Results"]))
+            response[RESULTS_FIELD] = dict(dict(response[RESULTS_FIELD]), **dict(response_second_page[RESULTS_FIELD]))
 
-        return response["Results"]
+        return response[RESULTS_FIELD]
 
     def _get_schema_for_module(self, module):
         return self._command_handler.fetch(
@@ -241,7 +269,7 @@ class CrmFacade:
     def _get_detailed_description_of_location(self, location_name):
         location_data = self.get_location_by_name(location_name)
         pretty_print(location_data)
-        return location_data["ReszletesHelyszinleiras"]
+        return location_data[DETAILED_LOCATION_DESCRIPTION_FIELD]
 
     @stacktrace
     def _get_application_deadline(self, course_data):
@@ -256,9 +284,9 @@ class CrmFacade:
         5. If the deadline is earlier than now, it is now + 1 day
         """
         days_left_to_apply = 5
-        starting_day = datetime.datetime.strptime(course_data["ElsoAlkalom"], "%Y-%m-%d %H:%M:%S")
-        free_spots = course_data["MaximalisLetszam"] - course_data["AktualisLetszam"]
-        all_spots = course_data["MaximalisLetszam"]
+        starting_day = datetime.datetime.strptime(course_data[COURSE_FIRST_OCCASION_DATE_FIELD], DATE_FORMAT)
+        free_spots = course_data[MAX_HEADCOUNT_FIELD] - course_data[CURRENT_HEADCOUNT_FIELD]
+        all_spots = course_data[MAX_HEADCOUNT_FIELD]
         if all_spots == 0:
             all_spots = 1
 
@@ -282,22 +310,22 @@ class CrmFacade:
     @stacktrace
     def _get_date_description(self, course_data):
         date_list = []
-        date_list.append(course_data["ElsoAlkalom"][:10])
-        date_list.append(course_data["N2Alkalom"][:10])
-        date_list.append(course_data["N3Alkalom"][:10])
-        date_list.append(course_data["N4Alkalom"][:10])
-        date_list.append(course_data["N5Alkalom"][:10])
-        date_list.append(course_data["N6Alkalom"][:10])
-        date_list.append(course_data["N7Alkalom"][:10])
-        date_list.append(course_data["N8Alkalom"][:10])
-        date_list.append(course_data["N9Alkalom"][:10])
-        date_list.append(course_data["N10Alkalom"][:10])
-        if course_data["N1SzunetOpcionalis"] != "":
-            date_list.append("{} - {}".format(course_data["N1SzunetOpcionalis"][:10], "szünet"))
-        if course_data["N2SzunetOpcionalis"] != "":
-            date_list.append("{} - {}".format(course_data["N2SzunetOpcionalis"][:10], "szünet"))
-        if course_data["N3SzunetOpcionalis"] != "":
-            date_list.append("{} - {}".format(course_data["N3SzunetOpcionalis"][:10], "szünet"))
+        date_list.append(course_data[COURSE_FIRST_OCCASION_DATE_FIELD][:10])
+        date_list.append(course_data[COURSE_SECOND_OCCASION_DATE_FIELD][:10])
+        date_list.append(course_data[COURSE_THIRD_OCCASION_DATE_FIELD][:10])
+        date_list.append(course_data[COURSE_FOURTH_OCCASION_DATE_FIELD][:10])
+        date_list.append(course_data[COURSE_FIFTH_OCCASION_DATE_FIELD][:10])
+        date_list.append(course_data[COURSE_SIXTH_OCCASION_DATE_FIELD][:10])
+        date_list.append(course_data[COURSE_SEVENTH_OCCASION_DATE_FIELD][:10])
+        date_list.append(course_data[COURSE_EIGTH_OCCASION_DATE_FIELD][:10])
+        date_list.append(course_data[COURSE_NINTH_OCCASION_DATE_FIELD][:10])
+        date_list.append(course_data[COURSE_TENTH_OCCASION_DATE_FIELD][:10])
+        if course_data[COURSE_FISRST_DAYOFF_FIELD] != "":
+            date_list.append("{} - {}".format(course_data[COURSE_FISRST_DAYOFF_FIELD][:10], "szünet"))
+        if course_data[COURSE_SECOND_DAYOFF_FIELD] != "":
+            date_list.append("{} - {}".format(course_data[COURSE_SECOND_DAYOFF_FIELD][:10], "szünet"))
+        if course_data[COURSE_THIRD_DAYOFF_FIELD] != "":
+            date_list.append("{} - {}".format(course_data[COURSE_THIRD_DAYOFF_FIELD][:10], "szünet"))
 
         date_list.sort()
 

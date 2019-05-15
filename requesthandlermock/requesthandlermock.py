@@ -19,9 +19,11 @@ class RequestHandlerMock(unittest.TestCase):
     def check_is_satisfied(self):
         next_expectation = self.expectation_queue.get_next_element()
         if next_expectation is not None:
-            self.assertIsNone(next_expectation,
-                              "Not all expectations were fulfilled when test ended. First unsatisfied expectation: [{}]".
-                              format(next_expectation.request.get_slogan()))
+            self.assertIsNone(
+                next_expectation,
+                "Not all expectations were fulfilled when test ended. First unsatisfied expectation: [{}]".
+                format(next_expectation.request.get_slogan())
+            )
 
     @stacktrace
     def fetch(self, command):

@@ -11,6 +11,11 @@ from minicrm.crmfacade import CrmFacade
 from requesthandlermock.requesthandlermock import RequestHandlerMock
 
 API_INFO_JSON_FILE = "api_info_fake.json"
+STUDENTS_MODULE_ID_NUMBER = 20
+COURSES_MODULE_ID_NUMBER = 21
+COURSE_OPEN_STATUS_NUMBER = 2753
+FAKE_COURSE_ID_NUMBER = 2037
+FAKE_COURSE_COURSE_CODE = "2019-1-Q"
 
 
 class MiniCrmTestBase(unittest.TestCase, object):
@@ -29,26 +34,26 @@ class MiniCrmTestBase(unittest.TestCase, object):
             crmrequestfactory.get_modul_dictionary(),
             responses_general.MODULE_LIST)
         self.request_handler.expect_request(
-            crmrequestfactory.get_schema_for_module_number(20),
+            crmrequestfactory.get_schema_for_module_number(STUDENTS_MODULE_ID_NUMBER),
             responses_general.SCHEMA_PROJECT_20_STUDENTS)
         self.request_handler.expect_request(
-            crmrequestfactory.get_schema_for_module_number(21),
+            crmrequestfactory.get_schema_for_module_number(COURSES_MODULE_ID_NUMBER),
             responses_general.SCHEMA_PROJECT_21_COURSES)
 
     def set_participant_number_expectations(self):
         self.request_handler.expect_request(
-            crmrequestfactory.get_project_list_for_status(2753),
+            crmrequestfactory.get_project_list_for_status(COURSE_OPEN_STATUS_NUMBER),
             responses_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN
         )
         self.request_handler.expect_request(
-            crmrequestfactory.get_project(2037),
+            crmrequestfactory.get_project(FAKE_COURSE_ID_NUMBER),
             responses_courses.COURSE_2019_1_Q
         )
         self.request_handler.expect_request(
-            crmrequestfactory.get_student_list_by_course_code("2019-1-Q"),
+            crmrequestfactory.get_student_list_by_course_code(FAKE_COURSE_COURSE_CODE),
             responses_studentlists.COURSE_CODE_IS_2019_1_Q
         )
         self.request_handler.expect_request(
-            crmrequestfactory.set_project_data(2037, {u"AktualisLetszam":6}),
+            crmrequestfactory.set_project_data(FAKE_COURSE_ID_NUMBER, {u"AktualisLetszam":6}),
             responses_general.XPUT_RESPONSE
         )

@@ -203,9 +203,13 @@ DONE
 - try to remove encoding things, only the necessary should remain
 - structure of functions/classes
 - test structure: put tests for one class to one file
+- eliminate magic values
 
 todo:
-- eliminate magic values
+- get rid of unicode encodings
+- merge_dicts on crmfacade 228 and other places
+- crm_data to facade, commandhandler to requesthandler
+- hun names still
 - go through it few times for little errors/illogical stuff
 - dunder names
 - check against clean code checklists

@@ -7,9 +7,26 @@ from __future__ import print_function
 
 import datetime
 
-from minicrm.tracing import stacktrace, trace
 from minicrm.commonfunctions import add_element_to_commasep_list
 from minicrm.tracing import pretty_print
+from minicrm.tracing import stacktrace, trace
+
+INFO_SENT_STATE = "INFO levél kiment"
+WAITING_LIST_STATE = "Várólistán van"
+APPLIED_STATE = "Jelentkezett"
+STUDENT_NAME_FILED = "Name"
+MAILS_TO_SEND_FIELD = "Levelkuldesek"
+MAX_HEADCOUNT_FIELD = "MaximalisLetszam"
+CURRENT_HEADCOUNT_FIELD = "AktualisLetszam"
+STATUS_ID_FIELD = "StatusId"
+STUDENT_ID_FIELD = "Id"
+COURSE_TYPE_FIELD = "TanfolyamTipusa"
+CHOSEN_COURSE_FIELD = "MelyikTanfolyamErdekli"
+BEGINNER_COURSE_TYPE = "Kezdő programozó tanfolyam"
+ADVANCED_COURSE_TYPE = "Haladó programozó tanfolyam"
+WAITING_LIST_MAIL_NAME = "Várólista"
+BEGINNER_INFO_MAIL_NAME = "Kezdő INFO levél"
+ADVANCED_INFO_MAIL_NAME = "Haladó INFO levél"
 
 
 @stacktrace
@@ -21,38 +38,43 @@ def send_initial_letter(crm_facade, student_data, course_data):
     """
     update_data = {}
 
-    if course_data["AktualisLetszam"] >= course_data["MaximalisLetszam"]:
+    if course_data[CURRENT_HEADCOUNT_FIELD] >= course_data[MAX_HEADCOUNT_FIELD]:
 
         trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO WAITING LIST.".
-              format(course_data["AktualisLetszam"], course_data["MaximalisLetszam"]))
+              format(course_data[CURRENT_HEADCOUNT_FIELD], course_data[MAX_HEADCOUNT_FIELD]))
 
-        update_data["Levelkuldesek"] = student_data["Levelkuldesek"] + ", Várólista"
+        update_data[MAILS_TO_SEND_FIELD] = add_element_to_commasep_list(
+            student_data[MAILS_TO_SEND_FIELD],
+            WAITING_LIST_MAIL_NAME
+        )
 
-        update_data["StatusId"] = crm_facade.get_student_status_number_by_name("Várólistán van")
+        update_data[STATUS_ID_FIELD] = crm_facade.get_student_status_number_by_name(WAITING_LIST_STATE)
 
     else:
 
         trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO COURSE.".
-              format(course_data["AktualisLetszam"], course_data["MaximalisLetszam"]))
+              format(course_data[CURRENT_HEADCOUNT_FIELD], course_data[MAX_HEADCOUNT_FIELD]))
 
-        trace("TYPE OF COURSE IS: [{}] ".format(course_data["TanfolyamTipusa"]))
+        trace("TYPE OF COURSE IS: [{}] ".format(course_data[COURSE_TYPE_FIELD]))
 
-        if course_data["TanfolyamTipusa"] == "Kezdő programozó tanfolyam":
-            trace("IN KEZDO IF")
-            update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"],
-                                                                        "Kezdő INFO levél")
+        if course_data[COURSE_TYPE_FIELD] == BEGINNER_COURSE_TYPE:
+            update_data[MAILS_TO_SEND_FIELD] = add_element_to_commasep_list(
+                student_data[MAILS_TO_SEND_FIELD],
+                BEGINNER_INFO_MAIL_NAME
+            )
 
-        elif course_data["TanfolyamTipusa"] == "Haladó programozó tanfolyam":
-            trace("IN HALADO IF")
-            update_data["Levelkuldesek"] = add_element_to_commasep_list(student_data["Levelkuldesek"],
-                                                                        "Haladó INFO levél")
+        elif course_data[COURSE_TYPE_FIELD] == ADVANCED_COURSE_TYPE:
+            update_data[MAILS_TO_SEND_FIELD] = add_element_to_commasep_list(
+                student_data[MAILS_TO_SEND_FIELD],
+                ADVANCED_INFO_MAIL_NAME
+            )
 
-        update_data["StatusId"] = crm_facade.get_student_status_number_by_name("INFO levél kiment")
+        update_data[STATUS_ID_FIELD] = crm_facade.get_student_status_number_by_name(INFO_SENT_STATE)
 
     trace("DATA TO UPDATE:")
     pretty_print(update_data)
 
-    crm_facade.set_student_data(student_data["Id"], update_data)
+    crm_facade.set_student_data(student_data[STUDENT_ID_FIELD], update_data)
 
 
 @stacktrace
@@ -64,14 +86,14 @@ def register_new_applicants(crm_data):
     Assumes that jelentkezok.new_students is up-to-date
     """
 
-    student_list = crm_data.get_student_list_with_status("Jelentkezett")
+    student_list = crm_data.get_student_list_with_status(APPLIED_STATE)
     trace("LOOPING THROUGH STUDENTS WITH NEW STATUS")
 
     for student in student_list:
         crm_data.update_headcounts()
         student_data = crm_data.get_student(student)
-        trace("COURSE FOR " + student_data["Name"] + " IS " + student_data["MelyikTanfolyamErdekli"])
-        course_code = student_data["MelyikTanfolyamErdekli"]
+        trace("COURSE FOR " + student_data[STUDENT_NAME_FILED] + " IS " + student_data[CHOSEN_COURSE_FIELD])
+        course_code = student_data[CHOSEN_COURSE_FIELD]
 
         trace("\nGET COURSE DATA BASED ON COURSE CODE\n")
 

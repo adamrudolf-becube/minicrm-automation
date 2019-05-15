@@ -46,11 +46,11 @@ class CrmFacade:
     """
 
     @stacktrace
-    def __init__(self, command_handler, today=datetime.datetime.now()):
+    def __init__(self, request_handler, today=datetime.datetime.now()):
         """
         Sets the login data required by the API, collects information about existing modules, and even initializes some fo them
         """
-        self._command_handler = command_handler
+        self._request_handler = request_handler
         self._module_dict = None
         self._set_modules_dictionary()
         self._student_schema = self._get_schema_for_module(self._get_module_number_by_name(STUDENTS_MODULE_NAME))
@@ -112,13 +112,13 @@ class CrmFacade:
     @stacktrace
     def get_course_by_course_code(self, course_code):
 
-        course_list = self._command_handler.fetch(
+        course_list = self._request_handler.fetch(
             crmrequestfactory.get_course_list_by_course_code(course_code)
         )
 
         pretty_print(course_list)
         for course in course_list[RESULTS_FIELD]:
-            return self._command_handler.fetch(
+            return self._request_handler.fetch(
                 crmrequestfactory.get_course(course))
 
         trace("COURSE NOT FOUND: [{}]".format(course_code))
@@ -131,13 +131,13 @@ class CrmFacade:
     @stacktrace
     def get_location_by_name(self, location_name):
 
-        location_list = self._command_handler.fetch(
+        location_list = self._request_handler.fetch(
             crmrequestfactory.get_location_list_by_location_name(location_name)
         )
 
         pretty_print(location_list)
         for location in location_list[RESULTS_FIELD]:
-            return self._command_handler.fetch(
+            return self._request_handler.fetch(
                 crmrequestfactory.get_location(location))
 
         trace("COURSE NOT FOUND: [{}]".format(location_name))
@@ -161,7 +161,7 @@ class CrmFacade:
 
             trace("APPLICATION IS OPEN, CALCULATING HEADCOUNT")
 
-            student_list = self._command_handler.fetch(
+            student_list = self._request_handler.fetch(
                 crmrequestfactory.get_student_list_by_course_code(course_code))[RESULTS_FIELD]
 
             acceptable_statuses = [
@@ -183,7 +183,7 @@ class CrmFacade:
 
             trace("END OF STUDENT LIST, UPDATING HEADCOUNT TO [{}]".format(count))
 
-            self._command_handler.fetch(
+            self._request_handler.fetch(
                 crmrequestfactory.set_project_data(course, {CURRENT_HEADCOUNT_FIELD: count}))
 
     @stacktrace
@@ -197,7 +197,7 @@ class CrmFacade:
         Creates a new task in teh CRM ssytem with the given details
         """
 
-        self._command_handler.fetch(
+        self._request_handler.fetch(
             crmrequestfactory.raise_task(project_id, comment, deadline, userid))
 
     @stacktrace
@@ -228,38 +228,38 @@ class CrmFacade:
         trace("DATA TO BE REPLACED:")
         pretty_print(data_to_update)
 
-        self._command_handler.fetch(crmrequestfactory.set_project_data(student_data["Id"], data_to_update))
+        self._request_handler.fetch(crmrequestfactory.set_project_data(student_data["Id"], data_to_update))
 
     # Private methods --------------------------------------------------------------------------------------------------
 
     @stacktrace
     def _set_project_data(self, student, data):
-        self._command_handler.fetch(
+        self._request_handler.fetch(
             crmrequestfactory.set_project_data(student, data))
 
     @stacktrace
     def _query_project_list_with_status_id(self, status_id):
         trace(status_id)
-        response = self._command_handler.fetch(
+        response = self._request_handler.fetch(
             crmrequestfactory.get_project_list_for_status(status_id))
         if response[COUNT_FIELD] > 100:
-            response_second_page = self._command_handler.fetch(
+            response_second_page = self._request_handler.fetch(
                 crmrequestfactory.get_project_list_for_status_page1(status_id))
             response[RESULTS_FIELD] = merge_dicts(response[RESULTS_FIELD], response_second_page[RESULTS_FIELD])
 
         return response[RESULTS_FIELD]
 
     def _get_schema_for_module(self, module):
-        return self._command_handler.fetch(
+        return self._request_handler.fetch(
             crmrequestfactory.get_schema_for_module_number(module))
 
     @stacktrace
     def _set_modules_dictionary(self):
-        self._module_dict = self._command_handler.fetch(crmrequestfactory.get_modul_dictionary())
+        self._module_dict = self._request_handler.fetch(crmrequestfactory.get_modul_dictionary())
 
     @stacktrace
     def _get_project(self, id):
-        return self._command_handler.fetch(crmrequestfactory.get_project(id))
+        return self._request_handler.fetch(crmrequestfactory.get_project(id))
 
     @stacktrace
     def _get_module_number_by_name(self, module_name):

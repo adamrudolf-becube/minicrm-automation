@@ -22,7 +22,7 @@ ZERO_DAY_MAIL_NAME = "Ma kell jelentkezni"
 WE_DELETED_YOU_MAIL_NAME = "Toroltunk"
 
 @stacktrace
-def clean_info_level_kiment(crm_data):
+def clean_info_level_kiment(crm_facade):
     """
     Checks all students in "INFO levöl kiment" status, and
     - NOT DONE BY SCRIPT If billing info is filled, student gets to "Kurzus folyamatban" NOT DONE BY SCRIPT, autmated in MiniCRTM
@@ -31,13 +31,13 @@ def clean_info_level_kiment(crm_data):
     - If finalizing deadline + 1 ady is over, it sets student to "Nem valaszolt", and notifies responsible
     """
 
-    student_list = crm_data.get_student_list_with_status(INFO_SENT_STATE)
+    student_list = crm_facade.get_student_list_with_status(INFO_SENT_STATE)
     trace("LOOPING THROUGH STUDENTS WITH INFO SENT OUT STATUS")
 
     for student in student_list:
-        crm_data.update_headcounts()
+        crm_facade.update_headcounts()
         trace("HEADCOUNT UPDATE DONE")
-        student_data = crm_data.get_student(student)
+        student_data = crm_facade.get_student(student)
         trace("COURSE FOR " + student_data[STUDENT_NAME_FILED] + " IS " + student_data[CHOSEN_COURSE_FIELD])
 
         update_data = {}
@@ -49,17 +49,17 @@ def clean_info_level_kiment(crm_data):
 
         deadline = datetime.datetime.strptime(student_data[DEADLINE_FIELD], "%Y-%m-%d %H:%M:%S")
 
-        trace("TODAY: {}, DEADLINE: {}".format(crm_data.get_today(), deadline))
+        trace("TODAY: {}, DEADLINE: {}".format(crm_facade.get_today(), deadline))
 
-        if crm_data.get_today() >= deadline + datetime.timedelta(days=-1):
+        if crm_facade.get_today() >= deadline + datetime.timedelta(days=-1):
             levelkuldesek = add_element_to_commasep_list(levelkuldesek, ONE_DAY_MAIL_NAME)
 
-        if crm_data.get_today() >= deadline:
+        if crm_facade.get_today() >= deadline:
             levelkuldesek = add_element_to_commasep_list(levelkuldesek, ZERO_DAY_MAIL_NAME)
 
-        if crm_data.get_today() >= deadline + datetime.timedelta(days=+1):
+        if crm_facade.get_today() >= deadline + datetime.timedelta(days=+1):
             levelkuldesek = add_element_to_commasep_list(levelkuldesek, WE_DELETED_YOU_MAIL_NAME)
-            update_data[STATUS_ID_FIELD] = crm_data.get_student_status_number_by_name(DID_NOT_FINALIZE_STATE)
+            update_data[STATUS_ID_FIELD] = crm_facade.get_student_status_number_by_name(DID_NOT_FINALIZE_STATE)
 
         if levelkuldesek != levelkuldesek_old:
             trace("CHANGE IN " + MAILS_TO_SEND_FIELD)
@@ -68,6 +68,6 @@ def clean_info_level_kiment(crm_data):
             trace("NO CHANGE IN " + MAILS_TO_SEND_FIELD)
 
         if update_data:
-            crm_data.set_student_data(student, update_data)
+            crm_facade.set_student_data(student, update_data)
 
-    crm_data.update_headcounts()
+    crm_facade.update_headcounts()

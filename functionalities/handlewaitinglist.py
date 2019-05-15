@@ -23,20 +23,20 @@ ONE_PLACE_FREED_UP_MAIL_NAME = "Felszabadult egy hely"
 
 
 @stacktrace
-def handle_waiting_list(crm_data):
+def handle_waiting_list(crm_facade):
     """
     Loops through all of the students in the waiting list and if there is
     free space in their course, it sends them the INFO letter and chenges their
     status. Also updates the headcounts of courses.
     """
-    student_list = crm_data.get_student_list_with_status(WAITING_LIST_STATE)
+    student_list = crm_facade.get_student_list_with_status(WAITING_LIST_STATE)
     trace("LOOPING THROUGH STUDENTS ON WAITING LIST")
 
     student_ordered_list = []
 
     for student in student_list:
         trace("GETTING DETAILED DATA FOR SORTING")
-        student_data = crm_data.get_student(student)
+        student_data = crm_facade.get_student(student)
         student_ordered_list.append(student_data)
 
     student_ordered_list.sort(key=lambda student_instance: student_instance[CREATED_AT_FIELD])
@@ -47,10 +47,10 @@ def handle_waiting_list(crm_data):
     for student_data in student_ordered_list:
         trace("LOOPING THROUGH OERDERED LIST OF WAITING STUDENTS, CURRENTLY PROCESSING [{}]([{}])".
               format(student_data[STUDENT_ID_FIELD], student_data[STUDENT_NAME_FILED]))
-        crm_data.update_headcounts()
+        crm_facade.update_headcounts()
         trace("COURSE FOR " + student_data[STUDENT_NAME_FILED] + " IS " + student_data[CHOSEN_COURSE_FIELD])
         course_code = student_data[CHOSEN_COURSE_FIELD]
-        course_data = crm_data.get_course_by_course_code(course_code)
+        course_data = crm_facade.get_course_by_course_code(course_code)
 
         is_there_free_spot = (course_data[MAX_HEADCOUNT_FIELD] - course_data[CURRENT_HEADCOUNT_FIELD]) > 0
 
@@ -69,11 +69,11 @@ def handle_waiting_list(crm_data):
                 ONE_PLACE_FREED_UP_MAIL_NAME
             )
 
-            update_data[STATUS_ID_FIELD] = crm_data.get_student_status_number_by_name(INFO_SENT_STATE)
+            update_data[STATUS_ID_FIELD] = crm_facade.get_student_status_number_by_name(INFO_SENT_STATE)
 
             trace("DATA TO UPDATE:")
             pretty_print(update_data)
 
-            crm_data.set_student_data(student_data[STUDENT_ID_FIELD], update_data)
+            crm_facade.set_student_data(student_data[STUDENT_ID_FIELD], update_data)
 
-    crm_data.update_headcounts()
+    crm_facade.update_headcounts()

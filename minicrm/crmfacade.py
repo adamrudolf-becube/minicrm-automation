@@ -86,7 +86,7 @@ class CrmFacade:
     @stacktrace
     def get_student_status_number_by_name(self, status_name):
         status_dictionary = self._student_schema[STATUS_ID_FIELD]
-        return_value = get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
+        return_value = get_key_from_value(status_dictionary, status_name)
         trace("STATUS CODE FOR [{}] IS [{}]".format(status_name, return_value))
         return return_value
 
@@ -105,7 +105,7 @@ class CrmFacade:
     @stacktrace
     def get_course_status_number_by_name(self, status_name):
         status_dictionary = self._course_schema[STATUS_ID_FIELD]
-        return_value = get_key_from_value(status_dictionary, unicode(status_name, "utf-8"))
+        return_value = get_key_from_value(status_dictionary, status_name)
         trace("STATUS CODE FOR [{}] IS [{}]".format(status_name, return_value))
         return return_value
 
@@ -263,7 +263,7 @@ class CrmFacade:
 
     @stacktrace
     def _get_module_number_by_name(self, module_name):
-        return self._module_dict.keys()[self._module_dict.values().index(unicode(module_name, "utf-8"))]
+        return self._module_dict.keys()[self._module_dict.values().index(module_name)]
 
     @stacktrace
     def _get_detailed_description_of_location(self, location_name):

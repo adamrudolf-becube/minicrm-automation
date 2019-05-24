@@ -1,6 +1,6 @@
 """
-	u"description":u"List of all students who applied to 2019-1-Q",
-	u"command":u"curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?TanfolyamKodja=2019-1-Q\"",
+u"description":u"List of all students who applied to 2019-1-Q",
+u"command":u"curl -s --user FakeUserName:FakeApiKey \"https://r3.minicrm.hu/Api/R3/Project?TanfolyamKodja=2019-1-Q\"",
 """
 COURSE_CODE_IS_2019_1_Q = {
     u"Count": 11,

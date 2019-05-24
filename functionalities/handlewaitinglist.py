@@ -29,22 +29,22 @@ def handle_waiting_list(crm_facade):
     free space in their course, it sends them the INFO letter and chenges their
     status. Also updates the headcounts of courses.
     """
-    student_list = crm_facade.get_student_list_with_status(WAITING_LIST_STATE)
+    waitin_list_students = crm_facade.get_student_list_with_status(WAITING_LIST_STATE)
     trace("LOOPING THROUGH STUDENTS ON WAITING LIST")
 
-    student_ordered_list = []
+    waiting_list_students_ordered = []
 
-    for student in student_list:
+    for student in waitin_list_students:
         trace("GETTING DETAILED DATA FOR SORTING")
         student_data = crm_facade.get_student(student)
-        student_ordered_list.append(student_data)
+        waiting_list_students_ordered.append(student_data)
 
-    student_ordered_list.sort(key=lambda student_instance: student_instance[CREATED_AT_FIELD])
+    waiting_list_students_ordered.sort(key=lambda student_instance: student_instance[CREATED_AT_FIELD])
 
     trace("ORDERED LIST IS")
-    pretty_print(student_ordered_list)
+    pretty_print(waiting_list_students_ordered)
 
-    for student_data in student_ordered_list:
+    for student_data in waiting_list_students_ordered:
         trace("LOOPING THROUGH OERDERED LIST OF WAITING STUDENTS, CURRENTLY PROCESSING [{}]([{}])".
               format(student_data[STUDENT_ID_FIELD], student_data[STUDENT_NAME_FILED]))
         crm_facade.update_headcounts()
@@ -64,6 +64,8 @@ def handle_waiting_list(crm_facade):
                 student_data[MAILS_TO_SEND_FIELD],
                 BEGINNER_INFO_MAIL_NAME
             )
+
+            # TODO why only beginner?
             update_data[MAILS_TO_SEND_FIELD] = add_element_to_commasep_list(
                 update_data[MAILS_TO_SEND_FIELD],
                 ONE_PLACE_FREED_UP_MAIL_NAME

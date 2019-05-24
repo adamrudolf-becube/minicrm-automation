@@ -149,19 +149,17 @@ class CrmFacade:
         Loops through all open ("Jelentkezés nyitva") courses, and calculates how many applicants are there.
         It writes the result to the CRM page of the course.
         """
-        course_list = self.get_course_list_with_status(APPLICATION_OPEN_STATE)
-        pretty_print(course_list)
+        open_courses = self.get_course_list_with_status(APPLICATION_OPEN_STATE)
+        pretty_print(open_courses)
 
-        for course in course_list:
+        for course in open_courses:
 
             course_data = self._get_project(course)
             course_code = course_data[COUSE_CODE_FIELD]
 
             trace("CALCULATE HEADCOUNT OF COURSE [" + course + "], code: [" + course_code + "]")
 
-            trace("APPLICATION IS OPEN, CALCULATING HEADCOUNT")
-
-            student_list = self._request_handler.fetch(
+            students_in_current_course = self._request_handler.fetch(
                 crmrequestfactory.get_student_list_by_course_code(course_code))[RESULTS_FIELD]
 
             acceptable_statuses = [
@@ -172,14 +170,14 @@ class CrmFacade:
             trace("ACCEPTABLE STATUSES: [{}]".format(acceptable_statuses))
 
             count = 0
-            for student in student_list:
-                if student_list[student][STATUS_ID_FIELD] in acceptable_statuses:
+            for student in students_in_current_course:
+                if students_in_current_course[student][STATUS_ID_FIELD] in acceptable_statuses:
                     count += 1
                     trace("STUDENT [{}] has status [{}], ACCEPTABLE, CURRENT HEADCOUNT: [{}]".
-                          format(student, student_list[student][STATUS_ID_FIELD], count))
+                          format(student, students_in_current_course[student][STATUS_ID_FIELD], count))
                 else:
                     trace("STUDENT [{}] has status [{}], NOT ACCEPTABLE, CURRENT HEADCOUNT: [{}]".
-                          format(student, student_list[student][STATUS_ID_FIELD], count))
+                          format(student, students_in_current_course[student][STATUS_ID_FIELD], count))
 
             trace("END OF STUDENT LIST, UPDATING HEADCOUNT TO [{}]".format(count))
 
@@ -192,13 +190,13 @@ class CrmFacade:
             project_id,
             comment,
             deadline,
-            userid=""):
+            user_id=""):
         """
         Creates a new task in teh CRM ssytem with the given details
         """
 
         self._request_handler.fetch(
-            crmrequestfactory.raise_task(project_id, comment, deadline, userid))
+            crmrequestfactory.raise_task(project_id, comment, deadline, user_id))
 
     @stacktrace
     def fill_student_data(self, student_data, course_data):
@@ -284,23 +282,23 @@ class CrmFacade:
         5. If the deadline is earlier than now, it is now + 1 day
         """
         days_left_to_apply = 5
-        starting_day = datetime.datetime.strptime(course_data[COURSE_FIRST_OCCASION_DATE_FIELD], DATE_FORMAT)
+        course_starting_day = datetime.datetime.strptime(course_data[COURSE_FIRST_OCCASION_DATE_FIELD], DATE_FORMAT)
         free_spots = course_data[MAX_HEADCOUNT_FIELD] - course_data[CURRENT_HEADCOUNT_FIELD]
         all_spots = course_data[MAX_HEADCOUNT_FIELD]
         if all_spots == 0:
             all_spots = 1
 
-        if starting_day - self.get_today() < datetime.timedelta(days=7) or (
+        if course_starting_day - self.get_today() < datetime.timedelta(days=7) or (
                 (1.0 * free_spots) / (1.0 * all_spots)) < 0.3:
             days_left_to_apply = 3
 
-        if starting_day - self.get_today() < datetime.timedelta(days=3) and free_spots <= 3:
+        if course_starting_day - self.get_today() < datetime.timedelta(days=3) and free_spots <= 3:
             days_left_to_apply = 1
 
         deadline = self.get_today() + datetime.timedelta(days=days_left_to_apply)
 
-        if deadline > starting_day:
-            deadline = starting_day + datetime.timedelta(days=-1)
+        if deadline > course_starting_day:
+            deadline = course_starting_day + datetime.timedelta(days=-1)
 
         if deadline < self.get_today():
             deadline = self.get_today() + datetime.timedelta(days=1)

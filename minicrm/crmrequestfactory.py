@@ -132,6 +132,6 @@ def raise_task(
         return ApiRequest(
             "https://{}:{}@r3.minicrm.hu/Api/R3/ToDo/",
             PUT_METHOD,
-            "Raise task with any data".format(json.dumps(task_data)),
+            "Raise task with data: {}".format(json.dumps(task_data)),
             task_data
         )

@@ -2,11 +2,13 @@
 # Copyright Adam Rudolf, 2018
 # BeCube programming school
 
+import datetime
 import json
 import sys
 
 reload(sys)
 sys.setdefaultencoding('utf8')
+DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 
 def load_api_info(api_info_json_file):
@@ -45,3 +47,8 @@ def merge_dicts(left_dict, right_dict, third_dict=None):
         return out_list
     else:
         return dict(dict(left_dict, **dict(right_dict)))
+
+
+def date_is_not_less_than(crm_facade, reference_date, offset=0):
+    return crm_facade.get_today() >= datetime.datetime.strptime(reference_date, DATE_FORMAT) + \
+           datetime.timedelta(days=offset)

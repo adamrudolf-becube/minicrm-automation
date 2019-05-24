@@ -208,13 +208,13 @@ DONE
 - merge_dicts on crmfacade 228 and other places
 - crm_data to facade, commandhandler to requesthandler
 - hun names still
+- go through it few times for little errors/illogical stuff
 
 todo:
-- go through it few times for little errors/illogical stuff
 - dunder names
 - check against clean code checklists
 - check against design patterns (correct pattern structure, consistent naming)
-- write code documentation and generate
+- write code documentation and generate (including json responses)
 - write readme correctly
 
 

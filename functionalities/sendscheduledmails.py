@@ -5,8 +5,6 @@
 
 from __future__ import print_function
 
-import datetime
-
 from minicrm.commonfunctions import *
 from minicrm.tracing import stacktrace, trace, pretty_print
 
@@ -38,7 +36,6 @@ BEGINNER_COURSE_TYPE = "Kezdő programozó tanfolyam"
 ADVANCED_COURSE_TYPE = "Haladó programozó tanfolyam"
 COMPANY_BEGINNER_COURSE_TYPE = "Céges kezdő"
 COMPANY_ADVANCED_COURSE_TYPE = "Céges haladó"
-DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 FIRST_OCCASION_BEGINNER_MAIL_NAME = "1. alkalom - kezdő"
 SECOND_OCCASION_BEGINNER_MAIL_NAME = "2. alkalom - kezdő"
@@ -84,12 +81,12 @@ def send_scheduled_emails(crm_facade):
     trace("SPECTATORS: ")
     spectators = crm_facade.get_student_list_with_status(SPECTATOR_STATE)
 
-    student_list = merge_dicts(active_students, spectators)
+    students = merge_dicts(active_students, spectators)
 
     trace("STUDENT LIST: ")
-    pretty_print(student_list)
+    pretty_print(students)
 
-    for student in student_list:
+    for student in students:
         student_data = crm_facade.get_student(student)
 
         update_data = {}
@@ -97,141 +94,102 @@ def send_scheduled_emails(crm_facade):
         mails_to_send = student_data[MAILS_TO_SEND_FIELD]
         mails_to_send_old = mails_to_send
 
-        if crm_facade.get_today() >= datetime.datetime.strptime(student_data[FIRST_OCCASION_DATE_FIELD],
-                                                                DATE_FORMAT) + datetime.timedelta(days=-3):
-            trace("Set: " + FIRST_OCCASION_DATE_FIELD + ", NOW: {}")
-            if (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_BEGINNER_COURSE_TYPE):
+        student_is_beginner = (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE) or \
+                              (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_BEGINNER_COURSE_TYPE)
+
+        student_is_beginner_not_company = student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE
+
+        student_is_advanced = (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE) or \
+                              (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE)
+
+        student_is_company_advanced = student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE
+
+        student_is_advanced_not_company = student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE
+
+        if date_is_not_less_than(crm_facade, student_data[FIRST_OCCASION_DATE_FIELD], -3):
+            if student_is_beginner:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, FIRST_OCCASION_BEGINNER_MAIL_NAME)
-            elif (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE):
+            elif student_is_advanced:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, FIRST_OCCASION_ADVANCED_MAIL_NAME)
 
-        if crm_facade.get_today() >= datetime.datetime.strptime(student_data[SECOND_OCCASION_DATE_FIELD],
-                                                                DATE_FORMAT) + datetime.timedelta(days=-3):
-            trace("Set: " + SECOND_OCCASION_DATE_FIELD)
-            if (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_BEGINNER_COURSE_TYPE):
+        if date_is_not_less_than(crm_facade, student_data[SECOND_OCCASION_DATE_FIELD], -3):
+            if student_is_beginner:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, SECOND_OCCASION_BEGINNER_MAIL_NAME)
-            elif (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE):
+            elif student_is_advanced:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, SECOND_OCCASION_ADVANCED_MAIL_NAME)
 
-        if crm_facade.get_today() >= datetime.datetime.strptime(student_data[THIRD_OCCASION_DATE_FIELD],
-                                                                DATE_FORMAT) + datetime.timedelta(days=-3):
-            trace("Set: " + THIRD_OCCASION_DATE_FIELD)
-            if (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_BEGINNER_COURSE_TYPE):
+        if date_is_not_less_than(crm_facade, student_data[THIRD_OCCASION_DATE_FIELD], -3):
+            if student_is_beginner:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, THIRD_OCCASION_BEGINNER_MAIL_NAME)
-            elif (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE):
+            elif student_is_advanced:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, THIRD_OCCASION_ADVANCED_MAIL_NAME)
 
-        if crm_facade.get_today() >= datetime.datetime.strptime(student_data[FOURTH_OCCASION_DATE_FIELD],
-                                                                DATE_FORMAT) + datetime.timedelta(days=-3):
-            trace("Set: " + FOURTH_OCCASION_DATE_FIELD)
-            if (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_BEGINNER_COURSE_TYPE):
+        if date_is_not_less_than(crm_facade, student_data[FOURTH_OCCASION_DATE_FIELD], -3):
+            if student_is_beginner:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, FOURTH_OCCASION_BEGINNER_MAIL_NAME)
-            elif (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE):
+            elif student_is_advanced:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, FOURTH_OCCASION_ADVANCED_MAIL_NAME)
 
-        if crm_facade.get_today() >= datetime.datetime.strptime(student_data[FIFTH_OCCASION_DATE_FIELD],
-                                                                DATE_FORMAT) + datetime.timedelta(days=-3):
-            trace("Set: " + FIFTH_OCCASION_DATE_FIELD)
-            if (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_BEGINNER_COURSE_TYPE):
+        if date_is_not_less_than(crm_facade, student_data[FIFTH_OCCASION_DATE_FIELD], -3):
+            if student_is_beginner:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, FIFTH_OCCASION_BEGINNER_MAIL_NAME)
-            elif (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE):
+            elif student_is_advanced:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, FIFTH_OCCASION_ADVANCED_MAIL_NAME)
 
-        if crm_facade.get_today() >= datetime.datetime.strptime(student_data[SIXTH_OCCASION_DATE_FIELD],
-                                                                DATE_FORMAT) + datetime.timedelta(days=-3):
-            trace("Set: " + SIXTH_OCCASION_DATE_FIELD)
-            if (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_BEGINNER_COURSE_TYPE):
+        if date_is_not_less_than(crm_facade, student_data[SIXTH_OCCASION_DATE_FIELD], -3):
+            if student_is_beginner:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, SIXTH_OCCASION_BEGINNER_MAIL_NAME)
-            elif (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE):
+            elif student_is_advanced:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, SIXTH_OCCASION_ADVANCED_MAIL_NAME)
 
-        if crm_facade.get_today() >= datetime.datetime.strptime(student_data[SEVENTH_OCCASION_DATE_FIELD],
-                                                                DATE_FORMAT) + datetime.timedelta(days=-3):
-            trace("Set: " + SEVENTH_OCCASION_DATE_FIELD)
-            if (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_BEGINNER_COURSE_TYPE):
+        if date_is_not_less_than(crm_facade, student_data[SEVENTH_OCCASION_DATE_FIELD], -3):
+            if student_is_beginner:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, SEVENTH_OCCASION_BEGINNER_MAIL_NAME)
-            elif (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE):
+            elif student_is_advanced:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, SEVENTH_OCCASION_ADVANCED_MAIL_NAME)
 
-        if crm_facade.get_today() >= datetime.datetime.strptime(student_data[EIGTH_OCCASION_DATE_FIELD],
-                                                                DATE_FORMAT) + datetime.timedelta(days=-3):
-            trace("Set: " + EIGTH_OCCASION_DATE_FIELD)
-            if (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_BEGINNER_COURSE_TYPE):
+        if date_is_not_less_than(crm_facade, student_data[EIGTH_OCCASION_DATE_FIELD], -3):
+            if student_is_beginner:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, EIGHT_OCCASION_BEGINNER_MAIL_NAME)
-            elif (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE):
+            elif student_is_advanced:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, EIGHT_OCCASION_ADVANCED_MAIL_NAME)
 
-        if crm_facade.get_today() >= datetime.datetime.strptime(student_data[NINTH_OCCASION_DATE_FIELD],
-                                                                DATE_FORMAT) + datetime.timedelta(days=-3):
-            trace("Set: " + NINTH_OCCASION_DATE_FIELD)
-            if (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_BEGINNER_COURSE_TYPE):
+        if date_is_not_less_than(crm_facade, student_data[NINTH_OCCASION_DATE_FIELD], -3):
+            if student_is_beginner:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, NINTH_OCCASION_BEGINNER_MAIL_NAME)
-            elif (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE):
+            elif student_is_advanced:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, NINTH_OCCASION_ADVANCED_MAIL_NAME)
 
-        if crm_facade.get_today() >= datetime.datetime.strptime(student_data[TENTH_OCCASION_DATE_FIELD],
-                                                                DATE_FORMAT) + datetime.timedelta(days=-3):
-            trace("Set: " + TENTH_OCCASION_DATE_FIELD + "")
-            if (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_BEGINNER_COURSE_TYPE):
+        if date_is_not_less_than(crm_facade, student_data[TENTH_OCCASION_DATE_FIELD], -3):
+            if student_is_beginner:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, TENTH_OCCASION_BEGINNER_MAIL_NAME)
-            elif (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE):
+            elif student_is_advanced:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, TENTH_OCCASION_ADVANCED_MAIL_NAME)
 
-        if crm_facade.get_today() >= datetime.datetime.strptime(student_data[TENTH_OCCASION_DATE_FIELD], DATE_FORMAT):
-            trace("Set: " + TENTH_OCCASION_DATE_FIELD + " + 1 nap")
-            if (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE):
+        if date_is_not_less_than(crm_facade, student_data[TENTH_OCCASION_DATE_FIELD], +0):
+            if student_is_beginner_not_company:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, FINAL_MAIL_NAME)
-            elif (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE) or \
-                    (student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE):
+            elif student_is_advanced:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, FINAL_MAIL_NAME_ADVANCED)
 
-        if crm_facade.get_today() >= datetime.datetime.strptime(student_data[TENTH_OCCASION_DATE_FIELD],
-                                                                DATE_FORMAT) + datetime.timedelta(days=1):
-            trace("Set: " + TENTH_OCCASION_DATE_FIELD + " + 2 nap")
+        if date_is_not_less_than(crm_facade, student_data[TENTH_OCCASION_DATE_FIELD], +1):
             update_data[STATUS_ID_FIELD] = crm_facade.get_student_status_number_by_name(FINISHED_STATE)
-            if student_data[COURSE_TYPE_FIELD_IN_STUDENT] == COMPANY_ADVANCED_COURSE_TYPE:
+            if student_is_company_advanced:
                 mails_to_send = add_element_to_commasep_list(mails_to_send, CERTIFICATION_MAIL_NAME_ADVANCED)
             if ok_for_certification(student_data):
-                trace("Set: Certified also")
-                if student_data[COURSE_TYPE_FIELD_IN_STUDENT] == BEGINNER_COURSE_TYPE:
+                if student_is_beginner_not_company:
                     mails_to_send = add_element_to_commasep_list(mails_to_send, CERTIFICATION_MAIL_NAME)
-                elif student_data[COURSE_TYPE_FIELD_IN_STUDENT] == ADVANCED_COURSE_TYPE:
+                elif student_is_advanced_not_company:
                     mails_to_send = add_element_to_commasep_list(mails_to_send, CERTIFICATION_MAIL_NAME_ADVANCED)
 
         if student_data[FIRST_DAYOFF_FIELD] != "":
-            if crm_facade.get_today() >= datetime.datetime.strptime(student_data[FIRST_DAYOFF_FIELD],
-                                                                    DATE_FORMAT) + datetime.timedelta(days=-2):
-                trace("Set: " + FIRST_DAYOFF_FIELD)
+            if date_is_not_less_than(crm_facade, student_data[FIRST_DAYOFF_FIELD], -2):
                 mails_to_send = add_element_to_commasep_list(mails_to_send, FIRST_DAYOFF_MAIL_NAME)
         if student_data[SECOND_DAYOFF_FIELD] != "":
-            if crm_facade.get_today() >= datetime.datetime.strptime(student_data[SECOND_DAYOFF_FIELD],
-                                                                    DATE_FORMAT) + datetime.timedelta(days=-2):
-                trace("Set: " + SECOND_DAYOFF_FIELD)
+            if date_is_not_less_than(crm_facade, student_data[SECOND_DAYOFF_FIELD], -2):
                 mails_to_send = add_element_to_commasep_list(mails_to_send, SECOND_DAYOFF_MAIL_NAME)
         if student_data[THIRD_DAYOFF_FIELD] != "":
-            if crm_facade.get_today() >= datetime.datetime.strptime(student_data[THIRD_DAYOFF_FIELD],
-                                                                    DATE_FORMAT) + datetime.timedelta(days=-2):
-                trace("Set: " + THIRD_DAYOFF_FIELD)
+            if date_is_not_less_than(crm_facade, student_data[THIRD_DAYOFF_FIELD], -2):
                 mails_to_send = add_element_to_commasep_list(mails_to_send, THIRD_DAYOFF_MAIL_NAME)
 
         if mails_to_send != mails_to_send_old:

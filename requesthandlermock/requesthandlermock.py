@@ -3,7 +3,7 @@ import unittest
 from minicrm.crmrequestfactory import _
 from expectation import Expectation
 from expextationqueue import ExpectationQueue
-from minicrm.tracing import stacktrace, trace
+from minicrm.tracing import stacktrace, trace, pretty_print
 
 
 # TODO find out why some JSON is outputted even if tracing is turned off
@@ -28,9 +28,9 @@ class RequestHandlerMock(unittest.TestCase):
     @stacktrace
     def fetch(self, command):
         print("COMMAND SENT TO ---MOCK--- API: {}".format(command.get_slogan()))
-        response = self.match_expectation(command)
-        formatted_output = response
+        formatted_output = self.match_expectation(command)
         trace("ANSWER RECEIVED:")
+        pretty_print(formatted_output)
         return formatted_output
 
     @stacktrace

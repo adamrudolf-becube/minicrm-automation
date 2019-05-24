@@ -86,10 +86,10 @@ def register_new_applicants(crm_data):
     Assumes that jelentkezok.new_students is up-to-date
     """
 
-    student_list = crm_data.get_student_list_with_status(APPLIED_STATE)
+    applied_students = crm_data.get_student_list_with_status(APPLIED_STATE)
     trace("LOOPING THROUGH STUDENTS WITH NEW STATUS")
 
-    for student in student_list:
+    for student in applied_students:
         crm_data.update_headcounts()
         student_data = crm_data.get_student(student)
         trace("COURSE FOR " + student_data[STUDENT_NAME_FILED] + " IS " + student_data[CHOSEN_COURSE_FIELD])

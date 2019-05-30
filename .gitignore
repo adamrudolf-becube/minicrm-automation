@@ -4,6 +4,11 @@ api_info.json
 # Coverage reports
 coverage-reports/
 
+# Doctool
+Makefile
+make.bat
+source/
+
 # PyCharm project folder
 .idea/
 

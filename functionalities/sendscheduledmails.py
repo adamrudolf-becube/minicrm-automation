@@ -5,7 +5,7 @@
 
 from __future__ import print_function
 
-from minicrm.commonfunctions import *
+from minicrm.commonfunctions import merge_dicts, date_is_not_less_than, add_element_to_commasep_list
 from minicrm.tracing import stacktrace, trace, pretty_print
 
 COURSE_IN_PROGRESS_STATE = "Kurzus folyamatban"

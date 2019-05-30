@@ -7,7 +7,7 @@ from __future__ import print_function
 
 import datetime
 
-from minicrm.commonfunctions import *
+from minicrm.commonfunctions import add_element_to_commasep_list
 from minicrm.tracing import stacktrace, trace
 
 INFO_SENT_STATE = "INFO levél kiment"

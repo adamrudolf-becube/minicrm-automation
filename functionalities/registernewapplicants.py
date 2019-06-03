@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Cleans the pending students from "Info Sent" state.
+Registers newly applied students for the courses or puts them to the waiting list.
 
 BeCube MiniCRM automation project.
 """

@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
-# MiniCRM automation
-# Copyright Adam Rudolf, 2018
-# BeCube programming school
+"""
+Makes sure all of the mails already due have been sent to the student.
 
-from __future__ import print_function
+BeCube MiniCRM automation project.
+"""
+
+__author__ = "Adam Rudolf"
+__copyright__ = "Adam Rudolf, 2018"
 
 from minicrm.commonfunctions import merge_dicts, date_is_not_less_than, add_element_to_commasep_list
 from minicrm.tracing import stacktrace, trace, pretty_print
@@ -72,7 +75,36 @@ CERTIFICATION_MAIL_NAME_ADVANCED = "Oklevél - haladó"
 @stacktrace
 def send_scheduled_emails(crm_facade):
     """
-    Loops through active students and spectators and sends them scheduled letters based on the dates and other conditions. Sets done students to "Elvégezte"
+    Loops through active students and spectators and sends them scheduled mails based on the dates and other conditions.
+
+    The following rules apply:
+
+    - All students in "In Progress" ("Kurzus folyamatban") and "Spectator" ("Megfigyelo") are affected.
+
+    - All mails of the occasions are sent if the date is not less than the occasion's date minus 3 days.
+
+    - There are two types of "regular" mails (i.e. sent for every single occasion): beginner and advanded. There are
+      10 mails of each type for the 10 occasions.
+
+    - Company advanced is counted as advanced and company beginner is counted as beginner in these regular mails.
+
+    - On the day of the last occasion a goodbye mail is sent, also based on student is beginner or advanced.
+
+    - This goodbye mail is not sent to company beginners, but is sent to company advanced. (So the courses can be
+      accumulated to one long course and they only get goodbye mail at the very end.)
+
+    - If the date is not less then the last date plus one day, student is put to "Finished" ("Elvegezte") state.
+
+    - On the same day beginner/advanced certification is sent if the student is not attending a company course and is
+      eligible.
+
+    - On the same day advanced certification is sent if the student is attending a company advanced course.
+
+    - Mail about free day is sent 2 days before each dayoff.
+
+    :param crm_facade: instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.
+
+    :return: None
     """
 
     trace("ACTIVE STUDENTS")
@@ -204,6 +236,18 @@ def send_scheduled_emails(crm_facade):
 
 @stacktrace
 def ok_for_certification(student_data):
+    """
+    Checks if the given student is eligible for a certification or not.
+
+    Student is eligible if
+
+    - student visited at least 8 occasions, AND
+    - student has sent at least 8 homework solutions
+
+    :param student_data: Full JSON array of a student as stored in the MiniCRM system-
+
+    :return: True if the student is eligible for cerification and False if not.
+    """
     visited_classes = len(student_data[ATTENDANCE_FIELD_NAME].split(", "))
     sent_homeworks = len(student_data[HOMEWORK_FIELD_NAME].split(", "))
     return visited_classes >= 8 and sent_homeworks >= 8

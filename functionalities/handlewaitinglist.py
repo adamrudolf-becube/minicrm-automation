@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
-# MiniCRM automation
-# Copyright Adam Rudolf, 2018
-# BeCube programming school
+"""
+Cleans the pending students from "Info Sent" state.
 
-from __future__ import print_function
+BeCube MiniCRM automation project.
+"""
+
+__author__ = "Adam Rudolf"
+__copyright__ = "Adam Rudolf, 2018"
 
 from minicrm.commonfunctions import add_element_to_commasep_list
 from minicrm.tracing import stacktrace, trace, pretty_print
@@ -25,16 +28,25 @@ ONE_PLACE_FREED_UP_MAIL_NAME = "Felszabadult egy hely"
 @stacktrace
 def handle_waiting_list(crm_facade):
     """
+    Loops through the students in waiting list and checks whether they got into the courses.
+
     Loops through all of the students in the waiting list and if there is
-    free space in their course, it sends them the INFO letter and chenges their
-    status. Also updates the headcounts of courses.
+    free space in their course, it sends them the INFO letter and changes their
+    status to INO sent. Also updates the headcounts of courses.
+
+    Students will get to the courses in the order of original application.
+
+    :param crm_facade: instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.
+
+    :return: None
     """
-    waitin_list_students = crm_facade.get_student_list_with_status(WAITING_LIST_STATE)
+
+    waiting_list_students = crm_facade.get_student_list_with_status(WAITING_LIST_STATE)
     trace("LOOPING THROUGH STUDENTS ON WAITING LIST")
 
     waiting_list_students_ordered = []
 
-    for student in waitin_list_students:
+    for student in waiting_list_students:
         trace("GETTING DETAILED DATA FOR SORTING")
         student_data = crm_facade.get_student(student)
         waiting_list_students_ordered.append(student_data)

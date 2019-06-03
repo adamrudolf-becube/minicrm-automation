@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 Cleans the pending students from "Info Sent" state.
+
+BeCube MiniCRM automation project.
 """
 
 

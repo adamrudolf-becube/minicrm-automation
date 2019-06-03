@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
-# MiniCRM automation
-# Copyright Adam Rudolf, 2018
-# BeCube programming school
+"""
+Cleans the pending students from "Info Sent" state.
 
-from __future__ import print_function
+BeCube MiniCRM automation project.
+"""
+
+__author__ = "Adam Rudolf"
+__copyright__ = "Adam Rudolf, 2018"
 
 import datetime
 
@@ -32,9 +35,19 @@ ADVANCED_INFO_MAIL_NAME = "Haladó INFO levél"
 @stacktrace
 def send_initial_letter(crm_facade, student_data, course_data):
     """
-    Based on the given student, and course, the system sends
-    an INFO or a waitinglist letter, and sets the status of
-    the student accordingly.
+    This function sends the first response to the given student.
+
+    This mail can be information about the course or a mail that the student got to waiting list. The function assembles
+    the initial mail by fetching information about the course and the location. Based on the course data this function
+    also decides whether it has to be a beginner or an advanced INFO mail.
+
+    :param crm_facade: instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.
+
+    :param student_data: full JSON array of a student as stored in the MiniCRM system.
+
+    :param student_data: full JSON array of a course as stored in the MiniCRM system.
+
+    :return: None
     """
     update_data = {}
 
@@ -80,10 +93,28 @@ def send_initial_letter(crm_facade, student_data, course_data):
 @stacktrace
 def register_new_applicants(crm_data):
     """
-    Lists all of the "Jelentkezett" students, and looks for their courses. Based on the course, it fills
-    the needed data in the student's page.
-    If the course is not found, it raises a task in CRM. (Not yet)
-    Assumes that jelentkezok.new_students is up-to-date
+    This function loops through all of the newly applied students and registers them to the courses.
+
+    The function lists all of the "Applied" ("Jelentkezett") students, and looks for their courses. Based on the course,
+    it fills the needed data in the student's page. If the course is not found, it raises a task in MiniCRM system.
+
+    The function
+
+    - decides whether the student got into waiting list or to the course
+
+    - decides what type of course the student applied
+
+    - fetches course and location data and fills it into the student's data
+
+    - sends the initial mail, which can be a beginner/advanced info mail or a waiting list mail
+
+    - sets the status of the student
+
+    - updates the headcounts of the courses and leaves a consistent state
+
+    :param crm_facade: instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.
+
+    :return: None
     """
 
     applied_students = crm_data.get_student_list_with_status(APPLIED_STATE)

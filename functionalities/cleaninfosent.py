@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
-# MiniCRM automation
-# Copyright Adam Rudolf, 2018
-# BeCube programming school
+"""
+Cleans the pending students from "Info Sent" state.
+"""
 
-from __future__ import print_function
+
+__author__ = "Adam Rudolf"
+__copyright__ = "Adam Rudolf, 2018"
+
 
 import datetime
 
@@ -25,11 +28,23 @@ DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 @stacktrace
 def clean_info_sent(crm_facade):
     """
-    Checks all students in "INFO levöl kiment" status, and
-    - NOT DONE BY SCRIPT If billing info is filled, student gets to "Kurzus folyamatban" NOT DONE BY SCRIPT, autmated in MiniCRTM
+    Cleans the pending students from "Info Sent" state.
+
+    Loops though all students in "Info Sent" ("INFO levél kiment" in Hungarian) status, and
+
     - If finalizing deadline -1 day is over, it sends a reminder
+
     - If finalizing deadline is over, it sends a reminder, raises a task for the responsible
-    - If finalizing deadline + 1 ady is over, it sets student to "Nem valaszolt", and notifies responsible
+
+    - If finalizing deadline + 1 ady is over, it sets student to "Did Not Finalize" ("Nem valaszolt"), and notifies responsibles
+
+    Note that if billing info is filled (student finalized his/her application), student gets to "Course In Progress"
+    ("Kurzus folyamatban") status. This logic is although not implemented by script, but the MiniCRM system itself. So
+    this function only loops through the students who haven't done this yet.
+
+    :param crm_facade: instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.
+
+    :return: None
     """
 
     students_in_info_sent_state = crm_facade.get_student_list_with_status(INFO_SENT_STATE)

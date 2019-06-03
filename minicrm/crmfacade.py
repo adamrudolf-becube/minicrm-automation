@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
-# MiniCRM automation
-# Copyright Adam Rudolf, 2018
-# BeCube programming school
+
+"""
+MiniCRM automation
+
+Blablabla
+"""
+
+__author__ = "Adam Rudolf"
+__copyright__ = "Adam Rudolf, 2018"
+
 import datetime
 
 import crmrequestfactory
@@ -59,6 +66,11 @@ class CrmFacade:
 
     @stacktrace
     def get_today(self):
+        """
+        Gets the today
+
+        :return: the date stored in the instance as today's date
+        """
         return self._today
 
     def set_today(self, today):

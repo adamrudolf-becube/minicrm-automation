@@ -6,7 +6,15 @@
 
 ### What is this for
 
+Me, Adam Rudolf run a little programming school in Hungary, called BeCube. BeCube uses a CRM (Customer Relationship Management) software called MiniCRM by MiniCRM Zrt. to store information about our customers, teachers, courses, locations, invoicing and e-mailing.
+
+Although MiniCRM provides a list of features to automate processes related to organizing courses and manage the lifecycle of students, a lot of customization is needed to fulfill needs of BeCube.
+
+This project contains the script system, which communicates with the MiniCRM system through it's REST API.
+
 ### Why is it public
+
+BeCube is a programming school. We teach the basic principles of programming using Python. We thought that why not expose this code to our students, and to the public.   
 
 ## Principles
 
@@ -209,6 +217,9 @@ DONE
 - crm_data to facade, commandhandler to requesthandler
 - hun names still
 - go through it few times for little errors/illogical stuff
+- remove wildcard imports
+- public api __all__
+- can we make constants constants?
 
 todo:
 - dunder names

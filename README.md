@@ -220,12 +220,15 @@ DONE
 - remove wildcard imports
 - public api __all__
 - can we make constants constants?
+- dunder names
 
 todo:
-- dunder names
+- write code documentation and generate (including json responses)
+    - how to document constructors
+    - how to give code examples
+    - how to denote parameter and return types 
 - check against clean code checklists
 - check against design patterns (correct pattern structure, consistent naming)
-- write code documentation and generate (including json responses)
 - write readme correctly
 
 

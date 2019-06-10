@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
-
 """
-MiniCRM automation
-
-Blablabla
+Contains a class to provide a facade for the MiniCRM system.
 """
 
 __author__ = "Adam Rudolf"
@@ -47,15 +44,29 @@ COURSE_THIRD_DAYOFF_FIELD = "N3SzunetOpcionalis"
 
 class CrmFacade:
     """
-    Acts as a facade to the MiniCRM. This class implements human understandable methods to fetch from and write to the
-    MiniCRM system, caches data if needed and handles the connection. Business code needs to use an instance of this
+    Acts as a facade to the MiniCRM system.
+
+    This class implements human understandable methods to fetch from and write to the
+    MiniCRM system, caches data if needed and handles the connection. Client code needs to use an instance of this
     class to have an API to the MiniCRM system.
+
+    This class handles the connection, and knows the request types the system uses so the user doesn't have to handle
+    these.
     """
 
     @stacktrace
     def __init__(self, request_handler, today=datetime.datetime.now()):
         """
-        Sets the login data required by the API, collects information about existing modules, and even initializes some fo them
+        Constructor:
+
+        Sets the login data required by the API, collects information about existing modules, and even initializes some
+        of them.
+
+        :param request_handler:
+        :type request_handler: RequestHandler
+
+        :param today: a date object the CrmFacade object will know as "today". Defaults to current date.
+        :type today: datetime.datetime
         """
         self._request_handler = request_handler
         self._module_dict = None
@@ -67,55 +78,142 @@ class CrmFacade:
     @stacktrace
     def get_today(self):
         """
-        Gets the today
+        Gets the the date stored in the instance as today.
 
-        :return: the date stored in the instance as today's date
+        :return: the date stored in the instance as today's date. Is in format of datetime.datetime.
+        :rtype: datetime.datetime
         """
+
         return self._today
 
     def set_today(self, today):
         """
+        Sets the the date stored in the instance as today.
+
         Only for testing purposes. If different tests need different "_today" dates, constructor can be called in setup
         then _today can be set differently in separate tests.
+
         :param today: should be datetime.datetime object
+        :type today: datetime.datetime
+
         :return: None
         """
+
         self._today = today
 
     @stacktrace
-    def get_student(self, student):
+    def get_student(self, student_number):
         """
         Fetches a student with the given ID from the MiniCRM system and returns it's data as a dictionary.
-        :param student: integer, ID of the student
+
+        :param student_number: integer, ID of the student
+        :type student: int
+
         :return: dictionary, complying with the schema of the student module
+        :rtype: dict
         """
-        return self._get_project(student)
+
+        return self._get_project(student_number)
 
     @stacktrace
     def get_student_list_with_status(self, status):
+        """
+        Returns all students with the given status.
+
+        :param status: specifies a desired status.
+        :type status: str
+
+        :return: the students with the given status. Key is the ID number.
+        :rtype: dict
+        """
+
         return self._query_project_list_with_status_id(self.get_student_status_number_by_name(status))
 
     @stacktrace
     def get_student_status_number_by_name(self, status_name):
+        """
+        Returns the ID number of the given status.
+
+        MiniCRM system works with status numbers. The number is what usually the API requests require, but often it's
+        easier for the clients to handle the human readable status names. This function is used to provide the status
+        number if only the status name is known.
+
+        :raises ValueError: if nonexistent status_name is given
+
+        :param status_name: string, name of a status
+        :type status_name: stt
+
+        :return: integer, the status number of the given status
+        :rtype: dict
+        """
+
         status_dictionary = self._student_schema[STATUS_ID_FIELD]
         return_value = get_key_from_value(status_dictionary, status_name)
         trace("STATUS CODE FOR [{}] IS [{}]".format(status_name, return_value))
         return return_value
 
     @stacktrace
-    def set_student_data(self, student, data):
-        self._set_project_data(student, data)
+    def set_student_data(self, student_number, data):
+        """
+        Is used to modify data of a student stored in MiniCRM system.
+
+        :param student_number: ID number of the student.
+        :type student_number: int
+
+        :param data: Has to have the structure of a student as stored in the MiniCRM system.
+        :type data: dict
+
+        :return: None
+        """
+
+        self._set_project_data(student_number, data)
 
     @stacktrace
-    def get_course(self, course):
-        return self._get_project(course)
+    def get_course(self, course_number):
+        """
+        Returns the dictionary of a course.
+
+        :param course_number: ID number of a course
+        :type course_number: int
+
+        :return: dictionary, containing all information about the given ourse
+        :rtype: dict
+        """
+
+        return self._get_project(course_number)
 
     @stacktrace
     def get_course_list_with_status(self, status):
+        """
+        Returns all courses with the given status.
+
+        :param status: the desired status.
+        :type status: str
+
+        :return: dictionary of the courses with the given status.
+        :rtype: dict
+        """
+
         return self._query_project_list_with_status_id(self.get_course_status_number_by_name(status))
 
     @stacktrace
     def get_course_status_number_by_name(self, status_name):
+        """
+        Returns the ID number of the given status.
+
+        MiniCRM system works with status numbers. The number is what usually the API requests require, but often it's
+        easier for the clients to handle the human readable status names. This function is used to provide the status
+        number if only the status name is known.
+
+        :raises ValueError: if nonexistent status_name is given
+
+        :param status_name: name of a status
+        :type status_name: str
+
+        :return: the status number of the given status
+        :rtype: int
+        """
+
         status_dictionary = self._course_schema[STATUS_ID_FIELD]
         return_value = get_key_from_value(status_dictionary, status_name)
         trace("STATUS CODE FOR [{}] IS [{}]".format(status_name, return_value))
@@ -123,6 +221,15 @@ class CrmFacade:
 
     @stacktrace
     def get_course_by_course_code(self, course_code):
+        """
+        Returns the dictionary of a course.
+
+        :param course_code: Course code of a course
+        :type course_code: int
+
+        :return: containing all information about the given ourse
+        :rtype: dict
+        """
 
         course_list = self._request_handler.fetch(
             crmrequestfactory.get_course_list_by_course_code(course_code)
@@ -137,11 +244,36 @@ class CrmFacade:
         return None
 
     @stacktrace
-    def set_course_data(self, course, data):
-        self._set_project_data(course, data)
+    def set_course_data(self, course_number, data):
+        """
+        Is used to modify data of a course stored in MiniCRM system.
+
+        :param course_number: ID number of the course.
+        :type course_number: int
+
+        :param data: Has to have the structure of a student as stored in the MiniCRM system.
+        :type data: dict
+
+        :return: None
+        """
+
+        self._set_project_data(course_number, data)
 
     @stacktrace
     def get_location_by_name(self, location_name):
+        """
+        Returns the dictionary of a location for a given name.
+
+        - returns one of the locations if name is not unique
+
+        - returns None if name doesn't exist
+
+        :param location_name: Course code of a course
+        :type location_name: int
+
+        :return: containing all information about the given location
+        :rtype: dict
+        """
 
         location_list = self._request_handler.fetch(
             crmrequestfactory.get_location_list_by_location_name(location_name)
@@ -158,8 +290,21 @@ class CrmFacade:
     @stacktrace
     def update_headcounts(self):
         """
-        Loops through all open ("Jelentkezés nyitva") courses, and calculates how many applicants are there.
+        Loops through all courses in Application Open ("Jelentkezés nyitva") state, and updates their headcount fields.
+
         It writes the result to the CRM page of the course.
+
+        A student is considered enrolled to a course if their status is either "INFO Sent" ("INFO levél kiment") or
+        "Course In Progress" ("Kurzus folyamatban").
+
+        The function loops through all courses in Application Open ("Jelentkezés nyitva") state in a big loop, and for
+        each course in the loop, it loops through all of the students who are registered to that course and counts how
+        many of them are in any of the above mentioned stated. When it finishes the small loop, it updates the field for
+        the current headcount of the currently processed course.
+
+        After calling this method, the user can be sure that all courses are in up-to-date state.
+
+        :return: None
         """
         open_courses = self.get_course_list_with_status(APPLICATION_OPEN_STATE)
         pretty_print(open_courses)
@@ -204,7 +349,22 @@ class CrmFacade:
             deadline,
             user_id=""):
         """
-        Creates a new task in teh CRM ssytem with the given details
+        Creates a new task in the MiniCRM system with the given details.
+
+        :param project_id: the task will be raised to the project (student, course, location, etc.) identified by this
+                           ID.
+        :type project_id: int
+
+        :param comment: the text shown as the contents (description) of the task
+        :type comment: str
+
+        :param deadline: date, set as deadline in the MiniCRM system. Has to be in the "%Y-%m-%d %H:%M:%S"" format.
+        :type deadline: str
+
+        :param user_id: MiniCRM user who is responsible (assignee) for the task
+        :type user_id: int
+
+        :return: None
         """
 
         self._request_handler.fetch(
@@ -212,6 +372,46 @@ class CrmFacade:
 
     @stacktrace
     def fill_student_data(self, student_data, course_data):
+        """
+        Updates the following data of the student:
+
+        - Code of the course ("TanfolyamKodja") will be equal to the course they applied to ("MelyikTanfolyamErdekli").
+          This is because the latter one changes every time the registration form on MiniCRM is updated, but this way
+          the course code is saved.
+
+        - Detailed description of the location (fetched from locations)
+
+        The following will be copied from the course data:
+
+        - Type of the course
+
+        - Time of the lectures (during the day)
+
+        - Date of every lecture
+
+        - Date of every dayoffs
+
+        The following will be calculated:
+
+        - Application deadline determined by the following algorithm (applied in this order):
+
+            1. by default, it is 5 days
+            2. If the course starts in less than 7 days, or less than 30% of places is free, it is set to 3 days
+            3. If the course starts in less than 3 days, and there is no more than 3 places, it will be 1 day
+            4. If the starting day is earlier than the calculated deadline, it will be the starting day - 1 day
+            5. If the deadline is earlier than now, it is now + 1 day
+
+        - Date descriptions. This is one string containing all of the lectures and vacations, directly insertable to
+          emails.
+
+        :param student_data: all of the date about a student as stored in the MiniCRM system.
+        :type student_data: dict
+
+        :param course_data: all of the date about a course the student has applied to as stored in the MiniCRM system.
+        :type course_data: dict
+
+        :return: None
+        """
         data_to_update = {
             "TanfolyamKodja": student_data["MelyikTanfolyamErdekli"],
             "TanfolyamTipusa2": course_data["TanfolyamTipusa"],

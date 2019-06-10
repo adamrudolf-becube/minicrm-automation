@@ -221,12 +221,14 @@ DONE
 - public api __all__
 - can we make constants constants?
 - dunder names
+    - how to document constructors
+    - how to give code examples
+    - how to denote parameter types
 
 todo:
 - write code documentation and generate (including json responses)
-    - how to document constructors
-    - how to give code examples
-    - how to denote parameter and return types 
+    - why all doc says args kwargs?
+    - how to denote return types 
 - check against clean code checklists
 - check against design patterns (correct pattern structure, consistent naming)
 - write readme correctly

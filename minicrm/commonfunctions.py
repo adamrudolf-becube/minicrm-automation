@@ -119,6 +119,9 @@ def date_is_not_less_than(crm_facade, reference_date, offset=0):
     Compares a given date plus the given offset in days to the date returned by CrmFacade.get_today().
 
     Example usage:
+
+    .. code-block:: python
+
       date_is_not_less_than(crm_facade, student_data[EIGTH_OCCASION_DATE_FIELD], -3)
 
     The code above returns True if today is not less than the 8th occasion of the student stored in student_data minus

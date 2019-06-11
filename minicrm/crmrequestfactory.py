@@ -287,7 +287,7 @@ def get_modul_dictionary():
 
     Returns a GET request.
 
-    :return: the encapsuladed API request for¨getting the dictionary of the modules created in the MiniCRM system.
+    :return: the encapsuladed API request for getting the dictionary of the modules created in the MiniCRM system.
     :rtype: ApiRequest
     """
 

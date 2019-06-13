@@ -320,7 +320,8 @@ def raise_task(
     :param deadline: deadline of the task. Has to be in the "%Y-%m-%d %H:%M:%S" format.
     :type deadline: str
 
-    :param user_id: MiniCRM user who is responsible (assignee) for the task
+    :param user_id: (optional) MiniCRM user who is responsible (assignee) for the task. Default so empty string, which
+                    is valid from the MiniCRM point of view. If left empty, there will be no responsible for the task.
     :type user_id: int
 
     :return: the encapsuladed API request for

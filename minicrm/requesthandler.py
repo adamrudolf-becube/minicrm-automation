@@ -6,11 +6,15 @@ __author__ = "Adam Rudolf"
 __copyright__ = "Adam Rudolf, 2018"
 
 import json
+import time
 
 import requests
 
 from apirequest import GET_METHOD, PUT_METHOD
 from tracing import stacktrace, trace, pretty_print
+
+TOO_MANY_REQUESTS_STATUS_CODE = 429
+ONE_MINUTE = 60
 
 
 class RequestHandler:
@@ -53,6 +57,11 @@ class RequestHandler:
                 data=json.dumps(request.get_payload()))
         else:
             ValueError("Unsupported method type: [{}]".format(request.get_method()))
+
+        if response.status_code == TOO_MANY_REQUESTS_STATUS_CODE:
+            trace("Response status code 429 (Too many requests), sleeping for " + ONE_MINUTE + " seconds.")
+            time.sleep(ONE_MINUTE)
+            return self.fetch(request)
 
         trace("RAW RECEIVED: {}".format(response))
         formatted_output = response.json

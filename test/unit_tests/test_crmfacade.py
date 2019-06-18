@@ -1,4 +1,13 @@
 # -*- coding: utf-8 -*-
+"""
+This module contains requirements for CrmFacade.
+
+Note that some requirements are covered in module tests, so redundant tests are not included here.
+"""
+
+__author__ = "Adam Rudolf"
+__copyright__ = "Adam Rudolf, 2018"
+
 import datetime
 
 import minicrm.crmrequestfactory as crmrequestfactory
@@ -19,46 +28,56 @@ FAKE_COURSE_COURSE_CODE = "2019-1-Q"
 
 
 class TestGetApplicationDeadline(MiniCrmTestBase):
-
-    def set_course(self, api_response):
-        self.request_handler.expect_request(crmrequestfactory.get_student(ARBITRARY_STUDENT_ID), api_response)
-        self.course_data = self.request_handler.fetch(crmrequestfactory.get_student(ARBITRARY_STUDENT_ID))
+    """
+    Contains tests for CrmFacade._get_application_deadline() (Private method.)
+    """
 
     def test_if_course_starts_in_not_less_than_7_days_away_and_more_than_places_30_percent_if_free_deadline_is_5_days(
             self):
-        self.set_course(responses_courses.COURSE_2019_1_Q)
         self.crm_facade.set_today(datetime.datetime(2019, 1, 10, 9, 8))
-        self.assertEqual("2019-01-15 09:08:00", self.crm_facade._get_application_deadline(self.course_data))
+        self.assertEqual(
+            "2019-01-15 09:08:00",
+            self.crm_facade._get_application_deadline(responses_courses.COURSE_2019_1_Q)
+        )
 
     def test_if_course_starts_in_less_than_7_days_away_and_more_than_places_30_percent_if_free_deadline_is_3_days(self):
-        self.set_course(responses_courses.COURSE_2019_1_Q)
         self.crm_facade.set_today(datetime.datetime(2019, 1, 23, 9, 8))
-        self.assertEqual("2019-01-26 09:08:00", self.crm_facade._get_application_deadline(self.course_data))
+        self.assertEqual(
+            "2019-01-26 09:08:00",
+            self.crm_facade._get_application_deadline(responses_courses.COURSE_2019_1_Q)
+        )
 
     def test_if_course_starts_in_not_less_than_7_days_away_and_less_than_places_30_percent_if_free_deadline_is_3_days(
             self):
-        self.set_course(responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
         self.crm_facade.set_today(datetime.datetime(2019, 1, 10, 9, 8))
-        self.assertEqual("2019-01-13 09:08:00", self.crm_facade._get_application_deadline(self.course_data))
+        self.assertEqual(
+            "2019-01-13 09:08:00",
+            self.crm_facade._get_application_deadline(responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
+        )
 
     def test_if_course_starts_in_less_than_3_days_and_there_is_no_more_than_3_places_deadline_is_1_day(self):
-        self.set_course(responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
         self.crm_facade.set_today(datetime.datetime(2019, 1, 26, 9, 8))
-        self.assertEqual("2019-01-27 09:08:00", self.crm_facade._get_application_deadline(self.course_data))
+        self.assertEqual(
+            "2019-01-27 09:08:00",
+            self.crm_facade._get_application_deadline(responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
+        )
 
     def test_if_course_start_is_earlier_than_the_calculated_deadline_deadline_is_course_start_minus_one_day(self):
-        self.set_course(responses_courses.COURSE_2019_1_Q)
         self.crm_facade.set_today(datetime.datetime(2019, 1, 26, 9, 8))
-        self.assertEqual("2019-01-27 23:59:59", self.crm_facade._get_application_deadline(self.course_data))
+        self.assertEqual(
+            "2019-01-27 23:59:59",
+            self.crm_facade._get_application_deadline(responses_courses.COURSE_2019_1_Q)
+        )
 
     def test_if_deadline_is_earlier_than_today_deadline_is_today_plus_one_day(self):
-        self.set_course(responses_courses.COURSE_2019_1_Q)
         self.crm_facade.set_today(datetime.datetime(2019, 1, 29, 9, 8))
-        self.assertEqual("2019-01-30 09:08:00", self.crm_facade._get_application_deadline(self.course_data))
+        self.assertEqual(
+            "2019-01-30 09:08:00",
+            self.crm_facade._get_application_deadline(responses_courses.COURSE_2019_1_Q)
+        )
 
     def test_if_all_spots_is_zero_function_does_not_raise(self):
-        self.set_course(responses_courses.MAX_SPOTS_IS_ZERO)
-        self.crm_facade._get_application_deadline(self.course_data)
+        self.crm_facade._get_application_deadline(responses_courses.MAX_SPOTS_IS_ZERO)
 
 
 class TestGetCourseByCourseCode(MiniCrmTestBase):
@@ -143,21 +162,6 @@ class TestQueryProjectListWithStatus(MiniCrmTestBase):
 
 
 class TestUpdateHeadcounts(MiniCrmTestBase):
-
-    def test_headcount_is_1_when_there_are_no_students_for_this_course_count_is_set_to_0(self):
-        self.request_handler.expect_request(
-            crmrequestfactory.get_project_list_for_status(APPLICATION_OPEN_STATUS_NUMBER),
-            responses_courselists.LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN)
-        self.request_handler.expect_request(
-            crmrequestfactory.get_course(FAKE_COURSE_ID_NUMBER),
-            responses_courses.COURSE_2019_1_Q_1_STUDENT)
-        self.request_handler.expect_request(
-            crmrequestfactory.get_student_list_by_course_code(FAKE_COURSE_COURSE_CODE),
-            responses_general.EMPTY_LIST)
-        self.request_handler.expect_request(
-            crmrequestfactory.set_project_data(FAKE_COURSE_ID_NUMBER, {u"AktualisLetszam": 0}),
-            responses_general.XPUT_RESPONSE)
-        self.crm_facade.update_headcounts()
 
     def test_headcount_is_1_when_there_are_no_students_for_this_course_count_is_set_to_0(self):
         self.request_handler.expect_request(

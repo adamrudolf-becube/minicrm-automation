@@ -21,8 +21,6 @@ lot of customization is needed to fulfill needs of BeCube.
 This project contains the script system, which communicates with the
 MiniCRM system through it's REST API to automate processes.
 
-This principle is also called [dog fooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food).
-
 ### Why is it public
 
 BeCube is a programming school. We teach the basic principles of
@@ -31,6 +29,8 @@ our students, and to the public.
 
 If we teach coding, and do coding, we should show our students what code
 we are writing to be the example we think is good.   
+
+This principle is also called [dog fooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food).
 
 ## Principles
 
@@ -47,7 +47,7 @@ is never written to the hard disk, and is never stored for more than the
 scope of a function.
 
 * **Information security** - in whatever machine this code is running,
-we don't have to care about information security, because the machine is
+it's simpler to care about information security, because the machine is
 not storing informaition.
  
 * **Server independency** - the script doesn't remember what it did last
@@ -57,8 +57,8 @@ any time. The current machine can even explode, loosing everything on
 it, we can immediately start running the code from another machine.
  
 * **Consistency** - the scrpipt doesn't change the state of the machine
-it's runnign on. This means that the scipt can die mid-run, we can start
-it again withour any cleanup or other preparation.
+it's runnign on. This means that the script can die mid-run, we can start
+it again without any cleanup or other preparation.
 
 ### Independent runs - can be run any time and repeatedly
 
@@ -163,7 +163,6 @@ things, which you might find obsolete.
 * Main modules we use:
     * pip 10.0.1
     * For handling API requests we use requests 2.21.0
-* unittest, coverage and documentation frameworks
 * We use unittest for automatic test runs, with nose (1.3.7) for test
 discovery.
 * For test coverage, we use coverage 4.5.2.
@@ -177,6 +176,8 @@ be run in any other manner of course, but this was kept in mind when'
 writing these scripts.
 
 ## Structure
+
+![Simplified class diagram](simplified_class_diagram.png "Simplified class diagram of MiniCRM Automation Script System")
 
 
 

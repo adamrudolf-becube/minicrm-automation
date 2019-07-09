@@ -184,7 +184,7 @@ def get_location_list_by_location_name(location_name):
     Returns a GET request.
 
     :param location_name: name of the requested location, for example "Astoria"
-    :type location_name: str
+    :type location_name: unicode
 
     :return: the encapsuladed API request for getting a list of the locations which have the given name.
     :rtype: ApiRequest

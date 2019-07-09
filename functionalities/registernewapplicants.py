@@ -91,7 +91,7 @@ def send_initial_letter(crm_facade, student_data, course_data):
 
 
 @stacktrace
-def register_new_applicants(crm_data):
+def register_new_applicants(crm_facade):
     """
     This function loops through all of the newly applied students and registers them to the courses.
 
@@ -117,23 +117,23 @@ def register_new_applicants(crm_data):
     :return: None
     """
 
-    applied_students = crm_data.get_student_list_with_status(APPLIED_STATE)
+    applied_students = crm_facade.get_student_list_with_status(APPLIED_STATE)
     trace("LOOPING THROUGH STUDENTS WITH NEW STATUS")
 
     for student in applied_students:
-        crm_data.update_headcounts()
-        student_data = crm_data.get_student(student)
+        crm_facade.update_headcounts()
+        student_data = crm_facade.get_student(student)
         trace("COURSE FOR " + student_data[STUDENT_NAME_FILED] + " IS " + student_data[CHOSEN_COURSE_FIELD])
         course_code = student_data[CHOSEN_COURSE_FIELD]
 
         trace("\nGET COURSE DATA BASED ON COURSE CODE\n")
 
-        course_data = crm_data.get_course_by_course_code(course_code)
+        course_data = crm_facade.get_course_by_course_code(course_code)
         if course_data:
-            crm_data.fill_student_data(student_data, course_data)
-            send_initial_letter(crm_data, student_data, course_data)
+            crm_facade.fill_student_data(student_data, course_data)
+            send_initial_letter(crm_facade, student_data, course_data)
         else:
-            crm_data.raise_task(
+            crm_facade.raise_task(
                 student,
                 """Érvénytelen kurzuskód: [{}].
 
@@ -153,4 +153,4 @@ def register_new_applicants(crm_data):
 
                 Az adatok korrigálása után a rendszer automatiksuan megteszi a szokásos lépéseket, így ne küldj manuálisan INFO levelet, és ne változtasd meg a jelentkező státásuzát, mert az elronthatja a folyamatot!
                 """.format(student_data["MelyikTanfolyamErdekli"]),
-                (crm_data.get_today() + datetime.timedelta(days=3)).__str__())
+                (crm_facade.get_today() + datetime.timedelta(days=3)).__str__())

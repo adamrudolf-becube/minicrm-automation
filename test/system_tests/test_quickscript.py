@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+"""
+This module contains all of the tests and requirements for the functionality called quickscript.
+"""
+
+__author__ = "Adam Rudolf"
+__copyright__ = "Adam Rudolf, 2018"
+
 import datetime
 
 import quickscript
@@ -26,6 +33,15 @@ LOCATION_ID = 19
 
 class TestQuickScript(MiniCrmTestBase):
     def test_quick_script_calls_correct_functions(self):
+        """
+        quickscript.run runs a valid sequence of
+
+        - cleaninfosent
+
+        - handlewaitinglist
+
+        - registernewapplicants
+        """
         self.expect_clean_info_sent()
         self.expect_handle_waiting_list()
         self.expect_register_new_applicants()
@@ -33,6 +49,7 @@ class TestQuickScript(MiniCrmTestBase):
         quickscript.run(self.crm_facade)
 
     def expect_clean_info_sent(self):
+        """Sets up expectations to a valid cleaninfosent workflow"""
         self.crm_facade.set_today(datetime.datetime(2019, 1, 22, 12, 0))
 
         self.request_handler.expect_request(
@@ -54,6 +71,7 @@ class TestQuickScript(MiniCrmTestBase):
         self.set_participant_number_expectations()
 
     def expect_handle_waiting_list(self):
+        """Sets up expectations to a valid handlewaitinglist workflow"""
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(WAITING_LIST_STATUS_NUMBER),
             responses_studentlists.WAITING_LIST_ONE_STUDENT)
@@ -72,6 +90,7 @@ class TestQuickScript(MiniCrmTestBase):
         self.set_participant_number_expectations()
 
     def expect_register_new_applicants(self):
+        """Sets up expectations to a valid registernewapplicants workflow"""
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(NEW_APPLICANT_STATUS_NUMBER),
             responses_studentlists.NEW_APPLICANTS_ONE_STUDENT)

@@ -47,9 +47,10 @@ class RequestHandlerMock(unittest.TestCase):
         Raises an error if there is an unsatisfied expectation.
 
         This class can detect any incoming unexpected API requests, but it doesn't know whether the test ended or not.
-        It means that if the test ends too early, unsatisfied expectations Call this function at the end of test.
+        It means that if the test ends too early, unsatisfied expectations remain in the queue without causing visible
+        problems.  Call this function at the end of test.
 
-        It is practical to call this function in the TeaeDown of test suites to make sure every test ends without
+        It is practical to call this function in the TearDown of test suites to make sure every test ends without
         unsatisfied expectations.
 
         :raises: AssertionError with the error message beginning with "Not all expectations were fulfilled when test

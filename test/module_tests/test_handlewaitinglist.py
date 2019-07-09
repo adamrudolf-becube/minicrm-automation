@@ -1,3 +1,10 @@
+"""
+This module contains all of the tests and requirements for the functionality called handlewaitinglist
+"""
+
+__author__ = "Adam Rudolf"
+__copyright__ = "Adam Rudolf, 2018"
+
 import requesthandlermock.responses.courselists as responses_courselists
 import requesthandlermock.responses.courses as responses_courses
 import requesthandlermock.responses.general as responses_general
@@ -22,6 +29,16 @@ FAKE_COURSE_ID_NUMBER = 1164
 class TestHandleWaitingList(MiniCrmTestBase):
 
     def test_there_is_one_student_on_waiting_list_but_there_are_no_free_places_do_nothing(self):
+        """
+        Given:
+            - there is a student in waiting list
+            - there is no free spot on the wanted course
+        When:
+            - handle_waiting_list() is called
+        Then:
+            - do nothing
+        """
+
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(WAITING_LIST_STATUS_NUMBER),
             responses_studentlists.WAITING_LIST_ONE_STUDENT)
@@ -41,6 +58,16 @@ class TestHandleWaitingList(MiniCrmTestBase):
         handle_waiting_list(self.crm_facade)
 
     def test_there_are_multiple_students_on_waiting_list_but_there_are_no_free_places_do_nothing(self):
+        """
+        Given:
+            - there are multiple students in waiting list
+            - there is no free spot on the wanted course
+        When:
+            - handle_waiting_list() is called
+        Then:
+            - do nothing
+        """
+
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(WAITING_LIST_STATUS_NUMBER),
             responses_studentlists.WAITING_LIST_TWO_STUDENTS)
@@ -72,6 +99,18 @@ class TestHandleWaitingList(MiniCrmTestBase):
         handle_waiting_list(self.crm_facade)
 
     def test_there_is_one_student_on_waiting_list_and_there_is_one_free_place_put_student_to_info_sent(self):
+        """
+        Given:
+            - there is a student in waiting list
+            - there is one free spot on the wanted course
+        When:
+            - handle_waiting_list() is called
+        Then:
+            - INFO email is sent
+            - "A spot freed up" email is sent
+            - change student's status to "INFO sent"
+        """
+
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(WAITING_LIST_STATUS_NUMBER),
             responses_studentlists.WAITING_LIST_ONE_STUDENT)
@@ -101,6 +140,21 @@ class TestHandleWaitingList(MiniCrmTestBase):
 
     def test_there_are_multiple_students_on_waiting_list_and_there_is_one_free_place_put_earlier_student_to_info_sent(
             self):
+        """
+        Given:
+            - there are two students in waiting list
+            - there is one free spot on the wanted course
+        When:
+            - handle_waiting_list() is called
+        Then:
+            - for the one who applies earlier:
+                - INFO email is sent
+                - "A spot freed up" email is sent
+                - change student's status to "INFO sent"
+            - for the other student:
+                - do nothing
+        """
+
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(WAITING_LIST_STATUS_NUMBER),
             responses_studentlists.WAITING_LIST_TWO_STUDENTS)
@@ -142,6 +196,19 @@ class TestHandleWaitingList(MiniCrmTestBase):
 
     def test_there_are_multiple_students_on_waiting_list_and_there_are_two_free_places_put_both_students_to_info_sent(
             self):
+        """
+        Given:
+            - there are two students in waiting list
+            - there are two free spots on the wanted course
+        When:
+            - handle_waiting_list() is called
+        Then:
+            - for both students:
+                - INFO email is sent
+                - "A spot freed up" email is sent
+                - change student's status to "INFO sent"
+        """
+
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(WAITING_LIST_STATUS_NUMBER),
             responses_studentlists.WAITING_LIST_TWO_STUDENTS)
@@ -195,6 +262,21 @@ class TestHandleWaitingList(MiniCrmTestBase):
 
     def test_there_are_5_students_on_the_waiting_list_and_there_are_two_free_places_put_the_earliest_two_to_info_sent(
             self):
+        """
+        Given:
+            - there are 5 students in waiting list
+            - there are two free spots on the wanted course
+        When:
+            - handle_waiting_list() is called
+        Then:
+            - for the two who applied the earliest:
+                - INFO email is sent
+                - "A spot freed up" email is sent
+                - change student's status to "INFO sent"
+            - for the other student:
+                - do nothing
+        """
+
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(WAITING_LIST_STATUS_NUMBER),
             responses_studentlists.WAITING_LIST_FIVE_STUDENTS)

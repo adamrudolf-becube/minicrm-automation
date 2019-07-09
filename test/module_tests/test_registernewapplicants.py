@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+"""
+This module contains all of the tests and requirements for the functionality called registernewapplicants.
+"""
+
+__author__ = "Adam Rudolf"
+__copyright__ = "Adam Rudolf, 2018"
+
 import requesthandlermock.responses.courselists as responses_courselists
 import requesthandlermock.responses.courses as responses_courses
 import requesthandlermock.responses.general as responses_general
@@ -22,6 +29,15 @@ LOCATION_ID = 19
 
 class TestRegisterNewApplicants(MiniCrmTestBase):
     def test_no_new_applicant_do_nothing(self):
+        """
+        Given:
+            - there is no new applicant
+        When:
+            - register_new_applicants() is called
+        Then:
+            - do nothing
+        """
+
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(NEW_APPLICANT_STATUS_NUMBER),
             responses_general.EMPTY_LIST
@@ -30,6 +46,20 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
 
     def test_student_is_applied_headcount_is_less_than_the_limit_put_student_to_infosent_update_headcounts_copy_course_data(
             self):
+        """
+        Given:
+            - one beginner student is in applied ("Jelentkezett") state
+            - current headcount is less than maximal headcount. (there is at least one free spot) in the wanted course.)
+        When:
+            - register_new_applicants() is called
+        Then:
+            - student's info is filled
+            - student is put to INFO sent ("INFO level kiment") state
+            - beginner INFO mail is sent
+            - application deadline is set
+            - headcount is updated
+        """
+
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(NEW_APPLICANT_STATUS_NUMBER),
             responses_studentlists.NEW_APPLICANTS_ONE_STUDENT)
@@ -71,6 +101,20 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
 
     def test_advanced_student_is_applied_headcount_is_less_than_the_limit_put_student_to_infosent_update_headcounts_copy_course_data(
             self):
+        """
+        Given:
+            - one advanced student is in applied ("Jelentkezett") state
+            - current headcount is less than maximal headcount. (there is at least one free spot) in the wanted course.)
+        When:
+            - register_new_applicants() is called
+        Then:
+            - student's info is filled
+            - student is put to INFO sent ("INFO level kiment") state
+            - advanced INFO mail is sent
+            - application deadline is set
+            - headcount is updated
+        """
+
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(NEW_APPLICANT_STATUS_NUMBER),
             responses_studentlists.NEW_APPLICANTS_ONE_STUDENT)
@@ -110,6 +154,16 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         register_new_applicants(self.crm_facade)
 
     def test_student_is_applied_course_doesnt_exist_raise_task_with_errormessage(self):
+        """
+        Given:
+            - one beginner student is in applied ("Jelentkezett") state
+            - student's course doesn't exist
+        When:
+            - register_new_applicants() is called
+        Then:
+            - task is raised on student
+        """
+
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(NEW_APPLICANT_STATUS_NUMBER),
             responses_studentlists.NEW_APPLICANTS_ONE_STUDENT)
@@ -136,6 +190,19 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         register_new_applicants(self.crm_facade)
 
     def test_student_is_applied_headcount_is_not_less_than_the_limit_put_student_to_waiting_list_and_send_mail(self):
+        """
+        Given:
+            - one beginner advanced student is in applied ("Jelentkezett") state
+            - current headcount is equal to minimal headcount. (there is no free spot) in the wanted course.)
+        When:
+            - register_new_applicants() is called
+        Then:
+            - student's info is filled
+            - student is put to waiting list ("Varolistan van") state
+            - waiting list mail
+            - headcount is updated
+        """
+
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(NEW_APPLICANT_STATUS_NUMBER),
             responses_studentlists.NEW_APPLICANTS_ONE_STUDENT)

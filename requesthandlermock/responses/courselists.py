@@ -1,7 +1,10 @@
 """
-List of open courses where only one (2019-1-Q) is open for simplicity
-Example command: curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2753",
+Contains API responses which contain course lists.
 """
+
+__author__ = "Adam Rudolf"
+__copyright__ = "Adam Rudolf, 2018"
+
 LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN = {
     u"Count": 1,
     u"Results": {
@@ -16,6 +19,10 @@ LIST_OF_OPEN_COURSES_2753_ONE_COURSE_OPEN = {
         }
     }
 }
+"""
+List of open courses where only one (2019-1-Q) is open for simplicity
+Example command: curl -s --user FakeUserName:FakeApiKey "https://r3.minicrm.hu/Api/R3/Project?StatusId=2753",
+"""
 
 COURSE_LIST_FOR_COURSE_CODE = {
     u"Count": 1,

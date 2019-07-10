@@ -1,0 +1,44 @@
+.. BeCube MiniCRM automation script system documentation master file, created by
+   sphinx-quickstart on Tue May 28 17:35:55 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to BeCube MiniCRM automation script system's documentation!
+===================================================================
+
+Introduction
+************
+
+Texttext
+
+Daily Script module documentation
+*********************************
+
+.. automodule:: dailyscript
+    :members:
+    :undoc-members:
+
+Quick Script module documentation
+*********************************
+
+.. automodule:: quickscript
+    :members:
+    :undoc-members:
+
+Contents about other modules:
+*****************************
+
+.. toctree::
+   :maxdepth: 3
+
+   minicrm.rst
+   functionalities.rst
+   requesthandlermock.rst
+   test.rst
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

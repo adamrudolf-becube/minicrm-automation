@@ -1,0 +1,30 @@
+scripts package
+===============
+
+Submodules
+----------
+
+scripts.dailyscript module
+--------------------------
+
+.. automodule:: scripts.dailyscript
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+scripts.quickscript module
+--------------------------
+
+.. automodule:: scripts.quickscript
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: scripts
+    :members:
+    :undoc-members:
+    :show-inheritance:

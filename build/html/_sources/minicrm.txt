@@ -1,0 +1,62 @@
+minicrm package
+===============
+
+Submodules
+----------
+
+minicrm.apirequest module
+-------------------------
+
+.. automodule:: minicrm.apirequest
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm.commonfunctions module
+------------------------------
+
+.. automodule:: minicrm.commonfunctions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm.crmfacade module
+------------------------
+
+.. automodule:: minicrm.crmfacade
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm.crmrequestfactory module
+--------------------------------
+
+.. automodule:: minicrm.crmrequestfactory
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm.requesthandler module
+-----------------------------
+
+.. automodule:: minicrm.requesthandler
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm.tracing module
+----------------------
+
+.. automodule:: minicrm.tracing
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: minicrm
+    :members:
+    :undoc-members:
+    :show-inheritance:

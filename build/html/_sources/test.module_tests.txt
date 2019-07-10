@@ -1,0 +1,54 @@
+test.module_tests package
+=========================
+
+Submodules
+----------
+
+test.module_tests.test_cleaninfosent module
+-------------------------------------------
+
+.. automodule:: test.module_tests.test_cleaninfosent
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+test.module_tests.test_handlewaitinglist module
+-----------------------------------------------
+
+.. automodule:: test.module_tests.test_handlewaitinglist
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+test.module_tests.test_registernewapplicants module
+---------------------------------------------------
+
+.. automodule:: test.module_tests.test_registernewapplicants
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+test.module_tests.test_sendscheduledemails module
+-------------------------------------------------
+
+.. automodule:: test.module_tests.test_sendscheduledemails
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+test.module_tests.test_setcoursestates module
+---------------------------------------------
+
+.. automodule:: test.module_tests.test_setcoursestates
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: test.module_tests
+    :members:
+    :undoc-members:
+    :show-inheritance:

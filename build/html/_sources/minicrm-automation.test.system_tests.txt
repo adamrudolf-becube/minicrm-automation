@@ -1,0 +1,30 @@
+minicrm-automation.test.system_tests package
+============================================
+
+Submodules
+----------
+
+minicrm-automation.test.system_tests.test_dailyscript module
+------------------------------------------------------------
+
+.. automodule:: minicrm-automation.test.system_tests.test_dailyscript
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm-automation.test.system_tests.test_quickscript module
+------------------------------------------------------------
+
+.. automodule:: minicrm-automation.test.system_tests.test_quickscript
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: minicrm-automation.test.system_tests
+    :members:
+    :undoc-members:
+    :show-inheritance:

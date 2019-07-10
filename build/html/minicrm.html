@@ -1,0 +1,1190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>minicrm package &#8212; BeCube MiniCRM automation script system 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="BeCube MiniCRM automation script system 2.0 documentation" href="index.html" />
+    <link rel="next" title="functionalities package" href="functionalities.html" />
+    <link rel="prev" title="Welcome to BeCube MiniCRM automation script system’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="minicrm-package">
+<h1>minicrm package<a class="headerlink" href="#minicrm-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-minicrm.apirequest">
+<span id="minicrm-apirequest-module"></span><h2>minicrm.apirequest module<a class="headerlink" href="#module-minicrm.apirequest" title="Permalink to this headline">¶</a></h2>
+<p>Contains a class to encapsulate an API request.</p>
+<dl class="class">
+<dt id="minicrm.apirequest.ApiRequest">
+<em class="property">class </em><code class="descclassname">minicrm.apirequest.</code><code class="descname">ApiRequest</code><span class="sig-paren">(</span><em>url</em>, <em>method</em>, <em>slogan</em>, <em>payload={}</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.apirequest.ApiRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encapsulates a REST API request.</p>
+<p>This can be used to send to the request handlers, which can send the request to the REST API, but can be also
+used in the tests to set expectations.</p>
+<p>Initializes a new ApiRequest instance. Throws ValueError.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> &#8211; this is the URL of the request, or the API endpoint in other words</li>
+<li><strong>method</strong> &#8211; request method type. Currently only GET and PUT are supported. If other string is given, a</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>ValueError is raised.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>slogan</strong> &#8211; human readable description of the request. Intended to be used in traces and error messages.</td>
+</tr>
+</tbody>
+</table>
+<p>Prefer to include data, for example student ID or payload to make it more understandable, and to help to compare
+requests.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> &#8211; data of the request. Used in PUT requests. Defaults to empty dictionary.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="minicrm.apirequest.ApiRequest.get_method">
+<code class="descname">get_method</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.apirequest.ApiRequest.get_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the method type of the request</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the method type as s string. It supports &#8220;GET&#8221; and &#8220;PUT&#8221; at the time.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.apirequest.ApiRequest.get_payload">
+<code class="descname">get_payload</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.apirequest.ApiRequest.get_payload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the payload of the request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the payload of the request.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.apirequest.ApiRequest.get_slogan">
+<code class="descname">get_slogan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.apirequest.ApiRequest.get_slogan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the human readable slogan of the request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the human readable slogan of the request as string.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.apirequest.ApiRequest.get_url">
+<code class="descname">get_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.apirequest.ApiRequest.get_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the URL of the request</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">URL of the request as a string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="data">
+<dt id="minicrm.apirequest.GET_METHOD">
+<code class="descclassname">minicrm.apirequest.</code><code class="descname">GET_METHOD</code><em class="property"> = 'GET'</em><a class="headerlink" href="#minicrm.apirequest.GET_METHOD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a constant to denote GET type REST API request.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="minicrm.apirequest.PUT_METHOD">
+<code class="descclassname">minicrm.apirequest.</code><code class="descname">PUT_METHOD</code><em class="property"> = 'PUT'</em><a class="headerlink" href="#minicrm.apirequest.PUT_METHOD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a constant to denote PUT type REST API request.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-minicrm.commonfunctions">
+<span id="minicrm-commonfunctions-module"></span><h2>minicrm.commonfunctions module<a class="headerlink" href="#module-minicrm.commonfunctions" title="Permalink to this headline">¶</a></h2>
+<p>Contains commonly used free functions for the MiniCRM module.</p>
+<p>This package contains functions, which are not strictly connected to any classes, but are used by minicrm package. These
+can be also used directly by clients of minicrm package.</p>
+<dl class="data">
+<dt id="minicrm.commonfunctions.DATE_FORMAT">
+<code class="descclassname">minicrm.commonfunctions.</code><code class="descname">DATE_FORMAT</code><em class="property"> = '%Y-%m-%d %H:%M:%S'</em><a class="headerlink" href="#minicrm.commonfunctions.DATE_FORMAT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines constant for the date format used by MiniCRM system.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.commonfunctions.add_element_to_commasep_list">
+<code class="descclassname">minicrm.commonfunctions.</code><code class="descname">add_element_to_commasep_list</code><span class="sig-paren">(</span><em>input_list</em>, <em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.commonfunctions.add_element_to_commasep_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenates an element to a commaseparated list stored as a string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input_list</strong> &#8211; an original commaseparated list as a single string</li>
+<li><strong>element</strong> &#8211; a new element to be concatenated to input_list</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>The element if the input_list was an empty string</li>
+<li>The input_list of element was already in the input_list</li>
+<li>input_list and element joined by &#8221;, &#8221; otherwise</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.commonfunctions.date_is_not_less_than">
+<code class="descclassname">minicrm.commonfunctions.</code><code class="descname">date_is_not_less_than</code><span class="sig-paren">(</span><em>crm_facade</em>, <em>reference_date</em>, <em>offset=0</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.commonfunctions.date_is_not_less_than" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compares a given date plus the given offset in days to the date returned by CrmFacade.get_today().</p>
+<p>Example usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">date_is_not_less_than</span><span class="p">(</span><span class="n">crm_facade</span><span class="p">,</span> <span class="n">student_data</span><span class="p">[</span><span class="n">EIGTH_OCCASION_DATE_FIELD</span><span class="p">],</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The code above returns True if today is not less than the 8th occasion of the student stored in student_data minus
+3 days.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>crm_facade</strong> &#8211; CrmFacade instance storing a date as today.</li>
+<li><strong>reference_date</strong> &#8211; any given date in datetime.datetime format.</li>
+<li><strong>offset</strong> &#8211; integer. Today is compared to reference_date + offset, where offset is given in days.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if the date stored in crm_facade as today is not less than reference_date + offset, False otherwise.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.commonfunctions.get_key_from_value">
+<code class="descclassname">minicrm.commonfunctions.</code><code class="descname">get_key_from_value</code><span class="sig-paren">(</span><em>dictionary</em>, <em>dictionary_value</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.commonfunctions.get_key_from_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a python dictionary value and returns the corresponding index.</p>
+<ul class="simple">
+<li>Returns the key if the value is present and unique</li>
+<li>Returns one of the keys (undefined) if the value is present and not unique</li>
+<li>Raises ValueError if the value is not present.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><strong>ValueError</strong> &#8211; if value is not present.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dictionary</strong> &#8211; any Python dictionary.</li>
+<li><strong>dictionary_value</strong> &#8211; any value which can be a key in the dictionary.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the key corresponding the given value. One of the (undefined) keys if not unique.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.commonfunctions.load_api_info">
+<code class="descclassname">minicrm.commonfunctions.</code><code class="descname">load_api_info</code><span class="sig-paren">(</span><em>api_info_json_file</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.commonfunctions.load_api_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens the file given in the parameter and returns the api username and api key found in it.</p>
+<p>Api information (username and api key) should be stored separately from the source code. This script makes it
+possible to store the api information in a json file. This funtion is to load the stored information.</p>
+<p>The file needs to be structured as standard JSON. It has to contain an array, and the first element has to has
+&#8220;username&#8221; and &#8220;api_key&#8221;. The function reads these two values and returns them as tuple.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>api_info_json_file</strong> &#8211; an absolute or relative path to a .json file in the above described format.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a tuple with the system_id (username) and api_key.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.commonfunctions.merge_dicts">
+<code class="descclassname">minicrm.commonfunctions.</code><code class="descname">merge_dicts</code><span class="sig-paren">(</span><em>left_dict</em>, <em>right_dict</em>, <em>third_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.commonfunctions.merge_dicts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges two or three Python dictionaries to one dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>left_dict</strong> &#8211; first dictionary to be merged</li>
+<li><strong>right_dict</strong> &#8211; second dictionary to be merged</li>
+<li><strong>third_dict</strong> &#8211; third  dictionary to be merged. Defaults to None. If None, doesn&#8217;t contribute to merging.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a single Python dictionary, containing a union of the keys and values of the dictionaries given in the
+parameters.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-minicrm.crmfacade">
+<span id="minicrm-crmfacade-module"></span><h2>minicrm.crmfacade module<a class="headerlink" href="#module-minicrm.crmfacade" title="Permalink to this headline">¶</a></h2>
+<p>Contains a class to provide a facade for the MiniCRM system.</p>
+<dl class="class">
+<dt id="minicrm.crmfacade.CrmFacade">
+<em class="property">class </em><code class="descclassname">minicrm.crmfacade.</code><code class="descname">CrmFacade</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Acts as a facade to the MiniCRM system.</p>
+<p>This class implements human understandable methods to fetch from and write to the
+MiniCRM system, caches data if needed and handles the connection. Client code needs to use an instance of this
+class to have an API to the MiniCRM system.</p>
+<p>This class handles the connection, and knows the request types the system uses so the user doesn&#8217;t have to handle
+these.</p>
+<p>Constructor:</p>
+<p>Sets the login data required by the API, collects information about existing modules, and even initializes some
+of them.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>request_handler</strong> (<a class="reference internal" href="#minicrm.requesthandler.RequestHandler" title="minicrm.requesthandler.RequestHandler"><em>RequestHandler</em></a>) &#8211; </li>
+<li><strong>today</strong> (<em>datetime.datetime</em>) &#8211; a date object the CrmFacade object will know as &#8220;today&#8221;. Defaults to current date.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.fill_student_data">
+<code class="descname">fill_student_data</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.fill_student_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the following data of the student:</p>
+<ul class="simple">
+<li>Code of the course (&#8220;TanfolyamKodja&#8221;) will be equal to the course they applied to (&#8220;MelyikTanfolyamErdekli&#8221;).
+This is because the latter one changes every time the registration form on MiniCRM is updated, but this way
+the course code is saved.</li>
+<li>Detailed description of the location (fetched from locations)</li>
+</ul>
+<p>The following will be copied from the course data:</p>
+<ul class="simple">
+<li>Type of the course</li>
+<li>Time of the lectures (during the day)</li>
+<li>Date of every lecture</li>
+<li>Date of every dayoffs</li>
+</ul>
+<p>The following will be calculated:</p>
+<ul>
+<li><p class="first">Application deadline determined by the following algorithm (applied in this order):</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>by default, it is 5 days</li>
+<li>If the course starts in less than 7 days, or less than 30% of places is free, it is set to 3 days</li>
+<li>If the course starts in less than 3 days, and there is no more than 3 places, it will be 1 day</li>
+<li>If the starting day is earlier than the calculated deadline, it will be the starting day - 1 day</li>
+<li>If the deadline is earlier than now, it is now + 1 day</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p class="first">Date descriptions. This is one string containing all of the lectures and vacations, directly insertable to
+emails.</p>
+</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>student_data</strong> (<em>dict</em>) &#8211; all of the date about a student as stored in the MiniCRM system.</li>
+<li><strong>course_data</strong> (<em>dict</em>) &#8211; all of the date about a course the student has applied to as stored in the MiniCRM system.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.get_course">
+<code class="descname">get_course</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.get_course" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the dictionary of a course.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>course_number</strong> (<em>int</em>) &#8211; ID number of a course</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dictionary, containing all information about the given ourse</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.get_course_by_course_code">
+<code class="descname">get_course_by_course_code</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.get_course_by_course_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the dictionary of a course.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>course_code</strong> (<em>int</em>) &#8211; Course code of a course</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">containing all information about the given ourse</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.get_course_list_with_status">
+<code class="descname">get_course_list_with_status</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.get_course_list_with_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all courses with the given status.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>status</strong> (<em>str</em>) &#8211; the desired status.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dictionary of the courses with the given status.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.get_course_status_number_by_name">
+<code class="descname">get_course_status_number_by_name</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.get_course_status_number_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the ID number of the given status.</p>
+<p>MiniCRM system works with status numbers. The number is what usually the API requests require, but often it&#8217;s
+easier for the clients to handle the human readable status names. This function is used to provide the status
+number if only the status name is known.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> &#8211; if nonexistent status_name is given</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>status_name</strong> (<em>str</em>) &#8211; name of a status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the status number of the given status</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.get_location_by_name">
+<code class="descname">get_location_by_name</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.get_location_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the dictionary of a location for a given name.</p>
+<ul class="simple">
+<li>returns one of the locations if name is not unique</li>
+<li>returns None if name doesn&#8217;t exist</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>location_name</strong> (<em>int</em>) &#8211; Course code of a course</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">containing all information about the given location</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.get_student">
+<code class="descname">get_student</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.get_student" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches a student with the given ID from the MiniCRM system and returns it&#8217;s data as a dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student_number</strong> &#8211; integer, ID of the student</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dictionary, complying with the schema of the student module</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.get_student_list_with_status">
+<code class="descname">get_student_list_with_status</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.get_student_list_with_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all students with the given status.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>status</strong> (<em>str</em>) &#8211; specifies a desired status.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the students with the given status. Key is the ID number.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.get_student_status_number_by_name">
+<code class="descname">get_student_status_number_by_name</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.get_student_status_number_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the ID number of the given status.</p>
+<p>MiniCRM system works with status numbers. The number is what usually the API requests require, but often it&#8217;s
+easier for the clients to handle the human readable status names. This function is used to provide the status
+number if only the status name is known.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> &#8211; if nonexistent status_name is given</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>status_name</strong> (<em>stt</em>) &#8211; string, name of a status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">integer, the status number of the given status</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.get_today">
+<code class="descname">get_today</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.get_today" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the the date stored in the instance as today.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the date stored in the instance as today&#8217;s date. Is in format of datetime.datetime.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">datetime.datetime</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.raise_task">
+<code class="descname">raise_task</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.raise_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new task in the MiniCRM system with the given details.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_id</strong> (<em>int</em>) &#8211; the task will be raised to the project (student, course, location, etc.) identified by this
+ID.</li>
+<li><strong>comment</strong> (<em>str</em>) &#8211; the text shown as the contents (description) of the task</li>
+<li><strong>deadline</strong> (<em>str</em>) &#8211; date, set as deadline in the MiniCRM system. Has to be in the &#8220;%Y-%m-%d %H:%M:%S&#8221;&#8221; format.</li>
+<li><strong>user_id</strong> (<em>int</em>) &#8211; MiniCRM user who is responsible (assignee) for the task</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.set_course_data">
+<code class="descname">set_course_data</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.set_course_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is used to modify data of a course stored in MiniCRM system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>course_number</strong> (<em>int</em>) &#8211; ID number of the course.</li>
+<li><strong>data</strong> (<em>dict</em>) &#8211; Has to have the structure of a student as stored in the MiniCRM system.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.set_student_data">
+<code class="descname">set_student_data</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.set_student_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is used to modify data of a student stored in MiniCRM system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>student_number</strong> (<em>int</em>) &#8211; ID number of the student.</li>
+<li><strong>data</strong> (<em>dict</em>) &#8211; Has to have the structure of a student as stored in the MiniCRM system.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.set_today">
+<code class="descname">set_today</code><span class="sig-paren">(</span><em>today</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.set_today" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the the date stored in the instance as today.</p>
+<p>Only for testing purposes. If different tests need different &#8220;_today&#8221; dates, constructor can be called in setup
+then _today can be set differently in separate tests.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>today</strong> (<em>datetime.datetime</em>) &#8211; should be datetime.datetime object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="minicrm.crmfacade.CrmFacade.update_headcounts">
+<code class="descname">update_headcounts</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmfacade.CrmFacade.update_headcounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loops through all courses in Application Open (&#8220;Jelentkezés nyitva&#8221;) state, and updates their headcount fields.</p>
+<p>It writes the result to the CRM page of the course.</p>
+<p>A student is considered enrolled to a course if their status is either &#8220;INFO Sent&#8221; (&#8220;INFO levél kiment&#8221;) or
+&#8220;Course In Progress&#8221; (&#8220;Kurzus folyamatban&#8221;).</p>
+<p>The function loops through all courses in Application Open (&#8220;Jelentkezés nyitva&#8221;) state in a big loop, and for
+each course in the loop, it loops through all of the students who are registered to that course and counts how
+many of them are in any of the above mentioned stated. When it finishes the small loop, it updates the field for
+the current headcount of the currently processed course.</p>
+<p>After calling this method, the user can be sure that all courses are in up-to-date state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-minicrm.crmrequestfactory">
+<span id="minicrm-crmrequestfactory-module"></span><h2>minicrm.crmrequestfactory module<a class="headerlink" href="#module-minicrm.crmrequestfactory" title="Permalink to this headline">¶</a></h2>
+<p>This library defines abstract functionalities and returns a string for them. This can be used for having the
+higher level logic independent from the concrete commands, but also to help phrase the exoectations in the tests</p>
+<dl class="function">
+<dt id="minicrm.crmrequestfactory.get_course">
+<code class="descclassname">minicrm.crmrequestfactory.</code><code class="descname">get_course</code><span class="sig-paren">(</span><em>course_id</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmrequestfactory.get_course" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an ApiRequest instance for getting the full data of a specific course, based on it&#8217;s ID number.</p>
+<p>Note: this request will be the same as getting the data for any projects. Different functions have been created
+though to improve readability.</p>
+<p>Returns a GET request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>course_id</strong> (<em>int</em>) &#8211; ID number of the requested course.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the encapsuladed API request for getting the fll data of a specific course.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest">ApiRequest</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.crmrequestfactory.get_course_list_by_course_code">
+<code class="descclassname">minicrm.crmrequestfactory.</code><code class="descname">get_course_list_by_course_code</code><span class="sig-paren">(</span><em>course_code</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmrequestfactory.get_course_list_by_course_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an ApiRequest instance for getting a list of courses based on their course codes.</p>
+<p>Note: in our use cases the course code should be unique, this is not enforced by the MiniCRM system, and for the
+system it is only a regular text field. That is why the system is only able to return a list of courses for a given
+course code, although (if used well) this list will only contain one course.</p>
+<p>Returns a GET request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>course_code</strong> (<em>str</em>) &#8211; code of the requested course, for example &#8220;2019-6-D&#8221;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the encapsuladed API request for getting a list of the courses which have the given course code.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest">ApiRequest</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.crmrequestfactory.get_location">
+<code class="descclassname">minicrm.crmrequestfactory.</code><code class="descname">get_location</code><span class="sig-paren">(</span><em>location_id</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmrequestfactory.get_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an ApiRequest instance for getting the full data of a specific location, based on it&#8217;s ID number.</p>
+<p>Note: this request will be the same as getting the data for any projects. Different functions have been created
+though to improve readability.</p>
+<p>Returns a GET request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>location_id</strong> (<em>int</em>) &#8211; ID number of the requested location.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the encapsuladed API request for getting the fll data of a specific location.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest">ApiRequest</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.crmrequestfactory.get_location_list_by_location_name">
+<code class="descclassname">minicrm.crmrequestfactory.</code><code class="descname">get_location_list_by_location_name</code><span class="sig-paren">(</span><em>location_name</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmrequestfactory.get_location_list_by_location_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an ApiRequest instance for getting a list of locations based on their names.</p>
+<p>Note: in our use cases the location name should be unique, this is not enforced by the MiniCRM system, and for the
+system it is only a regular text field. That is why the system is only able to return a list of locations for a
+given location name, although (if used well) this list will only contain one location.</p>
+<p>Returns a GET request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>location_name</strong> (<em>unicode</em>) &#8211; name of the requested location, for example &#8220;Astoria&#8221;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the encapsuladed API request for getting a list of the locations which have the given name.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest">ApiRequest</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.crmrequestfactory.get_modul_dictionary">
+<code class="descclassname">minicrm.crmrequestfactory.</code><code class="descname">get_modul_dictionary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmrequestfactory.get_modul_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an ApiRequest instance for getting the list (dictionary) of modules existing in the MiniCRM system.</p>
+<p>The response is a dicionary where the keys are the ID numbers of the modules, and the values are the names of them.</p>
+<p>Returns a GET request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the encapsuladed API request for getting the dictionary of the modules created in the MiniCRM system.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest">ApiRequest</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.crmrequestfactory.get_project">
+<code class="descclassname">minicrm.crmrequestfactory.</code><code class="descname">get_project</code><span class="sig-paren">(</span><em>project_id</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmrequestfactory.get_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an ApiRequest instance for getting the full data of any project (e.g. student, course, location).</p>
+<p>Returns a GET request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>project_id</strong> (<em>int</em>) &#8211; ID number of the requested project</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the encapsuladed API request for getting the full data of a project</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest">ApiRequest</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.crmrequestfactory.get_project_list_for_status">
+<code class="descclassname">minicrm.crmrequestfactory.</code><code class="descname">get_project_list_for_status</code><span class="sig-paren">(</span><em>status_number</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmrequestfactory.get_project_list_for_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an ApiRequest instance for getting the list of projects for the given status, for example getting a list
+of all courses in progress.</p>
+<p>Expects a status number.</p>
+<p>The API is paginated, this request will only return the first 100 projects.</p>
+<p>Returns a GET request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>status_number</strong> (<em>int</em>) &#8211; ID number of the requested status.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the encapsuladed API request for</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest">ApiRequest</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.crmrequestfactory.get_project_list_for_status_page1">
+<code class="descclassname">minicrm.crmrequestfactory.</code><code class="descname">get_project_list_for_status_page1</code><span class="sig-paren">(</span><em>status_number</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmrequestfactory.get_project_list_for_status_page1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an ApiRequest instance for getting the second page (page 1) of the list of projects for the given status,
+for example getting a list of all courses in progress.</p>
+<p>Expects a status number.</p>
+<p>The API is paginated, this request will only return the second 100 projects.</p>
+<p>Returns a GET request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>status_number</strong> (<em>int</em>) &#8211; ID number of the requested status.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the encapsuladed API request for</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest">ApiRequest</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.crmrequestfactory.get_schema_for_module_number">
+<code class="descclassname">minicrm.crmrequestfactory.</code><code class="descname">get_schema_for_module_number</code><span class="sig-paren">(</span><em>module_id</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmrequestfactory.get_schema_for_module_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an ApiRequest instance for getting the schema of a MiniCRM module.</p>
+<p>Examples can be: schema for students, schema for courses, or schema for locations. The schema is a JSON which
+contains the fields, and their possible values.</p>
+<p>Returns a GET request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>module_id</strong> (<em>int</em>) &#8211; ID number of the requested module.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the encapsuladed API request for getting the schema for the given module.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest">ApiRequest</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.crmrequestfactory.get_student">
+<code class="descclassname">minicrm.crmrequestfactory.</code><code class="descname">get_student</code><span class="sig-paren">(</span><em>student_id</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmrequestfactory.get_student" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an ApiRequest instance for getting the full data of a specific student, based on their ID number.</p>
+<p>Note: this request will be the same as getting the data for any projects. Different functions have been created
+though to improve readability.</p>
+<p>Returns a GET request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student_id</strong> (<em>int</em>) &#8211; ID number of the requested student.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the encapsuladed API request for getting the fll data of a specific student.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest">ApiRequest</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.crmrequestfactory.get_student_list_by_course_code">
+<code class="descclassname">minicrm.crmrequestfactory.</code><code class="descname">get_student_list_by_course_code</code><span class="sig-paren">(</span><em>course_code</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmrequestfactory.get_student_list_by_course_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an ApiRequest instance for getting a list of students based on their course codes.</p>
+<p>This returns a list of students attending the same course.</p>
+<p>Returns a GET request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>course_code</strong> (<em>str</em>) &#8211; code of the requested course, for example &#8220;2019-6-D&#8221;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the encapsuladed API request for getting a list of the students which have the given course code.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest">ApiRequest</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.crmrequestfactory.raise_task">
+<code class="descclassname">minicrm.crmrequestfactory.</code><code class="descname">raise_task</code><span class="sig-paren">(</span><em>project_id</em>, <em>comment</em>, <em>deadline</em>, <em>userid=''</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmrequestfactory.raise_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an ApiRequest instance for creating a new task in the MiniCRM system with the given details.</p>
+<p>In MiniCRM you can create a task on every project (student, course, location), and every task has a deadline, a
+text (also called comment) and a responsible, which is one of the users in MiniCRM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_id</strong> (<em>int</em>) &#8211; ID number of the project (student/course/location) you would like to raise the task on. The task
+will be visible on the page of that project.</li>
+<li><strong>comment</strong> (<em>str</em>) &#8211; the text you would like to show as the body of the task. Usually contains information what needs to
+be done and how.</li>
+<li><strong>deadline</strong> (<em>str</em>) &#8211; deadline of the task. Has to be in the &#8220;%Y-%m-%d %H:%M:%S&#8221; format.</li>
+<li><strong>user_id</strong> (<em>int</em>) &#8211; (optional) MiniCRM user who is responsible (assignee) for the task. Default so empty string, which
+is valid from the MiniCRM point of view. If left empty, there will be no responsible for the task.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the encapsuladed API request for</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest">ApiRequest</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.crmrequestfactory.set_project_data">
+<code class="descclassname">minicrm.crmrequestfactory.</code><code class="descname">set_project_data</code><span class="sig-paren">(</span><em>project_id</em>, <em>data_json</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.crmrequestfactory.set_project_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an ApiRequest instance for modifying the data of an existing project (e.g. student, course or location).</p>
+<p>Returns a PUT request.</p>
+<p>Example usage:</p>
+<p>This is how you create a request to set student 1234 to waiting lis status:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">set_project_data</span><span class="p">(</span><span class="mi">1234</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;StatusId&quot;</span><span class="p">:</span> <span class="mi">2781</span><span class="p">})</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_id</strong> (<em>int</em>) &#8211; ID number of the project to be modified.</li>
+<li><strong>data_json</strong> (<em>dict</em>) &#8211; the dictionary of key-value pairs to be modified. You don&#8217;t need to give the unchanged keys.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the encapsuladed API request for modifying the data of an existing project.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest">ApiRequest</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-minicrm.requesthandler">
+<span id="minicrm-requesthandler-module"></span><h2>minicrm.requesthandler module<a class="headerlink" href="#module-minicrm.requesthandler" title="Permalink to this headline">¶</a></h2>
+<p>Contains a class to maintain the connection with the remote server.</p>
+<dl class="class">
+<dt id="minicrm.requesthandler.RequestHandler">
+<em class="property">class </em><code class="descclassname">minicrm.requesthandler.</code><code class="descname">RequestHandler</code><span class="sig-paren">(</span><em>username</em>, <em>api_key</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.requesthandler.RequestHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class encapsulates a connection towards the MiniCRM server through it&#8217;s REST API.</p>
+<p>It is responsible to send the requests and receive and parse the answers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>username</strong> (<em>str</em>) &#8211; username (system ID) for the API</li>
+<li><strong>api_key</strong> (<em>str</em>) &#8211; API key</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="minicrm.requesthandler.RequestHandler.fetch">
+<code class="descname">fetch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.requesthandler.RequestHandler.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends the API request to the CRM system, and returns the formatted JSON array in the for of a Python dict.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<a class="reference internal" href="#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest"><em>ApiRequest</em></a>) &#8211; the encapsulated API request</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the JSON answer as Python dictionary.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-minicrm.tracing">
+<span id="minicrm-tracing-module"></span><h2>minicrm.tracing module<a class="headerlink" href="#module-minicrm.tracing" title="Permalink to this headline">¶</a></h2>
+<p>Contains a set of independent free functions for tracing. They can be used privately by the other modules of minicrm
+package, but client code can use them directly as well.</p>
+<dl class="data">
+<dt id="minicrm.tracing.TRACING">
+<code class="descclassname">minicrm.tracing.</code><code class="descname">TRACING</code><em class="property"> = True</em><a class="headerlink" href="#minicrm.tracing.TRACING" title="Permalink to this definition">¶</a></dt>
+<dd><p>Global variable to turn tracing on/off.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.tracing.format_json">
+<code class="descclassname">minicrm.tracing.</code><code class="descname">format_json</code><span class="sig-paren">(</span><em>json_array</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.tracing.format_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a human-readable JSON array.</p>
+<p>It gets the array as a (minified) srting, and inserts separators, newlines and indentation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>json_array</strong> (<em>str</em>) &#8211; the JSON array as a minified string without whitespaces</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the formatted JSON array</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.tracing.indent">
+<code class="descclassname">minicrm.tracing.</code><code class="descname">indent</code><span class="sig-paren">(</span><em>txt</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.tracing.indent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string with the current log indentation, based on the call stack depth.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>txt</strong> (<em>str</em>) &#8211; the text to be indented and returned. Can be multiline.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">txt param, concatendated to a number of spaces, matching to the current log indentation. If txt is
+multiline, all lines will be indented.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.tracing.pretty_print">
+<code class="descclassname">minicrm.tracing.</code><code class="descname">pretty_print</code><span class="sig-paren">(</span><em>json_array</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.tracing.pretty_print" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints a human-readable JSON array.</p>
+<p>It gets the array as a (minified) srting, and inserts separators, newlines and indentation.</p>
+<p>Doesn&#8217;t print anything if TRACING is set to False.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>json_array</strong> (<em>str</em>) &#8211; the JSON array as a minified string without whitespaces</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.tracing.stacktrace">
+<code class="descclassname">minicrm.tracing.</code><code class="descname">stacktrace</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.tracing.stacktrace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator, which</p>
+<ul class="simple">
+<li>adds 4 spaces to the current indentation level</li>
+<li>prints the name of the wrapped</li>
+<li>prints the current call stack</li>
+<li>calls the wrapped</li>
+<li>subtracts 4 spaces from the current indentation</li>
+</ul>
+<p>Usage on the example function &#8220;get_today&#8221;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@stacktrace</span>
+<span class="k">def</span> <span class="nf">get_today</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_today</span>
+</pre></div>
+</div>
+<p>Doesn&#8217;t print anything if TRACING is set to False.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> (<em>function</em>) &#8211; the wrapped function</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">return of func</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="minicrm.tracing.trace">
+<code class="descclassname">minicrm.tracing.</code><code class="descname">trace</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#minicrm.tracing.trace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indents and prints the given string, surrounded by empty lines.</p>
+<p>Doesn&#8217;t print anything if TRACING is set to False.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> (<em>str</em>) &#8211; the message to be logged.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-minicrm">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-minicrm" title="Permalink to this headline">¶</a></h2>
+<p>Contains modules to provide an out-of-the-box solution to communicate with the MiniCRM system.</p>
+<p>This package contains modules to handle http connection, create requests, trace behaviour, and provide a simple facade
+for the users. The clients only have to instantiate a CrmFacade object with the connections and use it&#8217;s simple
+interface. Clients can also use functionalities directly, for example for tracing.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">minicrm package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-minicrm.apirequest">minicrm.apirequest module</a></li>
+<li><a class="reference internal" href="#module-minicrm.commonfunctions">minicrm.commonfunctions module</a></li>
+<li><a class="reference internal" href="#module-minicrm.crmfacade">minicrm.crmfacade module</a></li>
+<li><a class="reference internal" href="#module-minicrm.crmrequestfactory">minicrm.crmrequestfactory module</a></li>
+<li><a class="reference internal" href="#module-minicrm.requesthandler">minicrm.requesthandler module</a></li>
+<li><a class="reference internal" href="#module-minicrm.tracing">minicrm.tracing module</a></li>
+<li><a class="reference internal" href="#module-minicrm">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to BeCube MiniCRM automation script system&#8217;s documentation!</a></li>
+      <li>Next: <a href="functionalities.html" title="next chapter">functionalities package</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/minicrm.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Adam Rudolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/minicrm.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

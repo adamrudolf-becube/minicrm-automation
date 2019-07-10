@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>requesthandlermock package &#8212; BeCube MiniCRM automation script system 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="BeCube MiniCRM automation script system 2.0 documentation" href="index.html" />
+    <link rel="next" title="requesthandlermock.responses package" href="requesthandlermock.responses.html" />
+    <link rel="prev" title="functionalities package" href="functionalities.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="requesthandlermock-package">
+<h1>requesthandlermock package<a class="headerlink" href="#requesthandlermock-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="requesthandlermock.responses.html">requesthandlermock.responses package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="requesthandlermock.responses.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requesthandlermock.responses.html#module-requesthandlermock.responses.courselists">requesthandlermock.responses.courselists module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requesthandlermock.responses.html#module-requesthandlermock.responses.courses">requesthandlermock.responses.courses module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requesthandlermock.responses.html#module-requesthandlermock.responses.general">requesthandlermock.responses.general module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requesthandlermock.responses.html#module-requesthandlermock.responses.locationlists">requesthandlermock.responses.locationlists module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requesthandlermock.responses.html#module-requesthandlermock.responses.locations">requesthandlermock.responses.locations module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requesthandlermock.responses.html#module-requesthandlermock.responses.studentlists">requesthandlermock.responses.studentlists module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requesthandlermock.responses.html#module-requesthandlermock.responses.students">requesthandlermock.responses.students module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requesthandlermock.responses.html#module-requesthandlermock.responses">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-requesthandlermock.expectation">
+<span id="requesthandlermock-expectation-module"></span><h2>requesthandlermock.expectation module<a class="headerlink" href="#module-requesthandlermock.expectation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="requesthandlermock.expectation.Expectation">
+<em class="property">class </em><code class="descclassname">requesthandlermock.expectation.</code><code class="descname">Expectation</code><span class="sig-paren">(</span><em>expected_request</em>, <em>response</em><span class="sig-paren">)</span><a class="headerlink" href="#requesthandlermock.expectation.Expectation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encapsulates an expectation in the test. The expectation contains the expected ApiRequest and a response to that
+request as a Python dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expected_request</strong> &#8211; API request expected by the testcase</li>
+<li><strong>response</strong> (<em>dict</em>) &#8211; if the expected request is sent to a CommandHandlerMock instance, this is returned as a
+response.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body"><p class="first last">ApiRequest</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-requesthandlermock.expextationqueue">
+<span id="requesthandlermock-expextationqueue-module"></span><h2>requesthandlermock.expextationqueue module<a class="headerlink" href="#module-requesthandlermock.expextationqueue" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="requesthandlermock.expextationqueue.ExpectationQueue">
+<em class="property">class </em><code class="descclassname">requesthandlermock.expextationqueue.</code><code class="descname">ExpectationQueue</code><a class="headerlink" href="#requesthandlermock.expextationqueue.ExpectationQueue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple queue to represent a series of expected API requests and their responsesfor the tests.</p>
+<dl class="method">
+<dt id="requesthandlermock.expextationqueue.ExpectationQueue.get_next_element">
+<code class="descname">get_next_element</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#requesthandlermock.expextationqueue.ExpectationQueue.get_next_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the next element in the queue without altering the queue itself.</p>
+<p>Returns None if the queue is empty.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the first element in the queue.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Trype:</th><td class="field-body">Expectation</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="requesthandlermock.expextationqueue.ExpectationQueue.get_size">
+<code class="descname">get_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#requesthandlermock.expextationqueue.ExpectationQueue.get_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the length of the expectation queue.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">length of the queue (number of expected expectations.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Trype:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="requesthandlermock.expextationqueue.ExpectationQueue.pop">
+<code class="descname">pop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#requesthandlermock.expextationqueue.ExpectationQueue.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the next element in the queue and deletes it from the queue.</p>
+<p>Returns None if the queue is empty.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the first element in the queue.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Trype:</th><td class="field-body">Expectation</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="requesthandlermock.expextationqueue.ExpectationQueue.push">
+<code class="descname">push</code><span class="sig-paren">(</span><em>expectation</em><span class="sig-paren">)</span><a class="headerlink" href="#requesthandlermock.expextationqueue.ExpectationQueue.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new element to the end of the expectation queue.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>expectation</strong> (<a class="reference internal" href="#requesthandlermock.expectation.Expectation" title="requesthandlermock.expectation.Expectation"><em>Expectation</em></a>) &#8211; the encapsulated expectation, containing the expected API request and the response to it.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-requesthandlermock.requesthandlermock">
+<span id="requesthandlermock-requesthandlermock-module"></span><h2>requesthandlermock.requesthandlermock module<a class="headerlink" href="#module-requesthandlermock.requesthandlermock" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="requesthandlermock.requesthandlermock.RequestHandlerMock">
+<em class="property">class </em><code class="descclassname">requesthandlermock.requesthandlermock.</code><code class="descname">RequestHandlerMock</code><span class="sig-paren">(</span><em>username</em>, <em>api_key</em><span class="sig-paren">)</span><a class="headerlink" href="#requesthandlermock.requesthandlermock.RequestHandlerMock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>This class is the test substitute of the minicrm.RequestHandler class.</p>
+<p>From the usage point of view, it works exactly the same way as the ReqestHandler, but it doesn&#8217;t maintain real
+connection to any server, instead it returns predefined responses to API requests.</p>
+<p>The logic of this class is inspired by Google Test&#8217;s Google Mock framework
+(<a class="reference external" href="https://github.com/google/googletest/blob/master/googlemock/docs/ForDummies.md">https://github.com/google/googletest/blob/master/googlemock/docs/ForDummies.md</a>). That is, you can set a series
+of expectations before the action itself. In this case you have to &#8220;tell the exoected story&#8221; with a series of
+expect_request calls, and then call the function under test. Any deviation from the previously defined series of
+requests will end up in an exception.</p>
+<p>Note: the class is not a real mock in the Python sense, it is actually a unittest.TestCase. It is mock according
+to it&#8217;s intention. (I.e. it is used instead of a real class, and you can set expectations against it&#8217;s usage and
+it keeps track of them.)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>username</strong> (<em>str</em>) &#8211; username (system ID) for the API</li>
+<li><strong>api_key</strong> (<em>str</em>) &#8211; API key</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="requesthandlermock.requesthandlermock.RequestHandlerMock.check_is_satisfied">
+<code class="descname">check_is_satisfied</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#requesthandlermock.requesthandlermock.RequestHandlerMock.check_is_satisfied" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raises an error if there is an unsatisfied expectation.</p>
+<p>This class can detect any incoming unexpected API requests, but it doesn&#8217;t know whether the test ended or not.
+It means that if the test ends too early, unsatisfied expectations remain in the queue without causing visible
+problems.  Call this function at the end of test.</p>
+<p>It is practical to call this function in the TearDown of test suites to make sure every test ends without
+unsatisfied expectations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">AssertionError with the error message beginning with &#8220;Not all expectations were fulfilled when test
+ended.&#8221;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="requesthandlermock.requesthandlermock.RequestHandlerMock.expect_request">
+<code class="descname">expect_request</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#requesthandlermock.requesthandlermock.RequestHandlerMock.expect_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends the given request to the end of the expectation queue, together with the predefined response.</p>
+<p>With this function you can &#8220;tell the story&#8221; of what you expect to happen before calling the action of the test.
+Calling this function multiple times after each other builds up an expected series of API requests and also
+defines what the testing machinery has to return as a response for each.</p>
+<p>As opposed to most of the testing frameworks, you have to define the expectations before doing the action. This
+logic is inspired by Google Test&#8217;s Google Mock framework
+(<a class="reference external" href="https://github.com/google/googletest/blob/master/googlemock/docs/ForDummies.md">https://github.com/google/googletest/blob/master/googlemock/docs/ForDummies.md</a>). When the action happens,
+RequestHandlerMock will pop the expectation queue for every API request and match the got request against the
+next expectation. If any deviation happens, AssertionError will be raised.</p>
+<p>Expectations can be combined with post-action assertions.</p>
+<p>Example usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">wanted_course_code</span> <span class="o">=</span> <span class="s2">&quot;2019-1-Q&quot;</span>
+<span class="n">wanted_course_id</span> <span class="o">=</span> <span class="mi">1164</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">request_handler</span><span class="o">.</span><span class="n">expect_request</span><span class="p">(</span>
+    <span class="n">crmrequestfactory</span><span class="o">.</span><span class="n">get_course_list_by_course_code</span><span class="p">(</span><span class="n">wanted_course_code</span><span class="p">),</span>
+    <span class="n">responses_courselists</span><span class="o">.</span><span class="n">COURSE_LIST_FOR_COURSE_CODE</span>
+<span class="p">)</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">request_handler</span><span class="o">.</span><span class="n">expect_request</span><span class="p">(</span>
+    <span class="n">crmrequestfactory</span><span class="o">.</span><span class="n">get_course</span><span class="p">(</span><span class="n">wanted_course_id</span><span class="p">),</span>
+    <span class="n">responses_courses</span><span class="o">.</span><span class="n">COURSE_2019_1_Q</span>
+<span class="p">)</span>
+<span class="n">course_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">crm_facade</span><span class="o">.</span><span class="n">get_course_by_course_code</span><span class="p">(</span><span class="n">wanted_course_code</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">course_info</span><span class="p">[</span><span class="s2">&quot;TanfolyamBetujele&quot;</span><span class="p">],</span> <span class="n">wanted_course_code</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expected_request</strong> (<a class="reference internal" href="minicrm.html#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest"><em>ApiRequest</em></a>) &#8211; an ApiRequest instance we expect in this place of the sequence.</li>
+<li><strong>response</strong> (<em>dict</em>) &#8211; A python dictionary mimicking the JSON array the system would send as a response to the
+API request given in expected_request</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="requesthandlermock.requesthandlermock.RequestHandlerMock.fetch">
+<code class="descname">fetch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#requesthandlermock.requesthandlermock.RequestHandlerMock.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets an API request, and returns the formatted JSON array in the for of a Python dict.</p>
+<p>The returned dictionary is what has been set by the expect_request if the request matches the next expectation.</p>
+<p>Also pops the next element from the expectation queue.</p>
+<p>Normally URL, request method type, payload and slogan has to be equal when matching expectations, but if
+payload is equal to minicrm.crmrequestfactory._, payload and slogan is not contributing and only URL and
+method type has to be equal to be considered matching.</p>
+<p>Note: this function only adds printing to the match_expectation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">AssertionError if expectation queue is empty or if the next element doesn&#8217;t match the given request.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<a class="reference internal" href="minicrm.html#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest"><em>ApiRequest</em></a>) &#8211; the encapsulated API request</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the JSON answer as Python dictionary, if the request matches the next expectation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="requesthandlermock.requesthandlermock.RequestHandlerMock.match_expectation">
+<code class="descname">match_expectation</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#requesthandlermock.requesthandlermock.RequestHandlerMock.match_expectation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets an API request, and returns the formatted JSON array in the for of a Python dict.</p>
+<p>The returned dictionary is what has been set by the expect_request if the request matches the next expectation.</p>
+<p>Also pops the next element from the expectation queue.</p>
+<p>Normally URL, request method type, payload and slogan has to be equal when matching expectations, but if
+payload is equal to minicrm.crmrequestfactory._, payload and slogan is not contributing and only URL and
+method type has to be equal to be considered matching.</p>
+<p>Note: this function is the same as fetch without printing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">AssertionError if expectation queue is empty or if the next element doesn&#8217;t match the given request.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<a class="reference internal" href="minicrm.html#minicrm.apirequest.ApiRequest" title="minicrm.apirequest.ApiRequest"><em>ApiRequest</em></a>) &#8211; the encapsulated API request</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the JSON answer as Python dictionary, if the request matches the next expectation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-requesthandlermock">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-requesthandlermock" title="Permalink to this headline">¶</a></h2>
+<p>This package provides a mock for the RequestHandler class to mimic a REST API connection for testing purposes.</p>
+<p>Contains every needed asset (supporting classes, predefined responses) which are needed for the mock to work well.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">requesthandlermock package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-requesthandlermock.expectation">requesthandlermock.expectation module</a></li>
+<li><a class="reference internal" href="#module-requesthandlermock.expextationqueue">requesthandlermock.expextationqueue module</a></li>
+<li><a class="reference internal" href="#module-requesthandlermock.requesthandlermock">requesthandlermock.requesthandlermock module</a></li>
+<li><a class="reference internal" href="#module-requesthandlermock">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="functionalities.html" title="previous chapter">functionalities package</a></li>
+      <li>Next: <a href="requesthandlermock.responses.html" title="next chapter">requesthandlermock.responses package</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/requesthandlermock.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Adam Rudolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/requesthandlermock.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

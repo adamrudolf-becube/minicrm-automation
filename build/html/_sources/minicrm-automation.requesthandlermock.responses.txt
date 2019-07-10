@@ -1,0 +1,70 @@
+minicrm-automation.requesthandlermock.responses package
+=======================================================
+
+Submodules
+----------
+
+minicrm-automation.requesthandlermock.responses.courselists module
+------------------------------------------------------------------
+
+.. automodule:: minicrm-automation.requesthandlermock.responses.courselists
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm-automation.requesthandlermock.responses.courses module
+--------------------------------------------------------------
+
+.. automodule:: minicrm-automation.requesthandlermock.responses.courses
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm-automation.requesthandlermock.responses.general module
+--------------------------------------------------------------
+
+.. automodule:: minicrm-automation.requesthandlermock.responses.general
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm-automation.requesthandlermock.responses.locationlists module
+--------------------------------------------------------------------
+
+.. automodule:: minicrm-automation.requesthandlermock.responses.locationlists
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm-automation.requesthandlermock.responses.locations module
+----------------------------------------------------------------
+
+.. automodule:: minicrm-automation.requesthandlermock.responses.locations
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm-automation.requesthandlermock.responses.studentlists module
+-------------------------------------------------------------------
+
+.. automodule:: minicrm-automation.requesthandlermock.responses.studentlists
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm-automation.requesthandlermock.responses.students module
+---------------------------------------------------------------
+
+.. automodule:: minicrm-automation.requesthandlermock.responses.students
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: minicrm-automation.requesthandlermock.responses
+    :members:
+    :undoc-members:
+    :show-inheritance:

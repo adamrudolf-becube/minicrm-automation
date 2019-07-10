@@ -1,0 +1,46 @@
+test.unit_tests package
+=======================
+
+Submodules
+----------
+
+test.unit_tests.minicrmtestbase module
+--------------------------------------
+
+.. automodule:: test.unit_tests.minicrmtestbase
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+test.unit_tests.test_commonfunctions module
+-------------------------------------------
+
+.. automodule:: test.unit_tests.test_commonfunctions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+test.unit_tests.test_crmfacade module
+-------------------------------------
+
+.. automodule:: test.unit_tests.test_crmfacade
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+test.unit_tests.test_requesthandlermock module
+----------------------------------------------
+
+.. automodule:: test.unit_tests.test_requesthandlermock
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: test.unit_tests
+    :members:
+    :undoc-members:
+    :show-inheritance:

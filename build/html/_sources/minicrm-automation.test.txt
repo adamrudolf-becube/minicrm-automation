@@ -1,0 +1,19 @@
+minicrm-automation.test package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    minicrm-automation.test.module_tests
+    minicrm-automation.test.system_tests
+    minicrm-automation.test.unit_tests
+
+Module contents
+---------------
+
+.. automodule:: minicrm-automation.test
+    :members:
+    :undoc-members:
+    :show-inheritance:

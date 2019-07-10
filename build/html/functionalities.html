@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>functionalities package &#8212; BeCube MiniCRM automation script system 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="BeCube MiniCRM automation script system 2.0 documentation" href="index.html" />
+    <link rel="next" title="requesthandlermock package" href="requesthandlermock.html" />
+    <link rel="prev" title="minicrm package" href="minicrm.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="functionalities-package">
+<h1>functionalities package<a class="headerlink" href="#functionalities-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-functionalities.cleaninfosent">
+<span id="functionalities-cleaninfosent-module"></span><h2>functionalities.cleaninfosent module<a class="headerlink" href="#module-functionalities.cleaninfosent" title="Permalink to this headline">¶</a></h2>
+<p>Cleans the pending students from &#8220;Info Sent&#8221; state.</p>
+<p>BeCube MiniCRM automation project.</p>
+<dl class="function">
+<dt id="functionalities.cleaninfosent.clean_info_sent">
+<code class="descclassname">functionalities.cleaninfosent.</code><code class="descname">clean_info_sent</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#functionalities.cleaninfosent.clean_info_sent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleans the pending students from &#8220;Info Sent&#8221; state.</p>
+<p>Loops though all students in &#8220;Info Sent&#8221; (&#8220;INFO levél kiment&#8221; in Hungarian) status, and</p>
+<ul class="simple">
+<li>If finalizing deadline -1 day is over, it sends a reminder</li>
+<li>If finalizing deadline is over, it sends a reminder, raises a task for the responsible</li>
+<li>If finalizing deadline + 1 ady is over, it sets student to &#8220;Did Not Finalize&#8221; (&#8220;Nem valaszolt&#8221;), and notifies responsibles</li>
+</ul>
+<p>Note that if billing info is filled (student finalized his/her application), student gets to &#8220;Course In Progress&#8221;
+(&#8220;Kurzus folyamatban&#8221;) status. This logic is although not implemented by script, but the MiniCRM system itself. So
+this function only loops through the students who haven&#8217;t done this yet.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>crm_facade</strong> &#8211; instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-functionalities.handlewaitinglist">
+<span id="functionalities-handlewaitinglist-module"></span><h2>functionalities.handlewaitinglist module<a class="headerlink" href="#module-functionalities.handlewaitinglist" title="Permalink to this headline">¶</a></h2>
+<p>Cleans the pending students from &#8220;Info Sent&#8221; state.</p>
+<p>BeCube MiniCRM automation project.</p>
+<dl class="function">
+<dt id="functionalities.handlewaitinglist.handle_waiting_list">
+<code class="descclassname">functionalities.handlewaitinglist.</code><code class="descname">handle_waiting_list</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#functionalities.handlewaitinglist.handle_waiting_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loops through the students in waiting list and checks whether they got into the courses.</p>
+<p>Loops through all of the students in the waiting list and if there is
+free space in their course, it sends them the INFO letter and changes their
+status to INO sent. Also updates the headcounts of courses.</p>
+<p>Students will get to the courses in the order of original application.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>crm_facade</strong> &#8211; instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-functionalities.registernewapplicants">
+<span id="functionalities-registernewapplicants-module"></span><h2>functionalities.registernewapplicants module<a class="headerlink" href="#module-functionalities.registernewapplicants" title="Permalink to this headline">¶</a></h2>
+<p>Registers newly applied students for the courses or puts them to the waiting list.</p>
+<p>BeCube MiniCRM automation project.</p>
+<dl class="function">
+<dt id="functionalities.registernewapplicants.register_new_applicants">
+<code class="descclassname">functionalities.registernewapplicants.</code><code class="descname">register_new_applicants</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#functionalities.registernewapplicants.register_new_applicants" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function loops through all of the newly applied students and registers them to the courses.</p>
+<p>The function lists all of the &#8220;Applied&#8221; (&#8220;Jelentkezett&#8221;) students, and looks for their courses. Based on the course,
+it fills the needed data in the student&#8217;s page. If the course is not found, it raises a task in MiniCRM system.</p>
+<p>The function</p>
+<ul class="simple">
+<li>decides whether the student got into waiting list or to the course</li>
+<li>decides what type of course the student applied</li>
+<li>fetches course and location data and fills it into the student&#8217;s data</li>
+<li>sends the initial mail, which can be a beginner/advanced info mail or a waiting list mail</li>
+<li>sets the status of the student</li>
+<li>updates the headcounts of the courses and leaves a consistent state</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>crm_facade</strong> &#8211; instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="functionalities.registernewapplicants.send_initial_letter">
+<code class="descclassname">functionalities.registernewapplicants.</code><code class="descname">send_initial_letter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#functionalities.registernewapplicants.send_initial_letter" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function sends the first response to the given student.</p>
+<p>This mail can be information about the course or a mail that the student got to waiting list. The function assembles
+the initial mail by fetching information about the course and the location. Based on the course data this function
+also decides whether it has to be a beginner or an advanced INFO mail.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>crm_facade</strong> &#8211; instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.</li>
+<li><strong>student_data</strong> &#8211; full JSON array of a student as stored in the MiniCRM system.</li>
+<li><strong>student_data</strong> &#8211; full JSON array of a course as stored in the MiniCRM system.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-functionalities.sendscheduledmails">
+<span id="functionalities-sendscheduledmails-module"></span><h2>functionalities.sendscheduledmails module<a class="headerlink" href="#module-functionalities.sendscheduledmails" title="Permalink to this headline">¶</a></h2>
+<p>Makes sure all of the mails already due have been sent to the student.</p>
+<p>BeCube MiniCRM automation project.</p>
+<dl class="function">
+<dt id="functionalities.sendscheduledmails.ok_for_certification">
+<code class="descclassname">functionalities.sendscheduledmails.</code><code class="descname">ok_for_certification</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#functionalities.sendscheduledmails.ok_for_certification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the given student is eligible for a certification or not.</p>
+<p>Student is eligible if</p>
+<ul class="simple">
+<li>student visited at least 8 occasions, AND</li>
+<li>student has sent at least 8 homework solutions</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student_data</strong> &#8211; Full JSON array of a student as stored in the MiniCRM system-</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if the student is eligible for cerification and False if not.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="functionalities.sendscheduledmails.send_scheduled_emails">
+<code class="descclassname">functionalities.sendscheduledmails.</code><code class="descname">send_scheduled_emails</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#functionalities.sendscheduledmails.send_scheduled_emails" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loops through active students and spectators and sends them scheduled mails based on the dates and other conditions.</p>
+<p>The following rules apply:</p>
+<ul class="simple">
+<li>All students in &#8220;In Progress&#8221; (&#8220;Kurzus folyamatban&#8221;) and &#8220;Spectator&#8221; (&#8220;Megfigyelo&#8221;) are affected.</li>
+<li>All mails of the occasions are sent if the date is not less than the occasion&#8217;s date minus 3 days.</li>
+<li>There are two types of &#8220;regular&#8221; mails (i.e. sent for every single occasion): beginner and advanded. There are
+10 mails of each type for the 10 occasions.</li>
+<li>Company advanced is counted as advanced and company beginner is counted as beginner in these regular mails.</li>
+<li>On the day of the last occasion a goodbye mail is sent, also based on student is beginner or advanced.</li>
+<li>This goodbye mail is not sent to company beginners, but is sent to company advanced. (So the courses can be
+accumulated to one long course and they only get goodbye mail at the very end.)</li>
+<li>If the date is not less then the last date plus one day, student is put to &#8220;Finished&#8221; (&#8220;Elvegezte&#8221;) state.</li>
+<li>On the same day beginner/advanced certification is sent if the student is not attending a company course and is
+eligible.</li>
+<li>On the same day advanced certification is sent if the student is attending a company advanced course.</li>
+<li>Mail about free day is sent 2 days before each dayoff.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>crm_facade</strong> &#8211; instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-functionalities.setcoursestates">
+<span id="functionalities-setcoursestates-module"></span><h2>functionalities.setcoursestates module<a class="headerlink" href="#module-functionalities.setcoursestates" title="Permalink to this headline">¶</a></h2>
+<p>Updates the course stated based on their set states.</p>
+<p>BeCube MiniCRM automation project.</p>
+<dl class="function">
+<dt id="functionalities.setcoursestates.set_course_states">
+<code class="descclassname">functionalities.setcoursestates.</code><code class="descname">set_course_states</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#functionalities.setcoursestates.set_course_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loops through the courses and sets their statuses according to first and last date.</p>
+<ul class="simple">
+<li>If current date is not less than course&#8217;s 1st occasion, function sets the state to &#8220;In progress&#8221; (&#8220;Kurzus
+folyamatban&#8221;).</li>
+<li>If current date is not less than course&#8217;s last occasion, function sets the state to &#8220;Recently finished&#8221; (&#8220;Frissen
+vegzett&#8221;). This state if to make it possible to make certain actions (make statistics / calculate salaries)
+monthly and the monthly script has to loop through the in progress and recently finished courses.</li>
+<li>If current date is not less than course&#8217;s last occasion plus 35 days, function sets the state to &#8220;Finished&#8221;
+(&#8220;Befejezett&#8221;).</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>crm_facade</strong> &#8211; instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-functionalities">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-functionalities" title="Permalink to this headline">¶</a></h2>
+<p>Contains modules that implement mid-level functionality for using the MiniCRM facade.</p>
+<p>The CrmFacade class implements the low-level functionalities, which don&#8217;t make sense from the business point of view.
+The free functions here use the CrmFacade to communicate with the MiniCRM system, but implement higher level business
+logic. For example handling a new applicant includes deciding whether they go to waiting list or not, calculating the
+application deadline, sending the initial mail and updating the headcounts of the courses. From business point of view
+this can be implemented in one functionality, called &#8220;Handle New Applicant&#8221;.</p>
+<p>These functionalities still don&#8217;t make up a whole application, but one application (script) can use and reuse them. The
+reasonale behind this layer is to provide modularity for clarity and reusability.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">functionalities package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-functionalities.cleaninfosent">functionalities.cleaninfosent module</a></li>
+<li><a class="reference internal" href="#module-functionalities.handlewaitinglist">functionalities.handlewaitinglist module</a></li>
+<li><a class="reference internal" href="#module-functionalities.registernewapplicants">functionalities.registernewapplicants module</a></li>
+<li><a class="reference internal" href="#module-functionalities.sendscheduledmails">functionalities.sendscheduledmails module</a></li>
+<li><a class="reference internal" href="#module-functionalities.setcoursestates">functionalities.setcoursestates module</a></li>
+<li><a class="reference internal" href="#module-functionalities">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="minicrm.html" title="previous chapter">minicrm package</a></li>
+      <li>Next: <a href="requesthandlermock.html" title="next chapter">requesthandlermock package</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/functionalities.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Adam Rudolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/functionalities.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

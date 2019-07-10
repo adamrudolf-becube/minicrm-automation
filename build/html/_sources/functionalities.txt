@@ -1,0 +1,54 @@
+functionalities package
+=======================
+
+Submodules
+----------
+
+functionalities.cleaninfosent module
+------------------------------------
+
+.. automodule:: functionalities.cleaninfosent
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+functionalities.handlewaitinglist module
+----------------------------------------
+
+.. automodule:: functionalities.handlewaitinglist
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+functionalities.registernewapplicants module
+--------------------------------------------
+
+.. automodule:: functionalities.registernewapplicants
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+functionalities.sendscheduledmails module
+-----------------------------------------
+
+.. automodule:: functionalities.sendscheduledmails
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+functionalities.setcoursestates module
+--------------------------------------
+
+.. automodule:: functionalities.setcoursestates
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: functionalities
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,48 @@
+minicrm-automation package
+==========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    minicrm-automation.functionalities
+    minicrm-automation.minicrm
+    minicrm-automation.requesthandlermock
+    minicrm-automation.test
+
+Submodules
+----------
+
+minicrm-automation.dailyscript module
+-------------------------------------
+
+.. automodule:: minicrm-automation.dailyscript
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm-automation.quickscript module
+-------------------------------------
+
+.. automodule:: minicrm-automation.quickscript
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm-automation.testscript module
+------------------------------------
+
+.. automodule:: minicrm-automation.testscript
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: minicrm-automation
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,46 @@
+minicrm-automation.test.unit_tests package
+==========================================
+
+Submodules
+----------
+
+minicrm-automation.test.unit_tests.minicrmtestbase module
+---------------------------------------------------------
+
+.. automodule:: minicrm-automation.test.unit_tests.minicrmtestbase
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm-automation.test.unit_tests.test_commonfunctions module
+--------------------------------------------------------------
+
+.. automodule:: minicrm-automation.test.unit_tests.test_commonfunctions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm-automation.test.unit_tests.test_crmfacade module
+--------------------------------------------------------
+
+.. automodule:: minicrm-automation.test.unit_tests.test_crmfacade
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+minicrm-automation.test.unit_tests.test_requesthandlermock module
+-----------------------------------------------------------------
+
+.. automodule:: minicrm-automation.test.unit_tests.test_requesthandlermock
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: minicrm-automation.test.unit_tests
+    :members:
+    :undoc-members:
+    :show-inheritance:

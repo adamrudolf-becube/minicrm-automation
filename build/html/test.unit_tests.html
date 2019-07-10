@@ -1,0 +1,1160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>test.unit_tests package &#8212; BeCube MiniCRM automation script system 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="BeCube MiniCRM automation script system 2.0 documentation" href="index.html" />
+    <link rel="up" title="test package" href="test.html" />
+    <link rel="prev" title="test.system_tests package" href="test.system_tests.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="test-unit-tests-package">
+<h1>test.unit_tests package<a class="headerlink" href="#test-unit-tests-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-test.unit_tests.minicrmtestbase">
+<span id="test-unit-tests-minicrmtestbase-module"></span><h2>test.unit_tests.minicrmtestbase module<a class="headerlink" href="#module-test.unit_tests.minicrmtestbase" title="Permalink to this headline">¶</a></h2>
+<p>Contains a class to serve as the common abstract base class for all of the test cases.</p>
+<dl class="class">
+<dt id="test.unit_tests.minicrmtestbase.MiniCrmTestBase">
+<em class="property">class </em><code class="descclassname">test.unit_tests.minicrmtestbase.</code><code class="descname">MiniCrmTestBase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.minicrmtestbase.MiniCrmTestBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code>, <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Contains common functionality for MiniCRM tests.</p>
+<p>MiniCrmTestBase contains the common parts of test setUp and tearDown, which use the RequestHandlerMock and CrmFacade
+classes. This class also provides commonly used helper functions and creates the needed datamembers.</p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<dl class="method">
+<dt id="test.unit_tests.minicrmtestbase.MiniCrmTestBase.expect_crmfacade_constructor">
+<code class="descname">expect_crmfacade_constructor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.minicrmtestbase.MiniCrmTestBase.expect_crmfacade_constructor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets all expectations for creating the CrmFacade instance.</p>
+<p>If you need to create a CrmFacade instance, this method provides an easy way to prepare for the API requests
+sent by the constructor. You just call this method, instantiate the CrmFacade instance and you can have a fresh
+start without errors and with an empty expectation queue.</p>
+<p>Example code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">system_id</span><span class="p">,</span> <span class="n">api_key</span> <span class="o">=</span> <span class="n">load_api_info</span><span class="p">(</span><span class="n">API_INFO_JSON_FILE</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">request_handler</span> <span class="o">=</span> <span class="n">RequestHandlerMock</span><span class="p">(</span><span class="n">system_id</span><span class="p">,</span> <span class="n">api_key</span><span class="p">)</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">expect_crmfacade_constructor</span><span class="p">()</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">crm_facade</span> <span class="o">=</span> <span class="n">CrmFacade</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request_handler</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.minicrmtestbase.MiniCrmTestBase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.minicrmtestbase.MiniCrmTestBase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a RequestHandlerMock with the fake API login info, and creates the CrmFacaade with the mock.</p>
+<p>Also sets and satisfies expectations for creating CrmFacade.</p>
+<p>Tests derived from MiniCrmTestBase can define their own setups if needed, but they have to call this setUp
+explicitly in the very beginning of their setUps.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.minicrmtestbase.MiniCrmTestBase.set_participant_number_expectations">
+<code class="descname">set_participant_number_expectations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.minicrmtestbase.MiniCrmTestBase.set_participant_number_expectations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets expectations for the update_headcounts() method of CrmFacade.</p>
+<p>CrmFacade&#8217;s update_headcounts() is a commonly used method, which creates a typical pattern of API requests. This
+pattern has to be expected again and again in every test which uses the update_headcounts() method, maybe
+multiple times in a use case. This method provides a single line to set those expectations, and also logically
+group these expectations, and make the code easier to read.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.minicrmtestbase.MiniCrmTestBase.tearDown">
+<code class="descname">tearDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.minicrmtestbase.MiniCrmTestBase.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether all expectations of the RequestHandlerMock have been satisfied, so it guarantees that no
+unsatisfied expectations are left in any tests.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-test.unit_tests.test_commonfunctions">
+<span id="test-unit-tests-test-commonfunctions-module"></span><h2>test.unit_tests.test_commonfunctions module<a class="headerlink" href="#module-test.unit_tests.test_commonfunctions" title="Permalink to this headline">¶</a></h2>
+<p>Contains unittests for all of the functions in minicrm.commonfunctions.</p>
+<dl class="class">
+<dt id="test.unit_tests.test_commonfunctions.TestAddElementToCommaseparatedList">
+<em class="property">class </em><code class="descclassname">test.unit_tests.test_commonfunctions.</code><code class="descname">TestAddElementToCommaseparatedList</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_commonfunctions.TestAddElementToCommaseparatedList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>Contains tests for add_element_to_commasep_list()</p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<dl class="method">
+<dt id="test.unit_tests.test_commonfunctions.TestAddElementToCommaseparatedList.test_if_input_list_has_multiple_elements_new_element_is_concatenated_by_comma_and_space">
+<code class="descname">test_if_input_list_has_multiple_elements_new_element_is_concatenated_by_comma_and_space</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_commonfunctions.TestAddElementToCommaseparatedList.test_if_input_list_has_multiple_elements_new_element_is_concatenated_by_comma_and_space" title="Permalink to this definition">¶</a></dt>
+<dd><p>When an element is added to a multi element comma separated list, the output list is the new element
+concatenated to the end of the list by the given separator.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_commonfunctions.TestAddElementToCommaseparatedList.test_if_input_list_has_one_element_new_element_is_concatenated_by_comma_and_space">
+<code class="descname">test_if_input_list_has_one_element_new_element_is_concatenated_by_comma_and_space</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_commonfunctions.TestAddElementToCommaseparatedList.test_if_input_list_has_one_element_new_element_is_concatenated_by_comma_and_space" title="Permalink to this definition">¶</a></dt>
+<dd><p>When an element is added to another element (single element comma separated list) the output list is the two
+elements concatenated by the given separator.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_commonfunctions.TestAddElementToCommaseparatedList.test_if_input_list_is_empty_output_is_same_as_new_element">
+<code class="descname">test_if_input_list_is_empty_output_is_same_as_new_element</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_commonfunctions.TestAddElementToCommaseparatedList.test_if_input_list_is_empty_output_is_same_as_new_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>When an element is added to an empty list (empty string) the output list is equel to the added element.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_commonfunctions.TestAddElementToCommaseparatedList.test_if_new_element_is_already_in_the_list_out_list_is_same_as_input_list">
+<code class="descname">test_if_new_element_is_already_in_the_list_out_list_is_same_as_input_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_commonfunctions.TestAddElementToCommaseparatedList.test_if_new_element_is_already_in_the_list_out_list_is_same_as_input_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>When the added element is already in the comma separated list, the output list is equal to the input list.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="test.unit_tests.test_commonfunctions.TestGetKeyFromValue">
+<em class="property">class </em><code class="descclassname">test.unit_tests.test_commonfunctions.</code><code class="descname">TestGetKeyFromValue</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_commonfunctions.TestGetKeyFromValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>Contains tests for minicrm.commonfunctions.get_key_from_value()</p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<dl class="method">
+<dt id="test.unit_tests.test_commonfunctions.TestGetKeyFromValue.test_get_key_from_value_raises_if_value_doesnt_exist">
+<code class="descname">test_get_key_from_value_raises_if_value_doesnt_exist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_commonfunctions.TestGetKeyFromValue.test_get_key_from_value_raises_if_value_doesnt_exist" title="Permalink to this definition">¶</a></dt>
+<dd><p>When nonexistent value is searched, ValueError is raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_commonfunctions.TestGetKeyFromValue.test_get_key_from_value_returns_a_key_if_not_unique_value">
+<code class="descname">test_get_key_from_value_returns_a_key_if_not_unique_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_commonfunctions.TestGetKeyFromValue.test_get_key_from_value_returns_a_key_if_not_unique_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>When searched value exists in dictionary and is not unique, one of the keys is returned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_commonfunctions.TestGetKeyFromValue.test_get_key_from_value_returns_correct_key_if_unique_value">
+<code class="descname">test_get_key_from_value_returns_correct_key_if_unique_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_commonfunctions.TestGetKeyFromValue.test_get_key_from_value_returns_correct_key_if_unique_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>When searched value exists in dictionary and is unique, corresponding key is returned.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-test.unit_tests.test_crmfacade">
+<span id="test-unit-tests-test-crmfacade-module"></span><h2>test.unit_tests.test_crmfacade module<a class="headerlink" href="#module-test.unit_tests.test_crmfacade" title="Permalink to this headline">¶</a></h2>
+<p>This module contains requirements for CrmFacade.</p>
+<p>Note that some requirements are covered in module tests, so redundant tests are not included here.</p>
+<dl class="class">
+<dt id="test.unit_tests.test_crmfacade.TestGetApplicationDeadline">
+<em class="property">class </em><code class="descclassname">test.unit_tests.test_crmfacade.</code><code class="descname">TestGetApplicationDeadline</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetApplicationDeadline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#test.unit_tests.minicrmtestbase.MiniCrmTestBase" title="test.unit_tests.minicrmtestbase.MiniCrmTestBase"><code class="xref py py-class docutils literal"><span class="pre">test.unit_tests.minicrmtestbase.MiniCrmTestBase</span></code></a></p>
+<p>Contains tests for CrmFacade._get_application_deadline() (Private method.)</p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_all_spots_is_zero_function_does_not_raise">
+<code class="descname">test_if_all_spots_is_zero_function_does_not_raise</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_all_spots_is_zero_function_does_not_raise" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>max headcount is 0</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>_get_application_deadline() is called with the given course</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>no error is raised</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_course_start_is_earlier_than_the_calculated_deadline_deadline_is_course_start_minus_one_day">
+<code class="descname">test_if_course_start_is_earlier_than_the_calculated_deadline_deadline_is_course_start_minus_one_day</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_course_start_is_earlier_than_the_calculated_deadline_deadline_is_course_start_minus_one_day" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>course starts earlier than the calculated deadline</li>
+<li>course starts in more than 1 day</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>_get_application_deadline() is called with the given course</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>returned days is course start - 1 day</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_course_starts_in_less_than_3_days_and_there_is_no_more_than_3_places_deadline_is_1_day">
+<code class="descname">test_if_course_starts_in_less_than_3_days_and_there_is_no_more_than_3_places_deadline_is_1_day</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_course_starts_in_less_than_3_days_and_there_is_no_more_than_3_places_deadline_is_1_day" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>course starts in less than 3 days</li>
+<li>less than 3 spots are free</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>_get_application_deadline() is called with the given course</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>returned days is today + 1 day</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_course_starts_in_less_than_7_days_away_and_more_than_places_30_percent_if_free_deadline_is_3_days">
+<code class="descname">test_if_course_starts_in_less_than_7_days_away_and_more_than_places_30_percent_if_free_deadline_is_3_days</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_course_starts_in_less_than_7_days_away_and_more_than_places_30_percent_if_free_deadline_is_3_days" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>course starts in less than 7 days</li>
+<li>more than 30% of spots are free</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>_get_application_deadline() is called with the given course</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>returned days is today + 3 days</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_course_starts_in_not_less_than_7_days_away_and_less_than_places_30_percent_if_free_deadline_is_3_days">
+<code class="descname">test_if_course_starts_in_not_less_than_7_days_away_and_less_than_places_30_percent_if_free_deadline_is_3_days</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_course_starts_in_not_less_than_7_days_away_and_less_than_places_30_percent_if_free_deadline_is_3_days" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>course starts in not less than 7 days</li>
+<li>less than 30% of spots are free</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>_get_application_deadline() is called with the given course</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>returned days is today + 3 days</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_course_starts_in_not_less_than_7_days_away_and_more_than_places_30_percent_if_free_deadline_is_5_days">
+<code class="descname">test_if_course_starts_in_not_less_than_7_days_away_and_more_than_places_30_percent_if_free_deadline_is_5_days</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_course_starts_in_not_less_than_7_days_away_and_more_than_places_30_percent_if_free_deadline_is_5_days" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>course starts in not less than 7 days</li>
+<li>more than 30% of spots are free</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>_get_application_deadline() is called with the given course</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>returned days is today + 5 days</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_deadline_is_earlier_than_today_deadline_is_today_plus_one_day">
+<code class="descname">test_if_deadline_is_earlier_than_today_deadline_is_today_plus_one_day</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetApplicationDeadline.test_if_deadline_is_earlier_than_today_deadline_is_today_plus_one_day" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>calculated deadline is earlier than today</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>_get_application_deadline() is called with the given course</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>returned days is today + 1 day</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="test.unit_tests.test_crmfacade.TestGetCourseByCourseCode">
+<em class="property">class </em><code class="descclassname">test.unit_tests.test_crmfacade.</code><code class="descname">TestGetCourseByCourseCode</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetCourseByCourseCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#test.unit_tests.minicrmtestbase.MiniCrmTestBase" title="test.unit_tests.minicrmtestbase.MiniCrmTestBase"><code class="xref py py-class docutils literal"><span class="pre">test.unit_tests.minicrmtestbase.MiniCrmTestBase</span></code></a></p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestGetCourseByCourseCode.test_get_course_by_course_code_returns_correct_course">
+<code class="descname">test_get_course_by_course_code_returns_correct_course</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetCourseByCourseCode.test_get_course_by_course_code_returns_correct_course" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>A course exists with a given course code</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>crm_facade.get_course_by_course_code() is called with the given course code</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>the full course data with the given course code is returned</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="test.unit_tests.test_crmfacade.TestGetDateDescription">
+<em class="property">class </em><code class="descclassname">test.unit_tests.test_crmfacade.</code><code class="descname">TestGetDateDescription</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetDateDescription" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#test.unit_tests.minicrmtestbase.MiniCrmTestBase" title="test.unit_tests.minicrmtestbase.MiniCrmTestBase"><code class="xref py py-class docutils literal"><span class="pre">test.unit_tests.minicrmtestbase.MiniCrmTestBase</span></code></a></p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestGetDateDescription.test_date_description_returns_correct_string">
+<code class="descname">test_date_description_returns_correct_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetDateDescription.test_date_description_returns_correct_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>crm_facade._get_date_description() returns the correctly concatenated string.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="test.unit_tests.test_crmfacade.TestGetLocationByName">
+<em class="property">class </em><code class="descclassname">test.unit_tests.test_crmfacade.</code><code class="descname">TestGetLocationByName</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetLocationByName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#test.unit_tests.minicrmtestbase.MiniCrmTestBase" title="test.unit_tests.minicrmtestbase.MiniCrmTestBase"><code class="xref py py-class docutils literal"><span class="pre">test.unit_tests.minicrmtestbase.MiniCrmTestBase</span></code></a></p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestGetLocationByName.test_get_location_by_name_returns_correct_course">
+<code class="descname">test_get_location_by_name_returns_correct_course</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetLocationByName.test_get_location_by_name_returns_correct_course" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>A location exists with the given name</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>crm_facade.get_location_by_name() is called with the given name</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>Data of the location with the given name is returned.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestGetLocationByName.test_get_location_by_name_returns_none_for_nonexistent_course_code">
+<code class="descname">test_get_location_by_name_returns_none_for_nonexistent_course_code</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestGetLocationByName.test_get_location_by_name_returns_none_for_nonexistent_course_code" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>A location doesn&#8217;t with the given name</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>crm_facade.get_location_by_name() is called with the given name</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>None is returned.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="test.unit_tests.test_crmfacade.TestQueryProjectListWithStatus">
+<em class="property">class </em><code class="descclassname">test.unit_tests.test_crmfacade.</code><code class="descname">TestQueryProjectListWithStatus</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestQueryProjectListWithStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#test.unit_tests.minicrmtestbase.MiniCrmTestBase" title="test.unit_tests.minicrmtestbase.MiniCrmTestBase"><code class="xref py py-class docutils literal"><span class="pre">test.unit_tests.minicrmtestbase.MiniCrmTestBase</span></code></a></p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestQueryProjectListWithStatus.test_query_project_list_with_status_returns_all_projects_even_if_there_are_more_pages">
+<code class="descname">test_query_project_list_with_status_returns_all_projects_even_if_there_are_more_pages</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestQueryProjectListWithStatus.test_query_project_list_with_status_returns_all_projects_even_if_there_are_more_pages" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there are more than 100 students with the given status</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>crm_facade.get_student_list_with_status() is called with the given status</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>all of the students with the given status are returned in a list</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts">
+<em class="property">class </em><code class="descclassname">test.unit_tests.test_crmfacade.</code><code class="descname">TestUpdateHeadcounts</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#test.unit_tests.minicrmtestbase.MiniCrmTestBase" title="test.unit_tests.minicrmtestbase.MiniCrmTestBase"><code class="xref py py-class docutils literal"><span class="pre">test.unit_tests.minicrmtestbase.MiniCrmTestBase</span></code></a></p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_headcount_is_0_when_there_is_1_info_sent_student_and_noone_else_count_is_set_to_1">
+<code class="descname">test_headcount_is_0_when_there_is_1_info_sent_student_and_noone_else_count_is_set_to_1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_headcount_is_0_when_there_is_1_info_sent_student_and_noone_else_count_is_set_to_1" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>current headcount is 0</li>
+<li>there is 1 info sent student registered to the course</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 1</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_headcount_is_1_when_there_are_no_students_for_this_course_count_is_set_to_0">
+<code class="descname">test_headcount_is_1_when_there_are_no_students_for_this_course_count_is_set_to_0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_headcount_is_1_when_there_are_no_students_for_this_course_count_is_set_to_0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>headcount is set to 1</li>
+<li>no students applied to this course</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 0</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_headcount_is_1_when_there_is_1_info_sent_student_and_noone_else_count_is_set_to_1">
+<code class="descname">test_headcount_is_1_when_there_is_1_info_sent_student_and_noone_else_count_is_set_to_1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_headcount_is_1_when_there_is_1_info_sent_student_and_noone_else_count_is_set_to_1" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>current headcount is 1</li>
+</ul>
+<p class="last">. 1 info sent student is registered to the course</p>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 1 (no real change)</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_headcount_is_2_when_there_are_no_students_for_this_course_count_is_set_to_0">
+<code class="descname">test_headcount_is_2_when_there_are_no_students_for_this_course_count_is_set_to_0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_headcount_is_2_when_there_are_no_students_for_this_course_count_is_set_to_0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>current headcount is 2</li>
+<li>no students applied to this course</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 0</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_headcount_is_2_when_there_is_1_info_sent_student_and_noone_else_count_is_set_to_1">
+<code class="descname">test_headcount_is_2_when_there_is_1_info_sent_student_and_noone_else_count_is_set_to_1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_headcount_is_2_when_there_is_1_info_sent_student_and_noone_else_count_is_set_to_1" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>current headcount is 2</li>
+<li>there is one info sent student registered to this course</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 1</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_are_2_info_sent_3_active_2_waiting_list_1_did_not_answer_1_spectator_count_is_set_to_5">
+<code class="descname">test_there_are_2_info_sent_3_active_2_waiting_list_1_did_not_answer_1_spectator_count_is_set_to_5</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_are_2_info_sent_3_active_2_waiting_list_1_did_not_answer_1_spectator_count_is_set_to_5" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>there are 2 info sent students registered to this course</li>
+<li>there are 3 active students registered to this course</li>
+<li>there are 2 waiting list students registered to this course</li>
+<li>there is 1 did not answer student registered to this course</li>
+<li>there is 1 spectator student registered to this course</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 5</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_active_and_1_info_sent_count_is_set_to_2">
+<code class="descname">test_there_is_1_active_and_1_info_sent_count_is_set_to_2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_active_and_1_info_sent_count_is_set_to_2" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>there is 1 active and 1 info sent student registered to the course</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 2</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_active_student_count_is_set_to_1">
+<code class="descname">test_there_is_1_active_student_count_is_set_to_1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_active_student_count_is_set_to_1" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>there is 1 active student applied to this course</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 1</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_applied_count_is_set_to_0">
+<code class="descname">test_there_is_1_student_in_applied_count_is_set_to_0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_applied_count_is_set_to_0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>there is 1 student in Applied (&#8220;Jelentkezett&#8221;) state</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 0</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_cancelled_count_is_set_to_0">
+<code class="descname">test_there_is_1_student_in_cancelled_count_is_set_to_0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_cancelled_count_is_set_to_0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>there is 1 student in Cancelled (&#8220;Lemondta&#8221;) state</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 0</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_did_not_answer_count_is_set_to_0">
+<code class="descname">test_there_is_1_student_in_did_not_answer_count_is_set_to_0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_did_not_answer_count_is_set_to_0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>there is 1 student in &#8220;Did not finalize&#8221; (&#8220;Nem jelzett vissza&#8221;) state</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 0</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_finished_is_set_to_0">
+<code class="descname">test_there_is_1_student_in_finished_is_set_to_0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_finished_is_set_to_0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>there is 1 student in Finished (&#8220;Elvegezte&#8221;) state</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 0</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_not_payed_count_is_set_to_0">
+<code class="descname">test_there_is_1_student_in_not_payed_count_is_set_to_0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_not_payed_count_is_set_to_0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>there is 1 student in Not payed (&#8220;Nem fizetett&#8221;) state</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 0</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_spectator_count_is_set_to_0">
+<code class="descname">test_there_is_1_student_in_spectator_count_is_set_to_0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_spectator_count_is_set_to_0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>there is 1 student in Spectator (&#8220;Megfigyelo&#8221;) state</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 0</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_subscribed_count_is_set_to_0">
+<code class="descname">test_there_is_1_student_in_subscribed_count_is_set_to_0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_subscribed_count_is_set_to_0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>there is 1 student in Subscribed state</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 0</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_unsubscribed_is_set_to_0">
+<code class="descname">test_there_is_1_student_in_unsubscribed_is_set_to_0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_unsubscribed_is_set_to_0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>there is 1 student in Unsubscribed (&#8220;Leiratkozott&#8221;) state</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 0</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_waiting_list_count_is_set_to_0">
+<code class="descname">test_there_is_1_student_in_waiting_list_count_is_set_to_0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_crmfacade.TestUpdateHeadcounts.test_there_is_1_student_in_waiting_list_count_is_set_to_0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is one course in Application Open (&#8220;Jelentkezes nyitva&#8221;) state</li>
+<li>there is 1 student in Waiting list (&#8220;Varolista&#8221;) state</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>update_headcounts() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>headcount is updated to 0</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-test.unit_tests.test_requesthandlermock">
+<span id="test-unit-tests-test-requesthandlermock-module"></span><h2>test.unit_tests.test_requesthandlermock module<a class="headerlink" href="#module-test.unit_tests.test_requesthandlermock" title="Permalink to this headline">¶</a></h2>
+<p>This module contains requirements for RequestHandlerMock.</p>
+<dl class="class">
+<dt id="test.unit_tests.test_requesthandlermock.TestRequestHandlerMock">
+<em class="property">class </em><code class="descclassname">test.unit_tests.test_requesthandlermock.</code><code class="descname">TestRequestHandlerMock</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_requesthandlermock.TestRequestHandlerMock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<dl class="method">
+<dt id="test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes self.request_handler to the RequestHandlerMock with fake API info to be the SUT.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_check_if_satisfied_does_not_raise_when_there_is_no_expectation">
+<code class="descname">test_check_if_satisfied_does_not_raise_when_there_is_no_expectation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_check_if_satisfied_does_not_raise_when_there_is_no_expectation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>no expectations were made</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>request_handler.check_is_satisfied() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>no error is raised</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_check_if_satisfied_raises_when_there_is_expectation">
+<code class="descname">test_check_if_satisfied_raises_when_there_is_expectation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_check_if_satisfied_raises_when_there_is_expectation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>one expectation is not fulfilled</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>request_handler.check_is_satisfied() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>AssertionError is raised starting with &#8220;Not all expectations were fulfilled when test ended.&#8221;</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_error_is_raised_when_commands_are_matched_in_wrong_order">
+<code class="descname">test_error_is_raised_when_commands_are_matched_in_wrong_order</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_error_is_raised_when_commands_are_matched_in_wrong_order" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>series of expectations are set</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>requests are sent in the wrong order</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>AssertionError is raised with &#8220;Unexpected command&#8221;</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_expectations_are_matched_in_correct_order">
+<code class="descname">test_expectations_are_matched_in_correct_order</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_expectations_are_matched_in_correct_order" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>series of expectations are set</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>requests are sent in the same order</li>
+<li>check_if_ssatisfied is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>no error is raised</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_match_expectation_does_not_raise_when_correct_command_comes">
+<code class="descname">test_match_expectation_does_not_raise_when_correct_command_comes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_match_expectation_does_not_raise_when_correct_command_comes" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is an expectation</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>request_handler.match_expectation() is called with the next expected command in the queue</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>no error is raised</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_match_expectation_raises_if_there_is_no_expectation">
+<code class="descname">test_match_expectation_raises_if_there_is_no_expectation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_match_expectation_raises_if_there_is_no_expectation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there are no expectations in the queue</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>request_handler.match_expectation() is called</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>AssertionError is raised, with the starting &#8220;No more commands were expected, but got&#8221;</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_match_expectation_raises_when_other_command_comes">
+<code class="descname">test_match_expectation_raises_when_other_command_comes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_match_expectation_raises_when_other_command_comes" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>next expected command in expectation queue is to get student X</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>request_handler.match_expectation() is called with getting student Y, where X is not equal to T</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>AssertionError is raised, with the text starting by &#8220;Unexpected command&#8221;</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_match_expectation_returns_expected_file_path">
+<code class="descname">test_match_expectation_returns_expected_file_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.unit_tests.test_requesthandlermock.TestRequestHandlerMock.test_match_expectation_returns_expected_file_path" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Given:</dt>
+<dd><ul class="first last simple">
+<li>there is an expectation</li>
+</ul>
+</dd>
+<dt>When:</dt>
+<dd><ul class="first last simple">
+<li>request_handler.match_expectation() is called with the next expected command in the queue</li>
+</ul>
+</dd>
+<dt>Then:</dt>
+<dd><ul class="first last simple">
+<li>correct preset response is returned</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-test.unit_tests">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-test.unit_tests" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">test.unit_tests package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-test.unit_tests.minicrmtestbase">test.unit_tests.minicrmtestbase module</a></li>
+<li><a class="reference internal" href="#module-test.unit_tests.test_commonfunctions">test.unit_tests.test_commonfunctions module</a></li>
+<li><a class="reference internal" href="#module-test.unit_tests.test_crmfacade">test.unit_tests.test_crmfacade module</a></li>
+<li><a class="reference internal" href="#module-test.unit_tests.test_requesthandlermock">test.unit_tests.test_requesthandlermock module</a></li>
+<li><a class="reference internal" href="#module-test.unit_tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="test.html">test package</a><ul>
+      <li>Previous: <a href="test.system_tests.html" title="previous chapter">test.system_tests package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/test.unit_tests.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Adam Rudolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/test.unit_tests.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -4,7 +4,7 @@ __copyright__ = "Adam Rudolf, 2018"
 import unittest
 
 from expectation import Expectation
-from expextationqueue import ExpectationQueue
+from expectationqueue import ExpectationQueue
 from minicrm.crmrequestfactory import _
 from minicrm.tracing import stacktrace, trace, pretty_print
 

@@ -569,12 +569,12 @@ a konstruktoron keresztül injektálja be. Hasonlóan, maga az applikáció
 a tulajdonosa a CrmFacade példánynak, és adja azt oda minden
 funkcionalitásnak. Ezt az elvet [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection)-nek hívják 
 (nem tudjuk hangsúlyozni, hogy milyen szörnyű ez lefordítva, de ha
-magyarul olvasnál róla itt megteheted: "[A függőség befecskendezése]
-(https://hu.wikipedia.org/wiki/A_f%C3%BCgg%C5%91s%C3%A9g_befecskendez%C3%A9se)"),
+magyarul olvasnál róla itt megteheted: 
+"[A függőség befecskendezése](https://hu.wikipedia.org/wiki/A_f%C3%BCgg%C5%91s%C3%A9g_befecskendez%C3%A9se)"),
 és ez esetben az a célja, hogy az applikációnak befolyása legyen arra,
 hogy melyik RequestHandlert használja milyen API adatokkal, így a
-tesztek dönthetnek úgy, hogy a mockolt [RequestHandlerMock]
-(http://becube.hu/minicrm-documentation/requesthandlermock.html) osztályt
+tesztek dönthetnek úgy, hogy a mockolt 
+[RequestHandlerMock](http://becube.hu/minicrm-documentation/requesthandlermock.html) osztályt
 használják ahelyett, hogy valóban kapcsolódnának a CRM rendszerhez.
 
 A CrmFacade és az összes itt említett segédosztály a minicrm package-ben
@@ -582,8 +582,8 @@ található meg.
 
 ### Egyéb
 
-Néhány modul, például a [commonfunctions]
-(http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.commonfunctions) vagy a 
+Néhány modul, például a 
+[commonfunctions](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.commonfunctions) vagy a 
 [tracing](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.commonfunctions) nincs
 megemlítve a képen. Ezek szabadonálló függvényeket tartalmaznak, amiket
 különböző szoftverrészek megosztva használnak.
@@ -594,13 +594,12 @@ Van néhány másik mappa is. Nem mindegyik része ennek a Git repónak
 (vagyis lehet, hogy itt nem látod őket), viszont legenerálódnak, amikor
 például futtatod a szkriptet, teszteket, vagy dokumentációt generálsz.
 
-* **requesthandlermock** - Ez a [RequestHandler]
-(http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.requesthandler)
+* **requesthandlermock** - Ez a
+[RequestHandler](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.requesthandler)
 osztály alternatívája, amit tesztelésre használunk. Nem kommunikál a
 valódi CRM rendszerrel, így nem is függ tőle, viszont tudja ellenőrizni,
 hogy a szkriptek az előre beállított, elvárt API requesteket, vagy sem.
-Több részletért nézd meg az [API dokumentációt]
-(http://becube.hu/minicrm-documentation/)!
+Több részletért nézd meg az [API dokumentációt](http://becube.hu/minicrm-documentation/)!
 * **build** - Kizárólag generált tartalomnak. A jelenlegi beállításban
 a Sphinx ide generálja a html API dokumentációt a doc commentek alapján.
 * **coverage-reports** - Kizárólag generált tartalomnak. A teszt

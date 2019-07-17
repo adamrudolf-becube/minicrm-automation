@@ -298,7 +298,7 @@ tests, as they "tell a story" with the expectations and test names.
 
 If you have any questions, don't hesitate to send it to info@becube.hu!
 
-# BeCube MiniCRM automation script system
+# BeCube MiniCRM automatizációs szkriptrendszer - magyar nyelvű dokumentáció
 
 *This is the Hungarian version of the documentation and is only the 
 direct translation of the document above this line. Is you prefer to

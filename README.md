@@ -584,7 +584,7 @@ található meg.
 
 Néhány modul, például a 
 [commonfunctions](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.commonfunctions) vagy a 
-[tracing](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.commonfunctions) nincs
+[tracing](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.tracing) nincs
 megemlítve a képen. Ezek szabadonálló függvényeket tartalmaznak, amiket
 különböző szoftverrészek megosztva használnak.
 

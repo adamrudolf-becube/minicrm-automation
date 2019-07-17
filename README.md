@@ -502,7 +502,7 @@ találhatsz.
     használjuk
 * Az automatikus tesztekhez a unittest, a teszt
 felderítéshez pedig [nose](https://nose.readthedocs.io/en/latest/) (1.3.7) modult használunk
-* Teszt lefedettség: [coverage](https://nose.readthedocs.io/en/latest/) 4.5.2.
+* Teszt lefedettség: [coverage](https://coverage.readthedocs.io/en/v4.5.x/) 4.5.2.
 * Az html API dokumentációt [Sphinx](http://www.sphinx-doc.org/en/master/) 1.4.8 segítségével generáljuk
 * A szerveren a szkripteket a [cron](https://hu.wikipedia.org/wiki/Cron) Linux daemon automatizálja. Ez
 egy beépített daemon (olyan szoftver, ami folyamatosan fut a háttérben),

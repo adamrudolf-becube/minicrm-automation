@@ -4,7 +4,7 @@ __copyright__ = "Adam Rudolf, 2018"
 
 class ExpectationQueue:
     def __init__(self):
-        """Simple queue to represent a series of expected API requests and their responsesfor the tests."""
+        """Simple queue to represent a series of expected API requests and their responses for the tests."""
         self.__queue = []
 
     def push(self, expectation):

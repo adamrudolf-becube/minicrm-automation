@@ -429,14 +429,11 @@ szerint a minták (pattern-ök) angol nevét használjuk akkor is, ha van
 elfogadott magyar fordítás, ugyanis a steril iskolai körülményeken és
 néhány könyvön kívül soha nem használatosak a magyar elnevezések. Példa:  
 a [Strategy Pattern](https://en.wikipedia.org/wiki/Strategy_pattern)-t
-(magyarul: [Stratégia Programtervezési Minta]
-(https://hu.wikipedia.org/wiki/Strat%C3%A9gia_programtervez%C3%A9si_minta))
+(magyarul: [Stratégia Programtervezési Minta](https://hu.wikipedia.org/wiki/Strat%C3%A9gia_programtervez%C3%A9si_minta))
  használjuk, hogy a [RequestHandler](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.requesthandler)-t
-beinjektáljuk a [CrmFacade]
-(http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.crmfacade)
+beinjektáljuk a [CrmFacade](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.crmfacade)
 példányba, hogy teszteléskoz 
-használhassuk a [mockolt RequestHandler]
-(http://becube.hu/minicrm-documentation/requesthandlermock.html)-t.
+használhassuk a [mockolt RequestHandler](http://becube.hu/minicrm-documentation/requesthandlermock.html)-t.
 Szintén használjuk a
 [Facade Pattern](https://en.wikipedia.org/wiki/Facade_pattern)-t 
 (habár nem ajánljuk ezeket magyarul megtanulni, de [Homlokzat programtervezési minta

@@ -2,7 +2,7 @@
 
 *Magyar leírásért kattints ide! / For Hungarian description, click here!*
 
-**Note:** the API reference is [here]().
+**Note:** the API reference is [here](http://becube.hu/minicrm-documentation/).
 
 ## Description
 
@@ -10,7 +10,7 @@
 
 Me, Adam Rudolf run a little programming school in Hungary, called
 [BeCube](https://www.becube.hu). BeCube uses a CRM (Customer
-Relationship Management) software called [MiniCRM]() by MiniCRM Zrt.
+Relationship Management) software called [MiniCRM](https://www.minicrm.io/) by MiniCRM Zrt.
 to store information about our customers,
 teachers, courses, locations, invoicing and e-mailing.
 
@@ -19,7 +19,7 @@ related to organizing courses and manage the lifecycle of students, a
 lot of customization is needed to fulfill needs of BeCube.
 
 This project contains the script system, which communicates with the
-MiniCRM system through it's [REST API]() to automate processes. The
+MiniCRM system through it's [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer) to automate processes. The
 scripts work quasi as an additional user of MiniCRM who can read and
 modify data.
 
@@ -100,24 +100,24 @@ consideration.
 
 The code should always comply with these rules:
 
-* **Clean code** - follow principles of [Rober C. Martin's Clean Code]().
+* **Clean code** - follow principles of [Rober C. Martin's Clean Code](https://cleancoders.com/).
 We have to understand the Clean Code principles. We have to know why we
 are following them, we have to know when to break them, and we have to
 know why to break them.
  
 * **Design patterns kept in mind** - we have to be aware of the commonly
-used [design patterns](), and find the situations where they fit naturally.
+used [design patterns](https://en.wikipedia.org/wiki/Software_design_pattern), and find the situations where they fit naturally.
 If there is a standard way of doing something, we have to do it in that
 standard way, but don't overuse design patterns if they don't fit.
-Examples: we use the [Strategy Pattern]() to inject the [RequestHandler]() to
-the [CrmFacade]() instance to be able to use it with a mock for testing. We
-also use [the Facade Pattern]() for hiding the complexity of request
+Examples: we use the [Strategy Pattern](https://en.wikipedia.org/wiki/Strategy_pattern) to inject the [RequestHandler](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.requesthandler) to
+the [CrmFacade](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.crmfacade) instance to be able to use it with a mock for testing. We
+also use [the Facade Pattern](https://en.wikipedia.org/wiki/Facade_pattern) for hiding the complexity of request
 handling, creation of requests and additional logic from the users. But
 we also use a factory module for request creation, which is not
-following the traditional [Factory Pattern](). 
+following the traditional [Factory Pattern](https://en.wikipedia.org/wiki/Factory_method_pattern). 
 
 * **PEP-8 is followed** - we follow [the official Python styling
-guidelines]() whenever we don't have explicit and understood reason why not
+guidelines](https://www.python.org/dev/peps/pep-0008/) whenever we don't have explicit and understood reason why not
 to. 
 
 * **Nicely tested**
@@ -128,7 +128,7 @@ to.
     Whenever we have uncovered code, that is marked explicitly and we
     have a good reason for that.
     
-* **Version controlled in a very nice manner** - code is kept in [Git](). We
+* **Version controlled in a very nice manner** - code is kept in [Git](https://git-scm.com/). We
 use small commits, split by feature, with understandable and transparent
 commit messages. We use Git to make development easier, safer and faster
 on long term. Version control also makes it easier to synchronize with
@@ -151,7 +151,7 @@ the production server.
     documentation HTML by automated documentation tool. Every
     implementation detail should be documented here. If you need to
     understand and/or use the code, you have to read this and not the
-    README. The API documentation can be found [here]().
+    README. The API documentation can be found [here](http://becube.hu/minicrm-documentation/).
 
 
 ## Technical aspects
@@ -164,12 +164,12 @@ things, which you might find obsolete.
 * Code is written in Pyhton 2.7.9
 * Main modules we use:
     * pip 10.0.1
-    * For handling API requests we use [requests]() 2.21.0
-* We use unittest for automatic test runs, with [nose]() (1.3.7) for test
+    * For handling API requests we use [requests](https://realpython.com/python-requests/) 2.21.0
+* We use unittest for automatic test runs, with [nose](https://nose.readthedocs.io/en/latest/) (1.3.7) for test
 discovery.
-* For test coverage, we use [coverage]() 4.5.2.
-* We use [Sphinx]() 1.4.8 for generating html from inline doc comments. 
-* On the server the scripts are automated by [cron](). This is a builtin
+* For test coverage, we use [coverage](https://coverage.readthedocs.io/en/v4.5.x/) 4.5.2.
+* We use [Sphinx](http://www.sphinx-doc.org/en/master/) 1.4.8 for generating html from inline doc comments. 
+* On the server the scripts are automated by [cron](https://en.wikipedia.org/wiki/Cron). This is a builtin
 daemon (a software which always runs in the background) in Linux
 systems, and you can schedule regular jobs (like running a Python
 program) in a file called crontab. Our crontab runs "quickscript.py"
@@ -180,7 +180,7 @@ writing these scripts.
 ## Structure
 
 We will have only a high-level, pedagogical description of the system.
-For details, please refer to the [API documentation]().
+For details, please refer to the [API documentation](http://becube.hu/minicrm-documentation/).
 
 ![Simplified class diagram](simplified_class_diagram.png "Simplified
 class diagram of MiniCRM Automation Script System")
@@ -220,24 +220,24 @@ of the CRM system. These still contain some logic and make the system
 more user friendly, but these functionalities are too small to make
 sense standalone.
 
-The CrmFacade hides the [ApiRequest]() class (not on the picture), the 
-[crmrequestfactory]() module to create ApiRequest instances and the
-[RequestHandler]() to communicate with the MiniCRM system.
+The CrmFacade hides the [ApiRequest](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.apirequest) class (not on the picture), the 
+[crmrequestfactory](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.crmrequestfactory) module to create ApiRequest instances and the
+[RequestHandler](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.requesthandler) to communicate with the MiniCRM system.
 
 The RequestHandler is created by the application and is injected to the
 CrmFacade through a parameter in the CrmFacade constructor. Similarly,
 the application is the owner of the CrmFacade instance and provides it
 to every application it uses. This principle is called [Dependency
-Injection]() and the goal is that the application has control on which
+Injection](https://en.wikipedia.org/wiki/Dependency_injection) and the goal is that the application has control on which
 RequestHandler is used with what API data, so test can use the mock
-[RequestHandlerMock]() instead of connecting to the real CRM server. 
+[RequestHandlerMock](http://becube.hu/minicrm-documentation/requesthandlermock.html) instead of connecting to the real CRM server. 
 
 The CrmFacade and all of the mentioned supporting classes are contained 
 by the minicrm package.
 
 ### Other
 
-Some modules, like [commonfunctions]() and [tracing]() are not mentioned in the
+Some modules, like [commonfunctions](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.commonfunctions) and [tracing](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.tracing) are not mentioned in the
 picture. These contain free utility functions used commonly by different
 entities.
 
@@ -251,7 +251,7 @@ the script, tests, or generating documentation.
 for testing purposes. It doesn't communicate with the real MiniCRM
 system, and can also check if the script system tried to send the
 expected requests or not. For more details, refer to the [API
-documentation]().
+documentation](http://becube.hu/minicrm-documentation/).
 * **build** - Only for generated content. In the current setup the html
 API documentation generated by Sphinx, based on the doc comments are
 stored here.
@@ -307,7 +307,7 @@ here. / Ez a magyar nyelvű dokumentáció. A dokumentum ezen része
 egyszerűen az eddigiek közvetlen fordítása. A dokumentum innentől
 olvasva teljes értékű magyar nyelvű dokumentációként használható.* 
 
-**Megjegyzés:** az API dokumentáció [itt]() elérhető. Az API
+**Megjegyzés:** az API dokumentáció [itt](http://becube.hu/minicrm-documentation/) elérhető. Az API
 dokumentáció csak angolul elérhető. 
 
 ## Leírás
@@ -315,7 +315,7 @@ dokumentáció csak angolul elérhető.
 ### Mi ez az egész
 
 Én, Rudolf Ádám, egy kis, [BeCube](https://www.becube.hu) nevű
-programozóiskolát üzemeltetek Magyarországon. A BeCube-nál egy [MiniCRM]()
+programozóiskolát üzemeltetek Magyarországon. A BeCube-nál egy [MiniCRM](https://www.minicrm.hu/index_2/?utm_expid=.dw7uqwHoRq-YarJAqQEuQQ.1&utm_referrer=https%3A%2F%2Fwww.google.com%2F)
 nevű CRM rendszert használunk a MiniCRM Zrt.-től, hogy számon tartsuk
 a diákjainkat, tanárainkat, tanfolyamokat, helyszíneket, számlákat és
 e-maileket.
@@ -325,7 +325,7 @@ folyamatok automatizálására, sok testreszabás szükséges, hogy a BeCube
 igényeinek megfeleljen.
 
 Ez a projekt tartalmazza azt a szkriptrendszert, ami kommunikál a
-MiniCRM rendszerrel a [REST API]()-ján keresztül, hogy folyamatokat
+MiniCRM rendszerrel a [REST API](https://hu.wikipedia.org/wiki/REST)-ján keresztül, hogy folyamatokat
 automatizáljon. A szkriptek kvázi egy plusz MiniCRM felhasználóként
 működnek, aki be tud jelentkezni, tudja olvasni és módosítani az
 adatokat.
@@ -413,29 +413,38 @@ lecserélhetjük mindenféle megfontolás nélkül.
 A kódnak ezen elveknek kell megfelelnie:
 
 * **Tiszta kód (Clean Code)** - követi [Rober C. Martin Clean Code
-(Tiszta kód)]() című könyvében leírt elveket. Tudjuk, hogy miért
+(Tiszta kód)](https://cleancoders.com/) című könyvében leírt elveket. Tudjuk, hogy miért
 követjük az elveket, tudjuk, hogy mikor szegjük meg a szabályokat, 
 és pontosan tudjuk, hogy miért szegjük meg a szabályoat.
 
 * **A tervezési minták szem előtt tartása** - ismerjük a közismert
-[tervezési mintákat](), és megtaláljuk azokat a helyeket, ahova ezek
+[tervezési mintákat](https://hu.wikipedia.org/wiki/Programtervez%C3%A9si_minta), és megtaláljuk azokat a helyeket, ahova ezek
 természetes módon beillenek. Ha egy probléma megoldásának van elterjedt
 módja, akkor azt használjuk, de nem használjuk túl a tervezési mintákat,
 ha nem illenek oda. Itt leírunk néhány példát, viszont meggyőződésünk
 szerint a minták (pattern-ök) angol nevét használjuk akkor is, ha van
 elfogadott magyar fordítás, ugyanis a steril iskolai körülményeken és
 néhány könyvön kívül soha nem használatosak a magyar elnevezések. Példa:  
-a [Strategy Pattern]()-t használjuk, hogy a [RequestHandler]()-t
-beinjektáljuk a [CrmFacade]() példányba, hogy teszteléskoz 
-használhassuk a [mockolt RequestHandler]()-t. Szintén használjuk a
-[Facade Pattern]()-t, hogy elrejtsük az API requestek kezelésének
+a [Strategy Pattern](https://en.wikipedia.org/wiki/Strategy_pattern)-t
+(magyarul: [Stratégia Programtervezési Minta]
+(https://hu.wikipedia.org/wiki/Strat%C3%A9gia_programtervez%C3%A9si_minta))
+ használjuk, hogy a [RequestHandler](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.requesthandler)-t
+beinjektáljuk a [CrmFacade]
+(http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.crmfacade)
+példányba, hogy teszteléskoz 
+használhassuk a [mockolt RequestHandler]
+(http://becube.hu/minicrm-documentation/requesthandlermock.html)-t.
+Szintén használjuk a
+[Facade Pattern](https://en.wikipedia.org/wiki/Facade_pattern)-t 
+(habár nem ajánljuk ezeket magyarul megtanulni, de [Homlokzat programtervezési minta
+](https://hu.wikipedia.org/wiki/Homlokzat_programtervez%C3%A9si_minta)), hogy elrejtsük az API requestek kezelésének
 részleteit, és némileg felhasználóbarátabbá tegyük a CRM rendszerrel
 való kommunikációt. De egy factory modult is használunk, hogy API
 requesteket készítsünk, de ez például nem követi a tradícionális
-[Factory Pattern]()-t. 
+[Factory Pattern](https://en.wikipedia.org/wiki/Factory_method_pattern)-t ("[Gyártó minta](https://hu.wikipedia.org/wiki/Gy%C3%A1rt%C3%B3_met%C3%B3dus_programtervez%C3%A9si_minta)"). 
  
 * **Követi a PEP-8 konvenciókat** - követjük [a hivatalos Python kód
-formázási útmutatót](), amennyiben nincs explicit és jól megindokolt
+formázási útmutatót](https://www.python.org/dev/peps/pep-0008/), amennyiben nincs explicit és jól megindokolt
 okunk eltérni tőle.
  
 * **Szépen tesztelt**
@@ -447,7 +456,7 @@ okunk eltérni tőle.
     Bármilyen szándékosan nem tesztelt kód explicit módon jelölve van,
     és jól megalapozott okunk van rá, hogy ne teszteljük.
     
-* **Verziókezelés szép módon** - a kódot [Gitben]() tároljuk. Kis
+* **Verziókezelés szép módon** - a kódot [Gitben](https://git-scm.com/) tároljuk. Kis
 kommitokat használunk, amit a funkcionalitás szerint osztunk fel,
 érthető és transzparens commit message-ekkel. A Gitet nem csak kötelező
 jelleggel használjuk, hanem úgy, hogy megkönnyítse a fejlesztőmunkát,
@@ -476,7 +485,7 @@ a fejlesztő és a futtató gépek között.
     automatikusan generálunk HTML dokumentációt. Minden implementációs
     részletnek ebben a dokumentációban kell szerepelnie. Ha magát a
     kódot kell megértened, vagy használnod, ezt a dokumentumot kell
-    böngészned, és nem a READE-t. Ez az API dokumentáció [itt]()
+    böngészned, és nem a READE-t. Ez az API dokumentáció [itt](http://becube.hu/minicrm-documentation/)
     található.
 
 ## Technikai részletek
@@ -489,13 +498,13 @@ találhatsz.
 * A kód Python 2.7.9-ben íródott
 * A fontosabb modulok:
     * pip 10.0.1
-    * Az API requestek kezelésére a [requests]() modul 2.21.0 verzióját
+    * Az API requestek kezelésére a [requests](https://realpython.com/python-requests/) modul 2.21.0 verzióját
     használjuk
 * Az automatikus tesztekhez a unittest, a teszt
-felderítéshez pedig [nose]() (1.3.7) modult használunk
-* Teszt lefedettség: [coverage]() 4.5.2.
-* Az html API dokumentációt [Sphinx]() 1.4.8 segítségével generáljuk
-* A szerveren a szkripteket a [cron]() Linux daemon automatizálja. Ez
+felderítéshez pedig [nose](https://nose.readthedocs.io/en/latest/) (1.3.7) modult használunk
+* Teszt lefedettség: [coverage](https://nose.readthedocs.io/en/latest/) 4.5.2.
+* Az html API dokumentációt [Sphinx](http://www.sphinx-doc.org/en/master/) 1.4.8 segítségével generáljuk
+* A szerveren a szkripteket a [cron](https://hu.wikipedia.org/wiki/Cron) Linux daemon automatizálja. Ez
 egy beépített daemon (olyan szoftver, ami folyamatosan fut a háttérben),
 amivel feladatokat lehet ütemezni egy crontab nevű fájl segíségével, ez
 esetben például Python programok futtatását. A mi crontabunk a
@@ -507,7 +516,7 @@ előtt.
 ## Flépítés
 
 Itt csak egy nagyjábóli, didaktikus leírását közöljük a rendszernek. A
-részletekért nézd meg a (csak angolul elérhető) [API dokumentációt]().
+részletekért nézd meg a (csak angolul elérhető) [API dokumentációt](http://becube.hu/minicrm-documentation/).
 
 ![Simplified class diagram](simplified_class_diagram.png "A MiniCRM
 automatizációs szkriptrendszer egyszerűsített osztálydiagramja")
@@ -551,17 +560,21 @@ felhasználóbarátabbé tegye a rendszert, de ezek a funkcionalitások
 túl kicsik, hogy önállóan értelmezhetőek legyenek a külső felhasználó
 számára. 
 
-A CrmFacade elrejti az [ApiRequest]() osztályt (nincs a képen), a
-[crmrequestfactory]() modult aApiRequest példányoklegyártására, és a
-[RequestHandler]() példányt, ami kommunikál a MiniCRM rendszerrel.
+A CrmFacade elrejti az [ApiRequest](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.apirequest) osztályt (nincs a képen), a
+[crmrequestfactory](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.crmrequestfactory) modult aApiRequest példányoklegyártására, és a
+[RequestHandler](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.requesthandler) példányt, ami kommunikál a MiniCRM rendszerrel.
 
 A RequestHandlert az applikáció készíti el, és a CrmFacade példányba
 a konstruktoron keresztül injektálja be. Hasonlóan, maga az applikáció
 a tulajdonosa a CrmFacade példánynak, és adja azt oda minden
-funkcionalitásnak. Ezt az elvet [Dependency Injection]()-nek hívják,
+funkcionalitásnak. Ezt az elvet [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection)-nek hívják 
+(nem tudjuk hangsúlyozni, hogy milyen szörnyű ez lefordítva, de ha
+magyarul olvasnál róla itt megteheted: "[A függőség befecskendezése]
+(https://hu.wikipedia.org/wiki/A_f%C3%BCgg%C5%91s%C3%A9g_befecskendez%C3%A9se)"),
 és ez esetben az a célja, hogy az applikációnak befolyása legyen arra,
 hogy melyik RequestHandlert használja milyen API adatokkal, így a
-tesztek dönthetnek úgy, hogy a mockolt [RequestHandlerMock]() osztályt
+tesztek dönthetnek úgy, hogy a mockolt [RequestHandlerMock]
+(http://becube.hu/minicrm-documentation/requesthandlermock.html) osztályt
 használják ahelyett, hogy valóban kapcsolódnának a CRM rendszerhez.
 
 A CrmFacade és az összes itt említett segédosztály a minicrm package-ben
@@ -569,7 +582,9 @@ található meg.
 
 ### Egyéb
 
-Néhány modul, például a [commonfunctions]() vagy a [tracing]() nincs
+Néhány modul, például a [commonfunctions]
+(http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.commonfunctions) vagy a 
+[tracing](http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.commonfunctions) nincs
 megemlítve a képen. Ezek szabadonálló függvényeket tartalmaznak, amiket
 különböző szoftverrészek megosztva használnak.
 
@@ -579,11 +594,13 @@ Van néhány másik mappa is. Nem mindegyik része ennek a Git repónak
 (vagyis lehet, hogy itt nem látod őket), viszont legenerálódnak, amikor
 például futtatod a szkriptet, teszteket, vagy dokumentációt generálsz.
 
-* **requesthandlermock** - Ez a [RequestHandler]()
+* **requesthandlermock** - Ez a [RequestHandler]
+(http://becube.hu/minicrm-documentation/minicrm.html#module-minicrm.requesthandler)
 osztály alternatívája, amit tesztelésre használunk. Nem kommunikál a
 valódi CRM rendszerrel, így nem is függ tőle, viszont tudja ellenőrizni,
 hogy a szkriptek az előre beállított, elvárt API requesteket, vagy sem.
-Több részletért nézd meg az [API dokumentációt]()!
+Több részletért nézd meg az [API dokumentációt]
+(http://becube.hu/minicrm-documentation/)!
 * **build** - Kizárólag generált tartalomnak. A jelenlegi beállításban
 a Sphinx ide generálja a html API dokumentációt a doc commentek alapján.
 * **coverage-reports** - Kizárólag generált tartalomnak. A teszt

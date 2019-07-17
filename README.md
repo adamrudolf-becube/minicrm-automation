@@ -1,6 +1,9 @@
 # BeCube MiniCRM automation script system
 
-*Magyar leírásért kattints [ide](#becube-minicrm-automatizációs-szkriptrendszer-magyar-nyelvű-dokumentáció)! / For Hungarian description, click here!*
+*Magyar leírásért kattints 
+[ide](#becube-minicrm-automatizációs-szkriptrendszer-magyar-nyelvű-dokumentáció)! 
+/ For Hungarian description, click
+[here](#becube-minicrm-automatizációs-szkriptrendszer-magyar-nyelvű-dokumentáció)!*
 
 **Note:** the API reference is [here](http://becube.hu/minicrm-documentation/).
 
@@ -303,7 +306,7 @@ If you have any questions, don't hesitate to send it to info@becube.hu!
 *This is the Hungarian version of the documentation and is only the 
 direct translation of the document above this line. Is you prefer to
 read in English, please scroll up to the top of the document, or click
-here. / Ez a magyar nyelvű dokumentáció. A dokumentum ezen része 
+[here](#becube-minicrm-automation-script-system). / Ez a magyar nyelvű dokumentáció. A dokumentum ezen része 
 egyszerűen az eddigiek közvetlen fordítása. A dokumentum innentől
 olvasva teljes értékű magyar nyelvű dokumentációként használható.* 
 

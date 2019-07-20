@@ -5,7 +5,7 @@ import unittest
 
 from expectation import Expectation
 from expectationqueue import ExpectationQueue
-from minicrm.commonfunctions import commaseparated_list_is_subset_of, \
+from minicrm.commonfunctions import commaseparated_list_is_subset_of,\
     all_element_of_commaseparated_list_is_expluded_from
 from minicrm.crmrequestfactory import _, CONTAINS, EXCLUDES
 from minicrm.tracing import stacktrace, trace, pretty_print
@@ -215,35 +215,38 @@ class RequestHandlerMock(unittest.TestCase):
         method_is_same = got_request.get_method() == expected_request.get_method()
 
         if expected_request.get_payload() == _:
-            slogan_is_same = True
+            slogan_is_accepted = True
             payload_is_accepted = True
-
-        elif CONTAINS in expected_request.get_payload().keys() or \
-                EXCLUDES in expected_request.get_payload().keys():
-            slogan_is_same = True
-            payload_is_accepted = True
-
-            if CONTAINS in expected_request.get_payload().keys():
-                for key in expected_request.get_payload()[CONTAINS]:
-                    if not commaseparated_list_is_subset_of(
-                            got_request.get_payload()[key],
-                            expected_request.get_payload()[CONTAINS][key]
-                    ):
-                        payload_is_accepted = False
-
-            if EXCLUDES in expected_request.get_payload().keys():
-                for key in expected_request.get_payload()[EXCLUDES]:
-                    if not all_element_of_commaseparated_list_is_expluded_from(
-                            got_request.get_payload()[key],
-                            expected_request.get_payload()[EXCLUDES][key]
-                    ):
-                        payload_is_accepted = False
 
         else:
-            slogan_is_same = got_request.get_slogan() == expected_request.get_slogan()
-            payload_is_accepted = got_request.get_payload() == expected_request.get_payload()
+            slogan_is_accepted = got_request.get_slogan() == expected_request.get_slogan()
+            payload_is_accepted = True
 
-        return url_is_same and method_is_same and slogan_is_same and payload_is_accepted
+            for key in expected_request.get_payload():
+
+                if key == CONTAINS:
+                    slogan_is_accepted = True
+                    for key in expected_request.get_payload()[CONTAINS]:
+                        if not commaseparated_list_is_subset_of(
+                                got_request.get_payload()[key],
+                                expected_request.get_payload()[CONTAINS][key]
+                        ):
+                            payload_is_accepted = False
+
+                elif key == EXCLUDES:
+                    slogan_is_accepted = True
+                    for key in expected_request.get_payload()[EXCLUDES]:
+                        if not all_element_of_commaseparated_list_is_expluded_from(
+                                got_request.get_payload()[key],
+                                expected_request.get_payload()[EXCLUDES][key]
+                        ):
+                            payload_is_accepted = False
+
+                else:
+                    if expected_request.get_payload()[key] != got_request.get_payload()[key]:
+                        payload_is_accepted = False
+
+        return url_is_same and method_is_same and slogan_is_accepted and payload_is_accepted
 
     def _dict_contains(self, got_payload, to_be_contained):
         pass

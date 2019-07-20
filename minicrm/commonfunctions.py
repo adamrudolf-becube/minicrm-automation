@@ -139,3 +139,57 @@ def date_is_not_less_than(crm_facade, reference_date, offset=0):
 
     return crm_facade.get_today() >= datetime.datetime.strptime(reference_date, DATE_FORMAT) + \
            datetime.timedelta(days=offset)
+
+
+def date_is_not_more_than(crm_facade, reference_date, offset=0):
+    """
+    Compares a given date plus the given offset in days to the date returned by CrmFacade.get_today().
+
+    Example usage:
+
+    .. code-block:: python
+
+      date_is_not_more_than(crm_facade, student_data[EIGTH_OCCASION_DATE_FIELD], -3)
+
+    The code above returns True if today is not more than the 8th occasion of the student stored in student_data minus
+    3 days.
+
+    :param crm_facade: CrmFacade instance storing a date as today.
+
+    :param reference_date: any given date in datetime.datetime format.
+
+    :param offset: integer. Today is compared to reference_date + offset, where offset is given in days.
+    :type int:
+
+    :return: True if the date stored in crm_facade as today is not more than reference_date + offset, False otherwise.
+    """
+
+    return crm_facade.get_today() <= datetime.datetime.strptime(reference_date, DATE_FORMAT) + \
+           datetime.timedelta(days=offset)
+
+
+def commaseparated_list_is_subset_of(input_list, subset_list_testee, separator=', '):
+    """
+    Tests whether all elements of a given commaseparated list is also an element of another sommaseparated list.
+
+    :param input_list: an existing list you would like to test whether a list of elements are contained or not. Elements
+                       need to be separated by separator
+    :type input_list: str
+
+    :param subset_list_testee: a list of elements you want to find in input_list. Elements
+                               need to be separated by separator
+    :type subset_list_testee: str
+
+    :param separator: string which separates elements of both input_list and subset_list_testee. Defaults to ', '
+    :type separator: str
+
+    :return: True if every element of subset_list_testee is also an element of input_list, and False otherwise.
+    """
+    separated_input_list = input_list.split(separator)
+    separated_subset_list_testee = subset_list_testee.split(separator)
+
+    for element in separated_subset_list_testee:
+        if element not in separated_input_list and element != "":
+            return False
+
+    return True

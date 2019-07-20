@@ -7,7 +7,7 @@ __copyright__ = "Adam Rudolf, 2018"
 
 import unittest
 
-from minicrm.commonfunctions import add_element_to_commasep_list, get_key_from_value
+from minicrm.commonfunctions import add_element_to_commasep_list, get_key_from_value, commaseparated_list_is_subset_of
 
 
 class TestAddElementToCommaseparatedList(unittest.TestCase):
@@ -88,3 +88,159 @@ class TestGetKeyFromValue(unittest.TestCase):
 
         with self.assertRaises(ValueError) as cm:
             get_key_from_value(dictionary, "omega")
+
+
+class TestCommaseparatedListIsSubsetOf(unittest.TestCase):
+    """
+    Contains tests for minicrm.commonfunctions.commaseparated_list_is_subset_of()
+    """
+
+    def test_returns_true_for_empty_lists_and_default_separator(self):
+        """When commaseparated_list_is_subset_of is called with two empty stirings and default separator, returns True"""
+        self.assertTrue(commaseparated_list_is_subset_of("", ""))
+
+    def test_returns_true_for_empty_lists_and_nondefault_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with two empty stirings and nondefault separator, returns True
+        """
+        self.assertTrue(commaseparated_list_is_subset_of("", "", "asdf"))
+
+    def test_returns_true_for_single_element_inputlist_and_empty_testee_list_and_default_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with single element input list and empty testee string and
+        default separator, returns True
+        """
+        self.assertTrue(commaseparated_list_is_subset_of("single", ""))
+
+    def test_returns_true_for_single_element_inputlist_and_empty_testee_list_and_nondefault_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with single element input list and empty testee string and
+        nondefault separator, returns True
+        """
+        self.assertTrue(commaseparated_list_is_subset_of("single", "", "asdf"))
+
+    def test_returns_true_for_single_element_inputlist_and_same_testee_list_and_default_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with single element input list and the same testee string and
+        default separator, returns True
+        """
+        self.assertTrue(commaseparated_list_is_subset_of("single", "single"))
+
+    def test_returns_true_for_single_element_inputlist_and_same_testee_list_and_nondefault_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with single element input list and the same testee string and
+        nondefault separator, returns True
+        """
+        self.assertTrue(commaseparated_list_is_subset_of("single", "single", "asdf"))
+
+    def test_returns_true_for_multiple_element_inputlist_and_single_element_testee_list_element_contained_and_default_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with multiple element input list and the one element testee,
+        where the element is contained by the input list and default separator, returns True
+        """
+        self.assertTrue(commaseparated_list_is_subset_of("alpha, beta", "beta"))
+
+    def test_returns_true_for_multiple_element_inputlist_and_single_element_testee_list_element_contained_and_nondefault_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with multiple element input list and the one element testee,
+        where the element is contained by the input list and nondefault separator, returns True
+        """
+        self.assertTrue(commaseparated_list_is_subset_of("alphaasdfbeta", "beta", "asdf"))
+
+    def test_returns_true_for_true_subset_default_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with multiple element input list and the multiple, but less
+        element testee, where all elements are contained by the input list and default separator, returns True
+        """
+        self.assertTrue(commaseparated_list_is_subset_of(
+            "alpha, beta, gamma, delta, epsilon",
+            "delta, epsilon, beta"))
+
+    def test_returns_true_for_true_subset_nondefault_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with multiple element input list and the multiple, but less
+        element testee, where all elements are contained by the input list and nondefault separator, returns True
+        """
+        self.assertTrue(commaseparated_list_is_subset_of(
+            "alpha.beta.gamma.delta.epsilon",
+            "delta.epsilon.beta",
+            "."
+        ))
+
+    def test_returns_true_for_true_equal_lists_default_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with multiple element input list and same testee, and default
+        separator, returns True
+        """
+        self.assertTrue(commaseparated_list_is_subset_of(
+            "alpha, beta, gamma, delta, epsilon",
+            "alpha, beta, gamma, delta, epsilon"))
+
+    def test_returns_true_for_true_equal_lists_nondefault_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with multiple element input list and same testee, and nondefault
+        separator, returns True
+        """
+        self.assertTrue(commaseparated_list_is_subset_of(
+            "alphaEbetaEgammaEdeltaEepsilon",
+            "alphaEbetaEgammaEdeltaEepsilon",
+            "E"
+        ))
+
+    def test_returns_true_for_true_equal_but_unordered_lists_default_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with multiple element input list and same testee, but different
+        order and default separator, returns True
+        """
+        self.assertTrue(commaseparated_list_is_subset_of(
+            "alpha, beta, gamma, delta, epsilon",
+            "gamma, alpha, beta, delta, epsilon"
+        ))
+
+    def test_returns_true_for_true_equal_but_unordered_lists_nondefault_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with multiple element input list and same testee, but different
+        order and nondefault separator, returns True
+        """
+        self.assertTrue(commaseparated_list_is_subset_of(
+            "alphaEbetaEgammaEdeltaEepsilon",
+            "gammaEalphaEbetaEdeltaEepsilon",
+            "E"
+        ))
+
+    def test_returns_false_for_empty_input_list_and_one_element_testee_list(self):
+        """
+        For a one element testee list and empty input list, and default separator, returns false
+        """
+        self.assertFalse(commaseparated_list_is_subset_of("", "element"))
+
+    def test_returns_false_for_empty_input_list_and_one_element_testee_list_nondefault_separator(self):
+        """
+        For a one element testee list and empty input list, and nondefault separator, returns false
+        """
+        self.assertFalse(commaseparated_list_is_subset_of("", "element", "asdf"))
+
+    def test_returns_false_for_one_element_input_list_and_different_one_element_testee_list(self):
+        """
+        For a one element testee list and different one element input list, and default separator, returns false
+        """
+        self.assertFalse(commaseparated_list_is_subset_of("oneelement", "otherelement"))
+
+    def test_returns_false_for_one_element_input_list_and_different_one_element_testee_list_nondefault_separator(self):
+        """
+        For a one element testee list and different one element input list, and nondefault separator, returns false
+        """
+        self.assertFalse(commaseparated_list_is_subset_of("oneelement", "otherelement", "asdf"))
+
+    def test_returns_false_for_one_missing_element(self):
+        """
+        Multiple element input list, multiple element testee list, one testee element is missing, returns false
+        """
+        self.assertFalse(commaseparated_list_is_subset_of("alpha, beta, delta", "alpha, beta, gamma, delta"))
+
+    def test_returns_false_for_one_missing_element_nondefault_separator(self):
+        """
+        Multiple element input list, multiple element testee list, one testee element is missing, returns false,
+        nondefault spearator
+        """
+        self.assertFalse(commaseparated_list_is_subset_of("alpha.beta.delta", "alpha.beta.gamma.delta", "."))

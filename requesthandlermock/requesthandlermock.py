@@ -5,7 +5,9 @@ import unittest
 
 from expectation import Expectation
 from expectationqueue import ExpectationQueue
-from minicrm.crmrequestfactory import _
+from minicrm.commonfunctions import commaseparated_list_is_subset_of, \
+    all_element_of_commaseparated_list_is_expluded_from
+from minicrm.crmrequestfactory import _, CONTAINS, EXCLUDES
 from minicrm.tracing import stacktrace, trace, pretty_print
 
 
@@ -112,6 +114,9 @@ class RequestHandlerMock(unittest.TestCase):
         RequestHandlerMock will pop the expectation queue for every API request and match the got request against the
         next expectation. If any deviation happens, AssertionError will be raised.
 
+        You can use special values in the payload of expected request to let more freedom than direct equality. For
+        those, see documentation of method "match_expectation" of this class.
+
         Expectations can be combined with post-action assertions.
 
         Example usage:
@@ -158,6 +163,27 @@ class RequestHandlerMock(unittest.TestCase):
         payload is equal to minicrm.crmrequestfactory._, payload and slogan is not contributing and only URL and
         method type has to be equal to be considered matching.
 
+        Also, if a field of the payload is a commaseparated list, and you would like to test whether a set of elements
+        are included or excluded, you can wrap that field into minicrm.crmrequestfactory.CONTAIN or
+        minicrm.crmrequestfactory.EXCLUDE fields. These can be combined.
+
+        In this below example test will pass if the listed 4 elements are contained in the "Levelkuldesek" field of the
+        actual request. These elements can be included in any order and any other elements can be included.
+
+        .. code-block:: python
+
+            self.request_handler.expect_request(
+                crmrequestfactory.set_project_data(
+                    FAKE_STUDENT_ID_NUMBER,
+                    {
+                        crmrequestfactory.CONTAINS: {
+                            u"Levelkuldesek": u"1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151"
+                        }
+                    }
+                ),
+                responses_general.XPUT_RESPONSE
+            )
+
         Note: this function is the same as fetch without printing.
 
         :raises: AssertionError if expectation queue is empty or if the next element doesn't match the given request.
@@ -184,11 +210,40 @@ class RequestHandlerMock(unittest.TestCase):
 
     @stacktrace
     def _compare_requests(self, got_request, expected_request):
+
+        url_is_same = got_request.get_url() == expected_request.get_url()
+        method_is_same = got_request.get_method() == expected_request.get_method()
+
         if expected_request.get_payload() == _:
-            return got_request.get_url() == expected_request.get_url() and \
-                   got_request.get_method() == expected_request.get_method()
+            slogan_is_same = True
+            payload_is_accepted = True
+
+        elif CONTAINS in expected_request.get_payload().keys() or \
+                EXCLUDES in expected_request.get_payload().keys():
+            slogan_is_same = True
+            payload_is_accepted = True
+
+            if CONTAINS in expected_request.get_payload().keys():
+                for key in expected_request.get_payload()[CONTAINS]:
+                    if not commaseparated_list_is_subset_of(
+                            got_request.get_payload()[key],
+                            expected_request.get_payload()[CONTAINS][key]
+                    ):
+                        payload_is_accepted = False
+
+            if EXCLUDES in expected_request.get_payload().keys():
+                for key in expected_request.get_payload()[EXCLUDES]:
+                    if not all_element_of_commaseparated_list_is_expluded_from(
+                            got_request.get_payload()[key],
+                            expected_request.get_payload()[EXCLUDES][key]
+                    ):
+                        payload_is_accepted = False
+
         else:
-            return got_request.get_url() == expected_request.get_url() and \
-                   got_request.get_method() == expected_request.get_method() and \
-                   got_request.get_slogan() == expected_request.get_slogan() and \
-                   got_request.get_payload() == expected_request.get_payload()
+            slogan_is_same = got_request.get_slogan() == expected_request.get_slogan()
+            payload_is_accepted = got_request.get_payload() == expected_request.get_payload()
+
+        return url_is_same and method_is_same and slogan_is_same and payload_is_accepted
+
+    def _dict_contains(self, got_payload, to_be_contained):
+        pass

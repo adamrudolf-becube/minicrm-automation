@@ -19,6 +19,22 @@ machinery that the test is expected with any payload. (Keeping in mind that the 
 as well.) 
 """
 
+CONTAINS = "CONTAINS"
+"""
+This is for testing purposes.
+
+Defines a constant to indicate, we don't expect exact match in an expectation, we only would like to have a certain
+list of elements in a commaseparated list included.
+"""
+
+EXCLUDES = "EXCLUDES"
+"""
+This is for testing purposes.
+
+Defines a constant to indicate, we don't expect exact match in an expectation, we only would like to have a certain
+list of elements in a commaseparated list excluded.
+"""
+
 
 def get_schema_for_module_number(module_id):
     """

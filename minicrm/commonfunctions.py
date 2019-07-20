@@ -193,3 +193,30 @@ def commaseparated_list_is_subset_of(input_list, subset_list_testee, separator='
             return False
 
     return True
+
+
+def all_element_of_commaseparated_list_is_expluded_from(input_list, subset_list_testee, separator=', '):
+    """
+    Tests whether all elements of a given commaseparated list is excpluded from another sommaseparated list.
+
+    :param input_list: an existing list you would like to test whether a list of elements are excluded or not. Elements
+                       need to be separated by separator
+    :type input_list: str
+
+    :param subset_list_testee: a list of elements you want to be excluded from input_list. Elements
+                               need to be separated by separator
+    :type subset_list_testee: str
+
+    :param separator: string which separates elements of both input_list and subset_list_testee. Defaults to ', '
+    :type separator: str
+
+    :return: True if none of the elements of subset_list_testee are an element of input_list, and False otherwise.
+    """
+    separated_input_list = input_list.split(separator)
+    separated_subset_list_testee = subset_list_testee.split(separator)
+
+    for element in separated_subset_list_testee:
+        if element in separated_input_list and element != "":
+            return False
+
+    return True

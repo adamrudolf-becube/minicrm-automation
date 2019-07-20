@@ -7,7 +7,10 @@ __copyright__ = "Adam Rudolf, 2018"
 
 import unittest
 
-from minicrm.commonfunctions import add_element_to_commasep_list, get_key_from_value, commaseparated_list_is_subset_of
+from minicrm.commonfunctions import add_element_to_commasep_list,\
+    get_key_from_value,\
+    commaseparated_list_is_subset_of,\
+    all_element_of_commaseparated_list_is_expluded_from
 
 
 class TestAddElementToCommaseparatedList(unittest.TestCase):
@@ -244,3 +247,207 @@ class TestCommaseparatedListIsSubsetOf(unittest.TestCase):
         nondefault spearator
         """
         self.assertFalse(commaseparated_list_is_subset_of("alpha.beta.delta", "alpha.beta.gamma.delta", "."))
+
+
+class TestAllElementOfCommaseparatedListIsExpludedFrom(unittest.TestCase):
+    """
+    Contains tests for minicrm.commonfunctions.all_element_of_commaseparated_list_is_expluded_from()
+    """
+
+    def test_returns_true_for_empty_lists_and_default_separator(self):
+        """When all_element_of_commaseparated_list_is_expluded_from is called with two empty stirings and default
+        separator, returns True"""
+        self.assertTrue(all_element_of_commaseparated_list_is_expluded_from("", ""))
+
+    def test_returns_true_for_empty_lists_and_nondefault_separator(self):
+        """
+        When all_element_of_commaseparated_list_is_expluded_from is called with two empty stirings and nondefault
+        separator, returns True
+        """
+        self.assertTrue(all_element_of_commaseparated_list_is_expluded_from("", "", "asdf"))
+
+    def test_returns_true_for_single_element_inputlist_and_empty_testee_list_and_default_separator(self):
+        """
+        When all_element_of_commaseparated_list_is_expluded_from is called with single element input list and empty
+        testee string and default separator, returns True
+        """
+        self.assertTrue(all_element_of_commaseparated_list_is_expluded_from("single", ""))
+
+    def test_returns_true_for_single_element_inputlist_and_empty_testee_list_and_nondefault_separator(self):
+        """
+        When all_element_of_commaseparated_list_is_expluded_from is called with single element input list and empty
+        testee string and nondefault separator, returns True
+        """
+        self.assertTrue(all_element_of_commaseparated_list_is_expluded_from("single", "", "asdf"))
+
+    def test_returns_false_for_single_element_inputlist_and_same_testee_list_and_default_separator(self):
+        """
+        When all_element_of_commaseparated_list_is_expluded_from is called with single element input list and the same
+        testee string and default separator, returns False
+        """
+        self.assertFalse(all_element_of_commaseparated_list_is_expluded_from("single", "single"))
+
+    def test_returns_false_for_single_element_inputlist_and_same_testee_list_and_nondefault_separator(self):
+        """
+        When all_element_of_commaseparated_list_is_expluded_from is called with single element input list and the same
+        testee string and nondefault separator, returns False
+        """
+        self.assertFalse(all_element_of_commaseparated_list_is_expluded_from("single", "single", "asdf"))
+
+    def test_returns_false_for_multiple_element_inputlist_and_single_element_testee_list_element_contained_and_default_separator(self):
+        """
+        When all_element_of_commaseparated_list_is_expluded_from is called with multiple element input list and the one
+        element testee, where the element is contained by the input list and default separator, returns False
+        """
+        self.assertFalse(all_element_of_commaseparated_list_is_expluded_from("alpha, beta", "beta"))
+
+    def test_returns_false_for_multiple_element_inputlist_and_single_element_testee_list_element_contained_and_nondefault_separator(self):
+        """
+        When all_element_of_commaseparated_list_is_expluded_from is called with multiple element input list and the one
+        element testee, where the element is contained by the input list and nondefault separator, returns False
+        """
+        self.assertFalse(all_element_of_commaseparated_list_is_expluded_from("alphaasdfbeta", "beta", "asdf"))
+
+    def test_returns_false_for_true_subset_default_separator(self):
+        """
+        When all_element_of_commaseparated_list_is_expluded_from is called with multiple element input list and the
+        multiple, but less element testee, where all elements are contained by the input list and default separator,
+        returns False
+        """
+        self.assertFalse(all_element_of_commaseparated_list_is_expluded_from(
+            "alpha, beta, gamma, delta, epsilon",
+            "delta, epsilon, beta"))
+
+    def test_returns_false_for_true_subset_nondefault_separator(self):
+        """
+        When all_element_of_commaseparated_list_is_expluded_from is called with multiple element input list and the
+        multiple, but less element testee, where all elements are contained by the input list and nondefault separator,
+        returns False
+        """
+        self.assertFalse(all_element_of_commaseparated_list_is_expluded_from(
+            "alpha.beta.gamma.delta.epsilon",
+            "delta.epsilon.beta",
+            "."
+        ))
+
+    def test_returns_false_for_true_equal_lists_default_separator(self):
+        """
+        When commaseparatedall_element_of_commaseparated_list_is_expluded_from_list_is_subset_of is called with multiple
+        element input list and same testee, and default separator, returns False
+        """
+        self.assertFalse(all_element_of_commaseparated_list_is_expluded_from(
+            "alpha, beta, gamma, delta, epsilon",
+            "alpha, beta, gamma, delta, epsilon"))
+
+    def test_returns_false_for_true_equal_lists_nondefault_separator(self):
+        """
+        When all_element_of_commaseparated_list_is_expluded_from is called with multiple element input list and same
+        testee, and nondefault separator, returns False
+        """
+        self.assertFalse(all_element_of_commaseparated_list_is_expluded_from(
+            "alphaEbetaEgammaEdeltaEepsilon",
+            "alphaEbetaEgammaEdeltaEepsilon",
+            "E"
+        ))
+
+    def test_returns_false_for_true_equal_but_unordered_lists_default_separator(self):
+        """
+        When all_element_of_commaseparated_list_is_expluded_from is called with multiple element input list and same
+        testee, but different order and default separator, returns False
+        """
+        self.assertFalse(all_element_of_commaseparated_list_is_expluded_from(
+            "alpha, beta, gamma, delta, epsilon",
+            "gamma, alpha, beta, delta, epsilon"
+        ))
+
+    def test_returns_false_for_true_equal_but_unordered_lists_nondefault_separator(self):
+        """
+        When commaseparated_list_is_subset_of is called with multiple element input list and same testee, but different
+        order and nondefault separator, returns False
+        """
+        self.assertFalse(all_element_of_commaseparated_list_is_expluded_from(
+            "alphaEbetaEgammaEdeltaEepsilon",
+            "gammaEalphaEbetaEdeltaEepsilon",
+            "E"
+        ))
+
+    def test_returns_true_for_empty_input_list_and_one_element_testee_list(self):
+        """
+        For a one element testee list and empty input list, and default separator, returns True
+        """
+        self.assertTrue(all_element_of_commaseparated_list_is_expluded_from("", "element"))
+
+    def test_returns_true_for_empty_input_list_and_one_element_testee_list_nondefault_separator(self):
+        """
+        For a one element testee list and empty input list, and nondefault separator, returns True
+        """
+        self.assertTrue(all_element_of_commaseparated_list_is_expluded_from("", "element", "asdf"))
+
+    def test_returns_true_for_one_element_input_list_and_different_one_element_testee_list(self):
+        """
+        For a one element testee list and different one element input list, and default separator, returns True
+        """
+        self.assertTrue(all_element_of_commaseparated_list_is_expluded_from("oneelement", "otherelement"))
+
+    def test_returns_true_for_one_element_input_list_and_different_one_element_testee_list_nondefault_separator(self):
+        """
+        For a one element testee list and different one element input list, and nondefault separator, returns True
+        """
+        self.assertTrue(all_element_of_commaseparated_list_is_expluded_from("oneelement", "otherelement", "asdf"))
+
+    def test_returns_false_for_one_missing_element(self):
+        """
+        Multiple element input list, multiple element testee list, one testee element is missing, returns false
+        """
+        self.assertFalse(
+            all_element_of_commaseparated_list_is_expluded_from("alpha, beta, delta", "alpha, beta, gamma, delta"))
+
+    def test_returns_false_for_one_missing_element_nondefault_separator(self):
+        """
+        Multiple element input list, multiple element testee list, one testee element is missing, returns false,
+        nondefault spearator
+        """
+        self.assertFalse(
+            all_element_of_commaseparated_list_is_expluded_from("alpha.beta.delta", "alpha.beta.gamma.delta", "."))
+
+    def test_empty_input_list_multielement_testee_list_returns_true_nondefault(self):
+        """
+        Multiple element testee list, empty input list returns true with default separator
+        """
+        self.assertTrue(all_element_of_commaseparated_list_is_expluded_from("", "alpha, beta, gamma, delta"))
+
+    def test_empty_input_list_multielement_testee_list_returns_true_nondefault_separator(self):
+        """
+        Multiple element testee list, empty input list returns true with nondefault separator
+        """
+        self.assertTrue(all_element_of_commaseparated_list_is_expluded_from("", "alpha.beta.gamma.delta", "."))
+
+    def test_totally_different_lists_returns_true(self):
+        """
+        Multiple element testee list, multiple element, but totally different input list returns true with default
+        separator
+        """
+        self.assertTrue(all_element_of_commaseparated_list_is_expluded_from("alpha, beta, gamma", "delta, epsilon"))
+
+    def test_totally_different_lists_returns_true_nondefault_separator(self):
+        """
+        Multiple element testee list, multiple element, but totally different input list returns true with nondefault
+        separator
+        """
+        self.assertTrue(all_element_of_commaseparated_list_is_expluded_from("alpha.beta.gamma", "delta.epsilon", "."))
+
+    def test_multiple_element_lists_one_overlap_returns_false(self):
+        """
+        Multiple element testee list, multiple element input list, one common element returns false with default
+        separator
+        """
+        self.assertFalse(
+            all_element_of_commaseparated_list_is_expluded_from("alpha, beta, gamma", "delta, gamma, epsilon"))
+
+    def test_totally_different_lists_returns_true_nondefault_separator(self):
+        """
+        Multiple element testee list, multiple element input list, one common element returns false with nondefault
+        separator
+        """
+        self.assertFalse(
+            all_element_of_commaseparated_list_is_expluded_from("alpha.beta.gamma", "delta.gamma.epsilon", "."))

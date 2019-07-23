@@ -82,7 +82,7 @@ class TestRequestHandlerMock(unittest.TestCase):
         with self.assertRaisesRegexp(AssertionError, "Unexpected command") as cm:
             self.request_handler.match_expectation(crmrequestfactory.get_student(137))
 
-    def test_match_expectation_does_not_raise_when_correct_command_comes(self):
+    def test_match_expectation_does_not_raise_when_correct_command_comes_exact_match(self):
         """
         Given:
             - there is an expectation
@@ -97,6 +97,220 @@ class TestRequestHandlerMock(unittest.TestCase):
             {u"fake": u"fake"}
         )
         self.request_handler.match_expectation(crmrequestfactory.get_student(ARBITRARY_STUDENT_ID))
+
+    def test_match_expectation_does_not_raise_when_correct_command_comes_contains(self):
+        """
+        test_match_expectation_does_not_raise_when_correct_command_comes_contains
+
+        Given:
+            - there is an expectation with crmrequestfactory.CONTAINS
+        When:
+            - request_handler.match_expectation() is called with the next expected command in the queue
+        Then:
+            - no error is raised
+        """
+
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                ARBITRARY_STUDENT_ID,
+                {
+                    crmrequestfactory.CONTAINS: {
+                        u"commaseparated_list": u"alpha, gamma"
+                    }
+                }
+            ),
+            {u"fake": u"fake"}
+        )
+
+        self.request_handler.match_expectation(
+            crmrequestfactory.set_project_data(
+                ARBITRARY_STUDENT_ID,
+                {
+                    u"commaseparated_list": u"alpha, beta, gamma, delta"
+                }
+            )
+        )
+
+    def test_match_expectation_raises_when_incorrect_command_comes_contains(self):
+        """
+        test_match_expectation_raises_when_incorrect_command_comes_contains
+
+        Given:
+            - there is an expectation with crmrequestfactory.OONTAINS
+        When:
+            - request_handler.match_expectation() is called with the next expected command in the queue, which doesn't
+            contain all required elements
+        Then:
+            - AssertionError is raised
+        """
+
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                ARBITRARY_STUDENT_ID,
+                {
+                    crmrequestfactory.CONTAINS: {
+                        u"commaseparated_list": u"alpha, gamma, epsilon"
+                    }
+                }
+            ),
+            {u"fake": u"fake"}
+        )
+
+        with self.assertRaisesRegexp(AssertionError, "Unexpected command") as cm:
+            self.request_handler.match_expectation(
+                crmrequestfactory.set_project_data(
+                    ARBITRARY_STUDENT_ID,
+                    {
+                        u"commaseparated_list": u"alpha, beta, gamma, delta"
+                    }
+                )
+            )
+
+    def test_match_expectation_does_not_raise_when_correct_command_comes_excludes(self):
+        """
+        test_match_expectation_does_not_raise_when_correct_command_comes_excludes
+
+        Given:
+            - there is an expectation with crmrequestfactory.EXCLUDES
+        When:
+            - request_handler.match_expectation() is called with the next expected command in the queue
+        Then:
+            - no error is raised
+        """
+
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                ARBITRARY_STUDENT_ID,
+                {
+                    crmrequestfactory.EXCLUDES: {
+                        u"commaseparated_list": u"epsilon, phi, khi"
+                    }
+                }
+            ),
+            {u"fake": u"fake"}
+        )
+
+        self.request_handler.match_expectation(
+            crmrequestfactory.set_project_data(
+                ARBITRARY_STUDENT_ID,
+                {
+                    u"commaseparated_list": u"alpha, beta, gamma, delta"
+                }
+            )
+        )
+
+    def test_match_expectation_raises_when_incorrect_command_comes_excludes(self):
+        """
+        test_match_expectation_raises_when_incorrect_command_comes_excludes
+
+        Given:
+            - there is an expectation with crmrequestfactory.EXCLUDES
+        When:
+            - request_handler.match_expectation() is called with the next expected command in the queue, which doesn't
+            contxclude all required elements
+        Then:
+            - AssertionError is raised
+        """
+
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                ARBITRARY_STUDENT_ID,
+                {
+                    crmrequestfactory.EXCLUDES: {
+                        u"commaseparated_list": u"alpha, epsilon, phi, khi"
+                    }
+                }
+            ),
+            {u"fake": u"fake"}
+        )
+
+        with self.assertRaisesRegexp(AssertionError, "Unexpected command") as cm:
+            self.request_handler.match_expectation(
+                crmrequestfactory.set_project_data(
+                    ARBITRARY_STUDENT_ID,
+                    {
+                        u"commaseparated_list": u"alpha, beta, gamma, delta"
+                    }
+                )
+            )
+
+    def test_match_expectation_does_not_raise_when_correct_command_comes_includes_excludes(self):
+        """
+        test_match_expectation_does_not_raise_when_correct_command_comes_includes_excludes
+
+        Given:
+            - there is an expectation with mixed crmrequestfactory.EXCLUDES, CONTAINS and exact match
+        When:
+            - request_handler.match_expectation() is called with the next expected command in the queue
+        Then:
+            - no error is raised
+        """
+
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                ARBITRARY_STUDENT_ID,
+                {
+                    u"exact_match": u"exact_element",
+                    crmrequestfactory.CONTAINS: {
+                        u"commaseparated_list": u"alpha, beta"
+                    },
+                    crmrequestfactory.EXCLUDES: {
+                        u"commaseparated_list": u"epsilon, phi, khi"
+                    }
+                }
+            ),
+            {u"fake": u"fake"}
+        )
+
+        self.request_handler.match_expectation(
+            crmrequestfactory.set_project_data(
+                ARBITRARY_STUDENT_ID,
+                {
+                    u"exact_match": u"exact_element",
+                    u"commaseparated_list": u"alpha, beta, gamma, delta"
+                }
+            )
+        )
+
+    def test_match_expectation_raises_when_incorrect_command_comes_includes_excludes_wrong_exact_match(self):
+        """
+        test_match_expectation_raises_when_incorrect_command_comes_contains
+
+        Given:
+            - there is an expectation with mixed crmrequestfactory.EXCLUDES, CONTAINS and exact match
+        When:
+            - request_handler.match_expectation() is called with the next expected command in the queue, with wrong
+            exact match
+        Then:
+            - AssertionError is raised
+        """
+
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                ARBITRARY_STUDENT_ID,
+                {
+                    u"exact_match": u"exact_element",
+                    crmrequestfactory.CONTAINS: {
+                        u"commaseparated_list": u"alpha, beta"
+                    },
+                    crmrequestfactory.EXCLUDES: {
+                        u"commaseparated_list": u"epsilon, phi, khi"
+                    }
+                }
+            ),
+            {u"fake": u"fake"}
+        )
+
+        with self.assertRaisesRegexp(AssertionError, "Unexpected command") as cm:
+            self.request_handler.match_expectation(
+                crmrequestfactory.set_project_data(
+                    ARBITRARY_STUDENT_ID,
+                    {
+                        u"exact_match": u"exact_element_wrong",
+                        u"commaseparated_list": u"alpha, beta, gamma, delta"
+                    }
+                )
+            )
 
     def test_match_expectation_returns_expected_file_path(self):
         """

@@ -247,6 +247,3 @@ class RequestHandlerMock(unittest.TestCase):
                         payload_is_accepted = False
 
         return url_is_same and method_is_same and slogan_is_accepted and payload_is_accepted
-
-    def _dict_contains(self, got_payload, to_be_contained):
-        pass

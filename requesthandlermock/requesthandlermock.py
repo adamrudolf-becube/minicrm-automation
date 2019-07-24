@@ -24,7 +24,7 @@ class RequestHandlerMock(unittest.TestCase):
         connection to any server, instead it returns predefined responses to API requests.
 
         The logic of this class is inspired by Google Test's Google Mock framework
-        (https://github.com/google/googletest/blob/master/googlemock/docs/ForDummies.md). That is, you can set a series
+        (https://github.com/google/googletest). That is, you can set a series
         of expectations before the action itself. In this case you have to "tell the exoected story" with a series of
         expect_request calls, and then call the function under test. Any deviation from the previously defined series of
         requests will end up in an exception.

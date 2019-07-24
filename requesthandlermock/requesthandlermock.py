@@ -138,6 +138,36 @@ class RequestHandlerMock(unittest.TestCase):
                 course_info = self.crm_facade.get_course_by_course_code(wanted_course_code)
                 self.assertEqual(course_info["TanfolyamBetujele"], wanted_course_code)
 
+        Normally URL, request method type, payload and slogan has to be equal when matching expectations, but if
+        payload is equal to minicrm.crmrequestfactory._, payload and slogan is not contributing and only URL and
+        method type has to be equal to be considered matching.
+
+        Also, if a field of the payload is a commaseparated list, and you would like to test whether a set of elements
+        are included or excluded, you can wrap that field into minicrm.crmrequestfactory.CONTAIN or
+        minicrm.crmrequestfactory.EXCLUDE fields. These can be combined.
+
+        In this below example test will pass if 'u"exact_match": u"exact_element"' is exaclty part of the real request,
+        'alpha' and 'beta' are included, and 'epsilon', 'phi', and 'khi' are not indclided in field
+        "commaseparated_list", which is a commaseparated list.
+
+        .. code-block:: python
+
+            self.request_handler.expect_request(
+                crmrequestfactory.set_project_data(
+                    ARBITRARY_STUDENT_ID,
+                    {
+                        u"exact_match": u"exact_element",
+                        crmrequestfactory.CONTAINS: {
+                            u"commaseparated_list": u"alpha, beta"
+                        },
+                        crmrequestfactory.EXCLUDES: {
+                            u"commaseparated_list": u"epsilon, phi, khi"
+                        }
+                    }
+                ),
+                {u"fake": u"fake"}
+            )
+
         :param expected_request: an ApiRequest instance we expect in this place of the sequence.
         :type expected_request: ApiRequest
 
@@ -158,31 +188,6 @@ class RequestHandlerMock(unittest.TestCase):
         The returned dictionary is what has been set by the expect_request if the request matches the next expectation.
 
         Also pops the next element from the expectation queue.
-
-        Normally URL, request method type, payload and slogan has to be equal when matching expectations, but if
-        payload is equal to minicrm.crmrequestfactory._, payload and slogan is not contributing and only URL and
-        method type has to be equal to be considered matching.
-
-        Also, if a field of the payload is a commaseparated list, and you would like to test whether a set of elements
-        are included or excluded, you can wrap that field into minicrm.crmrequestfactory.CONTAIN or
-        minicrm.crmrequestfactory.EXCLUDE fields. These can be combined.
-
-        In this below example test will pass if the listed 4 elements are contained in the "Levelkuldesek" field of the
-        actual request. These elements can be included in any order and any other elements can be included.
-
-        .. code-block:: python
-
-            self.request_handler.expect_request(
-                crmrequestfactory.set_project_data(
-                    FAKE_STUDENT_ID_NUMBER,
-                    {
-                        crmrequestfactory.CONTAINS: {
-                            u"Levelkuldesek": u"1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151"
-                        }
-                    }
-                ),
-                responses_general.XPUT_RESPONSE
-            )
 
         Note: this function is the same as fetch without printing.
 

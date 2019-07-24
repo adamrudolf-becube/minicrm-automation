@@ -1041,6 +1041,62 @@ class TestSendScheduledMails(MiniCrmTestBase):
         )
         send_scheduled_emails(self.crm_facade)
 
+    def test_company_advanced_if_second_break_is_over_dont_send_second_break_email(self):
+        """
+        test_company_advanced_if_second_break_is_over_dont_send_second_break_email
+
+        Given:
+            - there is one active company advanced student
+            - it't not less than second break minus 2 days
+        When:
+            - send_scheduled_emails() is called
+        Then:
+            - second break mail is sent
+        """
+
+        self.crm_facade.set_today(datetime.datetime(2019, 3, 19, 7, 30))
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_COMPANY_ADVANCED_WITH_3_BREAKS
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_ID_NUMBER,
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3"}
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        send_scheduled_emails(self.crm_facade)
+
+    def test_company_advanced_if_third_break_is_over_dont_send_third_break_email(self):
+        """
+        test_company_advanced_if_third_break_is_over_dont_send_third_break_email
+
+        Given:
+            - there is one active company advanced student
+            - it't not less than third break minus 2 days
+        When:
+            - send_scheduled_emails() is called
+        Then:
+            - third break mail is sent
+        """
+
+        self.crm_facade.set_today(datetime.datetime(2019, 3, 29, 7, 30))
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_COMPANY_ADVANCED_WITH_3_BREAKS
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_ID_NUMBER,
+                {
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3"}
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        send_scheduled_emails(self.crm_facade)
+
     def test_company_advanced_send_final_mail_1_day_after_last_occasion(self):
         """
         test_company_advanced_send_final_mail_1_day_after_last_occasion

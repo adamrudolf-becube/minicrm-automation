@@ -8,7 +8,11 @@ BeCube MiniCRM automation project.
 __author__ = "Adam Rudolf"
 __copyright__ = "Adam Rudolf, 2018"
 
-from minicrm.commonfunctions import merge_dicts, date_is_not_less_than, add_element_to_commasep_list
+from minicrm.commonfunctions import \
+    merge_dicts,\
+    date_is_not_less_than,\
+    date_is_not_more_than,\
+    add_element_to_commasep_list
 from minicrm.tracing import stacktrace, trace, pretty_print
 
 COURSE_IN_PROGRESS_STATE = "Kurzus folyamatban"
@@ -100,7 +104,7 @@ def send_scheduled_emails(crm_facade):
 
     - On the same day advanced certification is sent if the student is attending a company advanced course.
 
-    - Mail about free day is sent 2 days before each dayoff.
+    - Mail about free day is sent 2 days before each dayoff. If dayoff is added later, it is not sent.
 
     :param crm_facade: instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.
 
@@ -215,13 +219,16 @@ def send_scheduled_emails(crm_facade):
                     mails_to_send = add_element_to_commasep_list(mails_to_send, CERTIFICATION_MAIL_NAME_ADVANCED)
 
         if student_data[FIRST_DAYOFF_FIELD] != "":
-            if date_is_not_less_than(crm_facade, student_data[FIRST_DAYOFF_FIELD], -2):
+            if date_is_not_less_than(crm_facade, student_data[FIRST_DAYOFF_FIELD], -2) and \
+               date_is_not_more_than(crm_facade, student_data[FIRST_DAYOFF_FIELD]):
                 mails_to_send = add_element_to_commasep_list(mails_to_send, FIRST_DAYOFF_MAIL_NAME)
         if student_data[SECOND_DAYOFF_FIELD] != "":
-            if date_is_not_less_than(crm_facade, student_data[SECOND_DAYOFF_FIELD], -2):
+            if date_is_not_less_than(crm_facade, student_data[SECOND_DAYOFF_FIELD], -2) and \
+               date_is_not_more_than(crm_facade, student_data[SECOND_DAYOFF_FIELD]):
                 mails_to_send = add_element_to_commasep_list(mails_to_send, SECOND_DAYOFF_MAIL_NAME)
         if student_data[THIRD_DAYOFF_FIELD] != "":
-            if date_is_not_less_than(crm_facade, student_data[THIRD_DAYOFF_FIELD], -2):
+            if date_is_not_less_than(crm_facade, student_data[THIRD_DAYOFF_FIELD], -2) and \
+               date_is_not_more_than(crm_facade, student_data[THIRD_DAYOFF_FIELD]):
                 mails_to_send = add_element_to_commasep_list(mails_to_send, THIRD_DAYOFF_MAIL_NAME)
 
         if mails_to_send != mails_to_send_old:

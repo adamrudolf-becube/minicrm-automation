@@ -36,6 +36,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_beginner_date_is_more_than_delta_days_less_than_1st_occasion_do_nothing(self):
         """
+        Beginner date is more then delta days less than 1st occasion do nothing
+
         Given:
             - there is one active beginner student
             - first occasion is more than 3 days away
@@ -53,6 +55,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_beginner_date_is_before_1st_occasion_but_difference_is_less_than_delta_send_first_email(self):
         """
+        test_beginner_date_is_before_1st_occasion_but_difference_is_less_than_delta_send_first_email
+
         Given:
             - there is one active beginner student
             - first occasion os less than 3 days away (but still not spent)
@@ -70,7 +74,11 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151"}
+                {
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"1. alkalom - kezd\u0151"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -78,6 +86,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_beginner_date_is_after_1st_occasion_send_first_email(self):
         """
+        test_beginner_date_is_after_1st_occasion_send_first_email
+
         Given:
             - there is one active beginner student
             - first occasion is spent
@@ -95,7 +105,11 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151"}
+                {
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"1. alkalom - kezd\u0151"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -103,6 +117,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_beginner_if_no_change_in_sent_mails_dont_send_update(self):
         """
+        test_beginner_if_no_change_in_sent_mails_dont_send_update
+
         Given:
             - there is one active beginner student
             - all of the needed mails have been already sent
@@ -121,6 +137,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_beginner_if_no_mails_have_been_sent_but_more_occasions_passed_send_all_relevant_emails(self):
         """
+        test_beginner_if_no_mails_have_been_sent_but_more_occasions_passed_send_all_relevant_emails
+
         Given:
             - there is one active beginner student
             - no mails have been sent
@@ -140,7 +158,10 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
                 {
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151"}
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -148,6 +169,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_beginner_if_second_break_is_coming_send_second_break_email(self):
         """
+        test_beginner_if_second_break_is_coming_send_second_break_email
+
         Given:
             - there is one active beginner student
             - it's not less than two days before second dayoff
@@ -166,7 +189,10 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
                 {
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 1. sz\u00fcnet, 2. sz\u00fcnet"}
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"2. sz\u00fcnet"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -174,6 +200,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_beginner_if_third_break_is_coming_send_third_break_email(self):
         """
+        test_beginner_if_third_break_is_coming_send_third_break_email
+
         Given:
             - there is one active beginner student
             - it's not less than two days before third dayoff
@@ -192,7 +220,10 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
                 {
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"3. sz\u00fcnet"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -200,6 +231,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_send_final_mail_1_day_after_last_occasion(self):
         """
+        test_send_final_mail_1_day_after_last_occasion
+
         Given:
             - there is one active beginner student
             - it's 1 day after last occasion
@@ -218,7 +251,10 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
                 {
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, \u00datraval\u00f3, 1. sz\u00fcnet"}
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"\u00datraval\u00f3"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -226,6 +262,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable(self):
         """
+        test_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable
+
         Given:
             - there is one active beginner student
             - it's last occasion plus 2 days
@@ -247,7 +285,9 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 FAKE_STUDENT_ID_NUMBER,
                 {
                     u"StatusId": u"2743",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, \u00datraval\u00f3, Oklev\u00e9l - kezd\u0151, 1. sz\u00fcnet"
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"Oklev\u00e9l - kezd\u0151"
+                    }
                 }
             ),
             responses_general.XPUT_RESPONSE
@@ -256,6 +296,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_dont_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable(self):
         """
+        test_dont_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable
+
         Given:
             - there is one active beginner student
             - it's last occasion plus 2 days
@@ -277,7 +319,9 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 FAKE_STUDENT_ID_NUMBER,
                 {
                     u"StatusId": u"2743",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, \u00datraval\u00f3, 1. sz\u00fcnet"
+                    crmrequestfactory.EXCLUDES: {
+                        u"Levelkuldesek": u"Oklev\u00e9l - kezd\u0151"
+                    }
                 }
 
             ),
@@ -287,6 +331,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_advanced_date_is_more_than_delta_days_less_than_1st_occasion_do_nothing(self):
         """
+        test_advanced_date_is_more_than_delta_days_less_than_1st_occasion_do_nothing
+
         Given:
             - there is one active advanced student
             - first occasion is more than 3 days away
@@ -304,6 +350,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_advanced_date_is_before_1st_occasion_but_difference_is_less_than_delta_send_first_email(self):
         """
+        test_advanced_date_is_before_1st_occasion_but_difference_is_less_than_delta_send_first_email
+
         Given:
             - there is one active advanced student
             - first occasion os less than 3 days away (but still not spent)
@@ -320,13 +368,18 @@ class TestSendScheduledMails(MiniCrmTestBase):
         )
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(FAKE_STUDENT_ID_NUMBER, {
-                u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}),
+                crmrequestfactory.CONTAINS: {
+                    u"Levelkuldesek": u"1. alkalom - halad\u00f3"}
+                }
+            ),
             responses_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_facade)
 
     def test_advanced_date_is_after_1st_occasion_send_first_email(self):
         """
+        test_advanced_date_is_after_1st_occasion_send_first_email
+
         Given:
             - there is one active advanced student
             - first occasion is spent
@@ -343,13 +396,18 @@ class TestSendScheduledMails(MiniCrmTestBase):
         )
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(FAKE_STUDENT_ID_NUMBER, {
-                u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}),
+                crmrequestfactory.CONTAINS: {
+                    u"Levelkuldesek": u"1. alkalom - halad\u00f3"}
+                }
+            ),
             responses_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_facade)
 
     def test_advanced_if_no_change_in_sent_mails_dont_send_update(self):
         """
+        test_advanced_if_no_change_in_sent_mails_dont_send_update
+
         Given:
             - there is one active advanced student
             - all scheduled emails have been already spent
@@ -368,6 +426,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_advanced_if_no_mails_have_been_sent_but_more_occasions_passed_send_all_relevant_emails(self):
         """
+        test_advanced_if_no_mails_have_been_sent_but_more_occasions_passed_send_all_relevant_emails
+
         Given:
             - there is one active advanced student
             - no emails have been sent out
@@ -385,13 +445,18 @@ class TestSendScheduledMails(MiniCrmTestBase):
         )
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(FAKE_STUDENT_ID_NUMBER, {
-                u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3"}),
+                crmrequestfactory.CONTAINS: {
+                    u"Levelkuldesek": u"1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3"}
+                }
+            ),
             responses_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_facade)
 
     def test_advanced_if_second_break_is_coming_send_second_break_email(self):
         """
+        test_advanced_if_second_break_is_coming_send_second_break_email
+
         Given:
             - there is one active advanced student
             - it's not less than 2 days before the second dayoff
@@ -408,13 +473,18 @@ class TestSendScheduledMails(MiniCrmTestBase):
         )
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(FAKE_STUDENT_ID_NUMBER, {
-                u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet"}),
+                crmrequestfactory.CONTAINS: {
+                    u"Levelkuldesek": u"2. sz\u00fcnet"}
+                }
+            ),
             responses_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_facade)
 
     def test_advanced_if_third_break_is_coming_send_third_break_email(self):
         """
+        test_advanced_if_third_break_is_coming_send_third_break_email
+
         Given:
             - there is one active advanced student
             - it's not less than 2 days before the third dayoff
@@ -433,7 +503,10 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
                 {
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"3. sz\u00fcnet"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -441,6 +514,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_advanced_send_final_mail_1_day_after_last_occasion(self):
         """
+        test_advanced_send_final_mail_1_day_after_last_occasion
+
         Given:
             - there is one active advanced student
             - it's 1 day after last occasion
@@ -459,7 +534,10 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
                 {
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, 1. sz\u00fcnet"}
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"\u00datraval\u00f3 - halad\u00f3"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -467,6 +545,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_advanced_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable(self):
         """
+        test_advanced_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable
+
         Given:
             - there is one active advanced student
             - it's last occasion plus 2 days
@@ -488,7 +568,9 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 FAKE_STUDENT_ID_NUMBER,
                 {
                     u"StatusId": u"2743",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, Oklev\u00e9l - halad\u00f3, 1. sz\u00fcnet"
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"Oklev\u00e9l - halad\u00f3"
+                    }
                 }
             ),
             responses_general.XPUT_RESPONSE
@@ -498,6 +580,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
     def test_advanced_dont_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable(
             self):
         """
+        test_advanced_dont_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable
+
         Given:
             - there is one active advanced student
             - it's last occasion plus 2 days
@@ -519,7 +603,9 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 FAKE_STUDENT_ID_NUMBER,
                 {
                     u"StatusId": u"2743",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, 1. sz\u00fcnet"
+                    crmrequestfactory.EXCLUDES: {
+                        u"Levelkuldesek": u"Oklev\u00e9l - halad\u00f3"
+                    }
                 }
             ),
             responses_general.XPUT_RESPONSE
@@ -528,6 +614,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_beginner_date_is_more_than_delta_days_less_than_1st_occasion_do_nothing(self):
         """
+        test_company_beginner_date_is_more_than_delta_days_less_than_1st_occasion_do_nothing
+
         Given:
             - there is one active company beginner student
             - first occasion is more than 3 days away
@@ -545,6 +633,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_beginner_date_is_before_1st_occasion_but_difference_is_less_than_delta_send_first_email(self):
         """
+        test_company_beginner_date_is_before_1st_occasion_but_difference_is_less_than_delta_send_first_email
+
         Given:
             - there is one active company beginner student
             - first occasion is less than 3 days away, but not spent
@@ -562,7 +652,11 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151"}
+                {
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"1. alkalom - kezd\u0151"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -570,6 +664,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_beginner_date_is_after_1st_occasion_send_first_email(self):
         """
+        test_company_beginner_date_is_after_1st_occasion_send_first_email
+
         Given:
             - there is one active company beginner student
             - first occasion spent
@@ -587,7 +683,11 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151"}
+                {
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"1. alkalom - kezd\u0151"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -595,6 +695,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_beginner_if_no_change_in_sent_mails_dont_send_update(self):
         """
+        test_company_beginner_if_no_change_in_sent_mails_dont_send_update
+
         Given:
             - there is one active company beginner student
             - first occasion spent
@@ -613,6 +715,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_beginner_if_no_mails_have_been_sent_but_more_occasions_passed_send_all_relevant_emails(self):
         """
+        test_company_beginner_if_no_mails_have_been_sent_but_more_occasions_passed_send_all_relevant_emails
+
         Given:
             - there is one active company beginner student
             - no mails have been sent
@@ -632,7 +736,10 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
                 {
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151"}
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -640,6 +747,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_beginner_dont_send_final_mail_1_day_after_last_occasion(self):
         """
+        test_company_beginner_dont_send_final_mail_1_day_after_last_occasion
+
         Given:
             - there is one active company beginner student
             - it's last occasion plus 1 day
@@ -658,7 +767,10 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
                 {
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, 1. sz\u00fcnet"}
+                    crmrequestfactory.EXCLUDES: {
+                        u"Levelkuldesek": u"\u00datraval\u00f3"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -667,6 +779,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
     def test_company_beginner_dont_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable(
             self):
         """
+        test_company_beginner_dont_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable
+
         Given:
             - there is one active company beginner student
             - it's 2 days after last occasion
@@ -688,7 +802,9 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 FAKE_STUDENT_ID_NUMBER,
                 {
                     u"StatusId": u"2743",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, 1. sz\u00fcnet"
+                    crmrequestfactory.EXCLUDES: {
+                        u"Levelkuldesek": u"Oklev\u00e9l - kezd\u0151"
+                    }
                 }
             ),
             responses_general.XPUT_RESPONSE
@@ -698,6 +814,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
     def test_company_beginner_dont_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable(
             self):
         """
+        test_company_beginner_dont_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable
+
         Given:
             - there is one active company beginner student
             - it's 2 days after last occasion
@@ -719,7 +837,9 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 FAKE_STUDENT_ID_NUMBER,
                 {
                     u"StatusId": u"2743",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - kezd\u0151, 2. alkalom - kezd\u0151, 3. alkalom - kezd\u0151, 4. alkalom - kezd\u0151, 5. alkalom - kezd\u0151, 6. alkalom - kezd\u0151, 7. alkalom - kezd\u0151, 8. alkalom - kezd\u0151, 9. alkalom - kezd\u0151, 10. alkalom - kezd\u0151, 1. sz\u00fcnet"
+                    crmrequestfactory.EXCLUDES: {
+                        u"Levelkuldesek": u"Oklev\u00e9l - kezd\u0151"
+                    }
                 }
             ),
             responses_general.XPUT_RESPONSE
@@ -728,6 +848,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_advanced_date_is_more_than_delta_days_less_than_1st_occasion_do_nothing(self):
         """
+        test_company_advanced_date_is_more_than_delta_days_less_than_1st_occasion_do_nothing
+
         Given:
             - there is one active company advanced student
             - fist day is in more than 3 days
@@ -745,6 +867,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_advanced_date_is_before_1st_occasion_but_difference_is_less_than_delta_send_first_email(self):
         """
+        test_company_advanced_date_is_before_1st_occasion_but_difference_is_less_than_delta_send_first_email
+
         Given:
             - there is one active company advanced student
             - fist day is in less than 3 days, but has not spent
@@ -762,7 +886,11 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}
+                {
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"1. alkalom - halad\u00f3"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -770,6 +898,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_advanced_date_is_after_1st_occasion_send_first_email(self):
         """
+        test_company_advanced_date_is_after_1st_occasion_send_first_email
+
         Given:
             - there is one active company advanced student
             - fist day is spent
@@ -787,7 +917,11 @@ class TestSendScheduledMails(MiniCrmTestBase):
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
-                {u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3"}
+                {
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"1. alkalom - halad\u00f3"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -795,6 +929,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_advanced_if_no_change_in_sent_mails_dont_send_update(self):
         """
+        test_company_advanced_if_no_change_in_sent_mails_dont_send_update
+
         Given:
             - there is one active company advanced student
             - all scheduled mails have been already sent
@@ -813,6 +949,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_advanced_if_no_mails_have_been_sent_but_more_occasions_passed_send_all_relevant_emails(self):
         """
+        test_company_advanced_if_no_mails_have_been_sent_but_more_occasions_passed_send_all_relevant_emails
+
         Given:
             - there is one active company advanced student
             - no mails have been sent
@@ -832,7 +970,10 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
                 {
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3"}
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -840,6 +981,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_advanced_if_second_break_is_coming_send_second_break_email(self):
         """
+        test_company_advanced_if_second_break_is_coming_send_second_break_email
+
         Given:
             - there is one active company advanced student
             - it't not less than second break minus 2 days
@@ -858,7 +1001,10 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
                 {
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet"}
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"2. sz\u00fcnet"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -866,6 +1012,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_advanced_if_third_break_is_coming_send_third_break_email(self):
         """
+        test_company_advanced_if_third_break_is_coming_send_third_break_email
+
         Given:
             - there is one active company advanced student
             - it't not less than third break minus 2 days
@@ -884,7 +1032,10 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
                 {
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 1. sz\u00fcnet, 2. sz\u00fcnet, 3. sz\u00fcnet"}
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"3. sz\u00fcnet"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -892,6 +1043,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_company_advanced_send_final_mail_1_day_after_last_occasion(self):
         """
+        test_company_advanced_send_final_mail_1_day_after_last_occasion
+
         Given:
             - there is one active company advanced student
             - it't not less than final occasion minus 1 day
@@ -910,7 +1063,11 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_ID_NUMBER,
                 {
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, 1. sz\u00fcnet"}
+
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"\u00datraval\u00f3 - halad\u00f3"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -919,6 +1076,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
     def test_company_advanced_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable(
             self):
         """
+        test_company_advanced_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable
+
         Given:
             - there is one active company advanced student
             - it's not less than last occasion plus 2 days
@@ -940,7 +1099,9 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 FAKE_STUDENT_ID_NUMBER,
                 {
                     u"StatusId": u"2743",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, Oklev\u00e9l - halad\u00f3, 1. sz\u00fcnet"
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"Oklev\u00e9l - halad\u00f3"
+                    }
                 }
             ),
             responses_general.XPUT_RESPONSE
@@ -949,6 +1110,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
 
     def test_advanced_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable(self):
         """
+        test_advanced_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable
+
         Given:
             - there is one active company advanced student
             - it's not less than last occasion plus 2 days
@@ -970,7 +1133,10 @@ class TestSendScheduledMails(MiniCrmTestBase):
                 FAKE_STUDENT_ID_NUMBER,
                 {
                     u"StatusId": u"2743",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, 1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3, 5. alkalom - halad\u00f3, 6. alkalom - halad\u00f3, 7. alkalom - halad\u00f3, 8. alkalom - halad\u00f3, 9. alkalom - halad\u00f3, 10. alkalom - halad\u00f3, \u00datraval\u00f3 - halad\u00f3, Oklev\u00e9l - halad\u00f3, 1. sz\u00fcnet"}
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"Oklev\u00e9l - halad\u00f3"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -981,6 +1147,8 @@ class TestOkForCertification(MiniCrmTestBase):
 
     def test_no_attendance_no_homework_returns_not_ok(self):
         """
+        test_no_attendance_no_homework_returns_not_ok
+
         Given:
             - student hasn't filed any homework
         When:
@@ -997,6 +1165,8 @@ class TestOkForCertification(MiniCrmTestBase):
 
     def test_full_attendance_full_homework_returns_ok(self):
         """
+        test_full_attendance_full_homework_returns_ok
+
         Given:
             - student filed all homework
             - student attended all occasions
@@ -1015,6 +1185,8 @@ class TestOkForCertification(MiniCrmTestBase):
 
     def test_full_attendance_no_homework_returns_not_ok(self):
         """
+        test_full_attendance_no_homework_returns_not_ok
+
         Given:
             - student attended all occasions
             - student hasn't filed any homework
@@ -1033,6 +1205,8 @@ class TestOkForCertification(MiniCrmTestBase):
 
     def test_no_attendance_full_homework_returns_not_ok(self):
         """
+        test_no_attendance_full_homework_returns_not_ok
+
         Given:
             - student filed all homework
             - student hasn't attended any courses
@@ -1051,6 +1225,8 @@ class TestOkForCertification(MiniCrmTestBase):
 
     def test_full_attendance_one_missing_homework_returns_not_ok(self):
         """
+        test_full_attendance_one_missing_homework_returns_not_ok
+
         Given:
             - one homework is missing
             - student attended all courses
@@ -1069,6 +1245,8 @@ class TestOkForCertification(MiniCrmTestBase):
 
     def test_9_attendance_full_homework_returns_ok(self):
         """
+        test_9_attendance_full_homework_returns_ok
+
         Given:
             - student attended 9 courses
             - student filed all homework
@@ -1087,6 +1265,8 @@ class TestOkForCertification(MiniCrmTestBase):
 
     def test_8_attendance_full_homework_returns_ok(self):
         """
+        test_8_attendance_full_homework_returns_ok
+
         Given:
             - student attended 8 courses
             - student filed all homework
@@ -1105,6 +1285,8 @@ class TestOkForCertification(MiniCrmTestBase):
 
     def test_7_attendance_full_homework_returns_not_ok(self):
         """
+        test_7_attendance_full_homework_returns_not_ok
+
         Given:
             - student attended 7 courses
             - student filed all homework

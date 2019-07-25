@@ -138,6 +138,51 @@ class TestHandleWaitingList(MiniCrmTestBase):
         self.set_participant_number_expectations()
         handle_waiting_list(self.crm_facade)
 
+    def test_student_gets_into_chosen_course_even_if_available_courses_changed(self):
+        """
+        test_student_gets_into_chosen_course_even_if_available_courses_changed
+
+        Given:
+            - there is a student in waiting list
+            - MelyikTanfolyamErdekli and TanfolyamKodja are different
+            - there is one free spot on the wanted course
+        When:
+            - handle_waiting_list() is called
+        Then:
+            - INFO email is sent
+            - "A spot freed up" email is sent
+            - change student's status to "INFO sent"
+            - TanfolyamKodja is considered
+        """
+
+        self.request_handler.expect_request(
+            crmrequestfactory.get_project_list_for_status(WAITING_LIST_STATUS_NUMBER),
+            responses_studentlists.WAITING_LIST_ONE_STUDENT)
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_COURSE_CODE_AND_APPLIED_TO_ARE_DIFFERENT)
+        self.set_participant_number_expectations()
+        self.request_handler.expect_request(
+            crmrequestfactory.get_course_list_by_course_code(FAKE_COURSE_COURSE_CODE),
+            responses_courselists.COURSE_LIST_FOR_COURSE_CODE
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_course(FAKE_COURSE_ID_NUMBER),
+            responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                {
+                    u"StatusId": u"2781",
+                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        self.set_participant_number_expectations()
+        handle_waiting_list(self.crm_facade)
+
+
     def test_there_are_multiple_students_on_waiting_list_and_there_is_one_free_place_put_earlier_student_to_info_sent(
             self):
         """

@@ -17,6 +17,7 @@ import requesthandlermock.responses.general as responses_general
 import requesthandlermock.responses.locationlists as responses_locationlists
 import requesthandlermock.responses.locations as responses_locations
 import requesthandlermock.responses.studentlists as responses_studentlists
+import requesthandlermock.responses.students as responses_studens
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
 
 ARBITRARY_STUDENT_ID = 42
@@ -696,3 +697,36 @@ class TestUpdateHeadcounts(MiniCrmTestBase):
             crmrequestfactory.set_project_data(FAKE_COURSE_ID_NUMBER, {u"AktualisLetszam": 5}),
             responses_general.XPUT_RESPONSE)
         self.crm_facade.update_headcounts()
+
+class TestCopyAppliedCourseToCourseCode(MiniCrmTestBase):
+
+    def test_copy_applied_course_to_course_code(self):
+        """
+        Copy applied course to course code
+
+        Given:
+            - there is a student with different applied to and course code
+        When:
+            - copy_applied_course_to_course_code is called with that student
+        Then:
+            - The applied to course is copied to the course code field of the student
+        """
+        id_field = u"Id"
+        applied_to_field = u"MelyikTanfolyamErdekli"
+        course_code_field = u"TanfolyamKodja"
+
+        student_id = responses_studens.FAKE_STUDENT_COURSE_CODE_AND_APPLIED_TO_ARE_DIFFERENT[id_field]
+        applied_to = responses_studens.FAKE_STUDENT_COURSE_CODE_AND_APPLIED_TO_ARE_DIFFERENT[applied_to_field]
+
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                student_id,
+                {
+                    course_code_field: applied_to
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+
+        self.crm_facade.copy_applied_course_to_course_code(
+            responses_studens.FAKE_STUDENT_COURSE_CODE_AND_APPLIED_TO_ARE_DIFFERENT)

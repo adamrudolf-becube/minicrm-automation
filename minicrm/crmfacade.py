@@ -371,13 +371,33 @@ class CrmFacade:
             crmrequestfactory.raise_task(project_id, comment, deadline, user_id))
 
     @stacktrace
+    def copy_applied_course_to_course_code(self, student_data):
+        """
+        Copies the "MelyikTanfolyamErdekli" field to "TanfolyamKodja".
+
+        Code of the course ("TanfolyamKodja") will be equal to the course they applied to ("MelyikTanfolyamErdekli").
+        This is because the latter one changes every time the registration form on MiniCRM is updated, but this way
+        the course code is saved.
+
+        :param student_data: all of the date about a student as stored in the MiniCRM system.
+        :type student_data: dict
+
+        :return: None
+        """
+        data_to_update = {
+            "TanfolyamKodja": student_data["MelyikTanfolyamErdekli"]
+        }
+
+        trace("DATA TO BE REPLACED:")
+        pretty_print(data_to_update)
+
+        self._request_handler.fetch(crmrequestfactory.set_project_data(student_data["Id"], data_to_update))
+
+
+    @stacktrace
     def fill_student_data(self, student_data, course_data):
         """
         Updates the following data of the student:
-
-        - Code of the course ("TanfolyamKodja") will be equal to the course they applied to ("MelyikTanfolyamErdekli").
-          This is because the latter one changes every time the registration form on MiniCRM is updated, but this way
-          the course code is saved.
 
         - Detailed description of the location (fetched from locations)
 
@@ -413,7 +433,6 @@ class CrmFacade:
         :return: None
         """
         data_to_update = {
-            "TanfolyamKodja": student_data["MelyikTanfolyamErdekli"],
             "TanfolyamTipusa2": course_data["TanfolyamTipusa"],
             "Helyszin2": course_data["Helyszin"],
             "HelyszinReszletesLeiras": self._get_detailed_description_of_location(course_data["Helyszin"]),

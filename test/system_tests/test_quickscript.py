@@ -109,6 +109,13 @@ class TestQuickScript(MiniCrmTestBase):
             responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE
         )
         self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                {u"TanfolyamKodja": u"2019-1-Q"}
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        self.request_handler.expect_request(
             crmrequestfactory.get_location_list_by_location_name(LOCATION_NAME),
             responses_locationlists.LOCATION_LIST_FOR_LOCATION_NAME
         )

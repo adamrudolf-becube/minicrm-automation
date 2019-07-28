@@ -47,6 +47,8 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
     def test_student_is_applied_headcount_is_less_than_the_limit_put_student_to_infosent_update_headcounts_copy_course_data(
             self):
         """
+        test_student_is_applied_headcount_is_less_than_the_limit_put_student_to_infosent_update_headcounts_copy_course_data
+
         Given:
             - one beginner student is in applied ("Jelentkezett") state
             - current headcount is less than maximal headcount. (there is at least one free spot) in the wanted course.)
@@ -77,7 +79,13 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             crmrequestfactory.get_course(FAKE_COURSE_ID_NUMBER),
             responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE
         )
-
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                {u"TanfolyamKodja": u"2019-1-Q"}
+            ),
+            responses_general.XPUT_RESPONSE
+        )
         self.request_handler.expect_request(
             crmrequestfactory.get_location_list_by_location_name(LOCATION_NAME),
             responses_locationlists.LOCATION_LIST_FOR_LOCATION_NAME
@@ -102,6 +110,8 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
     def test_advanced_student_is_applied_headcount_is_less_than_the_limit_put_student_to_infosent_update_headcounts_copy_course_data(
             self):
         """
+        test_advanced_student_is_applied_headcount_is_less_than_the_limit_put_student_to_infosent_update_headcounts_copy_course_data
+
         Given:
             - one advanced student is in applied ("Jelentkezett") state
             - current headcount is less than maximal headcount. (there is at least one free spot) in the wanted course.)
@@ -130,8 +140,15 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         )
         self.request_handler.expect_request(
             crmrequestfactory.get_course(FAKE_COURSE_ID_NUMBER),
-            responses_courses.COURSE_2019_1_Q_ADVANCED_ONE_PLACE_FREE)
-
+            responses_courses.COURSE_2019_1_Q_ADVANCED_ONE_PLACE_FREE
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                {u"TanfolyamKodja": u"2019-1-Q"}
+            ),
+            responses_general.XPUT_RESPONSE
+        )
         self.request_handler.expect_request(
             crmrequestfactory.get_location_list_by_location_name(LOCATION_NAME),
             responses_locationlists.LOCATION_LIST_FOR_LOCATION_NAME
@@ -191,13 +208,14 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
 
     def test_beginner_student_is_applied_headcount_is_not_less_than_the_limit_put_student_to_waiting_list_and_send_mail(self):
         """
+        test_beginner_student_is_applied_headcount_is_not_less_than_the_limit_put_student_to_waiting_list_and_send_mail
+
         Given:
             - one beginner student is in applied ("Jelentkezett") state
-            - current headcount is equal to minimal headcount. (there is no free spot) in the wanted course.)
+            - current headcount is equal to maximal headcount. (there is no free spot) in the wanted course.)
         When:
             - register_new_applicants() is called
         Then:
-            - student's info is filled
             - student is put to waiting list ("Varolistan van") state
             - waiting list mail
             - headcount is updated
@@ -205,36 +223,39 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
 
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(NEW_APPLICANT_STATUS_NUMBER),
-            responses_studentlists.NEW_APPLICANTS_ONE_STUDENT)
+            responses_studentlists.NEW_APPLICANTS_ONE_STUDENT
+        )
+
         self.set_participant_number_expectations()
 
         self.request_handler.expect_request(
             crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
-            responses_students.FAKE_STUDENT)
-
+            responses_students.FAKE_STUDENT
+        )
         self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code(FAKE_COURSE_COURSE_CODE),
             responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
         self.request_handler.expect_request(
             crmrequestfactory.get_course(FAKE_COURSE_ID_NUMBER),
-            responses_courses.COURSE_2019_1_Q_FULL)
-        self.request_handler.expect_request(
-            crmrequestfactory.get_location_list_by_location_name(LOCATION_NAME),
-            responses_locationlists.LOCATION_LIST_FOR_LOCATION_NAME
+            responses_courses.COURSE_2019_1_Q_FULL
         )
         self.request_handler.expect_request(
-            crmrequestfactory.get_location(LOCATION_ID),
-            responses_locations.PANNON_KINCSTAR
-        )
-        self.request_handler.expect_request(
-            crmrequestfactory.set_project_data(FAKE_STUDENT_OTHER_ID_NUMBER, crmrequestfactory._),
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                {u"TanfolyamKodja": u"2019-1-Q"}
+            ),
             responses_general.XPUT_RESPONSE
         )
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_OTHER_ID_NUMBER,
-                {u"StatusId": u"2750", u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, V\u00e1r\u00f3lista"}
+                {
+                    u"StatusId": u"2750",
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"V\u00e1r\u00f3lista"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )
@@ -249,7 +270,6 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
         When:
             - register_new_applicants() is called
         Then:
-            - student's info is filled
             - student is put to waiting list ("Varolistan van") state
             - waiting list mail
             - headcount is updated
@@ -273,21 +293,21 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
             crmrequestfactory.get_course(FAKE_COURSE_ID_NUMBER),
             responses_courses.COURSE_2019_1_Q_ADVANCED_FULL)
         self.request_handler.expect_request(
-            crmrequestfactory.get_location_list_by_location_name(LOCATION_NAME),
-            responses_locationlists.LOCATION_LIST_FOR_LOCATION_NAME
-        )
-        self.request_handler.expect_request(
-            crmrequestfactory.get_location(LOCATION_ID),
-            responses_locations.PANNON_KINCSTAR
-        )
-        self.request_handler.expect_request(
-            crmrequestfactory.set_project_data(FAKE_STUDENT_OTHER_ID_NUMBER, crmrequestfactory._),
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                {u"TanfolyamKodja": u"2019-1-Q"}
+            ),
             responses_general.XPUT_RESPONSE
         )
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_OTHER_ID_NUMBER,
-                {u"StatusId": u"2750", u"Levelkuldesek": u"V\u00e1r\u00f3lista"}
+                {
+                    u"StatusId": u"2750",
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"V\u00e1r\u00f3lista"
+                    }
+                }
             ),
             responses_general.XPUT_RESPONSE
         )

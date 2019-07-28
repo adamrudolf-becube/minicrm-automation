@@ -33,56 +33,74 @@ ADVANCED_INFO_MAIL_NAME = "Haladó INFO levél"
 
 
 @stacktrace
-def send_initial_letter(crm_facade, student_data, course_data):
+def send_waiting_list_letter(crm_facade, student_data, course_data):
+    """
+    This function sends the waiting list email to the given student.
+
+    This mail is information about that the student got to waiting list.
+
+    :param crm_facade: instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.
+    :type crm_facade: CrmFacade
+
+    :param student_data: full JSON array of a student as stored in the MiniCRM system.
+    :type student_data: dict
+    """
+    update_data = {}
+
+    trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO WAITING LIST.".
+          format(course_data[CURRENT_HEADCOUNT_FIELD], course_data[MAX_HEADCOUNT_FIELD]))
+
+    update_data[MAILS_TO_SEND_FIELD] = add_element_to_commasep_list(
+        student_data[MAILS_TO_SEND_FIELD],
+        WAITING_LIST_MAIL_NAME
+    )
+
+    update_data[STATUS_ID_FIELD] = crm_facade.get_student_status_number_by_name(WAITING_LIST_STATE)
+
+    trace("DATA TO UPDATE:")
+    pretty_print(update_data)
+
+    crm_facade.set_student_data(student_data[STUDENT_ID_FIELD], update_data)
+
+
+@stacktrace
+def send_initial_info_letter(crm_facade, student_data, course_data):
     """
     This function sends the first response to the given student.
 
-    This mail can be information about the course or a mail that the student got to waiting list. The function assembles
+    This mail is information about the course. The function assembles
     the initial mail by fetching information about the course and the location. Based on the course data this function
     also decides whether it has to be a beginner or an advanced INFO mail.
 
     :param crm_facade: instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.
+    :type crm_facade: CrmFacade
 
     :param student_data: full JSON array of a student as stored in the MiniCRM system.
-
-    :param student_data: full JSON array of a course as stored in the MiniCRM system.
+    :type student_data: dict
 
     :return: None
     """
+
     update_data = {}
 
-    if course_data[CURRENT_HEADCOUNT_FIELD] >= course_data[MAX_HEADCOUNT_FIELD]:
+    trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO COURSE.".
+          format(course_data[CURRENT_HEADCOUNT_FIELD], course_data[MAX_HEADCOUNT_FIELD]))
 
-        trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO WAITING LIST.".
-              format(course_data[CURRENT_HEADCOUNT_FIELD], course_data[MAX_HEADCOUNT_FIELD]))
+    trace("TYPE OF COURSE IS: [{}] ".format(course_data[COURSE_TYPE_FIELD]))
 
+    if course_data[COURSE_TYPE_FIELD] == BEGINNER_COURSE_TYPE:
         update_data[MAILS_TO_SEND_FIELD] = add_element_to_commasep_list(
             student_data[MAILS_TO_SEND_FIELD],
-            WAITING_LIST_MAIL_NAME
+            BEGINNER_INFO_MAIL_NAME
         )
 
-        update_data[STATUS_ID_FIELD] = crm_facade.get_student_status_number_by_name(WAITING_LIST_STATE)
+    elif course_data[COURSE_TYPE_FIELD] == ADVANCED_COURSE_TYPE:
+        update_data[MAILS_TO_SEND_FIELD] = add_element_to_commasep_list(
+            student_data[MAILS_TO_SEND_FIELD],
+            ADVANCED_INFO_MAIL_NAME
+        )
 
-    else:
-
-        trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO COURSE.".
-              format(course_data[CURRENT_HEADCOUNT_FIELD], course_data[MAX_HEADCOUNT_FIELD]))
-
-        trace("TYPE OF COURSE IS: [{}] ".format(course_data[COURSE_TYPE_FIELD]))
-
-        if course_data[COURSE_TYPE_FIELD] == BEGINNER_COURSE_TYPE:
-            update_data[MAILS_TO_SEND_FIELD] = add_element_to_commasep_list(
-                student_data[MAILS_TO_SEND_FIELD],
-                BEGINNER_INFO_MAIL_NAME
-            )
-
-        elif course_data[COURSE_TYPE_FIELD] == ADVANCED_COURSE_TYPE:
-            update_data[MAILS_TO_SEND_FIELD] = add_element_to_commasep_list(
-                student_data[MAILS_TO_SEND_FIELD],
-                ADVANCED_INFO_MAIL_NAME
-            )
-
-        update_data[STATUS_ID_FIELD] = crm_facade.get_student_status_number_by_name(INFO_SENT_STATE)
+    update_data[STATUS_ID_FIELD] = crm_facade.get_student_status_number_by_name(INFO_SENT_STATE)
 
     trace("DATA TO UPDATE:")
     pretty_print(update_data)
@@ -129,10 +147,7 @@ def register_new_applicants(crm_facade):
         trace("\nGET COURSE DATA BASED ON COURSE CODE\n")
 
         course_data = crm_facade.get_course_by_course_code(course_code)
-        if course_data:
-            crm_facade.fill_student_data(student_data, course_data)
-            send_initial_letter(crm_facade, student_data, course_data)
-        else:
+        if not course_data:
             crm_facade.raise_task(
                 student,
                 """Érvénytelen kurzuskód: [{}].
@@ -154,3 +169,12 @@ def register_new_applicants(crm_facade):
                 Az adatok korrigálása után a rendszer automatiksuan megteszi a szokásos lépéseket, így ne küldj manuálisan INFO levelet, és ne változtasd meg a jelentkező státásuzát, mert az elronthatja a folyamatot!
                 """.format(student_data["MelyikTanfolyamErdekli"]),
                 (crm_facade.get_today() + datetime.timedelta(days=3)).__str__())
+            return
+
+        crm_facade.copy_applied_course_to_course_code(student_data)
+
+        if course_data[CURRENT_HEADCOUNT_FIELD] >= course_data[MAX_HEADCOUNT_FIELD]:
+            send_waiting_list_letter(crm_facade, student_data, course_data)
+        else:
+            crm_facade.fill_student_data(student_data, course_data)
+            send_initial_info_letter(crm_facade, student_data, course_data)

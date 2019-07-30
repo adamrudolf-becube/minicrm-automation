@@ -33,7 +33,8 @@ def handle_waiting_list(crm_facade):
 
     Loops through all of the students in the waiting list and if there is
     free space in their course, it sends them the INFO letter and changes their
-    status to INO sent. Also updates the headcounts of courses.
+    status to INFO sent. Also copies all necessary data from the course to the student, and sends
+     an additional mail that one spot has freed up, and updates the headcounts of courses.
 
     Students will get to the courses in the order of original application.
 

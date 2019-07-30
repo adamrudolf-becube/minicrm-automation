@@ -9,7 +9,7 @@ __copyright__ = "Adam Rudolf, 2018"
 import datetime
 
 import crmrequestfactory
-from commonfunctions import get_key_from_value, merge_dicts
+from commonfunctions import get_key_from_value, merge_dicts, copy_dates_from_course_data_to_student_data
 from tracing import stacktrace, trace, pretty_print
 
 STUDENTS_MODULE_NAME = "Jelentkezés"
@@ -128,6 +128,21 @@ class CrmFacade:
         """
 
         return self._query_project_list_with_status_id(self.get_student_status_number_by_name(status))
+
+    @stacktrace
+    def get_student_list_for_course_code(self, course_code):
+        """
+        Returns all students who is enrolled to a given course.
+
+        :param course_code: code of the given course, e.g. "2019-4-Q"
+        :type course_code: str
+
+        :return: the students with the given course. Key is the ID number.
+        :rtype: dict
+        """
+
+        return self._request_handler.fetch(
+            crmrequestfactory.get_student_list_by_course_code(course_code))[RESULTS_FIELD]
 
     @stacktrace
     def get_student_status_number_by_name(self, status_name):
@@ -393,7 +408,6 @@ class CrmFacade:
 
         self._request_handler.fetch(crmrequestfactory.set_project_data(student_data["Id"], data_to_update))
 
-
     @stacktrace
     def fill_student_data(self, student_data, course_data):
         """
@@ -437,29 +451,53 @@ class CrmFacade:
             "Helyszin2": course_data["Helyszin"],
             "HelyszinReszletesLeiras": self._get_detailed_description_of_location(course_data["Helyszin"]),
             "OrakIdopontja2": course_data["OrakIdopontja"],
-            "N1Alkalom": course_data["ElsoAlkalom"],
-            "N2Alkalom2": course_data["N2Alkalom"],
-            "N3Alkalom2": course_data["N3Alkalom"],
-            "N4Alkalom2": course_data["N4Alkalom"],
-            "N5Alkalom2": course_data["N5Alkalom"],
-            "N6Alkalom2": course_data["N6Alkalom"],
-            "N7Alkalom2": course_data["N7Alkalom"],
-            "N8Alkalom2": course_data["N8Alkalom"],
-            "N9Alkalom2": course_data["N9Alkalom"],
-            "N10Alkalom2": course_data["N10Alkalom"],
-            "N2SzunetOpcionalis2": course_data["N1SzunetOpcionalis"],
-            "N2SzunetOpcionalis3": course_data["N2SzunetOpcionalis"],
-            "N3SzunetOpcionalis2": course_data["N3SzunetOpcionalis"],
             "VeglegesitesiHatarido": self._get_application_deadline(course_data),
+
             "Datumleirasok": self._get_date_description(course_data)
         }
+
+        data_to_update = copy_dates_from_course_data_to_student_data(data_to_update, course_data)
 
         trace("DATA TO BE REPLACED:")
         pretty_print(data_to_update)
 
         self._request_handler.fetch(crmrequestfactory.set_project_data(student_data["Id"], data_to_update))
 
+    @stacktrace
+    def update_student_dates(self, student_id, course_data):
+        """
+        The following will be copied from the course data:
+
+        - Date of every lecture
+
+        - Date of every dayoffs
+
+        The following will be calculated:
+
+        - Date descriptions. This is one string containing all of the lectures and vacations, directly insertable to
+          emails.
+
+        :param student_id: id number of the student as a string.
+        :type student_id: str
+
+        :param course_data: all of the date about a course the student has applied to as stored in the MiniCRM system.
+        :type course_data: dict
+
+        :return: None
+        """
+        data_to_update = {
+            "Datumleirasok": self._get_date_description(course_data)
+        }
+
+        data_to_update = copy_dates_from_course_data_to_student_data(data_to_update, course_data)
+
+        trace("DATA TO BE REPLACED:")
+        pretty_print(data_to_update)
+
+        self._request_handler.fetch(crmrequestfactory.set_project_data(student_id, data_to_update))
+
     # Private methods --------------------------------------------------------------------------------------------------
+
 
     @stacktrace
     def _set_project_data(self, student, data):

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 This module contains all of the tests and requirements for the functionality called handlewaitinglist
 """
@@ -10,6 +11,8 @@ import requesthandlermock.responses.courses as responses_courses
 import requesthandlermock.responses.general as responses_general
 import requesthandlermock.responses.studentlists as responses_studentlists
 import requesthandlermock.responses.students as responses_students
+import requesthandlermock.responses.locationlists as responses_locationlists
+import requesthandlermock.responses.locations as responses_locations
 from functionalities.handlewaitinglist import handle_waiting_list
 from minicrm import crmrequestfactory
 from test.unit_tests.minicrmtestbase import MiniCrmTestBase
@@ -24,12 +27,16 @@ FAKE_STUDENT_SIXTH_ID_NUMBER = 2799
 FAKE_STUDENT_APPLIED_LATER_ID_NUMBER = 2796
 FAKE_COURSE_COURSE_CODE = "2019-1-Q"
 FAKE_COURSE_ID_NUMBER = 1164
+FAKE_LOCATION_ID = 19
+LOCATION_NAME = u"Pannon Kincstár"
 
 
 class TestHandleWaitingList(MiniCrmTestBase):
 
     def test_there_is_one_student_on_waiting_list_but_there_are_no_free_places_do_nothing(self):
         """
+        test_there_is_one_student_on_waiting_list_but_there_are_no_free_places_do_nothing
+
         Given:
             - there is a student in waiting list
             - there is no free spot on the wanted course
@@ -59,6 +66,8 @@ class TestHandleWaitingList(MiniCrmTestBase):
 
     def test_there_are_multiple_students_on_waiting_list_but_there_are_no_free_places_do_nothing(self):
         """
+        test_there_are_multiple_students_on_waiting_list_but_there_are_no_free_places_do_nothing
+
         Given:
             - there are multiple students in waiting list
             - there is no free spot on the wanted course
@@ -100,6 +109,8 @@ class TestHandleWaitingList(MiniCrmTestBase):
 
     def test_there_is_one_student_on_waiting_list_and_there_is_one_free_place_put_student_to_info_sent(self):
         """
+        test_there_is_one_student_on_waiting_list_and_there_is_one_free_place_put_student_to_info_sent
+
         Given:
             - there is a student in waiting list
             - there is one free spot on the wanted course
@@ -125,12 +136,39 @@ class TestHandleWaitingList(MiniCrmTestBase):
         self.request_handler.expect_request(
             crmrequestfactory.get_course(FAKE_COURSE_ID_NUMBER),
             responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
+
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_OTHER_ID_NUMBER,
                 {
-                    u"StatusId": u"2781",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
+                    u"Levelkuldesek": u"Felszabadult egy hely"
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location_list_by_location_name(LOCATION_NAME),
+            responses_locationlists.LOCATION_LIST_FOR_LOCATION_NAME
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location(FAKE_LOCATION_ID),
+            responses_locations.PANNON_KINCSTAR
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                crmrequestfactory._
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                {
+                    "StatusId": "2781",
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l"
+                    }
                 }
             ),
             responses_general.XPUT_RESPONSE
@@ -169,23 +207,52 @@ class TestHandleWaitingList(MiniCrmTestBase):
         self.request_handler.expect_request(
             crmrequestfactory.get_course(FAKE_COURSE_ID_NUMBER),
             responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
+
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_OTHER_ID_NUMBER,
                 {
-                    u"StatusId": u"2781",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
+                    u"Levelkuldesek": u"Felszabadult egy hely"
                 }
             ),
             responses_general.XPUT_RESPONSE
         )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location_list_by_location_name(LOCATION_NAME),
+            responses_locationlists.LOCATION_LIST_FOR_LOCATION_NAME
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location(FAKE_LOCATION_ID),
+            responses_locations.PANNON_KINCSTAR
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                crmrequestfactory._
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                {
+                    "StatusId": "2781",
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l"
+                    }
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+
         self.set_participant_number_expectations()
         handle_waiting_list(self.crm_facade)
-
 
     def test_there_are_multiple_students_on_waiting_list_and_there_is_one_free_place_put_earlier_student_to_info_sent(
             self):
         """
+        test_there_are_multiple_students_on_waiting_list_and_there_is_one_free_place_put_earlier_student_to_info_sent
+
         Given:
             - there are two students in waiting list
             - there is one free spot on the wanted course
@@ -217,12 +284,39 @@ class TestHandleWaitingList(MiniCrmTestBase):
         self.request_handler.expect_request(
             crmrequestfactory.get_course(FAKE_COURSE_ID_NUMBER),
             responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
+
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_OTHER_ID_NUMBER,
                 {
-                    u"StatusId": u"2781",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
+                    u"Levelkuldesek": u"Felszabadult egy hely"
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location_list_by_location_name(LOCATION_NAME),
+            responses_locationlists.LOCATION_LIST_FOR_LOCATION_NAME
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location(FAKE_LOCATION_ID),
+            responses_locations.PANNON_KINCSTAR
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                crmrequestfactory._
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                {
+                    "StatusId": "2781",
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l"
+                    }
                 }
             ),
             responses_general.XPUT_RESPONSE
@@ -242,6 +336,8 @@ class TestHandleWaitingList(MiniCrmTestBase):
     def test_there_are_multiple_students_on_waiting_list_and_there_are_two_free_places_put_both_students_to_info_sent(
             self):
         """
+        test_there_are_multiple_students_on_waiting_list_and_there_are_two_free_places_put_both_students_to_info_sent
+
         Given:
             - there are two students in waiting list
             - there are two free spots on the wanted course
@@ -256,33 +352,66 @@ class TestHandleWaitingList(MiniCrmTestBase):
 
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(WAITING_LIST_STATUS_NUMBER),
-            responses_studentlists.WAITING_LIST_TWO_STUDENTS)
+            responses_studentlists.WAITING_LIST_TWO_STUDENTS
+        )
         self.request_handler.expect_request(
             crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
-            responses_students.FAKE_STUDENT)
+            responses_students.FAKE_STUDENT
+        )
         self.request_handler.expect_request(
             crmrequestfactory.get_student(FAKE_STUDENT_APPLIED_LATER_ID_NUMBER),
-            responses_students.FAKE_STUDENT_APPLIED_LATER)
+            responses_students.FAKE_STUDENT_APPLIED_LATER
+        )
         self.set_participant_number_expectations()
+
         self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code(FAKE_COURSE_COURSE_CODE),
             responses_courselists.COURSE_LIST_FOR_COURSE_CODE
         )
         self.request_handler.expect_request(
             crmrequestfactory.get_course(FAKE_COURSE_ID_NUMBER),
-            responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE)
+            responses_courses.COURSE_2019_1_Q_ONE_PLACE_FREE
+        )
 
         self.request_handler.expect_request(
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_OTHER_ID_NUMBER,
                 {
-                    u"StatusId": u"2781",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
+                    u"Levelkuldesek": u"Felszabadult egy hely"
                 }
             ),
             responses_general.XPUT_RESPONSE
         )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location_list_by_location_name(LOCATION_NAME),
+            responses_locationlists.LOCATION_LIST_FOR_LOCATION_NAME
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location(FAKE_LOCATION_ID),
+            responses_locations.PANNON_KINCSTAR
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                crmrequestfactory._
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                {
+                    "StatusId": "2781",
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l"
+                    }
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+
         self.set_participant_number_expectations()
+
         self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code(FAKE_COURSE_COURSE_CODE),
             responses_courselists.COURSE_LIST_FOR_COURSE_CODE
@@ -296,18 +425,47 @@ class TestHandleWaitingList(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_THIRD_ID_NUMBER,
                 {
-                    u"StatusId": u"2781",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
+                    u"Levelkuldesek": u"Felszabadult egy hely"
                 }
             ),
             responses_general.XPUT_RESPONSE
         )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location_list_by_location_name(LOCATION_NAME),
+            responses_locationlists.LOCATION_LIST_FOR_LOCATION_NAME
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location(FAKE_LOCATION_ID),
+            responses_locations.PANNON_KINCSTAR
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_THIRD_ID_NUMBER,
+                crmrequestfactory._
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_THIRD_ID_NUMBER,
+                {
+                    u"StatusId": u"2781",
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l"
+                    }
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+
         self.set_participant_number_expectations()
         handle_waiting_list(self.crm_facade)
 
     def test_there_are_5_students_on_the_waiting_list_and_there_are_two_free_places_put_the_earliest_two_to_info_sent(
             self):
         """
+        test_there_are_5_students_on_the_waiting_list_and_there_are_two_free_places_put_the_earliest_two_to_info_sent
+
         Given:
             - there are 5 students in waiting list
             - there are two free spots on the wanted course
@@ -354,12 +512,40 @@ class TestHandleWaitingList(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_OTHER_ID_NUMBER,
                 {
-                    u"StatusId": u"2781",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
+                    u"Levelkuldesek": u"Felszabadult egy hely"
                 }
             ),
             responses_general.XPUT_RESPONSE
         )
+
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location_list_by_location_name(LOCATION_NAME),
+            responses_locationlists.LOCATION_LIST_FOR_LOCATION_NAME
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location(FAKE_LOCATION_ID),
+            responses_locations.PANNON_KINCSTAR
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                crmrequestfactory._
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_OTHER_ID_NUMBER,
+                {
+                    u"StatusId": u"2781",
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l"
+                    }
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+
         self.set_participant_number_expectations()
         self.request_handler.expect_request(
             crmrequestfactory.get_course_list_by_course_code(FAKE_COURSE_COURSE_CODE),
@@ -374,8 +560,34 @@ class TestHandleWaitingList(MiniCrmTestBase):
             crmrequestfactory.set_project_data(
                 FAKE_STUDENT_THIRD_ID_NUMBER,
                 {
+                    u"Levelkuldesek": u"Felszabadult egy hely"
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location_list_by_location_name(LOCATION_NAME),
+            responses_locationlists.LOCATION_LIST_FOR_LOCATION_NAME
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.get_location(FAKE_LOCATION_ID),
+            responses_locations.PANNON_KINCSTAR
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_THIRD_ID_NUMBER,
+                crmrequestfactory._
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_THIRD_ID_NUMBER,
+                {
                     u"StatusId": u"2781",
-                    u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l, Felszabadult egy hely"
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"Kezd\u0151 INFO lev\u00e9l"
+                    }
                 }
             ),
             responses_general.XPUT_RESPONSE

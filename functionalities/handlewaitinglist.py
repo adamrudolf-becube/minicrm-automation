@@ -10,6 +10,7 @@ __copyright__ = "Adam Rudolf, 2018"
 
 from minicrm.commonfunctions import add_element_to_commasep_list
 from minicrm.tracing import stacktrace, trace, pretty_print
+from subfunctionalities.enrollstudenttocourse import enroll_student_to_course
 
 WAITING_LIST_STATE = "Várólistán van"
 INFO_SENT_STATE = "INFO levél kiment"
@@ -67,27 +68,26 @@ def handle_waiting_list(crm_facade):
         is_there_free_spot = (course_data[MAX_HEADCOUNT_FIELD] - course_data[CURRENT_HEADCOUNT_FIELD]) > 0
 
         if is_there_free_spot:
-            update_data = {}
-
-            trace("ACTUAL HEADCOUNT: [{}], MAXIMAL: [{}]. STUDENT GOT TO COURSE.".
-                  format(course_data[CURRENT_HEADCOUNT_FIELD], course_data[MAX_HEADCOUNT_FIELD]))
-
-            update_data[MAILS_TO_SEND_FIELD] = add_element_to_commasep_list(
-                student_data[MAILS_TO_SEND_FIELD],
-                BEGINNER_INFO_MAIL_NAME
-            )
-
-            # TODO why only beginner?
-            update_data[MAILS_TO_SEND_FIELD] = add_element_to_commasep_list(
-                update_data[MAILS_TO_SEND_FIELD],
-                ONE_PLACE_FREED_UP_MAIL_NAME
-            )
-
-            update_data[STATUS_ID_FIELD] = crm_facade.get_student_status_number_by_name(INFO_SENT_STATE)
-
-            trace("DATA TO UPDATE:")
-            pretty_print(update_data)
-
-            crm_facade.set_student_data(student_data[STUDENT_ID_FIELD], update_data)
+            send_one_spot_freed_up_mail(crm_facade, student_data)
+            enroll_student_to_course(crm_facade, student_data, course_data)
 
     crm_facade.update_headcounts()
+
+
+@stacktrace
+def send_one_spot_freed_up_mail(crm_facade, student_data):
+    """
+    Gets a student and triggers sending the "One place freed up in your course" email in the MiniCRM system.
+
+    :param crm_facade: instance of the CrmFacade class this functionality will use to communicate with a MiniCRM system.
+    :type crm_facade: CrmFacade
+
+    :param student_data: full JSON array of a student as stored in the MiniCRM system.
+    :type student_data: dict
+
+    :return: None
+    """
+
+    update_data = {}
+    update_data[MAILS_TO_SEND_FIELD] = ONE_PLACE_FREED_UP_MAIL_NAME
+    crm_facade.set_student_data(student_data[STUDENT_ID_FIELD], update_data)

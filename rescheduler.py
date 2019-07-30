@@ -19,18 +19,16 @@ system_id, api_key = load_api_info(API_INFO_JSON_FILE)
 
 def run(crm_facade, course_code):
     """
-    Calling this function will execute 3 of the functionalities:
-        - clean_info_sent
-        - handle_waiting_list
-        - register_new_applicants
+    Gets all students for a given course, reads the dates of the course, and copies it to the student data of all.
 
-    For more details, see the documentation of those.
-
-    This one is intended to be run frequently, for example once in every 10-15 minutes to make initial feedback faster.
-    Please note that other factors also influence how fast the student gets their first reply.
+    Sometimes course dates change even after many students have been enrolled to it. Students keep a copy of the
+    course dates, but it doesn't get automatically updated, so an additional action is needed. This is for that.
 
     :param crm_facade: the CrmFacade instance this script is using for communication with a MiniCRM system.
     :type crm_facade: CrmFacade
+
+    :param course_code: the code of the course where the dates changed recently, for example "2019-4-Q"
+    :type course_code: str
 
     :return: None
     """

@@ -17,7 +17,7 @@ TRACING = True
 """Global variable to turn tracing on/off."""
 
 
-# TRACING = False
+#TRACING = False
 
 
 def indent(txt):
@@ -127,7 +127,7 @@ def pretty_print(json_array):
     Doesn't print anything if TRACING is set to False.
 
     :param json_array: the JSON array as a minified string without whitespaces
-    :type json_array: str
+    :type json_array: dict
 
     :return: None
     """

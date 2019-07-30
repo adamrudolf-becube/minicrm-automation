@@ -220,3 +220,36 @@ def all_element_of_commaseparated_list_is_expluded_from(input_list, subset_list_
             return False
 
     return True
+
+
+def copy_dates_from_course_data_to_student_data(student_data, course_data):
+    """
+    Copies the 10 date fields and 3 dayoff fields from the course data to the corresponding fields of student_data,
+
+    Any existing fields of student_data will be untouched. The new student_data is returned.
+
+    :param student_data: full or partial JSON array of a student in MiniCRM system as Python dict.
+    :type student_data: dict
+
+    :param course_data: full JSON array of a course in MiniCRM system as Python dict.
+    :type course_data: dict
+
+    :return:
+    :type return: dict
+    """
+
+    student_data["N1Alkalom"] = course_data["ElsoAlkalom"]
+    student_data["N2Alkalom2"] = course_data["N2Alkalom"]
+    student_data["N3Alkalom2"] = course_data["N3Alkalom"]
+    student_data["N4Alkalom2"] = course_data["N4Alkalom"]
+    student_data["N5Alkalom2"] = course_data["N5Alkalom"]
+    student_data["N6Alkalom2"] = course_data["N6Alkalom"]
+    student_data["N7Alkalom2"] = course_data["N7Alkalom"]
+    student_data["N8Alkalom2"] = course_data["N8Alkalom"]
+    student_data["N9Alkalom2"] = course_data["N9Alkalom"]
+    student_data["N10Alkalom2"] = course_data["N10Alkalom"]
+    student_data["N2SzunetOpcionalis2"] = course_data["N1SzunetOpcionalis"]
+    student_data["N2SzunetOpcionalis3"] = course_data["N2SzunetOpcionalis"]
+    student_data["N3SzunetOpcionalis2"] = course_data["N3SzunetOpcionalis"]
+
+    return student_data

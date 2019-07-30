@@ -10,7 +10,9 @@ import unittest
 from minicrm.commonfunctions import add_element_to_commasep_list,\
     get_key_from_value,\
     commaseparated_list_is_subset_of,\
-    all_element_of_commaseparated_list_is_expluded_from
+    all_element_of_commaseparated_list_is_expluded_from,\
+    copy_dates_from_course_data_to_student_data
+import requesthandlermock.responses.courses as responses_courses
 
 
 class TestAddElementToCommaseparatedList(unittest.TestCase):
@@ -451,3 +453,56 @@ class TestAllElementOfCommaseparatedListIsExpludedFrom(unittest.TestCase):
         """
         self.assertFalse(
             all_element_of_commaseparated_list_is_expluded_from("alpha.beta.gamma", "delta.gamma.epsilon", "."))
+
+
+class TestCopyDatesFromCourseDataToStudentData(unittest.TestCase):
+    """
+    Contains tests for minicrm.commonfunctions.copy_dates_from_course_data_to_student_data()
+    """
+
+    def test_copy_dates_from_course_data_to_student_data_writes_correct_fields_of_empy_dict(self):
+        """If the original student data is empty (like in case of new applicant) the correct field are set."""
+
+        student_data = {}
+
+        student_data = copy_dates_from_course_data_to_student_data(student_data, responses_courses.COURSE_2019_1_Q)
+
+        self.assertEqual(student_data["N1Alkalom"], responses_courses.COURSE_2019_1_Q["ElsoAlkalom"])
+        self.assertEqual(student_data["N2Alkalom2"], responses_courses.COURSE_2019_1_Q["N2Alkalom"])
+        self.assertEqual(student_data["N3Alkalom2"], responses_courses.COURSE_2019_1_Q["N3Alkalom"])
+        self.assertEqual(student_data["N4Alkalom2"], responses_courses.COURSE_2019_1_Q["N4Alkalom"])
+        self.assertEqual(student_data["N5Alkalom2"], responses_courses.COURSE_2019_1_Q["N5Alkalom"])
+        self.assertEqual(student_data["N6Alkalom2"], responses_courses.COURSE_2019_1_Q["N6Alkalom"])
+        self.assertEqual(student_data["N7Alkalom2"], responses_courses.COURSE_2019_1_Q["N7Alkalom"])
+        self.assertEqual(student_data["N8Alkalom2"], responses_courses.COURSE_2019_1_Q["N8Alkalom"])
+        self.assertEqual(student_data["N9Alkalom2"], responses_courses.COURSE_2019_1_Q["N9Alkalom"])
+        self.assertEqual(student_data["N10Alkalom2"], responses_courses.COURSE_2019_1_Q["N10Alkalom"])
+        self.assertEqual(student_data["N2SzunetOpcionalis2"], responses_courses.COURSE_2019_1_Q["N1SzunetOpcionalis"])
+        self.assertEqual(student_data["N2SzunetOpcionalis3"], responses_courses.COURSE_2019_1_Q["N2SzunetOpcionalis"])
+        self.assertEqual(student_data["N3SzunetOpcionalis2"], responses_courses.COURSE_2019_1_Q["N3SzunetOpcionalis"])
+
+    def test_copy_dates_from_course_data_to_student_data_writes_correct_fields_of_nonempy_dict(self):
+        """
+        If the original student data is not empty (like in case of new applicant) the correct field are overwritten.
+        """
+
+        student_data = {
+            "N2Alkalom2": "asdf",
+            "N2SzunetOpcionalis2": "asdasd"
+        }
+
+        student_data = copy_dates_from_course_data_to_student_data(student_data, responses_courses.COURSE_2019_1_Q)
+
+        self.assertEqual(student_data["N1Alkalom"], responses_courses.COURSE_2019_1_Q["ElsoAlkalom"])
+        self.assertEqual(student_data["N2Alkalom2"], responses_courses.COURSE_2019_1_Q["N2Alkalom"])
+        self.assertEqual(student_data["N3Alkalom2"], responses_courses.COURSE_2019_1_Q["N3Alkalom"])
+        self.assertEqual(student_data["N4Alkalom2"], responses_courses.COURSE_2019_1_Q["N4Alkalom"])
+        self.assertEqual(student_data["N5Alkalom2"], responses_courses.COURSE_2019_1_Q["N5Alkalom"])
+        self.assertEqual(student_data["N6Alkalom2"], responses_courses.COURSE_2019_1_Q["N6Alkalom"])
+        self.assertEqual(student_data["N7Alkalom2"], responses_courses.COURSE_2019_1_Q["N7Alkalom"])
+        self.assertEqual(student_data["N8Alkalom2"], responses_courses.COURSE_2019_1_Q["N8Alkalom"])
+        self.assertEqual(student_data["N9Alkalom2"], responses_courses.COURSE_2019_1_Q["N9Alkalom"])
+        self.assertEqual(student_data["N10Alkalom2"], responses_courses.COURSE_2019_1_Q["N10Alkalom"])
+        self.assertEqual(student_data["N2SzunetOpcionalis2"], responses_courses.COURSE_2019_1_Q["N1SzunetOpcionalis"])
+        self.assertEqual(student_data["N2SzunetOpcionalis3"], responses_courses.COURSE_2019_1_Q["N2SzunetOpcionalis"])
+        self.assertEqual(student_data["N3SzunetOpcionalis2"], responses_courses.COURSE_2019_1_Q["N3SzunetOpcionalis"])

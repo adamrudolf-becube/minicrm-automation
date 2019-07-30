@@ -6,6 +6,7 @@ omit =
 
 include =
     requesthandlermock/requesthandlermock.py
+    functionalities/*
     quickscript.py
 	dailyscript.py
 	minicrm/crmfacade.py
@@ -19,6 +20,7 @@ omit =
 
 include =
     requesthandlermock/requesthandlermock.py
+    functionalities/*
     quickscript.py
 	dailyscript.py
 	minicrm/crmfacade.py

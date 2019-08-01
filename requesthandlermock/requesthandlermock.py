@@ -11,9 +11,6 @@ from minicrm.crmrequestfactory import _, CONTAINS, EXCLUDES
 from minicrm.tracing import stacktrace, trace, pretty_print
 
 
-# TODO find out why some JSON is outputted even if tracing is turned off
-
-
 class RequestHandlerMock(unittest.TestCase):
 
     def __init__(self, username, api_key):
@@ -138,9 +135,11 @@ class RequestHandlerMock(unittest.TestCase):
                 course_info = self.crm_facade.get_course_by_course_code(wanted_course_code)
                 self.assertEqual(course_info["TanfolyamBetujele"], wanted_course_code)
 
-        Normally URL, request method type, payload and slogan has to be equal when matching expectations, but if
-        payload is equal to minicrm.crmrequestfactory._, payload and slogan is not contributing and only URL and
-        method type has to be equal to be considered matching.
+        Normally URL, request method type and payload have to be equal when matching expectations, but if
+        payload is equal to minicrm.crmrequestfactory._, payload is not contributing and only URL and
+        method type has to be equal to be considered matching. Slogan doesn't take part in comparison, because
+        URL and payload defines the expectation, and different slogans can be generated for the same payloads, since
+        order in dictionary is not defined. This could cause false negatives.
 
         Also, if a field of the payload is a commaseparated list, and you would like to test whether a set of elements
         are included or excluded, you can wrap that field into minicrm.crmrequestfactory.CONTAIN or
@@ -220,17 +219,14 @@ class RequestHandlerMock(unittest.TestCase):
         method_is_same = got_request.get_method() == expected_request.get_method()
 
         if expected_request.get_payload() == _:
-            slogan_is_accepted = True
             payload_is_accepted = True
 
         else:
-            slogan_is_accepted = got_request.get_slogan() == expected_request.get_slogan()
             payload_is_accepted = True
 
             for key in expected_request.get_payload():
 
                 if key == CONTAINS:
-                    slogan_is_accepted = True
                     for key in expected_request.get_payload()[CONTAINS]:
                         if not commaseparated_list_is_subset_of(
                                 got_request.get_payload()[key],
@@ -239,7 +235,6 @@ class RequestHandlerMock(unittest.TestCase):
                             payload_is_accepted = False
 
                 elif key == EXCLUDES:
-                    slogan_is_accepted = True
                     for key in expected_request.get_payload()[EXCLUDES]:
                         if not all_element_of_commaseparated_list_is_expluded_from(
                                 got_request.get_payload()[key],
@@ -251,4 +246,4 @@ class RequestHandlerMock(unittest.TestCase):
                     if expected_request.get_payload()[key] != got_request.get_payload()[key]:
                         payload_is_accepted = False
 
-        return url_is_same and method_is_same and slogan_is_accepted and payload_is_accepted
+        return url_is_same and method_is_same and payload_is_accepted

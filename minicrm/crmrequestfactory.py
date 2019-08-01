@@ -189,17 +189,6 @@ def get_course_list_by_course_code(course_code):
     )
 
 
-def get_student_list_by_course_code(course_code):
-    """
-    """
-
-    return ApiRequest(
-        "https://r3.minicrm.hu/Api/R3/Project?TanfolyamKodja={}".format(course_code),
-        GET_METHOD,
-        "Get student list by course code: {}".format(course_code)
-    )
-
-
 def get_location_list_by_location_name(location_name):
     """
     Creates an ApiRequest instance for getting a list of locations based on their names.

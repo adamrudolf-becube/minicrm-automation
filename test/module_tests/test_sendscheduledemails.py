@@ -167,6 +167,37 @@ class TestSendScheduledMails(MiniCrmTestBase):
         )
         send_scheduled_emails(self.crm_facade)
 
+    def test_beginner_if_first_break_is_coming_send_first_break_email(self):
+        """
+        test_beginner_if_first_break_is_coming_send_first_break_email
+
+        Given:
+            - there is one active beginner student
+            - it's not less than two days before first dayoff
+        When:
+            - send_scheduled_emails() is called
+        Then:
+            - send first dayoff email
+        """
+
+        self.crm_facade.set_today(datetime.datetime(2019, 3, 10, 7, 30))
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_WITH_3_BREAKS
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_ID_NUMBER,
+                {
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"1. sz\u00fcnet"
+                    }
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        send_scheduled_emails(self.crm_facade)
+
     def test_beginner_if_second_break_is_coming_send_second_break_email(self):
         """
         test_beginner_if_second_break_is_coming_send_second_break_email

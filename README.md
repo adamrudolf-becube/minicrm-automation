@@ -307,6 +307,11 @@ enough coverage is already reached on higher level.
 If you need to see usecases for the code, we recommend you to read the
 tests, as they "tell a story" with the expectations and test names.
 
+## License
+
+This software has been published under the GPLv3 license. For more
+information, see the LICENSE file.
+
 ## Contact
 
 If you have any questions, don't hesitate to send it to info@becube.hu!
@@ -533,7 +538,7 @@ coverage reportot generál.
 * generate-doc.bat - újragenerálja a szükséges Sphinx dokumentációs
 fájlokat és html dokumentációt generál.
 
-## Flépítés
+## Felépítés
 
 Itt csak egy nagyjábóli, didaktikus leírását közöljük a rendszernek. A
 részletekért nézd meg a (csak angolul elérhető) [API dokumentációt](http://becube.hu/minicrm-documentation/).
@@ -668,6 +673,11 @@ külön tesztelve, ha megfelelő lefedettéget már elértük magasabb szinten,
 Ha a kód használati eseteit szeretnéd látni, azt javasoljuk, olvasd a
 teszteket, mert azok "elmesélnek egy történetet" a követlemények és a
 tesztek nevei segítségével.
+
+## Licensz
+
+A szoftver a GPL v3 licensz alatt lett kiadva. Bővebb információkért
+lásd a LICENSE fájlt.
 
 ## Kapcsolat
 

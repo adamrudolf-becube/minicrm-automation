@@ -30,6 +30,8 @@ LOCATION_ID = 19
 class TestRegisterNewApplicants(MiniCrmTestBase):
     def test_no_new_applicant_do_nothing(self):
         """
+        test_no_new_applicant_do_nothing
+
         Given:
             - there is no new applicant
         When:
@@ -172,6 +174,8 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
 
     def test_student_is_applied_course_doesnt_exist_raise_task_with_errormessage(self):
         """
+        test_student_is_applied_course_doesnt_exist_raise_task_with_errormessage
+
         Given:
             - one beginner student is in applied ("Jelentkezett") state
             - student's course doesn't exist
@@ -264,17 +268,18 @@ class TestRegisterNewApplicants(MiniCrmTestBase):
 
     def test_advanced_student_is_applied_headcount_is_not_less_than_the_limit_put_student_to_waiting_list_and_send_mail(self):
         """
+        test_advanced_student_is_applied_headcount_is_not_less_than_the_limit_put_student_to_waiting_list_and_send_mail
+
         Given:
             - one advanced student is in applied ("Jelentkezett") state
-            - current headcount is equal to minimal headcount. (there is no free spot) in the wanted course.)
+            - current headcount is equal to maximal headcount. (there is no free spot in the wanted course.)
         When:
             - register_new_applicants() is called
         Then:
             - student is put to waiting list ("Varolistan van") state
-            - waiting list mail
+            - waiting list mail is sent
             - headcount is updated
         """
-        # TODO: update documentation
 
         self.request_handler.expect_request(
             crmrequestfactory.get_project_list_for_status(NEW_APPLICANT_STATUS_NUMBER),

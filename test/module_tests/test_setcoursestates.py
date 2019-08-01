@@ -24,6 +24,8 @@ class TestSetCourseStates(MiniCrmTestBase):
 
     def test_application_is_open_and_first_day_hasnt_spent_do_nothing(self):
         """
+        test_application_is_open_and_first_day_hasnt_spent_do_nothing
+
         Given:
             - One course is in Application Open state ("Jelentkezes nyitva")
             - First day hasn't spent
@@ -49,6 +51,8 @@ class TestSetCourseStates(MiniCrmTestBase):
 
     def test_application_is_open_first_day_spent_but_last_didnt_put_to_in_progress(self):
         """
+        test_application_is_open_first_day_spent_but_last_didnt_put_to_in_progress
+
         Given:
             - One course is in Application Open state ("Jelentkezes nyitva")
             - First day has spent, last day hasn't
@@ -78,6 +82,8 @@ class TestSetCourseStates(MiniCrmTestBase):
 
     def test_in_progress_first_day_is_spent_but_last_didnt_set_state_to_in_progress(self):
         """
+        test_in_progress_first_day_is_spent_but_last_didnt_set_state_to_in_progress
+
         Given:
             - One course is in In Progress state ("Folyamatban")
             - First day has spent, last day hasn't
@@ -107,6 +113,8 @@ class TestSetCourseStates(MiniCrmTestBase):
 
     def test_recently_finished_first_day_spent_but_last_didnt_put_to_in_progress(self):
         """
+        test_recently_finished_first_day_spent_but_last_didnt_put_to_in_progress
+
         Given:
             - One course is in Recently Finished state ("Frissen vegzett")
             - First day has spent, last day hasn't
@@ -136,6 +144,8 @@ class TestSetCourseStates(MiniCrmTestBase):
 
     def test_in_progress_last_day_has_spent_but_not_35_more_days_put_to_recently_finished(self):
         """
+        test_in_progress_last_day_has_spent_but_not_35_more_days_put_to_recently_finished
+
         Given:
             - One course is in In Progress state ("Folyamatban")
             - Last day has spent, but not more than 35 days ago
@@ -165,6 +175,8 @@ class TestSetCourseStates(MiniCrmTestBase):
 
     def test_recently_finished_last_day_has_spent_but_not_35_more_put_to_recently_finished(self):
         """
+        test_recently_finished_last_day_has_spent_but_not_35_more_put_to_recently_finished
+
         Given:
             - One course is in Recently Finished state ("Frissen vegzett")
             - Last day has spent, but not more than 35 days ago
@@ -194,6 +206,8 @@ class TestSetCourseStates(MiniCrmTestBase):
 
     def test_recently_finished_and_35_days_passed_put_to_closed(self):
         """
+        test_recently_finished_and_35_days_passed_put_to_closed
+
         Given:
             - One course is in In Progress state ("Folyamatban")
             - Last day has spent more than 35 days ago
@@ -223,6 +237,8 @@ class TestSetCourseStates(MiniCrmTestBase):
 
     def test_first_day_is_missing_no_error_is_raised_state_is_not_changed(self):
         """
+        test_first_day_is_missing_no_error_is_raised_state_is_not_changed
+
         Given:
             - One course is in in Application open ("Jelentkezes nyitva") state
             - First day is missing
@@ -250,6 +266,8 @@ class TestSetCourseStates(MiniCrmTestBase):
 
     def test_last_day_is_missing_no_error_is_raised_put_to_in_progress(self):
         """
+        test_last_day_is_missing_no_error_is_raised_put_to_in_progress
+
         Given:
             - One course is in in Application open ("Jelentkezes nyitva") state
             - Last day is missing

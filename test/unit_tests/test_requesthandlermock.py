@@ -26,6 +26,8 @@ class TestRequestHandlerMock(unittest.TestCase):
 
     def test_check_if_satisfied_does_not_raise_when_there_is_no_expectation(self):
         """
+        test_check_if_satisfied_does_not_raise_when_there_is_no_expectation
+
         Given:
             - no expectations were made
         When:
@@ -38,6 +40,8 @@ class TestRequestHandlerMock(unittest.TestCase):
 
     def test_check_if_satisfied_raises_when_there_is_expectation(self):
         """
+        test_check_if_satisfied_raises_when_there_is_expectation
+
         Given:
             - one expectation is not fulfilled
         When:
@@ -55,6 +59,8 @@ class TestRequestHandlerMock(unittest.TestCase):
 
     def test_match_expectation_raises_if_there_is_no_expectation(self):
         """
+        test_match_expectation_raises_if_there_is_no_expectation
+
         Given:
             - there are no expectations in the queue
         When:
@@ -68,6 +74,8 @@ class TestRequestHandlerMock(unittest.TestCase):
 
     def test_match_expectation_raises_when_other_command_comes(self):
         """
+        test_match_expectation_raises_when_other_command_comes
+
         Given:
             - next expected command in expectation queue is to get student X
         When:
@@ -85,6 +93,8 @@ class TestRequestHandlerMock(unittest.TestCase):
 
     def test_match_expectation_does_not_raise_when_correct_command_comes_exact_match(self):
         """
+        test_match_expectation_does_not_raise_when_correct_command_comes_exact_match
+
         Given:
             - there is an expectation
         When:
@@ -315,6 +325,8 @@ class TestRequestHandlerMock(unittest.TestCase):
 
     def test_match_expectation_returns_expected_file_path(self):
         """
+        test_match_expectation_returns_expected_file_path
+
         Given:
             - there is an expectation
         When:
@@ -334,6 +346,8 @@ class TestRequestHandlerMock(unittest.TestCase):
 
     def test_expectations_are_matched_in_correct_order(self):
         """
+        test_expectations_are_matched_in_correct_order
+
         Given:
             - series of expectations are set
         When:
@@ -353,6 +367,8 @@ class TestRequestHandlerMock(unittest.TestCase):
 
     def test_error_is_raised_when_commands_are_matched_in_wrong_order(self):
         """
+        test_error_is_raised_when_commands_are_matched_in_wrong_order
+
         Given:
             - series of expectations are set
         When:

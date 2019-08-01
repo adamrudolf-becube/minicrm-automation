@@ -25,6 +25,8 @@ class TestInfoSent(MiniCrmTestBase):
 
     def test_student_did_not_finalize_deadline_has_not_spent_but_within_24_hours_send_reminder(self):
         """
+        test_student_did_not_finalize_deadline_has_not_spent_but_within_24_hours_send_reminder
+
         Given:
             - there is a student in INFO sent ("INFO level kiment") state
             - they did not finalize application
@@ -59,6 +61,8 @@ class TestInfoSent(MiniCrmTestBase):
 
     def test_student_did_not_finalize_deadline_has_spent_but_not_more_than_24_hours_ago_send_reminder_raise_task(self):
         """
+        test_student_did_not_finalize_deadline_has_spent_but_not_more_than_24_hours_ago_send_reminder_raise_task
+
         Given:
             - there is a student in INFO sent ("INFO level kiment") state
             - they did not finalize application
@@ -94,6 +98,8 @@ class TestInfoSent(MiniCrmTestBase):
 
     def test_student_did_not_finalize_deadline_has_spent_more_than_24_hours_ago_delete(self):
         """
+        test_student_did_not_finalize_deadline_has_spent_more_than_24_hours_ago_delete
+
         Given:
             - there is a student in INFO sent ("INFO level kiment") state
             - they did not finalize application
@@ -132,6 +138,8 @@ class TestInfoSent(MiniCrmTestBase):
 
     def test_student_did_not_finalize_and_deadline_is_more_than_1_day_away_do_nothing(self):
         """
+        test_student_did_not_finalize_and_deadline_is_more_than_1_day_away_do_nothing
+
         Given:
             - there is a student in INFO sent ("INFO level kiment") state
             - they did not finalize application

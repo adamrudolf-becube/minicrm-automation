@@ -97,9 +97,7 @@ def trace(message):
     """
 
     if TRACING:
-        print()
-        print(indent(message))
-        print()
+        print("\n" + indent(message) + "\n")
 
 
 def format_json(json_array):

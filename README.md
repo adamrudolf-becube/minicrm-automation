@@ -180,6 +180,16 @@ every 15 minutes and "dailyscript.py" every day at 8:00. The scripts can
 be run in any other manner of course, but this was kept in mind when
 writing these scripts.
 
+### How to test
+
+To automate processes, the repository contains the following batch
+files:
+
+* run-tests.bat - runs all of the tests with nose, generating coverage
+report.
+* generate-doc.bat - regenerates the needed Shphinx documentation files
+and generates the html documentation.
+
 ## Structure
 
 We will have only a high-level, pedagogical description of the system.
@@ -512,6 +522,16 @@ esetben például Python programok futtatását. A mi crontabunk a
 minden reggel 8:00-kor. A szkripteket természetesen bármilyen más módon
 is lehet futtatni, de írásukkor ezt a fajta felhasználást tartottuk szem
 előtt.
+
+### Hogyan teszteljük
+
+A folyamatok automatizálására a repository a következő bathch fileokat
+tartalmazza:
+
+* run-tests.bat - lefuttatja az összes tesztet a nose segítségével, és
+coverage reportot generál.
+* generate-doc.bat - újragenerálja a szükséges Sphinx dokumentációs
+fájlokat és html dokumentációt generál.
 
 ## Flépítés
 

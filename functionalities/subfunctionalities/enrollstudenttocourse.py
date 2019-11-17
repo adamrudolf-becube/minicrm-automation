@@ -25,9 +25,11 @@ COURSE_TYPE_FIELD = "TanfolyamTipusa"
 CHOSEN_COURSE_FIELD = "MelyikTanfolyamErdekli"
 BEGINNER_COURSE_TYPE = "Kezdő programozó tanfolyam"
 ADVANCED_COURSE_TYPE = "Haladó programozó tanfolyam"
+FRONTEND_COURSE_TYPE = "Frontend tanfolyam"
 WAITING_LIST_MAIL_NAME = "Várólista"
 BEGINNER_INFO_MAIL_NAME = "Kezdő INFO levél"
 ADVANCED_INFO_MAIL_NAME = "Haladó INFO levél"
+FRONTEND_COURSE_MAIL_NAME = "Frontend INFO levél"
 
 
 @stacktrace
@@ -75,6 +77,12 @@ def enroll_student_to_course(crm_facade, student_data, course_data):
         update_data[MAILS_TO_SEND_FIELD] = add_element_to_commasep_list(
             student_data[MAILS_TO_SEND_FIELD],
             ADVANCED_INFO_MAIL_NAME
+        )
+
+    elif course_data[COURSE_TYPE_FIELD] == FRONTEND_COURSE_TYPE:
+        update_data[MAILS_TO_SEND_FIELD] = add_element_to_commasep_list(
+            student_data[MAILS_TO_SEND_FIELD],
+            FRONTEND_COURSE_MAIL_NAME
         )
 
     update_data[STATUS_ID_FIELD] = crm_facade.get_student_status_number_by_name(INFO_SENT_STATE)

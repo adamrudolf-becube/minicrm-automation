@@ -17,7 +17,7 @@ TRACING = True
 """Global variable to turn tracing on/off."""
 
 
-TRACING = False
+#TRACING = False
 
 
 def indent(txt):

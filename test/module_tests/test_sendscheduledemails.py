@@ -401,8 +401,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(FAKE_STUDENT_ID_NUMBER, {
                 crmrequestfactory.CONTAINS: {
                     u"Levelkuldesek": u"1. alkalom - halad\u00f3"}
-                }
-            ),
+            }
+                                               ),
             responses_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_facade)
@@ -429,8 +429,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(FAKE_STUDENT_ID_NUMBER, {
                 crmrequestfactory.CONTAINS: {
                     u"Levelkuldesek": u"1. alkalom - halad\u00f3"}
-                }
-            ),
+            }
+                                               ),
             responses_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_facade)
@@ -478,8 +478,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(FAKE_STUDENT_ID_NUMBER, {
                 crmrequestfactory.CONTAINS: {
                     u"Levelkuldesek": u"1. alkalom - halad\u00f3, 2. alkalom - halad\u00f3, 3. alkalom - halad\u00f3, 4. alkalom - halad\u00f3"}
-                }
-            ),
+            }
+                                               ),
             responses_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_facade)
@@ -506,8 +506,8 @@ class TestSendScheduledMails(MiniCrmTestBase):
             crmrequestfactory.set_project_data(FAKE_STUDENT_ID_NUMBER, {
                 crmrequestfactory.CONTAINS: {
                     u"Levelkuldesek": u"2. sz\u00fcnet"}
-                }
-            ),
+            }
+                                               ),
             responses_general.XPUT_RESPONSE
         )
         send_scheduled_emails(self.crm_facade)
@@ -1222,6 +1222,289 @@ class TestSendScheduledMails(MiniCrmTestBase):
                     u"StatusId": u"2743",
                     crmrequestfactory.CONTAINS: {
                         u"Levelkuldesek": u"Oklev\u00e9l - halad\u00f3"
+                    }
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        send_scheduled_emails(self.crm_facade)
+
+    def test_frontend_date_is_more_than_delta_days_less_than_1st_occasion_do_nothing(self):
+        """
+        test_frontend_date_is_more_than_delta_days_less_than_1st_occasion_do_nothing
+
+        Given:
+            - there is one active frontend student
+            - first occasion is more than 3 days away
+        When:
+            - send_scheduled_emails() is called
+        Then:
+            - do nothing
+        """
+
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_FRONTEND
+        )
+        send_scheduled_emails(self.crm_facade)
+
+    def test_frontend_date_is_before_1st_occasion_but_difference_is_less_than_delta_send_first_email(self):
+        """
+        test_frontend_date_is_before_1st_occasion_but_difference_is_less_than_delta_send_first_email
+
+        Given:
+            - there is one active frontend student
+            - first occasion os less than 3 days away (but still not spent)
+        When:
+            - send_scheduled_emails() is called
+        Then:
+            - first email is sent
+        """
+
+        self.crm_facade.set_today(datetime.datetime(2019, 1, 27, 7, 30))
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_FRONTEND
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(FAKE_STUDENT_ID_NUMBER, {
+                crmrequestfactory.CONTAINS: {
+                    u"Levelkuldesek": u"1. alkalom - frontend"}
+            }
+                                               ),
+            responses_general.XPUT_RESPONSE
+        )
+        send_scheduled_emails(self.crm_facade)
+
+    def test_frontend_date_is_after_1st_occasion_send_first_email(self):
+        """
+        test_frontend_date_is_after_1st_occasion_send_first_email
+
+        Given:
+            - there is one active frontend student
+            - first occasion is spent
+        When:
+            - send_scheduled_emails() is called
+        Then:
+            - first email is sent
+        """
+
+        self.crm_facade.set_today(datetime.datetime(2019, 1, 29, 7, 30))
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_FRONTEND
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(FAKE_STUDENT_ID_NUMBER, {
+                crmrequestfactory.CONTAINS: {
+                    u"Levelkuldesek": u"1. alkalom - frontend"}
+            }
+                                               ),
+            responses_general.XPUT_RESPONSE
+        )
+        send_scheduled_emails(self.crm_facade)
+
+    def test_frontend_if_no_change_in_sent_mails_dont_send_update(self):
+        """
+        test_frontend_if_no_change_in_sent_mails_dont_send_update
+
+        Given:
+            - there is one active frontend student
+            - all scheduled emails have been already spent
+        When:
+            - send_scheduled_emails() is called
+        Then:
+            - don't update student data
+        """
+
+        self.crm_facade.set_today(datetime.datetime(2019, 1, 29, 7, 30))
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_1ST_MAIL_ALREADY_SENT_FRONTEND
+        )
+        send_scheduled_emails(self.crm_facade)
+
+    def test_frontend_if_no_mails_have_been_sent_but_more_occasions_passed_send_all_relevant_emails(self):
+        """
+        test_frontend_if_no_mails_have_been_sent_but_more_occasions_passed_send_all_relevant_emails
+
+        Given:
+            - there is one active frontend student
+            - no emails have been sent out
+            - multiple occasions have been spent
+        When:
+            - send_scheduled_emails() is called
+        Then:
+            - all relevant mails are sent
+        """
+
+        self.crm_facade.set_today(datetime.datetime(2019, 2, 20, 7, 30))
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_FRONTEND
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(FAKE_STUDENT_ID_NUMBER, {
+                crmrequestfactory.CONTAINS: {
+                    u"Levelkuldesek": u"1. alkalom - frontend, 2. alkalom - frontend, 3. alkalom - frontend, 4. alkalom - frontend"}
+            }
+                                               ),
+            responses_general.XPUT_RESPONSE
+        )
+        send_scheduled_emails(self.crm_facade)
+
+    def test_frontend_if_second_break_is_coming_send_second_break_email(self):
+        """
+        test_frontend_if_second_break_is_coming_send_second_break_email
+
+        Given:
+            - there is one active frontend student
+            - it's not less than 2 days before the second dayoff
+        When:
+            - send_scheduled_emails() is called
+        Then:
+            - second dayoff mail is sent
+        """
+
+        self.crm_facade.set_today(datetime.datetime(2019, 3, 17, 7, 30))
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_FRONTEND_WITH_3_BREAKS
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(FAKE_STUDENT_ID_NUMBER, {
+                crmrequestfactory.CONTAINS: {
+                    u"Levelkuldesek": u"2. sz\u00fcnet"}
+            }
+                                               ),
+            responses_general.XPUT_RESPONSE
+        )
+        send_scheduled_emails(self.crm_facade)
+
+    def test_frontend_if_third_break_is_coming_send_third_break_email(self):
+        """
+        test_frontend_if_third_break_is_coming_send_third_break_email
+
+        Given:
+            - there is one active frontend student
+            - it's not less than 2 days before the third dayoff
+        When:
+            - send_scheduled_emails() is called
+        Then:
+            - third dayoff mail is sent
+        """
+
+        self.crm_facade.set_today(datetime.datetime(2019, 3, 27, 7, 30))
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_FRONTEND_WITH_3_BREAKS
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_ID_NUMBER,
+                {
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"3. sz\u00fcnet"
+                    }
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        send_scheduled_emails(self.crm_facade)
+
+    def test_frontend_send_final_mail_1_day_after_last_occasion(self):
+        """
+        test_frontend_send_final_mail_1_day_after_last_occasion
+
+        Given:
+            - there is one active frontend student
+            - it's 1 day after last occasion
+        When:
+            - send_scheduled_emails() is called
+        Then:
+            - final mail is sent
+        """
+
+        self.crm_facade.set_today(datetime.datetime(2019, 4, 9, 7, 30))
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_FRONTEND
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_ID_NUMBER,
+                {
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"\u00datraval\u00f3 - frontend"
+                    }
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        send_scheduled_emails(self.crm_facade)
+
+    def test_frontend_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable(self):
+        """
+        test_frontend_send_certification_and_set_state_to_finished_2_days_after_last_occasion_if_applicable
+
+        Given:
+            - there is one active frontend student
+            - it's last occasion plus 2 days
+            - student is eligible for certification
+        When:
+            - send_scheduled_emails() is called
+        Then:
+            - frontend certification is sent
+            - student is put to Finished ("Elvegezte") state
+        """
+
+        self.crm_facade.set_today(datetime.datetime(2019, 4, 10, 7, 30))
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_GOOD_FOR_CERTIFICATION_FRONTEND
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_ID_NUMBER,
+                {
+                    u"StatusId": u"2743",
+                    crmrequestfactory.CONTAINS: {
+                        u"Levelkuldesek": u"Oklev\u00e9l - frontend"
+                    }
+                }
+            ),
+            responses_general.XPUT_RESPONSE
+        )
+        send_scheduled_emails(self.crm_facade)
+
+    def test_frontend_dont_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable(
+            self):
+        """
+        test_frontend_dont_send_certification_but_set_state_to_finished_2_days_after_last_occasion_if_not_applicable
+
+        Given:
+            - there is one active frontend student
+            - it's last occasion plus 2 days
+            - student is not eligible for certification
+        When:
+            - send_scheduled_emails() is called
+        Then:
+            - frontend certification is not sent
+            - student is put to Finished ("Elvegezte") state
+        """
+
+        self.crm_facade.set_today(datetime.datetime(2019, 4, 10, 7, 30))
+        self.request_handler.expect_request(
+            crmrequestfactory.get_student(FAKE_STUDENT_ID_NUMBER),
+            responses_students.FAKE_STUDENT_FRONTEND
+        )
+        self.request_handler.expect_request(
+            crmrequestfactory.set_project_data(
+                FAKE_STUDENT_ID_NUMBER,
+                {
+                    u"StatusId": u"2743",
+                    crmrequestfactory.EXCLUDES: {
+                        u"Levelkuldesek": u"Oklev\u00e9l - frontend"
                     }
                 }
             ),

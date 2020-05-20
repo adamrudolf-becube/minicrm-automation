@@ -59,7 +59,7 @@ class RequestHandler:
             ValueError("Unsupported method type: [{}]".format(request.get_method()))
 
         if response.status_code == TOO_MANY_REQUESTS_STATUS_CODE:
-            trace("Response status code 429 (Too many requests), sleeping for " + ONE_MINUTE + " seconds.")
+            trace("Response status code 429 (Too many requests), sleeping for " + str(ONE_MINUTE) + " seconds.")
             time.sleep(ONE_MINUTE)
             return self.fetch(request)
 

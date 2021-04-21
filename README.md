@@ -1,5 +1,7 @@
 # BeCube MiniCRM automation script system
 
+This repository is originally hosted on [GitLab](https://gitlab.com/becube_suli/minicrm-automation). I imported it here so GitLab can serve as a common storing place for my projects.
+
 *Magyar leírásért kattints 
 [ide](#becube-minicrm-automatizációs-szkriptrendszer-magyar-nyelvű-dokumentáció)! 
 / For Hungarian description, click
